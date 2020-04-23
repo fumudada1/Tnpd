@@ -1,0 +1,48 @@
+﻿@model CypdGlobalModels.Models.News
+@{
+    Layout = "~/Views/Shared/_LayoutAreaNoMenu.cshtml";
+}
+@section breadcrumb
+{
+    @ViewBag.Title
+}
+
+<h2 class="trailer">
+
+    <span class="font-s">發佈日期： @Html.DisplayFor(model => model.InitDate)</span>
+    <br><span class="font-s">類別: @Html.DisplayFor(model => model.Catalog.Subject)</span>
+</h2>
+
+
+<div class="row trailer">
+    @Html.Raw(Model.Article)
+</div>
+@if (Model.NewsFileses.Count > 0)
+{
+    <h2 >檔案列表</h2>
+    <ul class="l-list-circle">
+        @foreach (var file in Model.NewsFileses)
+        {
+            <li><a href="@file.UpFile">@file.Subject</a></li>
+        }
+        
+    </ul>
+}
+@if (Model.NewsLinks.Count > 0)
+{
+    <h2 >附加連結</h2>
+    <ul class="l-list-circle">
+        @foreach (var link in Model.NewsLinks)
+        {
+            <li><a href="@link.LinkUrl">@link.Subject</a></li>
+        }
+        
+    </ul>
+}
+
+<p class="right font-s">
+  瀏覽人數： @Html.DisplayFor(model => model.Views)
+</p>
+<div class="row center m-center">
+  <noscript>您的網頁不支援JavaScript，請使用瀏覽器預設之鍵盤快速鍵(alt+←)功能來替代回列表功能</noscript><a class="btn btn-large" onclick="history.back()" onKeyPress="history.back()">回列表</a>
+</div>

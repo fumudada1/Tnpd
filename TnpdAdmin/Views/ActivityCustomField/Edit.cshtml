@@ -1,0 +1,88 @@
+﻿@using TnpdModels
+@model TnpdModels.ActivityCustomField
+@{
+    Layout = "~/Views/Shared/_LayoutColorbox.cshtml";
+}
+@{
+    ViewBag.Title = "編輯";
+    string submitButton = Model.Id == 0 ? "新增" : "更新";
+
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CustomField</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FieldName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FieldName,new { placeholder=ModelsAttributeHelper<TnpdModels.ActivityCustomField>.GetDisplayName("FieldName") })
+            @Html.ValidationMessageFor(model => model.FieldName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsRequire)
+        </div>
+        <div class="editor-field">
+           @Html.DropDownListFor(model => model.IsRequire, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+           @Html.ValidationMessageFor(model => model.IsRequire)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InputType)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.InputType, new SelectList(Enum.GetValues(typeof(TnpdModels.CustomFieldInputType))))
+            @Html.ValidationMessageFor(model => model.InputType)
+           
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FieldParameters)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.FieldParameters, new { @style = "height: 150px", placeholder = ModelsAttributeHelper<TnpdModels.ActivityCustomField>.GetDisplayName("FieldParameters") })
+            @Html.ValidationMessageFor(model => model.FieldParameters)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Memo)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Memo, new { @style = "height: 150px", placeholder = ModelsAttributeHelper<TnpdModels.ActivityCustomField>.GetDisplayName("Memo") })
+            @Html.ValidationMessageFor(model => model.Memo)
+           
+        </div>
+            @Html.HiddenFor(model => model.ActivityId)
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="@(submitButton)" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/CKfinder/ckfinder.js")" type="text/javascript"></script>
+    @if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Activity", new { id = ViewBag.ActivityId, type = "2" })';
+            });
+        </script>
+    }
+}

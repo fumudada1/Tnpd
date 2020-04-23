@@ -1,0 +1,686 @@
+﻿@using TnpdModels
+@model TnpdModels.CaseTrafficPoproc
+
+@{
+    ViewBag.Title = "交通檢舉承辦人作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>交通檢舉承辦人作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Case</legend>
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+        <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.Case.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件日期：@Model.Case.InitDate
+            </td>
+            <td>
+            </td>
+              
+        </tr>
+        <tr>
+            <td>承辦單位：@Model.assignUnit.ParentUnit.Subject - @Model.assignUnit.Subject
+            </td>
+            <td>承辦人：@Model.assignMember.Name
+            </td>
+        </tr>
+        <tr>
+            <td>預結案日：@Model.Case.Predate
+            </td>
+            <td>案件狀態：@Model.Status
+            </td>
+        </tr>
+        </tbody>
+    </table>
+@if (ViewBag.message == null)
+{
+            <span style="color: black">處理紀錄</span>
+        <table class="table table-v">
+            <thead>
+              <tr>
+                    <th>日期</th>
+                    <th>承辦單位</th>
+                    <th>承辦人</th>
+                    <th>作業</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (CaseTrafficPoprocLog log in Model.Case.PoprocslLogs.OrderByDescending(x => x.InitDate))
+            {
+             <tr>
+                 <td>
+                     @log.InitDate
+                 </td>
+                 @if (log.assignUnit != null)
+                 {
+                     <td>
+                         @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                     </td>
+                 }
+                 else
+                 {
+                     <td>
+                         @log.assignUnit.Subject
+                     </td>
+                 }
+                 <td>
+                     @log.assignMember.Name
+                 </td>
+                 <td>
+                     @log.Action
+                 </td>
+
+            </tr>
+            }
+            
+
+            </tbody>
+        </table>
+}
+
+    <span style="color: black">案件資料</span>
+
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td>姓名：@Model.Case.Name</td>
+            <td>性別：@Model.Case.Gender</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">身分證字號：@Model.Case.Pid</td>
+
+        </tr>
+        <tr>
+
+            <td>電話：@Model.Case.TEL</td>
+            <td>職業：@Model.Case.Job</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">E-mail：@Model.Case.Email</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">地址：@Model.Case.Address</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">主題：@Model.Case.Subject</td>
+            @{
+                     subject = Model.Case.Subject;
+            }
+        </tr>
+        <tr>
+
+            <td colspan="2">違規地點：@Model.Case.violation_place_area @Model.Case.violation_place_road @Model.Case.violation_place</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">違規時間：@Model.Case.violation_date.ToString("yyyy/MM/dd")  @Model.Case.violation_time</td>
+        </tr>
+        <tr>
+
+            <td>違規車號：@Model.Case.violation_carno</td>
+            <td>違規事項：@Model.Case.itemno</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">內容：<br />
+                @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+            </td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile1))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile1);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile4))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile4);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile5))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile5);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile6))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile6);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                    }
+                }
+
+            </td>
+
+        </tr>
+     
+
+
+        </tbody>
+    </table>
+        
+
+
+
+        <div style="padding: 15px;display: none">
+            <input type="radio" value="assign" name="process" class="process" />
+            <label for="assign">派案</label>
+            <input type="radio" value="Poprocs" name="process"  checked="checked" />
+            <label for="Poprocs">回覆</label>
+        </div>
+        <div id="divAssign" style="padding: 15px;display: none" >
+            <div>
+                <select id="Categories1" name="Categories1" style="font-size: 15px">
+                </select>
+                <select id="Categories2" name="Categories2" style="font-size: 15px">
+                </select>
+                <select id="MemberList" name="MemberList" style="font-size: 18px; width: 40%"></select>
+                <input type="button" id="addPeople" value="新增承辦人" />
+            </div>
+            <select name="MemberListSelect" multiple="multiple" id="MemberListSelect" style="height: 320px"> <input type="button" id="removePeople" value="移除承辦人" />
+            </select>
+
+
+        </div>
+        <div id="divPoprocs" style=" padding: 15px">
+            舉發狀態：
+            <input type="radio" id="PoprocsType1" name="PoprocsType" checked="checked" value="1" />
+            <label for="PoprocsType1">不舉發</label>
+          
+            <input type="radio" id="PoprocsType2" name="PoprocsType" value="2" />
+            <label for="PoprocsType2">舉發</label>
+            
+            <div  id="ViolationsRejectclasses"><br/>
+                <span style="color: blue;font-weight: "> 不舉發原因 </span> 
+                @Html.DropDownList("ViolationsRejectclasses")
+                <br/><br/>
+                
+            </div>
+            <div style="display: none" id="ViolationsClasses"><br/>
+                <span style="color: blue;font-weight: "> 舉發原因 </span> 
+                @Html.DropDownList("ViolationsClasses")
+                <br/><br/>
+                
+            </div>
+            
+            <div>回覆內容</div>
+            <p>
+                <textarea cols="50" id="PoprocsContent" name="PoprocsContent" placeholder="請輸入回覆內容" rows="2" style="height: 300px;width: 100%">
+@Model.Case.Name 先生/女士您好：
+    台端  @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value) 來文洽悉「 @(subject)」案，您提供之寶貴意見，是我們施政的重要資訊，也是決策的重要參考資訊。
+我們將善加利用，感謝您的建言！謝謝！
+
+</textarea>
+                <span>上傳附件：</span> <input type="file" name="Upfile" />
+            </p>
+           
+    </div> 
+        <div id="divExtension" style="padding: 15px;display: none">
+            <table class="table table-v">
+                <tr>
+                    <td>
+                        展延日期
+                    </td>
+                    <td>
+                        @{
+        DateTime extensionDay = ViewBag.ExtensionDay;
+                        }
+                        <input type="text" name="DelyDateTime" id="DelyDateTime" class="datepicker" value="@extensionDay.ToString("yyyy/MM/dd")"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        展延原因
+                    </td>
+                    <td>
+                        <textarea cols="50" id="DelyMemo" name="DelyMemo" id="DelyMemo" placeholder="請輸入展延原因" rows="2" style="height: 300px;width: 100%">
+
+
+</textarea>
+                      
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" id="btnExtension" value="展期" />  <input type="button" class="return" value="回上頁" /> 
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <div id="divGoback" style="padding: 15px;display: none">
+        <table class="table table-v">
+           
+            <tr>
+                <td>
+                    退回理由
+                </td>
+                <td>
+                    <textarea cols="50" id="noplyreason" name="noplyreason" placeholder="請輸入退回理由" rows="2" style="height: 300px;width: 100%">
+
+
+</textarea>
+                      
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="btnGoback" value="退文" /> <input type="button" class="return" value="回上頁" /> 
+                </td>
+            </tr>
+        </table>
+    </div>
+        <div>
+        <input type="hidden" value="@Model.process" id="saveprocess"/>
+        <input type="hidden" value="@Model.PoprocsType" id="savePoprocsType"/>
+        <input type="hidden" value="@Model.ViolationsRejectclassId" id="ViolationsRejectclassId"/>
+        <input type="hidden" value="@Model.TrafficViolationsClassId" id="TrafficViolationsClassId"/>
+        <input type="hidden" value="@Model.AssignMemo" id="saveAssignMemo"/>
+       
+    </div>
+    <p align="center" id="btngroup">
+        <input name="processtype" id="processtype" value="" type="hidden" />
+        <input type="button" id="btnAssign" value="派案" style="display: none"/>
+        <input type="button" id="btnSave" value="存檔" />
+        <input type="button" id="btnOpenExtension" value="展期" />
+       
+        <input type="button" id="btnPoprocs" value="核判送出" />
+        <input type="button" id="btnOpenGoback" value="退文" />
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+        <a href="/CaseTraffics/Print1/@Model.Case.Id" target="_black">列印</a>|
+        <a href="/CaseTraffics/Print1all/@Model.Case.Id" target="_black">列印(含個資資料)</a>
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            $("#btnSave").click(function() {
+                $("#processtype").val("Save");
+                $("form").submit();
+            });
+            $("#btnAssign").click(function() {
+                $("#processtype").val("Assign");
+                $("form").submit();
+            });
+            $("#btnPoprocs").click(function() {
+                $("#processtype").val("Poprocs");
+                $("form").submit();
+            });
+
+            $("#btnOpenExtension").click(function() {
+                $("#btngroup").hide();
+                $("#divPoprocs").hide();
+                $("#divExtension").show();
+                $("#divGoback").hide();
+
+            });
+            $("#btnOpenGoback").click(function() {
+                $("#btngroup").hide();
+                $("#divPoprocs").hide();
+                $("#divExtension").hide();
+                $("#divGoback").show();
+            });
+
+            $("#btnExtension").click(function() {
+                if ($("#DelyMemo").val() == "") {
+                    alert("請輸入展延原因");
+                    retrun;
+                }
+                if ($("#DelyDateTime").val() == "") {
+                    alert("請輸入展延日期");
+                    retrun;
+                }
+                $("#processtype").val("Extension");
+                $("form").submit();
+            });
+            $("#btnGoback").click(function() {
+                if ($("#noplyreason").val() == "") {
+                    alert("請輸入退回理由");
+                    retrun;
+                }
+                $("#processtype").val("Goback");
+                $("form").submit();
+            });
+            $(".return").click(function() {
+                $("#btngroup").show();
+                $("#divPoprocs").show();
+                $("#divExtension").hide();
+                $("#divGoback").hide();
+            });
+
+            $('input[type=radio][name=process]').change(function() {
+                if (this.value == 'assign') {
+                    $("#divAssign").show();
+                    $("#divPoprocs").hide();
+                    $("#btnSave").hide();
+                    $("#btnAssign").show();
+                    $("#btnPoprocs").hide();
+                } else if (this.value == 'Poprocs') {
+                    $("#divPoprocs").show();
+                    $("#divAssign").hide();
+                    $("#btnSave").show();
+                    $("#btnAssign").hide();
+                    $("#btnPoprocs").show();
+                }
+            });
+            $('input[type=radio][name=PoprocsType]').change(function() {
+                switch (this.value) {
+                case "1":
+                    $("#ViolationsRejectclasses").show();
+                    $("#ViolationsClasses").hide();
+
+                    break;
+                case "2":
+                    $("#ViolationsClasses").show();
+                    $("#ViolationsRejectclasses").hide();
+                    break;
+                }
+            });
+
+            $('input[type=radio][name=PoprocsSubType]').change(function() {
+                var text = $(this).next().next();
+                $("#PoprocsContent").val(text.text());
+            });
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+
+            $.getJSON("/units/GetfistUnit").done(function(json) {
+                data = json;
+
+                $.each(json,
+                    function(i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function(json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function(i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function(json) {
+                        data = json;
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function() {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberList').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function(json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function(i, item) {
+                                    $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function() {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberList').children().remove();
+
+                    var id = $('#Categories2').val();
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberList').children().remove();
+
+                    $('#MemberList').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $("#addPeople").click(function() {
+
+                $("#MemberList").children(":selected").each(function() {
+                    $(this).appendTo("#MemberListSelect");
+                });
+            });
+            $("#removePeople").click(function() {
+                $("#MemberListSelect").children(":selected").each(function() {
+                    $(this).appendTo("#MemberList");
+                });
+            });
+
+
+            //restore save info
+
+            if ($("#saveAssignMemo").val() != "") {
+                //console.log($("#saveAssignMemo").val());
+                $('input[type=radio][name=process]').each(function() {
+                    if ($(this).val() == "Poprocs") {
+                        $(this).attr("checked", "checked");
+                    }
+                });
+                $("#divPoprocs").show();
+                $("#divAssign").hide();
+                $("#btnSave").show();
+                $("#btnAssign").hide();
+                $("#btnPoprocs").show();
+
+                
+                switch ($("#savePoprocsType").val()) {
+                case "1":
+                    $("#noPoprocs").hide();
+                    var text = $(this).next().next();
+                    $("#PoprocsContent").val(text.text());
+                    break;
+                case "2":
+                    $("#noPoprocs").show();
+                    break;
+                case "3":
+                    $("#noPoprocs").show();
+                    break;
+                }
+                $('input[type=radio][name=PoprocsSubType]').each(function() {
+                    if (this.value == $("#savePoprocsSubType").val()) {
+                        $(this).attr("checked", "checked");
+                    }
+
+
+                });
+
+                
+
+            }
+
+            $("#ViolationsClasses option").each(function() {
+                //console.log($("#TrafficViolationsClassId").val());
+                if (this.value == $("#TrafficViolationsClassId").val()) {
+                   
+                    $(this).attr("selected", "selected");
+                }
+            });
+            $("#ViolationsRejectclasses option").each(function() {
+               
+                if ($(this).val() == $("#ViolationsRejectclassId").val()) {
+                   
+                    $(this).attr("selected", "selected");
+                }
+            });
+
+            $("#PoprocsContent").val($("#saveAssignMemo").val());
+            console.log($("#PoprocsContent").val());
+            $('input[type=radio][name=PoprocsType]').each(function() {
+                if (this.value == $("#savePoprocsType").val()) {
+                    $(this).attr("checked", "checked");
+                }
+
+
+            });
+        });
+
+
+    </script>
+
+
+}
+
+@if (ViewBag.message != null)
+{
+    <script>
+        alert("@ViewBag.message");
+        window.location.href = "/CaseTraffics/Process";
+    </script>
+}

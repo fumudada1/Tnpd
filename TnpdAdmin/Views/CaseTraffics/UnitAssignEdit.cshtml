@@ -1,0 +1,276 @@
+﻿@using TnpdModels
+@model TnpdModels.CaseTraffic
+
+@{
+    ViewBag.Title = "交通檢舉信箱單位改派作業";
+    string subject = "";
+    CaseTrafficPoproc poproc = Model.Poprocs.Where(x => x.Status == CaseProcessStatus.未分派).FirstOrDefault();
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>交通檢舉信箱單位改派作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Case</legend>
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="pclass" value="@ViewBag.pclass"/>
+        <span style="color: black">辦理情形</span>
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td style="width: 50%">案號：@Model.CaseID
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>案件日期：@Model.InitDate
+                </td>
+                <td>
+                </td>
+               
+            </tr>
+            <tr>
+                <td colspan="2">所屬單位： @Html.DropDownList("WebSiteId")
+                </td>
+                <td> 
+                </td>
+            </tr>
+            <tr>
+                <td>承辦單位：
+                </td>
+                <td>承辦人：
+                </td>
+            </tr>
+            <tr>
+                <td>預結案日：@Model.Predate.ToString("yyyy/MM/dd")
+                </td>
+                <td>案件狀態：未派
+                </td>
+            </tr>
+            </tbody>
+        </table>
+@if (ViewBag.message == null)
+{
+            <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CaseTrafficPoprocLog log in Model.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                <td>
+                 @*   @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject*@
+                </td>
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+}
+
+        <span style="color: black">案件資料</span>
+
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Name</td>
+                <td>性別：@Model.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">身分證字號：@Model.Pid</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.TEL</td>
+                <td>職業：@Model.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">主題：@Model.Subject</td>
+                @{
+                    subject = Model.Subject;
+                }
+            </tr>
+            <tr>
+
+                <td colspan="2">違規地點：@Model.violation_place_area @Model.violation_place_road @Model.violation_place</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">違規時間：@Model.violation_date.ToString("yyyy/MM/dd")  @Model.violation_time</td>
+            </tr>
+            <tr>
+
+                <td>違規車號：@Model.violation_carno</td>
+                <td>違規事項：@Model.itemno</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">內容：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                </td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
+                    if (finfo.Exists) {
+                         <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }else{
+                     <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile2))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile2);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile3))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile3);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                    }
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile4))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Upfile4);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Upfile4" target="_black">@Model.Upfile4</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Upfile4" target="_black">@Model.Upfile4</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile5))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile5);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Upfile5" target="_black">@Model.Upfile5</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile5" target="_black">@Model.Upfile5</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile6))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile6);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Upfile6" target="_black">@Model.Upfile6</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile6" target="_black">@Model.Upfile6</a>
+                    }
+                }
+
+            </td>
+
+            </tr>
+     
+
+
+            </tbody>
+        </table>
+       
+
+
+
+
+        
+        
+   
+    <p align="center">
+        <input type="button" id="btnUnitAssign" value="單位改派"/>
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+    </p>
+    </fieldset>
+
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $("#btnUnitAssign").click(function () {
+
+                $("form").submit();
+            });
+        });
+
+    </script>
+}
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/CaseTraffics/UnitAssign";
+</script>
+}

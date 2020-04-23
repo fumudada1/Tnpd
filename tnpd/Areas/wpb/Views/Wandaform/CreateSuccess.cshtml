@@ -1,0 +1,80 @@
+﻿@model TnpdModels.Case
+
+<div class="row">
+
+    <div class="form-row" style="width: 100%">
+        <div class="form-group col-md-4">
+            <label class="col-form-label" ><span class="text-danger">*</span>
+                姓名：</label>
+           @Model.Name
+        </div>
+        <div class="form-group col-md-4">
+            <label class="col-form-label"><span class="text-danger">*</span>
+                性別：</label> @Model.Gender
+        
+        </div>
+        <div class="form-group col-md-4">
+            <label class="col-form-label"><span class="text-danger">*</span>
+                身分證字號：</label>
+           @Model.Pid
+        </div>
+    </div>
+
+    <div class="form-row" style="width: 100%">
+        <label class="col-form-label" ><span class="text-danger">*</span>
+            地址：</label> @Model.PostalCode  @Model.Address
+      
+
+    </div>
+
+   
+
+    <div class="form-row" style="width: 100%">
+        <div class="form-group col-md-4">
+            <label class="col-form-label" ><span class="text-danger">*</span>
+                聯絡電話：</label>
+            @Model.TEL
+
+        </div>
+    
+
+    <div class="form-row" style="width: 100%">
+        <label class="col-form-label" ><span class="text-danger">*</span>
+            E-Mail：</label>
+        @Model.Email
+    </div>
+
+        <div class="form-row" style="width: 100%">
+            <label class="col-form-label" ><span class="text-danger">*</span>
+                區別：</label>
+            @Model.OArea
+
+
+        </div>
+
+    <div class="form-row" style="width: 100%">
+        <label class="col-form-label" ><span class="text-danger">*</span>
+            路段或地點：</label>
+        @Model.Oplace
+
+
+    </div>
+
+    <div class="form-row" style="width: 100%">
+        <label class="col-form-label"><span class="text-danger">*</span> 案情摘要：</label>
+        @Html.Raw(UIUtility.Txt2Html(Model.Content)) 
+    </div>
+
+  
+
+    <div class="hrline"></div>
+
+        <div class="form-row justify-content-center">
+            <a href="/home">回首頁</a>
+        </div>
+    </div>
+
+
+
+
+

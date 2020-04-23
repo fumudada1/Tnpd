@@ -1,0 +1,109 @@
+﻿@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.Albums>
+
+@{
+    ViewBag.Title = "電子相簿管理系統列表";
+}
+
+<h2><i class="fa fa-location-arrow"></i>電子相簿管理系統列表</h2>
+
+<div class="top">
+    @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-primary" })
+</div>
+
+@using (Html.BeginForm())
+{
+ <div class="search">
+        <span style="display: none">名  稱：@Html.DropDownList("SearchByLanguage", new SelectList(Enum.GetValues(typeof(TnpdModels.LanguageType))), "請選擇")</span>
+        @Html.DisplayNameFor(model => model.FirstOrDefault().Enable)：@Html.DropDownList("SearchByEnable", new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))), "請選擇") <br>
+        <span style="display: none">@Html.DisplayNameFor(model => model.FirstOrDefault().MetaId)：@Html.DropDownList("SearchByMetaId", (IEnumerable<SelectListItem>)ViewBag.MetaId, "請選擇") </span>
+        發布日期：<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/>
+        ~
+        <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/> <br>
+
+        名　　稱：@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) <input type="submit" class="btn-button" value="搜尋" />
+
+    </div>
+    <div>
+    </div>
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+
+        <th width="20%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        <th width="13%">相簿封面
+        </th>
+        <th width="13%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Enable)
+        </th>
+        <th width="13%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+        <th width="13%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+
+        <th width="13%">功能</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @if (item.AlbumsPictures.Count > 0)
+                    {
+                        if (!string.IsNullOrEmpty(item.AlbumsPictures.FirstOrDefault().UpImage))
+                        {
+                        <img src="@(item.AlbumsPictures.FirstOrDefault().UpImage.Replace("upfiles/images/", "upfiles/_thumbs/images/"))"/>
+                        }
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enable)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Poster)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InitDate)
+                </td>
+
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { id = item.Id },new { @class = "btn btn-primary" }) 
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+                    @Html.ActionLink("刪除", "Delete", new { id = item.Id },new { @class = "btn btn-primary" })
+                    @Html.Hidden("ID", item.Id)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

@@ -1,0 +1,262 @@
+﻿@using tnpd.Models
+@using TnpdModels
+@{
+    string unid = ViewBag.UnId;
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+
+    WebPresentation web ;
+
+    string title = "";
+    string theme = "";
+    string cake = "";
+    string service = "";
+    string path = "";
+    string alias = "";
+
+    if (string.IsNullOrEmpty(unid))
+    {
+        title = ViewBag.Title;
+        web = new WebPresentation(areaName);
+    }
+    else
+    {
+        web = new WebPresentation(areaName, unid);
+        title = ViewBag.Subject ?? web.GetTitle();
+        theme = ViewBag.Theme ?? web.GetTheme();
+        cake = ViewBag.Cake ?? web.GetCake();
+        service = ViewBag.Service ?? web.GetService();
+
+
+    }
+	    path = web.GetWebPath();
+    alias = web.GetAlias();
+    BackendContext _db = new BackendContext();
+    var color = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName).ColorName;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="x-ua-compatible" content="IE=11,chrome=1" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="shortcut icon" href="/Areas/@areaName/images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css" type="text/css" />
+
+    <!-- Document Title
+    ============================================= -->
+    <title>@(alias)_City Police Department</title>
+</head>
+
+<body class="stretched no-transition">
+    <a href="#main_content" id="gotocenter" title="To the central content area" tabindex="1" class="sr-only sr-only-focusable">To
+        the central content area</a>
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+        <!-- Header
+        ============================================= -->
+        <header id="header" class="sticky-style-2 bg001">
+            <div class="container clearfix ">
+                <!-- Logo
+                ============================================= -->
+                <div id="logo">
+                    <a href="/@path/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(alias)_Tainan City Police Department"><img
+                            src="/Areas/@areaName/images/logo.png" alt="@(alias)_Tainan City Police Department"></a>
+                    <a href="/@path/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(alias)_Tainan City Police Department"><img
+                            src="/Areas/@areaName/images/logo@2x.png" alt="@(alias)_Tainan City Police Department"></a>
+                </div><!-- #logo end -->
+                <div class="row justify-content-end no-gutters">
+                    <div class="col-lg-auto col-md-12">
+                        <div class="top-advert-1">
+                            <a href="#U" accesskey="U" class="alt-u" title="Top block">:::</a>
+                            <div class="top-links">
+                                <ul>
+                                    <li><a href="/@path/" title="Home">Home</a></li>
+                                    <li><a href="/@path/Content/sitemap" title="Sitemap">Sitemap</a></li>
+                                    <li><a href="/@path.Replace("/en","")" title="中文版">中文版</a></li>
+                                </ul>
+                            </div>
+                            <!-- top-links end -->
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div id="divScriptFontChange" class="fontch d-none d-lg-block">
+                            <ul>
+                                <noscript>Your browser does not support script syntax. To increase the size of text and
+                                    images, please press Ctrl and “+” at the same time; to decrease the size, press
+                                    Ctrl and “-” at the same time.</noscript>
+                                <li><a href="#" id="aSFont" title="Font-Size:Small">A<sup>-</sup></a></li>
+                                <li><a href="#" id="aMFont" title="Font-Size:Middle" class="active">A</a></li>
+                                <li><a href="#" id="aLFont" title="Font-Size:Large">A<sup>+</sup></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="header-wrap" class="d-md-none">
+                <!-- Primary Navigation
+                ============================================= -->
+                <nav id="primary-menu" class="style-2 ">
+                    <div class="container clearfix ">
+                        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                        @Html.Raw(web.getAllMenu())
+                       
+                    </div>
+                </nav><!-- #primary-menu end -->
+            </div>
+        </header>
+        <!-- #header end -->
+        <div class="clear"></div>
+        <!-- Content
+        ============================================= -->
+        <section id="content">
+            <div class="content-wrap">
+                <div class="container clearfix">
+                    <div class="row">
+                        <div class="col-md-3 d-none d-md-block" id="left-menu">
+                            <a href="#L" accesskey="L" class="alt-c01" title="Left block">:::</a>
+                            <div class="leftbox">
+                                <h3><i class="icon-line-layers"></i> Menu</h3>
+                                @Html.Raw(web.GetEnLeftMenu())
+                            </div>
+                        </div>
+                        <div class="col-md-9" id="printblock">
+                            <div class="clearfix" id="main_content">
+                                <ol class="breadcrumb">
+                                    <a href="#C" accesskey="C" class="alt-c02" title="Main content">:::</a>
+                                    <li class="breadcrumb-item"><a href="/@path/"><i class="icon-home2"></i> Home</a></li>
+                                    @if (!string.IsNullOrEmpty(web.getNodePath()))
+                                    {
+                                        @Html.Raw(web.getNodePath())
+                                    }
+                                    else
+                                    {
+                                       <li class="breadcrumb-item active" aria-current="page"> @title</li>
+                                    }
+                                </ol>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="row">
+                                <div class="col-8 pr0pl0">
+                                    <h3 class="h3title">@title</h3>
+                                </div>
+                                <div class="col-4 pr0pl0">
+                                    <div class="societybox">
+                                        <ul>
+                                            <li>
+                                                <a href="" class="social-icon si-rounded si-colored si-small si-facebook"
+                                                    title="facebook(Open New Window)" target="_blank">
+                                                    <i class="icon-facebook"></i>
+                                                    <i class="icon-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li><noscript>
+                                                    <div class="font13">Script can not be executed when the friendly
+                                                        print up to [File] / [Print].</div>
+                                                </noscript>
+                                                <a href="javascript:window.print()" class="social-icon si-rounded si-colored si-small si-gplus"
+                                                    title="Print">
+                                                    <i class="icon-line-printer"></i>
+                                                    <i class="icon-line-printer"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr class="hr01">
+                                </div>
+                            </div>
+                            <!--content-->
+                            @RenderBody()
+                            <!--content end-->
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #content end -->
+        <!-- Footer
+        ============================================= -->
+        <footer id="footer">
+            <!-- Copyrights
+            ============================================= -->
+            <div id="copyrights" class="dark">
+                <div class="container clearfix">
+                    <a href="#Z" title="Bottom Area" accesskey="Z" class="alt-c01">:::</a>
+                    <div class="col_half">
+                        <ul class="crul">
+                            <li>3F., No. 137, Longchang St., Yongkang Dist., Tainan City 710, Taiwan (R.O.C.)</li>
+                            <li>Tel : 886-6-2043628</li>
+                            <li>@alias. Tainan City Police Department © 2018</li>
+                            <li class="d-none d-md-block">Best viewed with IE10.0+, Firefox, Chrome or higher with 1024
+                                x 768 resolution.</li>
+                           
+                        </ul>
+                    </div>
+                    <div class="col_half col_last tright ">
+                        <ul class="crul01 d-none d-md-block">
+                            <li><a href="#" title="accessible website level AA(Open New Window)" target="_blank"><img
+                                        src="/Areas/@areaName/images/new/footer001.jpg" alt="accessible website level AA"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #copyrights end -->
+        </footer>
+        <!-- #footer end -->
+    </div>
+    <!-- #wrapper end -->
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop"><a href="#" class="gotoTop-sty" title="Go To Top"><i class="icon-angle-up"></i></a></div>
+    <!-- External JavaScripts
+    ============================================= -->
+    <script src="~/Areas//@areaName/js/jquery.js"></script>
+    <script src="~/Areas//@areaName/js/plugins.js"></script>
+    <!-- Footer Scripts
+    ============================================= -->
+    <script src="~/Areas//@areaName/js/functions.js"></script>
+    <script src="~/Areas//@areaName/js/fontsize.js"></script>
+    <script>
+    $(document).ready(function() {
+
+        $(window).bind('hashchange', function() {
+            var hash = "#" + window.location.hash.replace(/^#/, '');
+            if (hash != "#") {
+                $(hash).attr('tabindex', -1).on('blur focusout', function() {
+                    $(this).removeAttr('tabindex');
+                }).focus().yellowFade();
+            } else {
+                $("#headcontainer").attr('tabindex', -1).on('blur focusout', function() {
+                    $(this).removeAttr('tabindex');
+                }).focus();
+            }
+        });
+    });
+    </script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544581-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131544581-1');
+</script>
+</body>
+
+</html>

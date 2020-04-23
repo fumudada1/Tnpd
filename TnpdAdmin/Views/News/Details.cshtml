@@ -1,0 +1,78 @@
+﻿@model TnpdModels.News
+
+@{
+    ViewBag.Title = "內容";
+}
+
+<h2>內容</h2>
+
+<fieldset>
+    <legend>News</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Catalog.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Catalog.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Article)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Article)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+   <input type="button" onclick="history.back()" class="btn btn-primary" value="回列表" />
+</p>

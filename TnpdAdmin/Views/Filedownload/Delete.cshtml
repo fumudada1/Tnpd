@@ -1,0 +1,91 @@
+﻿@model TnpdModels.Filedownload
+
+@{
+    ViewBag.Title = "書表檔案下載刪除";
+}
+
+<h2>書表檔案下載刪除</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Filedownload</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FiledownloadCatalog.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FiledownloadCatalog.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Article)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Article)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MetaIndex.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MetaIndex.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="刪除" class="btn-button" />
+    </p>
+    <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+}

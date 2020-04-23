@@ -1,0 +1,125 @@
+﻿@using Tnpd.Helpers
+@model List<Tnpd.Models.WebStatistics>
+@{
+    ViewBag.Title = "統計資訊";
+}
+
+<h2><i class="fa fa-location-arrow"></i>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="search">
+        時間區間：@Html.InputSearchBox("SearchByStartDate", ViewData["SearchByStartDate"], new { @class = "datepicker", target = "" })
+        ~@Html.InputSearchBox("SearchByEndDate", ViewData["SearchByEndDate"], new { @class = "datepicker", target = "" })
+        <br />
+        排序：
+        <select id="SearchBySortField" name="SearchBySortField">
+            <option value="sum">合計</option>
+            <option value="count1">動態訊息</option>
+            <option value="count2">網站內容</option>
+            <option value="count3">常見問答</option>
+            <option value="count4">檔案下載</option>            
+        </select>
+        <select id="SearchBySortType" name="SearchBySortType">
+            <option value="Desc">遞減</option>
+            <option value="Asc">遞增</option>
+        </select>
+        <input type="submit" value="搜尋" class="btn-button">
+    </div>
+
+}
+<table class="table table-v">
+    <tr>
+        <th>
+            帳號
+        </th>
+        <th>
+            單位
+        </th>
+        <th>
+            姓名
+        </th>
+        <th>
+            動態訊息
+        </th>
+        <th>
+            網站內容
+        </th>
+        <th>
+            常見問答
+        </th>
+        <th>
+            檔案
+        </th>
+        <th>
+            合計
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="center">
+                @item.account
+            </td>
+            <td>
+                @item.dep
+            </td>
+            <td class="center">
+                @item.title
+            </td>
+            <td class="center">
+                @item.count1
+            </td>
+            <td class="center">
+                @item.count2
+            </td>
+            <td class="center">
+                @item.count3
+            </td>
+            <td class="center">
+                @item.count4
+            </td>
+            <td class="center">
+                @item.sum
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+            
+            $("#SearchBySortField").children().each(function () {
+                if ($(this).val() == "@(ViewData["SearchBySortField"])") {
+                    //jQuery給法
+                    $(this).attr("selected", true); //或是給"selected"也可
+                    //javascript給法
+                    this.selected = true;
+                }
+            });
+
+            $("#SearchBySortType").children().each(function () {
+                if ($(this).val() == "@(ViewData["SearchBySortType"])") {
+                    //jQuery給法
+                    $(this).attr("selected", true); //或是給"selected"也可
+                    //javascript給法
+                    this.selected = true;
+                }
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,19 @@
+﻿@using TnpdModels
+@model List<HomeLink>
+
+
+<div class="row">
+    @foreach (HomeLink homeLink in Model)
+    {
+        <div class="col-12 col-md-3 mt-3 mb-3">
+            <a href="@homeLink.Url" title="@homeLink.Subject (另開視窗)" target="_blank">
+                <img src="@homeLink.UpImage"
+                     alt="@homeLink.Subject" class="img-thumbnail"></a>
+            <div class="mt-2">@homeLink.Subject</div>
+        </div>
+    }
+
+
+
+
+</div>

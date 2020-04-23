@@ -1,0 +1,89 @@
+﻿@using TnpdModels
+@model TnpdModels.ForumsFiles
+@{
+    Layout = "~/Views/Shared/_LayoutColorbox.cshtml";
+}
+@{
+    ViewBag.Title = "編輯";
+    string submitButton = Model.Id == 0 ? "新增" : "更新";
+}
+
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>編輯附加檔案</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.ForumsFiles>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <input type="hidden" name="ForumsId" value="@Model.ForumsId" />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpFile)
+
+        </div>
+        <div class="editor-field">
+           <input name="UpFile" type="text" size="60" value="@Model.UpFile">
+                <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary"/>
+
+
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="@(submitButton)" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    <script src="@Url.Content("~/CKfinder/ckfinder.js")" type="text/javascript"></script>
+    @if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Forums", new { id = ViewBag.ForumsId, type = "1" })';
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            $(".BrowseServer").click(function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(fileUrl);
+                };
+
+                finder.startupPath = 'Files:/Cypd/';
+				 finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Files';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+        });
+
+    </script>
+}

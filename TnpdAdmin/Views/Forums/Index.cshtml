@@ -1,0 +1,89 @@
+﻿@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.Forums>
+
+@{
+    ViewBag.Title = "討論區管理";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="top">
+    @Html.ActionLink("新增", "Create",null,new { @class = "btn btn-primary" })
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+<div class="search">
+        @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryId)：
+        @Html.DropDownList("SearchByCategoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryId, "請選擇")
+        <br>
+        @Html.DisplayNameFor(model => model.FirstOrDefault().Title)：
+        @Html.InputSearchBox("SearchByTitle", ViewData["SearchByTitle"])
+        <input type="submit" value="搜尋" class="btn-button">
+
+    </div>
+    <div>
+    </div>
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryId)
+        </th>
+        <th width="20%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+        </th>
+        <th width="8%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+        </th>
+        <th width="8%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+      <th width="13%" style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th width="13%" style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateDate)
+        </th>
+        <th width="13%">功能</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Catalogs.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Poster)            
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.ActionLink("內容", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })             
+            @Html.ActionLink("編輯", "Edit", new { id=item.Id },new { @class = "btn btn-primary" })             
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id },new { @class = "btn btn-primary" })
+            @Html.Hidden("ID",item.Id)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+

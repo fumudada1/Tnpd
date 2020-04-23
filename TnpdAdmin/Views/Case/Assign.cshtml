@@ -1,0 +1,152 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@using TnpdAdmin.Models
+@model MvcPaging.IPagedList<TnpdModels.Case>
+
+@{
+    ViewBag.Title = "派案作業";
+    List<CaseMerge> caseMerges;
+    if (Session["CaseMerge"] == null)
+    {
+        caseMerges = new List<CaseMerge>();
+
+    }
+    else
+    {
+        caseMerges = (List<CaseMerge>)Session["CaseMerge"];
+    }
+}
+
+<h2>派案作業</h2>
+<img src="/Images/list.png" style="width: 20px"/>
+@Html.ActionLink("開啟併案清單","MergeList",new {pclass=Request["pclass"] },new {style = "text-decoration: underline"}) <span>(</span> <span id="mCount">@caseMerges.Count()</span> <span>)</span> 
+<table class="table table-v">
+    <tr>
+        <th style="width: 50px">
+            <input name="clickAll" id="clickAll" type="checkbox"> 全選
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Predate)
+        </th>
+        <th>
+            案件狀態
+        </th>
+
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.ParentId != null || item.Cases.Count==0)
+            {
+                
+                 
+                <input id="chkmerge@(item.Id)" class="chkMerge"  type="checkbox" value="@item.Id"> <label style="width: 100px;display: inline" for="chkmerge@(item.Id)">選取</label>
+
+            }
+            @if (item.Cases.Count > 0)
+            {
+                <span><img src="/Images/documents.png" style="width: 20px"/>併案案件</span> 
+            }
+        </td>
+        <td>
+
+            @Html.ActionLink(item.CaseID.ToString(), "AssignEdit", new {id = item.Id, pclass = Request["pclass"]})
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Predate)
+        </td>
+        <td>
+            未分派
+        </td>
+
+    </tr>
+}
+</tbody>
+</table>
+<div style="align-content: right">
+    
+    <input type="button" value="加入併案清單" id="btnMerge"/><input type="hidden" name="hidMerge" id="hidMerge" value=""/>
+</div>
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(x=>x.AddRouteValue("pclass",Request["pclass"]))
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            $("#clickAll").click(function() {
+
+                if ($("#clickAll").prop("checked")) {
+                    $(".chkMerge").each(function() {
+                        $(this).prop("checked", true);
+                    });
+                } else {
+                    $(".chkMerge").each(function() {
+                        $(this).prop("checked", false);
+                    });
+                }
+            });
+            $("#btnMerge").click(function () {
+                var mergeText = '';
+                $(".chkMerge").each(function () {
+                    var id = $(this).val();
+                   
+                    if ($(this).is(":checked")) {
+                       
+                        mergeText = mergeText + id + ',';
+                       
+                    }
+
+
+                });
+                $("#hidMerge").val(mergeText);
+                console.log($("#hidMerge").val());
+                $.get("/case/AddMerges/", { id: mergeText })
+                    .done(function (data) {
+                        $("#mCount").text(data);
+                        console.log(data);
+                    });
+                alert("已經加入合併清單");
+            });
+           
+
+        });
+    </script>
+}
+

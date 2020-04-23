@@ -1,0 +1,71 @@
+﻿@model TnpdModels.VoteWrite
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<h2>@(Model.Vote.Title)</h2>
+<table class="table table-nolink">
+    <tr>
+        <th style="width:100px">
+            @Html.DisplayNameFor(model => model.Vote.Title)
+
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Vote.Title)
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vote.Article)
+
+        </th>
+        <td>
+            @Html.Raw(Model.Vote.Article)
+        </td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("Write", "VoteWrite", new { Id = Model.VoteId }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        @{
+            string FieldName = string.Format("FieldName_{0}", Model.VoteId);
+            string[] arryStr = Model.Vote.FieldParameters.Split('\n');
+        }
+        <div class="editor-field">
+            選項
+        </div>
+            <div class="editor-field">
+            @foreach (string i in arryStr)
+            {
+                <input type="radio" id="@(FieldName)" name="@(FieldName)" value="@i" data-val="true" data-val-required="必選" />@i
+                <br />
+            }
+            <span class="field-validation-valid" data-valmsg-for="@(FieldName)" data-valmsg-replace="true"></span>
+
+        </div>
+        <p>
+            <input type="submit" value="送出" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/themes/base/css")
+        <script>
+            $(document).ready(function () {
+                $(".datepicker").datepicker();
+            });
+        </script>
+    }

@@ -1,0 +1,99 @@
+﻿@model TnpdModels.MetaIndex
+
+@{
+    ViewBag.Title = "內容";
+}
+
+<h2>內容</h2>
+
+<fieldset>
+    <legend>MetaIndex</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Theme)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Theme)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ThemeName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ThemeName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cake)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cake)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CakeName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CakeName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Service)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Service)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ServiceName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ListNum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ListNum)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+    @Html.ActionLink("回列表", "Index")
+</p>

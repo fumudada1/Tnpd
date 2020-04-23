@@ -1,0 +1,13 @@
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\TransformNewsCatalogs.exe.config
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\TransformNewsCatalogs.exe
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\TransformNewsCatalogs.pdb
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\EntityFramework.dll
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\TnpdModels.dll
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\Newtonsoft.Json.dll
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\EntityFramework.xml
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\TnpdModels.pdb
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\Newtonsoft.Json.xml
+E:\website\tnpd\TransformNewsCatalogs\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\tnpd\TransformNewsCatalogs\obj\Debug\TransformNewsCatalogs.csprojResolveAssemblyReference.cache
+E:\website\tnpd\TransformNewsCatalogs\obj\Debug\TransformNewsCatalogs.exe
+E:\website\tnpd\TransformNewsCatalogs\obj\Debug\TransformNewsCatalogs.pdb

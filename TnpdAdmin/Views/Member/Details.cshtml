@@ -1,0 +1,49 @@
+﻿@model TnpdModels.Member
+
+@{
+    ViewBag.Title = "檢視帳號";
+}
+
+<h2>@Model.Name</h2>
+
+<fieldset>
+    <legend>Member</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Account)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Account)
+    </div>
+
+   
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+   
+
+    <div class="display-label">
+        單位
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MyUnit.ParentUnit.Subject)- @Html.DisplayFor(model => model.MyUnit.Subject)
+    </div>
+
+   
+</fieldset>
+<p>
+  
+    @Html.ActionLink("回列表", "Index")
+</p>

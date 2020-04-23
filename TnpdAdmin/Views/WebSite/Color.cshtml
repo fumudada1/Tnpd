@@ -1,0 +1,69 @@
+﻿@using TnpdModels
+@model List<TnpdModels.WebSiteColor>
+
+@{
+    ViewBag.Title = "網站顏色設定";
+    WebSiteName site = ViewBag.site;
+    List<WebSiteName> webSiteList = ViewBag.webSiteList;
+}
+
+<h2>@site.Subject 網站顏色設定</h2>
+<div>
+<p>請選擇要設定的網站：</p>
+    
+        @foreach (var item in webSiteList)
+        {
+            
+            <a style="margin-bottom:10px" class="btn-button" href="/WebSite/Color/@item.SiteCode">@item.Subject</a>
+       
+        }
+       
+    
+</div>
+
+<table class="table table-v">
+    <tr>
+        <th>目前設定</th>
+        <th>定義檔
+        </th>
+        <th>顏色
+        </th>
+
+        <th>功能</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (ViewBag.color == item.Subject)
+                    {
+                        <span>目前設定</span> 
+                    }
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Subject)
+
+                </td>
+                <td>
+                    <span style="color: @item.SiteCode">@item.SiteCode</span>
+                </td>
+
+                <td>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <input type="hidden" name="color" value="@item.Subject"/>
+                         <input type="hidden" name="id" value="@site.SiteCode"/>
+                        @Html.HiddenFor(modelItem => item.Subject)
+                        <input type="submit" value="設定" class="btn btn-primary" />
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

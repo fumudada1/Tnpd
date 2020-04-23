@@ -1,0 +1,58 @@
+﻿@using tnpd.Helpers
+@using MvcPaging
+@model MvcPaging.IPagedList<TnpdModels.AboutLink>
+@{
+    ViewBag.Title = "網網相連";
+}
+<div class="row">
+    <div class="col-12">
+
+        @if (@Model.TotalItemCount > 0)
+        {
+    
+            <table class="table table-hover tablestyle rwd-table">
+                <thead>
+                <tr>
+                    <th class="w-20">類別</th>
+                    <th>網站</th>
+                    <th>網址</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in @Model)
+                {
+          
+            
+                    <tr>
+                       
+                            <td class="none title01">@item.Catalog.Subject</td>
+                       
+               
+                        <td class="none">@item.Subject</td>
+                     <td><a href="@item.URL" title="@item.Subject (另開視窗)" target="_blank">@item.URL</a></td>
+                       
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+    
+   
+            <div class="w-100"></div>
+
+   
+    
+    
+            <div class="pager">
+                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(x=>x.AddRouteValue("sClass",Request["sClass"]))
+            </div>
+
+        }
+        else
+        {
+            <div class="no-Data">目前暫無資料</div>
+        }
+    
+               
+    </div>
+</div>   

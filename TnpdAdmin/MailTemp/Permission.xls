@@ -1,0 +1,227 @@
+﻿
+
+ 
+
+
+
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 10">
+<link rel=File-List href="Book1.files/filelist.xml">
+<link rel=Edit-Time-Data href="Book1.files/editdata.mso">
+<link rel=OLE-Object-Data href="Book1.files/oledata.mso">
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>leijunkuo</o:Author>
+  <o:LastAuthor>leijunkuo</o:LastAuthor>
+  <o:LastPrinted>2011-01-31T01:08:25Z</o:LastPrinted>
+  <o:Created>2011-01-31T01:05:08Z</o:Created>
+  <o:LastSaved>2011-01-31T01:09:44Z</o:LastSaved>
+  <o:Version>10.6867</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:DownloadComponents/>
+  <o:LocationOfComponents HRef="file:///\\"/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:.98in .75in .98in .75in;
+	mso-header-margin:.51in;
+	mso-footer-margin:.51in;
+	mso-page-orientation:landscape;}
+tr
+	{mso-height-source:auto;
+	mso-ruby-visibility:none;}
+col
+	{mso-width-source:auto;
+	mso-ruby-visibility:none;}
+br
+	{mso-data-placement:same-cell;}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:一般;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:nowrap;
+	mso-rotate:0;}
+.xl24
+	{mso-style-parent:style0;
+	border:.5pt solid windowtext;}
+.xl25
+	{mso-style-parent:style0;
+	text-align:center;}
+.xl26
+	{mso-style-parent:style0;
+	text-align:center;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid windowtext;
+	border-left:none;}
+.xl27
+	{mso-style-parent:style0;
+	text-align:center;
+	border:.5pt solid windowtext;}
+.xl28
+	{mso-style-parent:style0;
+	text-align:left;
+	border:.5pt solid windowtext;}
+ruby
+	{ruby-align:left;}
+rt
+	{color:windowtext;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	mso-char-type:none;
+	display:none;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <x:ExcelWorkbook>
+  <x:ExcelWorksheets>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet1</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:Print>
+      <x:ValidPrinterInfo/>
+      <x:PaperSizeIndex>9</x:PaperSizeIndex>
+      <x:HorizontalResolution>600</x:HorizontalResolution>
+      <x:VerticalResolution>0</x:VerticalResolution>
+     </x:Print>
+     <x:Selected/>
+     <x:Panes>
+      <x:Pane>
+       <x:Number>3</x:Number>
+       <x:ActiveRow>3</x:ActiveRow>
+       <x:ActiveCol>1</x:ActiveCol>
+      </x:Pane>
+     </x:Panes>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet2</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet3</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+  </x:ExcelWorksheets>
+  <x:WindowHeight>9120</x:WindowHeight>
+  <x:WindowWidth>11715</x:WindowWidth>
+  <x:WindowTopX>240</x:WindowTopX>
+  <x:WindowTopY>75</x:WindowTopY>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ProtectWindows>False</x:ProtectWindows>
+ </x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+
+<body link=blue vlink=purple>
+
+<table x:str border=0 cellpadding=0 cellspacing=0 width=1019 style='border-collapse:
+ collapse;table-layout:fixed;width:766pt'>
+ <col width=72 style='width:54pt'>
+ <col width=108 style='mso-width-source:userset;mso-width-alt:3456;width:81pt'>
+ <col width=129 style='mso-width-source:userset;mso-width-alt:4128;width:97pt'>
+ <col width=142 style='mso-width-source:userset;mso-width-alt:4544;width:107pt'>
+ <col width=109 style='mso-width-source:userset;mso-width-alt:3488;width:82pt'>
+ <col width=129 style='mso-width-source:userset;mso-width-alt:4128;width:97pt'>
+ <col width=124 style='mso-width-source:userset;mso-width-alt:3968;width:93pt'>
+ <col width=134 style='mso-width-source:userset;mso-width-alt:4288;width:101pt'>
+ <col width=72 style='width:54pt'>
+ <tr height=22 style='height:16.5pt'>
+  <td colspan=9 height=22 class=xl25 width=1019 style='height:16.5pt;
+  width:766pt'>權限</td>
+ </tr>
+
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl27 style='height:16.5pt;border-top:none'>角色</td>
+  <td class=xl27 style='border-top:none;border-left:none'>權限</td>
+  <td class=xl27 style='border-top:none;border-left:none'>單位</td>
+  <td class=xl27 style='border-top:none;border-left:none'>姓名</td>
+
+ </tr>
+ 
+{PermissionBody}
+
+
+
+ 
+ 
+ 
+ 
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=72 style='width:54pt'></td>
+  <td width=108 style='width:81pt'></td>
+  <td width=129 style='width:97pt'></td>
+  <td width=142 style='width:107pt'></td>
+
+ </tr>
+ <![endif]>
+</table>
+
+</body>
+
+</html>

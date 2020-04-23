@@ -1,0 +1,301 @@
+﻿@model tnpd.Models.ReportView
+
+<div class="row">
+@using (Html.BeginForm("Index", "Report", new {@class = "form form-vaild form-aligned trailer"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+
+    <div class="col-12">
+
+        <h4 class="h4title">網路報案使用須知</h4>
+
+        <ul class="ullink">
+            <li>
+                網路報案性質如同110，為報案管道之一種，如有緊急案件，請撥打110，將有專人為您受理。</li>
+            <li>
+                於填寫報案人資料時，請您務必留下正確聯絡資料
+                （本局對報案人身分及資料嚴予保密），否則若無具體事證，本局將不予處理，並提醒您切勿提供不實之事證，以免觸犯刑法『誣告』罪。
+            </li>
+        </ul>
+
+        <h4 class="h4title">網路報案使用限制</h4>
+        <ul class="ullink">
+            <li>
+                依據刑事訴訟法第242條第1項規定：「告訴、告發，應以書狀或言詞向檢察官或司法警察官為之；其以言詞為之者，應制作筆錄。」若您所報案件為竊盜、詐欺、恐嚇、網路遊戲犯罪等刑事案件，為發動偵查，必須將您報案內容做成書面記錄，因此，於網路報案後仍須請您至派出所製作相關文件（如筆錄等），以符法律程序，並保障您的權利。
+            </li>
+            <li>
+                網路報案與110電話報案均為報案之管道，若已選擇其中一種管道報案，請勿再重複報案。
+            </li>
+        </ul>
+
+        <h4 class="h4title">系統送出成功確認</h4>
+        <ul class="ullink">
+            <li>
+                進入作業系統報案，送出成功後，頁面將顯示出您的報案編號，若未顯示，則表示送出未成功！您可以再重報一次；或撥打 110 直接報案。
+            </li>
+        </ul>
+
+        報案人數：【28883】<br>
+        一. 若有急迫案件請電話直撥110。<br>
+        二. 若為檢舉案件請至本局首長交通檢舉信箱填報<br><br>
+        <div class="hrline"></div>
+        (有 <span class="text-danger">*</span> 號請務必填寫)
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="Name"><span class="text-danger">*</span>
+                    姓名：</label>
+                <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
+                <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
+                    性別：</label>
+                <div class="form-group">
+                    <select  class="form-control"  id="Gender" name="Gender"><option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="Pid"><span class="text-danger">*</span>
+                    身分證字號：</label>
+                <input class="form-control" data-val="true" data-val-required="身分證字號必填" id="Pid" name="Pid" placeholder="身分證字號" type="text" value="@Model.Pid" />
+                <span class="field-validation-valid" data-valmsg-for="Pid" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" for="PostalCode"><span class="text-danger">*</span>
+                現居地址：</label>
+            <div class="form-row ">
+                <div class="form-group col-2 mb-0">
+                  
+                    <input class="form-control" data-val="true" data-val-required="現居郵遞區號必填"  id="PostalCode" name="PostalCode" placeholder="現居郵遞區號" type="text" value="@Model.PostalCode" />
+                    <span class="field-validation-valid" data-valmsg-for="PostalCode" data-valmsg-replace="true"></span>
+
+                </div>
+                <div class="form-group col-10 mb-0">
+                    <label class="col-form-label" for="Address" style="display: none"><span class="text-danger">*</span>
+                        現居地址：</label>
+                    <input class="form-control" data-val="true" data-val-required="現居地址必填"   id="Address" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
+                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" for="PPostalCode"><span class="text-danger">*</span>
+                戶籍地址：</label>
+            <div class="form-row ">
+                <div class="form-group col-2 mb-0">
+                    <input class="form-control"  data-val="true" data-val-required="戶籍郵遞區號必填"  id="PPostalCode" name="PPostalCode" placeholder="戶籍郵遞區號" type="text" value="@Model.PPostalCode" />
+                    <span class="field-validation-valid" data-valmsg-for="PPostalCode" data-valmsg-replace="true"></span>
+       
+
+                </div>
+                <div class="form-group col-10 mb-0">
+                    <label class="col-form-label" for="PAddress" style="display: none"><span class="text-danger">*</span>
+                        現居地址：</label>
+                    <input class="form-control" data-val="true" data-val-required="戶籍地址必填" id="PAddress" name="PAddress" placeholder="戶籍地址" type="text" value="@Model.PAddress"/>
+                    <span class="field-validation-valid" data-valmsg-for="PAddress" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="HomeTEL"><span class="text-danger">*</span>
+                    聯絡電話(住家)：</label>
+                <input   data-val="true" data-val-required="家裡電話必填"   class="form-control"  id="HomeTEL" name="HomeTEL" placeholder="家裡電話" type="text" value="@Model.HomeTEL" />
+                <span class="field-validation-valid" data-valmsg-for="HomeTEL" data-valmsg-replace="true"></span>
+
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="OfficeTEL">
+                    聯絡電話(辦公室)：</label>
+                <input class="form-control"   data-val="true" data-val-required="辦公室電話必填"   id="OfficeTEL" name="OfficeTEL" placeholder="辦公室電話" type="text" value="@Model.OfficeTEL" />
+                <span class="field-validation-valid" data-valmsg-for="OfficeTEL" data-valmsg-replace="true"></span>
+
+            </div>
+
+        </div>
+      
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label class="col-form-label" for="TEL"><span class="text-danger">*</span>
+                    行動電話：(聯繫專用，請務必輸入正確電話，否則不予受理。)</label>
+                <input class="form-control"  data-val="true" data-val-required="行動電話必填"  id="TEL" name="TEL" placeholder="行動電話" type="text" value="@Model.TEL" />
+                <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" for="Email"><span class="text-danger">*</span>
+                E-Mail：</label>
+            <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="col-form-label" for="CaseReportType"><span class="text-danger">*</span>
+                    報案人類別：</label>
+                <select id="CaseReportType" class="form-control" name="CaseReportType"><option>當事人</option>
+                    <option>被害人</option>
+                    <option>關係人</option>
+                </select>
+
+              
+            </div>
+        </div>
+    <div class="form-row">
+
+        <div class="form-group col-md-6 mb-0">
+            <label class="col-form-label" for="ODate" style="text-transform:none"><span class="text-danger">*</span>
+                發生日期：(起yyy-mm-dd 例如:109-01-08)</label>
+            <input   class="form-control"  data-val="true" data-val-required=" 發生日期必填" id="ODate" name="ODate" target="" type="text" value="@Model.ODate" />
+            <span class="field-validation-valid" data-valmsg-for="ODate" data-valmsg-replace="true"></span>
+            @Html.ValidationMessage("CheckDate")      
+
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            <label class="col-form-label" for="STime1"><span class="text-danger">*</span>
+                發生時段：</label>
+            <div class="form-row">
+                <div class="form-group col-auto">
+                    <label class="col-form-label" for="STime1" style="display: none"><span class="text-danger">*</span>
+                        發生時段：：</label>
+                    <select name="STime1" class="form-control">
+                        @for (int i = 0; i <= 23; i++)
+                        {
+                            <option>@i.ToString("00")</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-auto align-self-center">時</div>
+                <div class="form-group col-auto">
+                    <label class="col-form-label" for="STime2" style="display: none"><span class="text-danger">*</span>
+                        發生時段：：</label>
+                    <select name="STime2" class="form-control">
+                        @for (int i = 0; i <= 59; i++)
+                        {
+                            <option>@i.ToString("00")</option>
+                        }
+                    </select>
+
+                </div>
+                <div class="form-group col-auto align-self-center">分</div>
+                    
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="Oplace"><span class="text-danger">*</span>
+            發生地點：</label>
+        <input class="form-control" data-val="true" data-val-required="發生地點必填"  id="Oplace" name="Oplace" placeholder="發生地點" type="text" value="@Model.Oplace" />
+        <span class="field-validation-valid" data-valmsg-for="Oplace" data-valmsg-replace="true"></span>
+
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" for="Content"><span class="text-danger">*</span> 案情摘要：</label>
+        <textarea class="form-control"  data-val="true" data-val-required="案情摘要必填"  name="Content" rows="3">@Model.Content</textarea>
+        <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-row  mt-4">
+        <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+            驗證碼：</label>
+
+        <div class="form-group col-auto">
+            <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+            <div id="newMessageDIV" style="display:none"></div>
+            <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
+                   
+        </div>
+        <div class="form-group col-md-3">
+            <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+                   
+            @Html.ValidationMessage("CheckCode")              
+        </div>
+
+    </div>
+
+    <div class="hrline"></div>
+    <input type="hidden" name="id" value="@ViewBag.UnId"/>
+    <div class="form-row justify-content-center">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-info">送出</button>
+        </div>
+        <div class="col-auto">
+            <button type="reset" class="btn btn-secondary">清除</button>
+        </div>
+    </div>
+
+    </div>
+}
+</div>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
+
+<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"/>
+<script type="text/javascript">
+    $(".datepicker").datepicker();
+    function PlayCode() {
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+</script>
+<style>
+    .field-validation-error {
+        color:red
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

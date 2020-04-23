@@ -1,0 +1,101 @@
+﻿
+@using TnpdModels
+@model TnpdModels.AlbumsPicture
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "編輯";
+
+}
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+@{
+    if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Albums", new { id = ViewBag.AlbumsId, type = "1" })';
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            $(".BrowseServer").click(function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(fileUrl);
+                };
+
+                finder.startupPath = 'Images:/Cypd/';
+				finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Images';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+        });
+
+    </script>
+      
+    }
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>編輯附加圖檔</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject, new {placeholder = ModelsAttributeHelper<TnpdModels.AlbumsPicture>.GetDisplayName("Subject")})
+
+        </div>
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Author)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Author,new { placeholder=ModelsAttributeHelper<TnpdModels.AlbumsPicture>.GetDisplayName("Author") })
+           
+        </div>
+         <input type="hidden" name="AlbumsId" value="@Model.AlbumsId"/>
+     
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage)
+        </div>
+        <div class="editor-field">
+              <input name="UpImage" type="text" size="60" value="@Model.UpImage">
+                <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary"/>
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

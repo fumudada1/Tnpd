@@ -1,0 +1,58 @@
+﻿
+@model TnpdModels.FAQCatalog
+
+@{
+    ViewBag.Title = "常見問題類別內容";
+}
+
+<h2>常見問題類別內容</h2>
+
+<fieldset>
+    <legend>FAQCatalog</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ListNum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ListNum)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+</p>

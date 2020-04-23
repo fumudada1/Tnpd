@@ -1,0 +1,26 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+    <form class="form-horizontal" name="webnode" role="form">
+      <div class="col-sm-12 form-group">
+        請選擇預設位置：
+        <select ng-model="childDefault"  ng-options="c.siteMapNode['@title'] for c in default">
+         <option value="">無</option>
+        </select>
+  
+      </div>
+    </form>
+
+      </div>
+      <div class="modal-footer text-center" style="border:none">
+        <button type="button" ng-click="close()"  class="btn btn-primary" data-dismiss="modal" ng-disabled="webnode.$invalid">送出</button>
+        <button type="button" ng-click="cancel()" class="btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

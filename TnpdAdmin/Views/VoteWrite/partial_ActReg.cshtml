@@ -1,0 +1,20 @@
+﻿@model TnpdModels.QuestionnaireWrite
+
+@using (Html.BeginForm("Write", "QuestionnaireWrite", new { Id = Model.QuestionnaireId }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>報名表</legend>
+
+        @foreach (var i in Model.Questionnaire.QuestionnaireCustomFields.OrderBy(m => m.ListNum))
+        {
+            @Html.Partial("partial_ActReg_" + i.InputType, i)
+        }
+        <p>
+            <input type="submit" value="送出" class="btn-button" />
+        </p>
+    </fieldset>
+}

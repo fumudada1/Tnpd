@@ -1,0 +1,374 @@
+﻿@using TnpdModels
+@model TnpdModels.Case
+
+@{
+    ViewBag.Title = "案件狀態回復";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+ 
+   
+}
+
+<h2>案件狀態回復</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Case</legend>
+        <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+    @Html.HiddenFor(model => model.Id)
+        合併案件共 @Model.Cases.Count() 件<br/> <br/>
+    <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件來源：@Model.CaseType
+            </td>
+            <td>案件日期：@Model.InitDate
+            </td>
+        </tr>
+            @if (Model.Poprocs.Count > 0)
+            {
+                <tr>
+                    <td>承辦單位：
+                        @if (@Model.Poprocs.FirstOrDefault().assignUnit.ParentUnit != null)
+                        {
+                            <td>承辦單位：@Model.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject - @Model.Poprocs.FirstOrDefault().assignUnit.Subject
+                            </td>
+                        }
+                        else
+                        {
+                            <td>承辦單位：@Model.Poprocs.FirstOrDefault().assignUnit.Subject
+                            </td>
+                        }
+                       
+                    </td>
+                    <td>承辦人：@Model.Poprocs.FirstOrDefault().assignMember.Name
+                    </td>
+                </tr>
+            }
+       
+        <tr>
+            <td>預結案日：@Model.Predate
+            </td>
+        @if (Model.Poprocs.Count > 0)
+        {
+            <td>案件狀態：@Model.Poprocs.FirstOrDefault().Status
+            </td>
+        }
+        else
+        {
+             <td>案件狀態：未分派
+            </td>
+        }
+           
+        </tr>
+        </tbody>
+    </table>
+    <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CasePoprocLog log in Model.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                @if (log.assignUnit != null )
+                {
+                    <td>
+                        @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        
+                    </td>
+                }
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+    <span style="color: black">案件資料</span>
+
+    @if (Model.CaseType == CaseType.分局長與大隊隊長信箱 || Model.CaseType == CaseType.首長信箱)
+    {
+    
+   
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Name</td>
+                <td>性別：@Model.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.TEL</td>
+                <td>職業：@Model.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">主題：@Model.Subject</td>
+              
+            </tr>
+            <tr>
+
+                <td colspan="2">內容：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.參觀本局暨所屬機關)
+    {
+        <table class="table table-v">
+
+            <tbody>
+
+            <tr>
+                <td>參觀對象：@Model.Unit</td>
+                <td>申請單位名稱：@Model.OrgName</td>
+
+
+            </tr>
+            <tr>
+                <td>聯絡人：@Model.Name</td>
+                <td>聯絡人電話：@Model.TEL</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">預定參觀人數：@Model.pcnt</td>
+
+            </tr>
+            <tr>
+
+                <td>預定參觀日期：@Model.ODate </td>
+                <td>預定參觀時間：@Model.STime ~ @Model.ETime</td>
+            </tr>
+            <tr>
+               
+                <td colspan="2">備註：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.婦幼安全警示地點)
+    {
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Name</td>
+                <td>性別：@Model.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.TEL</td>
+                <td>職業：@Model.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Email</td>
+
+            </tr>
+            <tr>
+
+                <td>區別：@Model.OArea</td>
+                <td>路段或地點：@Model.Oplace</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">通報原因：@Model.Subject</td>
+               
+            </tr>
+            <tr>
+
+                <td colspan="2">通報內容：<br />
+                   
+                    @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                </td>
+
+            </tr>
+           
+
+
+            </tbody>
+        </table>
+    }
+        @if (Model.Poprocs.Count > 0)
+        {
+            <table class="table table-v">
+                <tr>
+                <tr>
+
+                    <td>
+                        案件分類：@Model.Poprocs.FirstOrDefault().Type1
+
+                    </td>
+                    <td>
+                        案件屬性：@Model.Poprocs.FirstOrDefault().type2
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        回覆附件：
+                        @if (!string.IsNullOrEmpty(Model.Poprocs.FirstOrDefault().Upfile1))
+                        {
+                            <a href="/Casefiles/@Model.Poprocs.FirstOrDefault().Upfile1" target="_black">@Model.Poprocs.FirstOrDefault().Upfile1</a>
+                        }
+                        else
+                        {
+                            <span>無上傳附件</span>
+                        }
+               
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        回覆情形：
+                        @if (Model.Poprocs.FirstOrDefault().PoprocsType == 1)
+                        {
+                            <span>一般回覆</span>
+                        }
+                        else if (Model.Poprocs.FirstOrDefault().PoprocsType == 2)
+                        {
+                            <span>免辦理回覆</span>
+                        }
+                        else if (Model.Poprocs.FirstOrDefault().PoprocsType == 3)
+                        {
+                            <span>免電子郵件回覆</span>
+                        }
+               
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div style="text-align: center">回覆內容</div>
+                        @Html.Raw(UIUtility.Txt2Html(Model.Poprocs.FirstOrDefault().AssignMemo))
+
+                    </td>
+                </tr>
+
+            </table>
+        }
+    
+
+        
+    <div>
+        
+       
+    </div>
+    <p align="center">
+        <input name="processtype" id="processtype" value="" type="hidden" />
+        <input type="button" id="btnRestone" value="案件狀態回復"/>
+       
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+       
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+
+            $("#btnRestone").click(function () {
+                $("#processtype").val("Restone");
+                $("form").submit();
+            });
+           
+          
+
+
+
+        });
+
+
+    </script>
+  
+    
+
+}
+
+@if (ViewBag.message != null)
+{
+    <script>
+        alert("@ViewBag.message");
+        window.location.href = "/Case/Restone?pclass=@ViewBag.pclass";
+    </script>
+}

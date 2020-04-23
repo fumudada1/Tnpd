@@ -1,0 +1,46 @@
+﻿
+@using TnpdModels
+@model TnpdModels.FiledownloadCatalog
+
+@{
+    ViewBag.Title = "書表檔案類別編輯";
+}
+
+<h2>書表檔案類別編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>FiledownloadCatalog</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.FiledownloadCatalog>.GetDisplayName("Subject") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> 
+        </p>
+        <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

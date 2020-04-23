@@ -1,0 +1,70 @@
+﻿
+<!--內容開始-->
+<div class="row">
+    <div class="col-12">
+
+        <div id="pricing-switch" class="pricing clearfix mt-3">
+            @using (Html.BeginForm("Create", "ChiefMailbox", FormMethod.Get, new { @class = "form form-vaild form-aligned trailer" }))
+            {
+                <div class="pricing-box">
+                    <div class="pricing-title">
+                        <h3 class="text-info">線上受理民眾陳情案件聲明</h3>
+                    </div>
+
+                    <div class="pricing-features">
+                        歡迎使用本局首長信箱，為維護陳情人及被陳情人權益，避免浪費行政資源，請詳閱以下注意事項並配合辦理：
+
+                    <ul>
+                        <li>如需緊急處理之案件，仍建議請以110電話報案為宜。
+                        </li>
+                        <li>建議事項請求簡潔、明確，且以真實案件為限，請儘量一次反映一件事情，以利案件處理，本局不受理非理性情緒發洩、漫罵及惡意檢舉之案件，內容嚴禁刊登廣告、從事商業及詐騙等行為，本局並保留刪除的權利。
+                        </li>
+                        <li>依「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+                            <br>
+                            （一）無具體內容、未具姓名或住址者。<br>
+                            （二）同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。<br>
+                            （三）經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。<br>
+                            （四）非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者。
+                        </li>
+                        <li>因Yahoo、Hotmail、Gmail等免費信箱可能將本站的答覆信誤認為廣告信件，若您未收到本局回覆，可至「垃圾郵件」，或至民意廣場「案件查詢」輸入電子郵件及案號，即可查詢案件處理情形。</li>
+                    </ul>
+
+                        <div class="form-group form-check">
+
+                            <input type="checkbox" class="form-check-input" id="checkRead" name="checkRead" value="agree" data-val="true" data-val-mandatory="請同意使用規則" required>
+                            <label class="form-check-label" for="checkRead">
+                                <span class="text-danger">我已詳閱
+                            上述條款並同意負相關刑民事責任</span></label>
+                            <span class="field-validation-valid" data-valmsg-for="checkRead" data-valmsg-replace="true"></span>
+                        </div>
+
+                    </div>
+
+
+                   <input type="hidden" name="id" value="@ViewBag.UnId"/>
+                    <div class="pricing-action">
+                        <button type="submit" class="btn btn-info">下一步</button>
+                    </div>
+
+
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<script>
+    //驗證讓CHECKBOX可過
+    $(function () {
+        //REF: http://bit.ly/hySvLa
+        $.validator.unobtrusive.adapters.addBool("mandatory", "required");
+    });
+
+</script>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+
+
+<!--內容結束-->
+

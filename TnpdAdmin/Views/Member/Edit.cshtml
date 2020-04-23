@@ -1,0 +1,108 @@
+﻿@using System.Collections
+
+@using TnpdModels
+@model TnpdModels.Member
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>帳號管理</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Member</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="actionName" value="@ViewBag.actionName" />
+
+        <table class="table table-h">
+    <tr>
+        <th width="120">
+            @Html.LabelFor(model => model.Account)
+            
+        </th>
+        <td>
+             @Html.DisplayFor(model => model.Account)
+            @Html.HiddenFor(model => model.Account)
+
+        </td>
+    </tr>
+  
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Name)
+            
+        </th>
+        <td>
+
+            @Html.DisplayFor(model => model.Name)
+            @Html.HiddenFor(model => model.Name)
+           
+        </td>
+    </tr>
+  
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Email)
+            
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+            @Html.HiddenFor(model => model.Email)
+        </td>
+    </tr>
+ 
+  <tr>
+      <th>
+           單位
+          
+      </th>
+      <td>
+          @Html.DisplayFor(model => model.MyUnit.ParentUnit.Subject) - @Html.DisplayFor(model => model.MyUnit.Subject)
+          @Html.HiddenFor(model => model.UnitId)
+      </td>
+  </tr>
+
+</table>
+
+  
+
+        <div class="editor-field" >
+            獨立權限設定
+            <div id="tree3"></div>
+            @Html.HiddenFor(model => model.Permission)
+        </div>
+        @Html.HiddenFor(model => model.InitDate)
+        @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.MyPic)
+        @Html.HiddenFor(model => model.Password)
+        @Html.HiddenFor(model => model.PasswordSalt)
+        <p>
+            <input type="submit" value="儲存" class="btn-button" />
+        </p>
+    </fieldset>
+
+}
+
+<div>
+    @Html.ActionLink("回列表", "Index")
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-ui.custom.js" type="text/javascript"></script>
+
+
+    <link href="~/Content/themes/base/skin/ui.dynatree.css" rel="stylesheet" type="text/css" id="skinSheet">
+    <script src="~/Scripts/jquery.dynatree.js" type="text/javascript"></script>
+    <script src="~/Member/TreeScript/@Model.Id" type="text/javascript"></script>
+
+}

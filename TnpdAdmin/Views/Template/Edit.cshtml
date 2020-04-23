@@ -1,0 +1,67 @@
+﻿
+@using TnpdModels
+@model TnpdModels.Template
+
+@{
+    ViewBag.Title = "首頁版型管理編輯";
+}
+
+<h2>首頁版型管理編輯</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Template</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.Template>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImageUrl)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImageUrls" />
+            @Html.HiddenFor(model => model.UpImageUrl)
+            @if (!string.IsNullOrEmpty(Model.UpImageUrl))
+            {
+                <img src="~/upfiles/images/S@(Model.UpImageUrl)" />
+            }
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BeSelect)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.BeSelect, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.BeSelect)
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> 
+        </p>
+		<p class="bottom-btn">
+    <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" /> 
+    </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

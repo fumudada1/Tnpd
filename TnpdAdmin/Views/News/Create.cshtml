@@ -1,0 +1,243 @@
+﻿@using TnpdModels
+@model TnpdModels.News
+
+@{
+    ViewBag.Title =   ViewBag.Title;
+    List<NewsCatalog> newsCatalogs = ViewBag.newsCatalogs;
+}
+
+<h2>新增@(ViewBag.Title)</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>@ViewBag.Title</legend>
+
+      
+        <div class="editor-label">
+            @if (Request["pclass"] == "58")
+            {
+                <span>問題</span>
+            }
+            else
+            {
+                @Html.LabelFor(model => model.Subject)
+            }
+                      
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.News>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+        <div class="editor-label">
+           <label> 發布站台設定</label>
+
+        </div>
+        <div class="editor-field">
+           
+            @foreach (var catalog in newsCatalogs)
+            {
+                <input type="checkbox" value="@catalog.Id" name="newsCatalogID" class="chkCatalog" /> <span>@catalog.WebSite.Subject - @catalog.Subject</span> <br/>
+            }
+        </div>
+    
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.StartDate, "{0:d}", new { @class = "datepicker", target = "" })
+            @Html.ValidationMessageFor(model => model.StartDate)
+
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EndDate, "{0:d}", new { @class = "datepicker", target = "" })
+            @Html.ValidationMessageFor(model => model.EndDate)
+
+
+        </div>
+
+        <div class="editor-label">
+            @if (Request["pclass"] == "58")
+            {
+                <span>答</span>
+            }
+            else
+            {
+                @Html.LabelFor(model => model.Article)
+            }
+
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Article,new {required="required"})
+            
+            @Html.ValidationMessageFor(model => model.Article)
+            <span style="color: red">@ViewBag.Message</span>
+
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewsFileses) (為符合無障礙，只接受PDF、ODS、ODF 檔)
+
+        </div>
+        <div class="editor-field">
+            <input type="button" value="新增上傳檔案數量" class="AddItem btn btn-primary"/>
+            <p>
+                <span>檔案說明:</span>
+                <input name="newsFiles[0].Subject" id="newsFiles[0].Subject" type="text" size="60"  value="請詳細輸入檔案說明" />
+                <span>檔案路徑:</span>
+                <input name="newsFiles[0].UpFile" type="text" size="60" placeholder="請點旁邊按鈕選擇(上傳)檔案">
+                <input type="button" value="選擇(上傳)檔案" class="BrowseFilesServer btn btn-primary"/>
+            </p>
+
+        </div>
+        <div class="editor-field">
+            <input type="button" value="新增上傳圖片數量" class="AddItem btn btn-primary"/>
+            <p>
+                <span>圖片說明:</span>
+                <input name="newsImages[0].Subject" id="newsFiles[0].Subject" type="text" size="60" value="請詳細輸入圖片說明" />
+                <span>圖片路徑:</span>
+                <input name="newsImages[0].UpFile"  placeholder="請點旁邊按鈕選擇(上傳)圖片" type="text" size="60">
+                <input type="button" value="選擇(上傳)圖片" class="BrowseImagesServer btn btn-primary"/>
+                <img name="newsImages[0].Img" src=""/>
+            </p>
+
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewsLinks)
+
+        </div>
+        <div class="editor-field">
+            <input type="button" value="新增連結" class="AddItem btn btn-primary" />
+            <p>
+                <span>連結名稱:</span>
+                <input name="links[0].Subject" id="links[0].Subject" type="text" size="60" value="附加連結" />
+                <span>
+                    連結網址:</span>
+                <input name="links[0].LinkUrl" id="links[0].LinkUrl" type="text" size="60" placeholder="請填入連結說明" />
+                <select id="links[0].Target" name="links[0].Target">
+                    <option>另開視窗</option>
+                    <option>本地開啟</option>
+                </select>
+                   
+</p>
+
+
+
+        </div>
+
+
+        <div class="editor-label" style="display: none">
+            @Html.LabelFor(model => model.IsConfirm)
+
+        </div>
+        <div class="editor-field" style="display: none">
+            @Html.DropDownListFor(model => model.IsConfirm, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType)), BooleanType.否))
+            @Html.ValidationMessageFor(model => model.IsConfirm)
+
+
+        </div>
+       
+       
+        <p>
+            <input type="submit" value="下一步" class="btn-button"  /> 
+        </p>
+		 <p class="bottom-btn">
+    <input type="button" onclick="history.back()" class="btn btn-primary" value="回列表" /> 
+    </p>
+    </fieldset>
+    }
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $('.chkCatalog').first().prop("checked", true);
+            $(".datepicker").datepicker();
+            var editor = CKEDITOR.replace('Article', { filebrowserImageUploadUrl: '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images&currentFolder=/@ViewBag.SiteCode' }
+            );
+            $(".AddItem").click(function() {
+                var source = $(this).next();
+                var fileSubject = source.children().eq(1).val();
+                var len = $(this).parent().children().length - 1;
+                var clone = source.clone();
+                clone.children().eq(1).val(fileSubject + len);
+
+                clone.children().eq(1).attr('name', clone.children().eq(1).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(3).attr('name', clone.children().eq(3).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(3).val('');
+                if (clone.children().length == 4) {
+                    clone.children().eq(4).attr('name', clone.children().eq(4).attr('name').replace('[0]', '[' + len + ']'));
+                }
+                if (clone.children().length == 6) {
+                    clone.children().eq(5).attr('name', clone.children().eq(5).attr('name').replace('[0]', '[' + len + ']'));
+                }
+                
+                clone.insertAfter($(this).parent().children().last());
+            });
+
+            $("body").on('click', ".BrowseFilesServer", function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function(fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(decodeURIComponent(fileUrl));
+                    //$("input[name='" + data["selectActionData"] + "']").val(decodeURIComponent(fileUrl));
+                    //$.post("/office/WordToPdf", { url: fileUrl })
+                    //    .done(function (data) {
+                    //       // alert( data);
+                    //    });
+                };
+
+                finder.startupPath = 'Files:/@ViewBag.SiteCode/';
+				 finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Pdf';
+               
+
+                //finder.readOnly = true;
+                finder.popup();
+            });
+
+            $("body").on('click', ".BrowseImagesServer", function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+                    $("img[name='" + data["selectActionData"].replace('.UpFile', '.Img') + "']").attr('src', decodeURIComponent(fileUrl).replace('/images/', '/_thumbs/images/'));
+
+                    $("input[name='" + data["selectActionData"] + "']").val(decodeURIComponent(fileUrl));
+                   
+                };
+
+                finder.startupPath = 'Images:/@ViewBag.SiteCode/';
+                finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Images';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+
+
+        });
+    </script>
+
+}

@@ -1,0 +1,59 @@
+﻿
+@using Tnpd.Models
+@model TnpdModels.TrafficViolationsRejectclass
+
+@{
+    ViewBag.Title = "不舉發原因維護編輯";
+}
+
+<h2>不舉發原因維護編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TrafficViolationsRejectclass</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficViolationsRejectclass>.GetDisplayName("Subject") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.initOrg)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.initOrg,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficViolationsRejectclass>.GetDisplayName("initOrg") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.InitDate)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpdateOrg)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.UpdateOrg,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficViolationsRejectclass>.GetDisplayName("UpdateOrg") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

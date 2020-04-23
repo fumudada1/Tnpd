@@ -1,0 +1,76 @@
+﻿@using TnpdModels
+@model TnpdModels.ActivityRegistration
+@{
+    Layout = "~/Views/Shared/_LayoutColorbox.cshtml";
+}
+@{
+    ViewBag.Title = "審核";
+}
+
+<h2>審核</h2>
+
+    @using (Html.BeginForm(new { id=Model.Id }))
+    {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ActivityRegistration</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SignupStartDate)
+        </div>
+        <div class="editor-field">
+            @Model.SignupStartDate
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Poster)
+        </div>
+        <div class="editor-field">
+            @Html.LabelFor(model => model.Poster)
+        </div>
+
+        @Html.Partial("partial_ActReg_List", Model)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(TnpdModels.ActivityRegistrationStatus))))
+            @Html.ValidationMessageFor(model => model.Status)
+           
+        </div>
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" />
+        </p>
+    </fieldset>
+    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    @if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Activity", new { id = ViewBag.ActivityId, type = "3" })';
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+        });
+    </script>
+
+    }

@@ -1,0 +1,28 @@
+﻿
+@using tnpd.Models
+@{
+    
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+    WebPresentation web = new WebPresentation(areaName);
+}
+<div class="row">
+    <div class="col-12">
+        <p>
+            This website is based on the design principle of accessibility and uses
+            keyboard shortcuts to strengthen the browsing convenience. Layouts is divided
+            in five areas：<br>
+            [ 1 ] Top-block area [ 2 ] Left-menu area [ 3 ] Main content area<br><br>
+
+            Accesskey guided as below : <br>
+            Alt+U : Top-block area, there are covering all kinds of languages script and
+            main
+            items.<br>
+            Alt+L : Left-menu area include the connections of individual. <br>
+            Alt+C : Main content area shows the content of each page. <br>
+        </p>
+    </div>
+
+    @Html.Raw(web.getSiteMap())
+   
+
+</div>

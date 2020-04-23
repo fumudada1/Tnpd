@@ -1,0 +1,14 @@
+E:\website\tnpd\TnpdModels\bin\Debug\TnpdModels.dll.config
+E:\website\tnpd\TnpdModels\bin\Debug\TnpdModels.dll
+E:\website\tnpd\TnpdModels\bin\Debug\TnpdModels.pdb
+E:\website\tnpd\TnpdModels\bin\Debug\EntityFramework.dll
+E:\website\tnpd\TnpdModels\bin\Debug\Newtonsoft.Json.dll
+E:\website\tnpd\TnpdModels\bin\Debug\EntityFramework.xml
+E:\website\tnpd\TnpdModels\bin\Debug\Newtonsoft.Json.xml
+E:\website\tnpd\TnpdModels\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.dll
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.pdb
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.init.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.csproj.GenerateResource.Cache
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.BigBinnerLink.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addCaseFiles.resources

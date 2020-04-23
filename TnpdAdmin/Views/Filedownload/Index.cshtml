@@ -1,0 +1,130 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.Filedownload>
+
+@{
+    ViewBag.Title = "書表檔案下載列表";
+}
+
+<h2>書表檔案下載列表</h2>
+
+<div class="top">
+    @Html.ActionLink("新增", "Create",null,new { @class = "btn btn-primary" })
+</div>
+
+
+
+    @using (Html.BeginForm())
+{
+<div class="search">
+                
+                     類　　別：@Html.DropDownList("SearchByCatalogId", (IEnumerable<SelectListItem>)ViewBag.CatalogId, "請選擇")
+    <span style="display: none"> @Html.DisplayNameFor(model => model.FirstOrDefault().IsConfirm)：@Html.DropDownList("SearchByIsConfirm", new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))),"請選擇")
+                     @Html.DisplayNameFor(model => model.FirstOrDefault().MetaId)：@Html.DropDownList("SearchByMetaId", (IEnumerable<SelectListItem>)ViewBag.MetaId, "請選擇") </span>
+                     <br>
+        	發布日期：<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/>
+            <br>
+            名　　稱：@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) <input type="submit" class="btn-button" value="搜尋" />
+
+    </div>
+ <div>
+    </div>
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="15%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().FiledownloadCatalog.Subject)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IsConfirm)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MetaIndex.Subject)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+        <th width="10%" style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Updater)
+        </th>
+        <th style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateDate)
+        </th>
+        <th width="18%">功能</th>
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiledownloadCatalog.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsConfirm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetaIndex.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Poster)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.Updater)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id=item.Id },new { @class = "btn btn-primary" }) 
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id },new { @class = "btn btn-primary" })
+            @Html.Hidden("ID",item.Id)
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

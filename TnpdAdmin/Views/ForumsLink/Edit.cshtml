@@ -1,0 +1,74 @@
+﻿@using TnpdModels
+@model TnpdModels.ForumsLink
+@{
+    Layout = "~/Views/Shared/_LayoutColorbox.cshtml";
+}
+@{
+    ViewBag.Title = "編輯";
+    string submitButton = Model.Id == 0 ? "新增" : "更新";
+}
+
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ForumsLink</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.ForumsLink>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <input type="hidden" name="ForumsId" value="@Model.ForumsId" />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LinkUrl)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LinkUrl,new { placeholder=ModelsAttributeHelper<TnpdModels.ForumsLink>.GetDisplayName("LinkUrl") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Target)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Target, new SelectList(Enum.GetValues(typeof(TnpdModels.TargetType))))
+            @Html.ValidationMessageFor(model => model.Target)
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="@(submitButton)" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    <script src="@Url.Content("~/CKfinder/ckfinder.js")" type="text/javascript"></script>
+    @if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Forums", new { id = ViewBag.ForumsId, type = "2" })';
+            });
+        </script>
+    }
+}

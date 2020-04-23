@@ -1,0 +1,832 @@
+﻿@{
+    Layout = null;
+}
+@using TnpdModels
+@using tnpd.Helpers
+@using tnpd.Models
+@{
+    string unid = ViewBag.UnId;
+    WebPresentation web = new WebPresentation("tnpd");
+
+    List<News> newse1 = ViewBag.newse1;
+    List<News> newse2 = ViewBag.newse2;
+    List<News> newse3 = ViewBag.newse3;
+    List<News> newse4 = ViewBag.newse4;
+
+	List<BigBanner> banners = ViewBag.banners;
+    List<HomeAd> homeAds = ViewBag.homeAds;
+    List<HomeLink> homeLinks = ViewBag.homeLinks;
+    List<HomeTheme> homeThemes = ViewBag.homeThemes;
+
+    Session["webstyle"] = "";
+
+    BackendContext _db = new BackendContext();
+    var sites = _db.WebSiteNames.Where(x => !x.Subject.Contains("英文版"));
+                            //var bpic = _db.Templates.FirstOrDefault(x => x.BeSelect == BooleanType.是).UpImageUrl;
+}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=11,chrome=1" >
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/style.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/dark.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/font-icons.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/animate.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/responsive.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/custom.css?a=12345" type="text/css" />
+    <link rel="stylesheet" href="/css/index.css?a=12345" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Document Title
+    ============================================= -->
+    <title>臺南市政府警察局全球資訊網</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="DC.Title" content="臺南市政府警察局-" />
+    <meta name="DC.Creator" content="臺南市政府警察局" />
+    <meta name="DC.Subject" content="臺南市政府警察局" />
+    <meta name="DC.Description" content="臺南市政府警察局" />
+    <meta name="DC.Contributor" content="臺南市政府警察局" />
+    <meta name="DC.Type" content="text/html" />
+    <meta name="DC.Format" content="text" />
+    <meta name="DC.Source" content="臺南市政府警察局" />
+    <meta name="DC.Language" content="中文" />
+    <meta name="DC.coverage.t.max" content="2018-12-25" />
+    <meta name="DC.coverage.t.min" content="2018-11-15" />
+    <meta name="DC.Publisher" content="臺南市政府警察局" />
+    <meta name="DC.Date" content="2018-08-16" />
+    <meta name="DC.Identifier" content="395130000C" />
+    <meta name="DC.Relation" content="tnpd" />
+    <meta name="DC.Rights" content="臺南市政府警察局" />
+</head>
+
+<body class="stretched no-transition">
+    <div id="fb-root"></div>
+
+    <a href="#main_content" title="跳到主要內容區塊" tabindex="1" class="sr-only sr-only-focusable">跳到主要內容區塊</a>
+    <!-- Document Wrapper
+============================================= -->
+    <div id="wrapper" class="clearfix">
+        <!-- Top Bar
+============================================= -->
+        <div id="top-bar">
+            <div class="container clearfix">
+                <div class="col_half fright col_last clearfix nobottommargin">
+                    <!-- Top Links
+            ============================================= -->
+                    <a href="#U" accesskey="U" name="U" class="alt-u d-none d-md-block" title="上方導覽區">:::</a>
+                    <div class="top-links">
+                        <ul>
+                            <li><a href="/" title="回首頁">回首頁</a></li>
+                            <li><a href="/Content/sitemap" title="網站導覽">網站導覽</a></li>
+                            <li><a href="/en/" title="English">English</a></li>
+                            <li><a href="/child/" title="兒童版">兒童版</a></li>
+                            <li class="d-none d-md-block"><a href="/Content/Article/91a66d05-1fcb-b391-2036-b081d2d9cfdb" title="雙語詞彙">雙語詞彙</a></li>
+                            <li class="d-none d-md-block"><a href="/about" title="相關連結">相關連結</a></li>
+                        </ul>
+                    </div>
+                    <!-- .top-links end -->
+                    <noscript>您的瀏覽器不支援script語法，請按鍵盤上的Ctrl鍵+ (+)鍵放大/(-)鍵縮小來改變字型大小。</noscript>
+                    <div id="divScriptFontChange" class="fontch d-none d-md-block">
+                        <ul>
+                            <li><a href="#" id="aSFont" title="小字級">A<sup>-</sup></a></li>
+                            <li><a href="#" id="aMFont" title="中字級" class="active">A</a></li>
+                            <li><a href="#" id="aLFont" title="大字級">A<sup>+</sup></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- #top-bar end -->
+        <!-- Header
+============================================= -->
+        <header id="header" class="sticky-style-2">
+            <div class="container clearfix">
+                <!-- Logo
+        ============================================= -->
+                <div id="logo">
+                    <a href="/" class="standard-logo" title="臺南市政府警察局">
+                        <img src="/images/logo.png" alt="臺南市政府警察局"></a>
+                    <a href="/" class="retina-logo" title="臺南市政府警察局">
+                        <img src="/images/logo@2x.png" alt="臺南市政府警察局"></a>
+                </div>
+                <!-- #logo end -->
+                <ul class="header-extras">
+                    <li>
+                        <div class="he-text">
+                           
+                                <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" class="form-cse-search">
+                                <div class="input-group divcenter">
+                                 <input id="q" type="text" class="form-control inputsear" placeholder="請輸入關鍵字" name="q" title="關鍵字搜尋" onfocus="this.value=''" onblur="if(!value){value=defaultValue;}">
+                                <label for="q" class="nonedisplay">關鍵字搜尋</label>
+                                <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
+                               <div class="input-group-append">
+                                    <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                                </div>
+                                </div>
+                            </form>
+                            
+                            <div class="inputlist">
+                                <div class="inputlist01">
+                                <a href="https://cse.google.com/cse?q=%E9%85%92%E9%A7%95&cx=011981164940829324463%3Auhxyg-yjrho" title="酒駕(另開視窗)" target="_blank">酒駕</a>, <a href="https://cse.google.com/cse?q=%E5%8F%8D%E8%A9%90%E9%A8%99&cx=011981164940829324463%3Auhxyg-yjrho" title="反詐騙(另開視窗)" target="_blank">反詐騙</a>,
+                                <a href="https://cse.google.com/cse?q=%E5%AE%B6%E6%9A%B4&cx=011981164940829324463%3Auhxyg-yjrho" title="家暴(另開視窗)" target="_blank">家暴</a>, <a href="https://cse.google.com/cse?q=%E5%A4%B1%E7%89%A9&cx=011981164940829324463%3Auhxyg-yjrho" title="失物(另開視窗)" target="_blank">失物,</a> <a href="https://cse.google.com/cse?q=%E8%B3%AD%E5%8D%9A&cx=011981164940829324463%3Auhxyg-yjrho" title="賭博(另開視窗)"  target="_blank">賭博</a>
+                                </div>
+                                <div class="inputlist02"><a href="https://www.google.com.tw/advanced_search?hl=zh-TW&as_sitesearch=https://www.tnpd.gov.tw" title="進階搜尋(另開視窗)" target="_blank"><i class="icon-angle-right"></i>進階搜尋</a></div>
+                            </div>
+                        </div>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
+            <div id="header-wrap">
+                <!-- Primary Navigation
+        ============================================= -->
+                <nav id="primary-menu" class="with-arrows style-2 center">
+                    <div class="container clearfix">
+                        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                        @Html.Raw(web.getAllMenu())
+                    </div>
+                </nav>
+                <!-- #primary-menu end -->
+            </div>
+        </header>
+        <!-- #header end -->
+        <!-- Page Title
+============================================= -->
+        <!-- #page-title end -->
+        <!-- Content
+============================================= -->
+        <section id="content">
+        <!-- 四季 indexslidbg_01(春3~5月) indexslidbg_02(夏6~8月) indexslidbg_03(秋9~11月) indexslidbg_04(冬12~2月) -->
+            @{
+                int month = DateTime.Now.Month;
+                string bannerClassName = "indexslidbg_01";
+                if (month == 3 || month==4 || month==5)
+                {
+                    bannerClassName= "indexslidbg_01";
+                }
+                if (month == 6 || month == 7 || month == 8)
+                {
+                    bannerClassName = "indexslidbg_02";
+                }
+                if (month == 9 || month == 10 || month == 11)
+                {
+                    bannerClassName = "indexslidbg_03";
+                }
+                if (month == 1 || month == 2 || month == 12)
+                {
+                    bannerClassName = "indexslidbg_04";
+                }
+                
+            }
+            <div class="content-wrap @bannerClassName padding60">
+                <div class="container clearfix">
+                    <div class="row">
+                        <div class="col-md-2 bannerleft indexadd d-none d-md-block d-xl-block ">
+                            <div class="indexaddlink01">
+                                <a href="/Report/Index/825cef9f-4043-7dc4-008a-87483c9e83be" title="網路報案"><i class="icon-comments-alt i-alt"></i></a>
+                                <span>網路報案</span>
+                            </div>
+                            <div class="indexaddlink02">
+                                <a href="/TrafficMailbox/Index/b591d651-e97c-70ae-1e46-b8b0a7d23064" title="交通檢舉"><i class="icon-line-camera i-alt"></i></a>
+                                <span>交通檢舉</span>
+                            </div>
+                            <div class="indexaddlink03">
+                                <a href="/TowAway/Index/6c1fe0a1-872e-d38a-49fa-5355c0d78e91" title="拖吊查詢"><i class="icon-display i-alt"></i></a>
+                                <span>拖吊查詢</span>
+                            </div>
+                        </div>
+                        <!--橫幅-->
+                        <div class="col-md-10 bannerright">
+                            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    @{
+                                        int i=1;
+                                    }
+                                    @foreach (BigBanner banner in banners)
+                                    {
+                                        <li data-target="#carouselExampleCaptions" data-slide-to="@i" class="active" title="@banner.Subject"><a class="bannera" href="#" title="@banner.Subject">@banner.Subject</a></li>
+                                        i++;
+                                    }
+
+
+                                </ol>
+                                <div class="carousel-inner">
+                                    @{
+                                         i=1;
+                                    }
+                                    @foreach (BigBanner banner in banners)
+                                    {
+                                        if (i == 1)
+                                        {
+                                            <div class="carousel-item active">
+                                                <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="carousel-item ">
+                                                <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                            </div>
+                                        }
+
+                                        i++;
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--END橫幅-->
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap" id="main_content">
+                <div class="container clearfix">
+                     <a href="#C" accesskey="C" class="alt-c01" name="C" title="中間主要內容區">:::</a>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="broderbox">
+                                <h3 class="index_title mb-3">警網相連</h3>
+                                <div class="row">
+                                    <div class="col-lg-12 ">
+                                        <div class="input-group ">
+                                            <select class="custom-select" id="unitlink1" name="unitlink1">
+                                                <option value="">分局網站</option>
+                                                <option value="/xinying">新營分局</option>
+                                                <option value="/baihe">白河分局</option>
+                                                <option value="/madou">麻豆分局</option>
+                                                <option value="/shanhua">善化分局</option>
+                                                <option value="/jiali">佳里分局</option>
+                                                <option value="/xuejia">學甲分局</option>
+                                                <option value="/xinhua">新化分局</option>
+                                                <option value="/guiren">歸仁分局</option>
+                                                <option value="/yongkang">永康分局</option>
+                                                <option value="/yujing">玉井分局</option>
+                                                <option value="/precinct1">第一分局</option>
+                                                <option value="/precinct2">第二分局</option>
+                                                <option value="/precinct3">第三分局</option>
+                                                <option value="/precinct4">第四分局</option>
+                                                <option value="/precinct5">第五分局</option>
+                                                <option value="/precinct6">第六分局</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="unitlink('1')" title="另開視窗">GO</button>
+                                            </div>
+                                        </div>
+                                        <noscript>
+                                            <div>
+                                                分局網站：<br>
+                                                <a href="/xinying" title="新營分局(另開視窗)" target="_blank">新營分局</a>/
+                                    <a href="/baihe" title="白河分局(另開視窗)" target="_blank">白河分局</a><br>
+                                                <a href="/madou" title="麻豆分局(另開視窗)" target="_blank">麻豆分局</a>/
+                                    <a href="/shanhua" title="善化分局(另開視窗)" target="_blank">善化分局</a><br>
+                                                <a href="/jiali" title="佳里分局(另開視窗)" target="_blank">佳里分局</a>/
+                                    <a href="/xuejia" title="學甲分局(另開視窗)" target="_blank">學甲分局</a><br>
+                                                <a href="/xinhua" title="新化分局(另開視窗)" target="_blank">新化分局</a>/
+                                    <a href="/guiren" title="歸仁分局(另開視窗)" target="_blank">歸仁分局</a><br>
+                                                <a href="/yongkang" title="永康分局(另開視窗)" target="_blank">永康分局</a>/
+                                    <a href="/yujing" title="玉井分局(另開視窗)" target="_blank">玉井分局</a><br>
+                                                <a href="/precinct1" title="第一分局(另開視窗)" target="_blank">第一分局</a>/
+                                    <a href="/precinct2" title="第二分局(另開視窗)" target="_blank">第二分局</a><br>
+                                                <a href="/precinct3" title="第三分局(另開視窗)" target="_blank">第三分局</a>/
+                                    <a href="/precinct4" title="第四分局(另開視窗)" target="_blank">第四分局</a><br>
+                                                <a href="/precinct5" title="第五分局(另開視窗)" target="_blank">第五分局</a>/
+                                    <a href="/precinct6" title="第六分局(另開視窗)" target="_blank">第六分局</a>
+                                            </div>
+                                        </noscript>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="line01"></div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="input-group ">
+                                            <select class="custom-select" id="unitlink2" name="unitlink2">
+                                                <option value="">直屬隊網站</option>
+                                                <option value="/cic">刑事警察大隊</option>
+                                                <option value="/traffic">交通警察大隊</option>
+                                                <option value="/pppc">保安警察大隊</option>
+                                                <option value="/jpb">少年警察隊</option>
+                                                <option value="/wpb">婦幼警察隊</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="unitlink('2')" title="另開視窗">GO</button>
+                                            </div>
+                                        </div>
+                                        <noscript>
+                                            <div>
+                                                直屬隊網站：<br>
+                                                <a href="/cic" title="刑事警察大隊(另開視窗)" target="_blank">刑事警察大隊</a>/
+                                    <a href="/traffic" title="交通警察大隊(另開視窗)" target="_blank">交通警察大隊</a><br>
+                                                <a href="/pppc" title="保安警察大隊(另開視窗)" target="_blank">保安警察大隊</a>/
+                                    <a href="/jpb" title="少年警察隊(另開視窗)" target="_blank">少年警察隊</a><br>
+                                                <a href="/wpb" title="婦幼警察隊(另開視窗)" target="_blank">婦幼警察隊</a>/
+                                            </div>
+                                        </noscript>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="line01"></div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="input-group ">
+                                            <select class="custom-select" id="unitlink3" name="unitlink3">
+                                                <option value="">相關專區網站</option>
+                                                <option value="/mvop">警光山莊</option>
+                                                <option value="/safe">社區治安服務網</option>
+
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="unitlink('3')" title="另開視窗">GO</button>
+                                            </div>
+                                        </div>
+                                        <noscript>
+                                            <div>
+                                                相關專區網站：<br>
+                                                <a href="/mvop" title="警光山莊(另開視窗)" target="_blank">警光山莊</a>/
+                                    <a href="/safe" title="社區治安服務網(另開視窗)" target="_blank">社區治安服務網</a>
+                                            </div>
+                                        </noscript>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box01">
+                                        <div class="fbox-icon fbox-icon01">
+                                            <a href="/Article/d50c22e4-fb47-69cc-e33a-795e2bc87aac" title="E化服務查詢"><i class="icon-line-zoom-in i-alt"></i></a>
+                                        </div>
+                                        <h3>E化服務查詢</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box02">
+                                        <div class="fbox-icon fbox-icon02">
+                                            <a href="/News/9d45c10f-5ee5-0c25-408f-ac504ded48bb/21" title="警政統計"><i class="icon-bars i-alt"></i></a>
+                                        </div>
+                                        <h3>警政統計</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box03">
+                                        <div class="fbox-icon fbox-icon03">
+                                            <a href="/News/05f7e717-4261-3df2-77bd-2de656ac98ae/14" title="表單下載"><i class="icon-cloud-download i-alt"></i></a>
+                                        </div>
+                                        <h3>表單下載</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box04">
+                                        <div class="fbox-icon fbox-icon04">
+                                            <a href="/News/429f4276-b1d5-50f2-d997-99cead1afe75/18" title="政府公開資訊"><i class="icon-line2-globe i-alt"></i></a>
+                                        </div>
+                                        <h3>政府公開資訊</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box05">
+                                        <div class="fbox-icon fbox-icon05">
+                                            <a href="/Directory/547649a8-cfa6-5d7b-d3e8-0c2927517d4d" title="線上申辦"><i class="icon-screen i-alt"></i></a>
+                                        </div>
+                                        <h3>線上申辦</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box06">
+                                        <div class="fbox-icon fbox-icon06">
+                                            <a href="/News/86d87683-4948-e9b9-e947-8ccde8fc9db5/58" title="常見問答"><i class="icon-comments-alt i-alt"></i></a>
+                                        </div>
+                                        <h3>常見問答</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="broderbox01">
+                                <div class="testi-image01 col-md-12 text-center ">
+                                    <a href="#" title="局長 黃宗仁">
+                                        <img src="/images/new/1.jpg" alt="局長 黃宗仁" class="image_fade"></a>
+                                </div>
+                                <div class="testi-content01 col-md-12 text-center">
+                                    <h4>局長 黃宗仁</h4>
+                                    <div class="testi-meta01">
+                                        <a href="/ChiefMailbox/Index/4b0a8176-a08d-60a4-b25f-cbb95e009897" title="局長信箱"><i class="icon-line-mail"></i> 局長信箱</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap indexbg01">
+                <div class="container clearfix">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="tabs clearfix mb-1" id="tab-2">
+                                <ul class="tab-nav clearfix" id="tabNewHeader">
+                                    <li><a href="#tabs-news-1" title="最新消息">最新消息</a></li>
+                                    <li><a href="#tabs-news-2" title="破案報導">破案報導</a></li>
+                                    <li style="display:none"><a href="#tabs-news-3" title="榮譽榜" >榮譽榜</a></li>
+                                    <li><a href="#tabs-news-4" title="好人好事">好人好事</a></li>
+                                </ul>
+                                <div class="tab-container">
+                                    <noscript>
+                                        <ul class="tab-nav-noscript">
+                                            <li><a href="#" title="最新消息">最新消息</a></li>
+                                        </ul>
+                                    </noscript>
+                                    <div class="tab-content clearfix" id='tabs-news-1'>
+                                        <div class="row">
+                                            @{
+                                                var fistRow1 = newse1.FirstOrDefault();
+                                            }
+                                            @if (fistRow1 != null )
+                                            {
+                                                var row = fistRow1.NewsImagses.FirstOrDefault();
+                                                <div class="col-lg-6">
+                                                    <div class="i_newbox">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                @if (fistRow1.NewsImagses.Count > 0)
+                                                                {
+                                                                    <img src="@row.UpFile" alt="@row.Subject">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="/images/newsphoto.jpg" alt="台南市警察局外觀圖">
+                                                                }
+                                                               
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <h4><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow1.Id, sClass = 1, unid = "a71f1b44-1f96-8a48-caa5-fe08e13047ee" })))" title="@fistRow1.Subject">@fistRow1.Subject</a></h4>
+                                                                <p>
+                                                                    <i class="icon-time"></i>@UIUtility.Date2RocFormat(fistRow1.StartDate)
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow1.Article), 100)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                newse1.Remove(fistRow1);
+                                            }
+
+                                            <!---->
+                                            <div class="col-lg-6">
+                                                <div class="i_newbox">
+                                                    <ul>
+                                                        @foreach (News news in newse1)
+                                                        {
+                                                            <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 1, unid = "a71f1b44-1f96-8a48-caa5-fe08e13047ee" })))" title="@news.Subject"><span>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject</a></li>
+                                                           
+                                                        }
+
+
+                                                    </ul>
+                                                    <div class="newmore">
+                                                        <a title="了解更多" class="more" href="/News/a71f1b44-1f96-8a48-caa5-fe08e13047ee/1"><i class="icon-chevron-right"></i>More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <noscript>
+                                        <ul class="tab-nav-noscript">
+                                            <li><a href="#" title="破案報導">破案報導</a></li>
+                                        </ul>
+                                    </noscript>
+                                    <div class="tab-content clearfix" id='tabs-news-2'>
+                                        <div class="row">
+                                            @{
+                                                var fistRow2 = newse2.FirstOrDefault();
+                                            }
+                                            @if (fistRow2 != null)
+                                            {
+                                                var row = fistRow2.NewsImagses.FirstOrDefault();
+                                                <div class="col-lg-6">
+                                                    <div class="i_newbox">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                @if (fistRow2.NewsImagses.Count > 0)
+                                                                {
+                                                                    <img src="@row.UpFile" alt="@row.Subject">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="/images/newsphoto.jpg" alt="台南市警察局外觀圖">
+                                                                }
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <h4><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 3, unid = "9243c1a5-f30d-4b51-3dcc-dc27d436aa49" })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h4>
+                                                                <p>
+                                                                    <i class="icon-time"></i>@UIUtility.Date2RocFormat(fistRow2.StartDate)
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 100)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                newse2.Remove(fistRow2);
+                                            }
+
+                                            <!---->
+                                            <div class="col-lg-6">
+                                                <div class="i_newbox">
+                                                    <ul>
+                                                        @foreach (News news in newse2)
+                                                        {
+                                                            <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 3, unid = "9243c1a5-f30d-4b51-3dcc-dc27d436aa49" })))" title="@news.Subject"><span>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject</a></li>
+                                                           
+                                                        }
+
+
+                                                    </ul>
+                                                    <div class="newmore">
+                                                        <a title="了解更多" class="more" href="/News/9243c1a5-f30d-4b51-3dcc-dc27d436aa49/3"><i class="icon-chevron-right"></i>More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <noscript>
+                                        <ul class="tab-nav-noscript">
+                                            <li><a href="#" title="榮譽榜">榮譽榜</a></li>
+                                        </ul>
+                                    </noscript>
+                                    <div class="tab-content clearfix" id='tabs-news-3'>
+                                        <div class="row">
+                                            @{
+                                                var fistRow3 = newse3.FirstOrDefault();
+                                            }
+                                            @if (fistRow3!=null)
+                                            {
+                                                var row = fistRow3.NewsImagses.FirstOrDefault();
+                                                <div class="col-lg-6">
+                                                    <div class="i_newbox">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                @if (fistRow3.NewsImagses.Count > 0)
+                                                                {
+                                                                    <img src="@row.UpFile" alt="@row.Subject">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="/images/newsphoto.jpg" alt="台南市警察局外觀圖">
+                                                                }
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <h4><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow3.Id, sClass = 5, unid = "d4f56bb7-c784-3f13-5564-3f0bfc07446b" })))" title="@fistRow3.Subject">@fistRow3.Subject</a></h4>
+                                                                <p>
+                                                                    <i class="icon-time"></i>@UIUtility.Date2RocFormat(fistRow3.StartDate)
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow3.Article), 100)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                newse3.Remove(fistRow3);
+                                            }
+                                            <!---->
+                                            <div class="col-lg-6">
+                                                <div class="i_newbox">
+                                                    <ul>
+                                                        @foreach (News news in newse3)
+                                                        {
+                                                            <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 5, unid = "d4f56bb7-c784-3f13-5564-3f0bfc07446b" })))" title="@news.Subject"><span>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject</a></li>
+                                                           
+                                                        }
+                                                    </ul>
+                                                    <div class="newmore">
+                                                        <a title="了解更多" class="more" href="/News/d4f56bb7-c784-3f13-5564-3f0bfc07446b/5"><i class="icon-chevron-right"></i>More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <noscript>
+                                        <ul class="tab-nav-noscript">
+                                            <li><a href="#" title="好人好事">好人好事</a></li>
+                                        </ul>
+                                    </noscript>
+                                    <div class="tab-content clearfix" id='tabs-news-4'>
+                                        <div class="row">
+                                            @{
+                                                var fistRow4 = newse4.FirstOrDefault();
+                                            }
+                                            @if (fistRow4 != null)
+                                            {
+                                                var row = fistRow4.NewsImagses.FirstOrDefault();
+                                                <div class="col-lg-6">
+                                                    <div class="i_newbox">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                @if (fistRow4.NewsImagses.Count > 0)
+                                                                {
+                                                                    <img src="@row.UpFile" alt="@row.Subject">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="/images/newsphoto.jpg" alt="台南市警察局外觀圖">
+                                                                }
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <h4><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow4.Id, sClass = 6, unid = "42796c89-aaf0-5e88-aff2-7d742f532943" })))" title="@fistRow4.Subject">@fistRow4.Subject</a></h4>
+                                                                <p>
+                                                                    <i class="icon-time"></i>@UIUtility.Date2RocFormat(fistRow4.StartDate)
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow4.Article), 100)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                newse4.Remove(fistRow4);
+                                            }
+                                            <!---->
+                                            <div class="col-lg-6">
+                                                <div class="i_newbox">
+                                                    <ul>
+                                                        @foreach (News news in newse4)
+                                                        {
+                                                            <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 6, unid = "42796c89-aaf0-5e88-aff2-7d742f532943"})))" title="@news.Subject"><span>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject</a></li>
+                                                           
+                                                        }
+                                                    </ul>
+                                                    <div class="newmore">
+                                                        <a title="了解更多" class="more" href="/News/42796c89-aaf0-5e88-aff2-7d742f532943/6"><i class="icon-chevron-right"></i>More</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <script>
+                                (function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.1';
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+                            </script>
+                            <div class="facebox">
+                                <a class="facebook" href="https://www.facebook.com/tnpdchief/">FACEBOOK</a>
+                                <div class="fb-page" data-href="https://www.facebook.com/tnpdchief/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-width="500" data-height="270">
+                                    <blockquote cite="https://www.facebook.com/tnpdchief/" class="fb-xfbml-parse-ignore" xml:lang="zh"><a href="https://www.facebook.com/tnpdchief/" title="阿仁局長室_粉絲專頁(另開視窗)" target="_blank">阿仁局長室_粉絲專頁</a></blockquote>
+                                </div>
+                                <div style="padding-top: 15px;">
+                                <div class="fb-page" data-href="https://www.facebook.com/tnpd.gov.tw/" data-tabs="timeline" data-width="500" data-height="270" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                            <blockquote cite="https://www.facebook.com/tnpd.gov.tw/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/tnpd.gov.tw/" title="臺南市政府警察局_粉絲專頁">臺南市政府警察局_粉絲專頁</a></blockquote></div>
+                            </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="container clearfix">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="link_title">
+                                <h4 class="mb-3">相關連結</h4>
+                                <div class="newmore newmore_l">
+                                    <a title="更多相關連結" class="more" href="/Home/HomeLink"><i class="icon-chevron-right"></i>More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="oc-clients" class="owl-carousel image-carousel carousel-widget" data-margin="20" data-nav="false" data-pagi="true" data-items-xs="2" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="5">
+                                @foreach (HomeLink link in homeLinks)
+                                {
+       <div class="oc-item"><a href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
+                                    <img src="@link.UpImage" alt="@link.Subject"></a></div>
+                                }
+                           
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #content end -->
+        <!-- Footer
+============================================= -->
+        <footer id="footer">
+            <div class="container d-none d-md-block">
+                <!-- Footer Widgets
+        ============================================= -->
+                <div class="text-center footercollapse">
+                    <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;">展開/收合</span></a>
+                </div>
+                <div class="collapse show" id="collapseExample">
+                    <div class="footer-widgets-wrap clearfix">
+                        <div class="row">
+
+                            @Html.Raw(web.getfootMenu())
+                        </div>
+                    </div>
+                </div>
+                <!-- .footer-widgets-wrap end -->
+            </div>
+            <!-- Copyrights
+    ============================================= -->
+            <div id="copyrights" class="dark">
+                <div class="container clearfix">
+                    <div class="d-none d-md-block"><a href="#Z" title="下方功能區塊" accesskey="Z" name="Z" class="alt-c01">:::</a></div>
+                    <div class="col_half">
+                        <ul class="crul">
+                            <li class="li01"><a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" title="隱私權保護政策">隱私權保護政策</a> | <a href="/Article/41fc069c-2222-676b-a6cf-ff552b9836d2" title="網站安全政策">網站安全政策</a> | <a href="/Article/412894e9-5b63-bbd5-29ef-a93a549cb0bb" title="政府網站資料開放宣告">政府網站資料開放宣告</a>| <a href="/Article/5bdf7e5d-97e0-7451-1d90-338d8b57082a" title="資訊安全政策">資訊安全政策</a> </li>
+                            <li>地址：73049 臺南市新營區中正路3號 ( <a href="/Article/dce56c38-82f2-6215-2b4d-8404fc41e25b" title="73049 臺南市新營區中正路3號"><i class="icon-map-marker"></i>位置圖</a> )</li>
+                            <li>總機：(06)632-2210、(06)632-2140 ( 警局總機只能撥入不能撥出 )</li>
+                            <li>臺南市政府警察局 版權所有 © 2018</li>
+                            <li class="d-none d-md-block">建議使用IE10.0 以上或Edge、Firefox、Chrome 瀏覽器，最佳瀏覽解析度為1024*768</li>
+
+                        </ul>
+                    </div>
+                    <div class="col_half col_last tright ">
+                        <ul class="crul01 d-none d-md-block">
+                            <li><a href="#" title="無障礙網站(另開視窗)" target="_blank">
+                                <img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                            <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank">
+                                <img src="/images/new/footer002.png" alt="我的E政府"></a></li>
+                            <li class="d-none d-sm-block">
+                                <img src="/images/new/footer003.jpg" alt="QR Code"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #copyrights end -->
+        </footer>
+        <!-- #footer end -->
+    </div>
+    <!-- #wrapper end -->
+    <!-- Go To Top
+============================================= -->
+    <div id="gotoTop" class="icon-angle-up" title="回最上方"></div>
+    <!-- External JavaScripts
+============================================= -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/plugins.js"></script>
+    <!-- Footer Scripts
+============================================= -->
+    <script src="/js/functions.js"></script>
+    <script src="/js/fontsize.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(window).bind('hashchange', function () {
+                var hash = "#" + window.location.hash.replace(/^#/, '');
+                if (hash != "#") {
+                    $(hash).attr('tabindex', -1).on('blur focusout', function () {
+                        $(this).removeAttr('tabindex');
+                    }).focus().yellowFade();
+                } else {
+                    $("#headcontainer").attr('tabindex', -1).on('blur focusout', function () {
+                        $(this).removeAttr('tabindex');
+                    }).focus();
+                }
+            });
+        });
+        function unitlink(k) {
+            var obj = "document.getElementById('unitlink" + k + "')";
+            uniturl = eval(obj).value;
+            if (uniturl == '') {
+                alert("請先選擇網站！");
+            } else {
+                window.open(uniturl);
+            }
+        }
+    </script>
+    <script src="js/publib.js"></script>
+    <script src="js/custom.js"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544581-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131544581-1');
+</script>
+</body>
+
+</html>

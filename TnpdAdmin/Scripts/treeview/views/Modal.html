@@ -1,0 +1,62 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+
+      
+    <form class="form-horizontal" name="webnode" role="form">
+      <div class="col-sm-12 form-group">
+        請選擇類型：
+        <select ng-model="type" ng-disabled="editData" ng-options="c.Subject for c in nodeType">
+         
+        </select>
+  
+      </div>
+      <div  class="col-sm-12 form-group">
+        請輸入名稱：
+        <input type="text" ng-model="name" required>
+      </div>
+      <div  class="col-sm-12 form-group">
+        分類檢索群組：
+        <select ng-model="group"  ng-options="c.Subject for c in metaIndex" >
+        </select>
+      </div>
+      <div  class="col-sm-12 form-group" ng-show="type.DataType=='text-Publish'">
+        請輸入動態訊息類別：
+        <select ng-model="Catalog" ng-options="c.Subject for c in newsCatalog" >
+        </select>
+      </div>
+      <div class="col-sm-12 form-group">
+      
+        是否顯示： 
+        <select type="checkbox" ng-model="visible">
+          <option value="1">是</option>  
+          <option value="0">否</option>
+        </select>
+     
+      </div>
+      <div class="col-sm-12 form-group" ng-show="type.DataType=='text-Link'">
+      
+        網址連結： 
+        <input type="text" ng-model="Link"> 開啟位置：<select ng-options="c.name for c in TargetAry" ng-model="Target">
+        </select>
+     
+      </div>
+      <div class="col-sm-12 form-group" ng-show="type.DataType=='text-Edit'">
+        <textarea  ckeditor="editorOptions" name="editor" ng-model="ckContent" ng-change="save()"></textarea>
+      </div>
+
+    </form>
+
+      </div>
+      <div class="modal-footer text-center" style="border:none">
+        <button type="button" ng-click="close()"  class="btn btn-primary" data-dismiss="modal" ng-disabled="webnode.$invalid">送出</button>
+        <button type="button" ng-click="cancel()" class="btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

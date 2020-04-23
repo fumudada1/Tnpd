@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AEDCA091-B3B3-4669-B185-00A3DAB06B59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TnpdModels</RootNamespace>
+    <AssemblyName>TnpdModels</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutLink.cs" />
+    <Compile Include="AboutLinkCatalog.cs" />
+    <Compile Include="BackendBase.cs" />
+    <Compile Include="BackendContext.cs" />
+    <Compile Include="BigBanner.cs" />
+    <Compile Include="Case.cs" />
+    <Compile Include="CaseFilters.cs" />
+    <Compile Include="CasePoproc.cs" />
+    <Compile Include="CasePoprocLog.cs" />
+    <Compile Include="CaseTrafficPoproc.cs" />
+    <Compile Include="CaseTrafficPoprocLog.cs" />
+    <Compile Include="CaseTrafficqw.cs" />
+    <Compile Include="Casewq.cs" />
+    <Compile Include="EnumList.cs" />
+    <Compile Include="Ese.cs" />
+    <Compile Include="EseCatalog.cs" />
+    <Compile Include="EseFile.cs" />
+    <Compile Include="FontSize.cs" />
+    <Compile Include="Holiday.cs" />
+    <Compile Include="HomeAd.cs" />
+    <Compile Include="HomeLink.cs" />
+    <Compile Include="HomeTheme.cs" />
+    <Compile Include="Member.cs" />
+    <Compile Include="MetaIndex.cs" />
+    <Compile Include="Migrations\202004210216192_init.cs" />
+    <Compile Include="Migrations\202004210216192_init.Designer.cs">
+      <DependentUpon>202004210216192_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210220546_BigBinnerLink.cs" />
+    <Compile Include="Migrations\202004210220546_BigBinnerLink.Designer.cs">
+      <DependentUpon>202004210220546_BigBinnerLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004210251301_addCaseFiles.cs" />
+    <Compile Include="Migrations\202004210251301_addCaseFiles.Designer.cs">
+      <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelsAttributeHelper.cs" />
+    <Compile Include="News.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewsCatalog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewsFiles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewsImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewsLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PoprocsSubType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="StationInfo.cs" />
+    <Compile Include="StationInfoFIles.cs" />
+    <Compile Include="Statistics.cs" />
+    <Compile Include="SysMenu.cs" />
+    <Compile Include="SystemLog.cs" />
+    <Compile Include="Template.cs" />
+    <Compile Include="Town.cs" />
+    <Compile Include="TrafficDepartmentdetail.cs" />
+    <Compile Include="Trafficdisdata.cs" />
+    <Compile Include="TrafficMailCheck.cs" />
+    <Compile Include="TrafficRegion.cs" />
+    <Compile Include="TrafficRoaddata.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="Village.cs" />
+    <Compile Include="TrafficViolationsClass.cs" />
+    <Compile Include="TrafficViolationsRejectclass.cs" />
+    <Compile Include="Wanda.cs" />
+    <Compile Include="WayPoint.cs" />
+    <Compile Include="WebArticle.cs" />
+    <Compile Include="WebNewsCatalog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebNode.cs" />
+    <Compile Include="WebSiteColor.cs" />
+    <Compile Include="WebSiteName.cs" />
+    <Compile Include="CaseTraffic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004210216192_init.resx">
+      <DependentUpon>202004210216192_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210220546_BigBinnerLink.resx">
+      <DependentUpon>202004210220546_BigBinnerLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004210251301_addCaseFiles.resx">
+      <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

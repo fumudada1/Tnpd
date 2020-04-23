@@ -1,0 +1,82 @@
+﻿@using TnpdModels
+@model TnpdModels.NewsLink
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "新增";
+
+}
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+
+@{
+    if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "News", new { id = ViewBag.NewsId, type = "2" })';
+            });
+        </script>
+    }
+    
+      
+    }
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>NewsLink</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.NewsLink>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+        <input type="hidden" name="NewId" value="@ViewBag.NewsId"/>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LinkUrl)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LinkUrl,new { placeholder=ModelsAttributeHelper<TnpdModels.NewsLink>.GetDisplayName("LinkUrl") })
+            @Html.ValidationMessageFor(model => model.LinkUrl)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Target)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Target, new SelectList(Enum.GetValues(typeof(TnpdModels.TargetType))))
+            @Html.ValidationMessageFor(model => model.Target)
+       
+            
+        </div>
+
+             @Html.Hidden("ListNum","0")
+        <p>
+            <input type="submit" value="新增" class="btn-button"  />
+        </p>
+    </fieldset>
+}
+
+

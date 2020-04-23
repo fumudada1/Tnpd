@@ -1,0 +1,25 @@
+﻿
+
+@using System.Xml
+@using tnpd.Models
+@{
+    List<NodeLink> nodeLinks = ViewBag.nodeLinks;
+}
+
+<div class="row">
+    <div class="col-12">
+
+    <div class="alertlist">
+
+   
+@foreach (var link in nodeLinks)
+{
+    <div class="alert alert-preset">
+        <a href="@link.url" target="@link.Target" title="@link.title">@link.Tooltip</a>
+    </div>
+}
+
+</div>
+                                
+    </div>
+</div>

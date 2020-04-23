@@ -1,0 +1,85 @@
+﻿@using TnpdModels
+@model TnpdModels.MetaIndex
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2>編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>MetaIndex</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.MetaIndex>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Theme)
+        </div>
+        <div class="editor-field">
+             <div id="treeTheme"></div>
+
+          @Html.HiddenFor(model => model.Theme)
+          @Html.HiddenFor(model => model.ThemeName)
+        </div>
+
+        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cake)
+        </div>
+        <div class="editor-field">
+             <div id="treeCake"></div>
+            @Html.HiddenFor(model => model.Cake)
+            @Html.HiddenFor(model => model.CakeName)
+        </div>
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Service)
+        </div>
+        <div class="editor-field">
+            <div id="treeService"></div>
+            @Html.HiddenFor(model => model.Service)
+           @Html.HiddenFor(model => model.ServiceName)
+        </div>
+
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("回列表", "Index")
+</div>
+
+@section Scripts {
+    @* @Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/jquery-ui.custom.js" type="text/javascript"></script>
+
+
+    <link href="~/Content/themes/base/skin/ui.dynatree.css" rel="stylesheet" type="text/css" id="skinSheet">
+    <script src="~/Scripts/jquery.dynatree.js" type="text/javascript"></script>
+    <script src="~/MetaIndex/TreeScript/@Model.Id" type="text/javascript"></script>
+
+
+}

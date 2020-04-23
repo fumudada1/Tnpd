@@ -1,0 +1,396 @@
+﻿@{
+    ViewBag.Title = "歡迎使用管理系統";
+}
+<style>
+    a {
+        text-decoration: underline;color: white;
+    }
+</style>
+<h2>歡迎使用管理系統</h2>
+
+<div style="width: 100%">
+    <div style="width: 150px; padding: 5px; float: left;">
+        <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+            承辦人<br />
+            作業
+        </div>
+        <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+            <a href="/Case/Process" >@ViewBag.c71</a>
+        </div>
+    </div>
+    <div style="width: 150px; padding: 5px; float: left;">
+        <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+            交通承辦人<br />
+            作業
+        </div>
+        <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+            <a href="/CaseTraffics/Process">@ViewBag.c81</a>
+        </div>
+    </div>
+
+
+
+</div>
+<div style="clear: both"></div>
+<div style="width: 100%">
+    @if (ViewBag.c11!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Assign?pclass=1">@ViewBag.c11</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c12!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Goback?pclass=1">@ViewBag.c12</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c13!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Close?pclass=1">@ViewBag.c13</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c14!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Extension?pclass=1">@ViewBag.c14</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c15!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                單位改派
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/UnitAssign?pclass=1">@ViewBag.c15</a>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+
+
+</div>
+
+<div style="clear: both"></div>
+<div style="width: 100%">
+    @if (ViewBag.c21!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Assign?pclass=1">@ViewBag.c21</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c22!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Goback?pclass=1">@ViewBag.c22</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c23!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Close?pclass=1">@ViewBag.c23</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c24!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                首長信箱<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Extension?pclass=1">@ViewBag.c24</a>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+
+</div>
+
+<div style="clear: both"></div>
+<div>
+    @if (ViewBag.c3!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                交通檢舉信箱<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/CaseTraffics/Assign">@ViewBag.c31</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c32!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                交通檢舉信箱<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/CaseTraffics/Goback">@ViewBag.c32</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c33!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                交通檢舉信箱<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/CaseTraffics/Close">@ViewBag.c33</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c34!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                交通檢舉信箱<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/CaseTraffics/Extension">@ViewBag.c34</a>
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+
+
+
+
+</div>
+<div style="clear: both"></div>
+<div>
+    @if (ViewBag.c41!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                檢舉貪瀆信箱<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Assign?pclass=2">@ViewBag.c41</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c42!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                檢舉貪瀆信箱<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Goback?pclass=2">@ViewBag.c42</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c43!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                檢舉貪瀆信箱<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Close?pclass=2">@ViewBag.c43</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c44!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                檢舉貪瀆信箱<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Extension?pclass=2">@ViewBag.c44</a>
+            </div>
+        </div>
+    }
+
+</div>
+<div style="clear: both"></div>
+<div>
+    @if (ViewBag.c51!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                網路報案案件<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Assign?pclass=3">@ViewBag.c51</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c52!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                網路報案案件<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Goback?pclass=3">@ViewBag.c52</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c53!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                網路報案案件<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Close?pclass=3">@ViewBag.c53</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c54!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                網路報案案件<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Extension?pclass=3">@ViewBag.c54</a>
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+
+
+
+
+</div>
+<div style="clear: both"></div>
+<div>
+    @if (ViewBag.c61!=null)
+    {
+  
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                婦幼安全警示地點<br />
+                派案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Assign?pclass=4">@ViewBag.c61</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c62!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                婦幼安全警示地點<br />
+                退文派案
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Goback?pclass=4">@ViewBag.c62</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c63!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                婦幼安全警示地點<br />
+                結案作業
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Close?pclass=4">@ViewBag.c63</a>
+            </div>
+        </div>
+    }
+    @if (ViewBag.c64!=null)
+    {
+        <div style="width: 150px; padding: 5px; float: left;">
+            <div style="text-align: center; background-color: #9fdfe9; padding: 5px;">
+                婦幼安全警示地點<br />
+                展期案件審核
+            </div>
+            <div style="text-align: center; background-color: #06a4ef; padding: 10px">
+                <a href="/Case/Extension?pclass=4">@ViewBag.c64</a>
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+</div>

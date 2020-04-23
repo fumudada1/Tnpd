@@ -1,0 +1,36 @@
+﻿@model TnpdModels.News
+
+<div class="row">
+    <div class="col-12">
+
+        <h4 class="h4title">@Model.Subject</h4>
+
+        <dl class="row dl-text text-left">
+           
+            <dt class="col-md-2">Answer :</dt>
+            <dd class="col-md-10">
+                @Html.Raw(Model.Article)
+            </dd>
+        </dl>
+
+        <!---file--->
+        @if (Model.NewsFileses.Count > 0)
+        {
+             <div class="mb-2"><i class="icon-line-paper-clip"></i> Relation file
+            <ul class="ullink">
+                @foreach (var file in Model.NewsFileses)
+                {
+                    var fileName = file.UpFile.Split('.');
+                    
+                    <li><a href="@file.UpFile" title="@(file.Subject).@fileName[fileName.Length-1] (Open New Window)">@file.Subject</a></li>
+                }
+              
+            </ul>
+        </div>
+        }
+       
+
+    </div>
+</div>
+
+

@@ -1,0 +1,158 @@
+﻿@model TnpdModels.Forums
+
+@{
+    ViewBag.Title = "內容";
+}
+
+<h2>@string.Format("<{0}>{1}" ,Model.Catalogs.Title, Model.Title)</h2>
+
+<fieldset>
+    <legend>Forums</legend>
+
+    <div class="display-label" style="display:none">
+        類別
+    </div>
+    <div class="display-field" style="display:none">
+        @Html.DisplayFor(model => model.Catalogs.Title)
+    </div>
+
+
+    <div class="display-label" style="display:none">
+        @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field" style="display:none">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+<table class="table" style="width:800px">   
+<tr>    
+<th style="width:100px">
+        @Html.DisplayNameFor(model => model.Title)
+    
+</th>
+<td>
+        @Html.DisplayFor(model => model.Title)
+    
+</td>
+<th style="width:100px">
+        @Html.DisplayNameFor(model => model.StartDate)
+    
+</th>
+<td>
+        @Html.DisplayFor(model => model.StartDate)        
+</td>
+</tr>
+<tr>    
+<th>
+        @Html.DisplayNameFor(model => model.Poster)
+    
+</th>
+<td>
+        
+        @Html.DisplayFor(model => model.Poster)
+    
+</td>
+<th>
+      發布日期
+    
+</th>
+<td>
+        @Html.DisplayFor(model => model.InitDate)
+    
+</td>
+</tr>
+<tr>    
+<th>    
+        @Html.DisplayNameFor(model => model.Article)
+
+</th>
+<td colspan="3">    
+        @Html.Raw(Model.Article)
+
+</td>
+</tr>
+<tr>    
+<th>相關檔案    </th>
+<td colspan="3">    
+@foreach (var file in Model.ForumsFileses.OrderBy(o=>o.ListNum))
+        {   
+            <li><a href="@Url.Content(file.UpFile)" target="_blank">@file.Subject</a></li>
+        }
+</td>
+</tr>
+<tr>    
+<th>    
+        相關連結
+
+</th>
+<td colspan="3">
+    
+     @foreach (var link in Model.ForumsLinks.OrderBy(o => o.ListNum))
+        {
+            <li><a href="@Url.Content(link.LinkUrl)" target="@(link.Target == TnpdModels.TargetType.另開視窗 ? "_blank" : "")">@link.Subject</a></li>
+        }
+</td>
+</tr>
+</table>
+
+</fieldset>
+<div>
+
+        @{
+            int i = 1;
+            foreach (var item in Model.ForumsReplys.OrderBy(o=>o.Id))
+            {
+                
+                        <table class="table"  style="width:800px">
+                            <tr>
+                                <td STYLE='WIDTH:200PX'>
+                                    <EM style="font-weight:bold">名稱：</EM>@(i++)F - @Html.DisplayFor(model=>item.Poster)
+                                </td>
+                                <td>
+                                    <EM style="font-weight:bold">發文日期：</EM>@item.ReplyDate
+                                </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2">@Html.Raw(item.Article)</td>
+                            </tr>
+                        </table>
+
+            }
+        }
+
+    <br /><br />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="editor-label">
+            <label for="ReplyArticle"> 回覆內容</label>
+        </div>		
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.Id)
+            @Html.TextArea("ReplyArticle", new { @class = "ckeditor"})
+        </div>
+        <p>           
+            <input type="submit" value="回覆" class="btn-button" />
+        </p>
+    }
+</div>
+
+
+<p>
+    @Html.ActionLink("回列表", "Index", new { Page = -1 })
+</p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/CKfinder/ckfinder.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).bind('cbox_closed', function () {
+            location.reload();
+        });
+    </script>
+}

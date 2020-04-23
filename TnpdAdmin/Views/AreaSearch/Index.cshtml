@@ -1,0 +1,101 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.AreaSearch>
+
+@{
+    ViewBag.Title = "警勤區查詢服務列表";
+}
+
+<h2>警勤區查詢服務列表</h2>
+
+<div class="top">
+    @Html.ActionLink("新增", "Create",null,new { @class = "btn btn-primary" })
+</div>
+
+    @using (Html.BeginForm())
+{
+<div class="search">
+發布日期：<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/>
+                <br>
+                     分　　局：@Html.DropDownList("SearchByWebSiteId", (IEnumerable<SelectListItem>)ViewBag.WebSiteId, "請選擇") <br>
+    <span style="display: none"> @Html.DisplayNameFor(model => model.FirstOrDefault().MetaId)：@Html.DropDownList("SearchByMetaId", (IEnumerable<SelectListItem>)ViewBag.MetaId, "請選擇") </span>  
+        	 所　　名：@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) <input type="submit" class="btn-button" value="搜尋" />
+    </div>
+
+
+    
+}
+    @using (Html.BeginForm("Export",null))
+{
+<div class="search">
+<input type="submit" value="匯出" name="btnExport" class="btn-button">
+    </div>
+
+
+    
+}
+
+
+<table class="table table-v">
+    <tr>
+         <th width="13%">
+            分局
+        </th>
+        <th width="13%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+
+       
+    
+        <th width="13%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Telphone)
+        </th>
+        
+
+        <th width="13%">功能</th>
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.WebSite.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+       
+     
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Telphone)
+        </td>
+
+
+        <td>
+            @Html.ActionLink("編輯", "Edit", new {id = item.Id}, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+            @Html.ActionLink("刪除", "Delete", new {id = item.Id}, new { @class = "btn btn-primary" })
+            @Html.Hidden("ID", item.Id)
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

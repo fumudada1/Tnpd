@@ -1,0 +1,37 @@
+﻿
+@model TnpdModels.SystemLog
+
+@{
+    ViewBag.Title = "網頁維護紀錄內容";
+}
+
+<h2>網頁維護紀錄內容</h2>
+
+<fieldset>
+    <legend>SystemLog</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" value="回到上一頁" />
+</p>

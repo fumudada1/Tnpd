@@ -1,0 +1,55 @@
+﻿@model TnpdModels.Ese
+
+<div class="row">
+    <div class="col-12">
+
+        <h4 class="h4title">@Model.Subject</h4>
+
+        <dl class="row dl-text text-left">
+            <dt class="col-md-2">點閱率：</dt>
+            <dd class="col-md-10">@Model.Views</dd>
+            <dt class="col-md-2">承辦單位：</dt>
+            <dd class="col-md-10">@Model.Undertaking_Unit（負責處理之警察機關）</dd>
+            <dt class="col-md-2">申請方式：</dt>
+            <dd class="col-md-10">@Model.Apply_method </dd>
+            <dt class="col-md-2">應備證件： </dt>
+            <dd class="col-md-10">@Html.Raw( UIUtility.Txt2Html(Model.NeedDoc) )
+            <dt class="col-md-2">處理流程： </dt>
+            <dd class="col-md-10"> @Model.Process</dd>
+            <dt class="col-md-2">辦理期限：</dt>
+            <dd class="col-md-10">@Model.Pdate</dd>
+            <dt class="col-md-2">聯絡電話：</dt>
+            <dd class="col-md-10">@Model.Tel</dd>
+            <dt class="col-md-2">聯絡傳真：</dt>
+            <dd class="col-md-10">@Model.Fax</dd>
+            <dt class="col-md-2">承辦人：</dt>
+            <dd class="col-md-10">@Model.Mail</dd>
+            <dt class="col-md-2">申辦項目說明：</dt>
+            <dd class="col-md-10">@Model.Remark</dd>
+            <dt class="col-md-2">備註事項：</dt>
+            <dd class="col-md-10">@Html.Raw( UIUtility.Txt2Html(Model.Memo))
+            </dd>
+            @if (Model.Online.Length>7)
+            {
+                <dt class="col-md-2">線上申辦：</dt>
+                <dd class="col-md-10"><a href="@Model.Online" title="@Model.Subject (另開視窗)">@Model.Online</a></dd>
+            }
+          
+        </dl>
+ <!---相關附件--->
+        @if (Model.Fileses.Count > 0)
+        {
+             <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
+            <ul class="ullink">
+                @foreach (var file in Model.Fileses)
+                {
+                    <li><a href="@file.UpFile.ToLower()" title="@(file.Subject)(另開視窗)">@file.Subject</a></li>
+                }
+               
+            </ul>
+        </div>
+        }
+       
+       
+    </div>
+</div>

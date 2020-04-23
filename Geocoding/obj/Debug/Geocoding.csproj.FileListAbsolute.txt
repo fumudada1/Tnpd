@@ -1,0 +1,13 @@
+E:\website\tnpd\Geocoding\bin\Debug\Geocoding.exe.config
+E:\website\tnpd\Geocoding\bin\Debug\Geocoding.exe
+E:\website\tnpd\Geocoding\bin\Debug\Geocoding.pdb
+E:\website\tnpd\Geocoding\bin\Debug\EntityFramework.dll
+E:\website\tnpd\Geocoding\bin\Debug\Newtonsoft.Json.dll
+E:\website\tnpd\Geocoding\bin\Debug\TnpdModels.dll
+E:\website\tnpd\Geocoding\bin\Debug\EntityFramework.xml
+E:\website\tnpd\Geocoding\bin\Debug\Newtonsoft.Json.xml
+E:\website\tnpd\Geocoding\bin\Debug\TnpdModels.pdb
+E:\website\tnpd\Geocoding\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\tnpd\Geocoding\obj\Debug\Geocoding.csprojResolveAssemblyReference.cache
+E:\website\tnpd\Geocoding\obj\Debug\Geocoding.exe
+E:\website\tnpd\Geocoding\obj\Debug\Geocoding.pdb

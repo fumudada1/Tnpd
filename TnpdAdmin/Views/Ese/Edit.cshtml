@@ -1,0 +1,349 @@
+﻿@using TnpdModels
+@model TnpdModels.Ese
+
+@{
+    ViewBag.Title = ViewBag.Title;
+    List<EseCatalog> newsCatalogs = ViewBag.newsCatalogs;
+    
+}
+
+<div class="tabbable">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#tab1" data-toggle="tab">基本資料</a></li>
+        <li><a href="#tab2" data-toggle="tab">附加檔案</a></li>
+     
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <h2>@ViewBag.Title 編輯</h2>
+
+            @using (Html.BeginForm())
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset>
+                    <legend>News</legend>
+
+                    @Html.HiddenFor(model => model.Id)
+                    
+                    
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Subject)
+                      
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.News>.GetDisplayName("Subject") })
+
+                    </div>
+                   
+                 
+                   
+                    
+                    <div class="editor-label">
+                        <label> 發布站台設定</label>
+
+                    </div>
+                    <div class="editor-field">
+           
+                        @foreach (var catalog in newsCatalogs)
+                        {
+                            var catalogs = Model.Catalogs;
+                            if (catalogs.Contains(catalog))
+                            {
+                              
+                                <input type="checkbox" value="@catalog.Id" name="newsCatalogID" class="chkCatalog"   checked ="checked" /> 
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="@catalog.Id" name="newsCatalogID" class="chkCatalog" /> 
+                            }
+                            <span>@catalog.WebSite.Subject - @catalog.Subject</span>
+                            <br/>
+
+                        }
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Undertaking_Unit)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Undertaking_Unit,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Undertaking_Unit") })
+                        @Html.ValidationMessageFor(model => model.Undertaking_Unit)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Apply_method)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Apply_method,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Apply_method") })
+                        @Html.ValidationMessageFor(model => model.Apply_method)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.NeedDoc)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.NeedDoc,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("NeedDoc") })
+                        @Html.ValidationMessageFor(model => model.NeedDoc)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Process)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Process,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Process") })
+                        @Html.ValidationMessageFor(model => model.Process)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Pdate)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Pdate,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Pdate") })
+                        @Html.ValidationMessageFor(model => model.Pdate)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Tel)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Tel,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Tel") })
+                        @Html.ValidationMessageFor(model => model.Tel)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Fax)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Fax,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Fax") })
+                        @Html.ValidationMessageFor(model => model.Fax)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Mail)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Mail,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Mail") })
+                        @Html.ValidationMessageFor(model => model.Mail)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Remark)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Remark,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Remark") })
+                        @Html.ValidationMessageFor(model => model.Remark)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Online)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Online,new { placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Online") })
+                        @Html.ValidationMessageFor(model => model.Online)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Status)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+                        @Html.ValidationMessageFor(model => model.Status)
+       
+            
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Memo)
+
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Memo,new { @style = "height: 150px",placeholder=ModelsAttributeHelper<TnpdModels.Ese>.GetDisplayName("Memo") })
+                        @Html.ValidationMessageFor(model => model.Memo)
+       
+            
+                    </div>
+                   
+
+                   
+                    @Html.HiddenFor(model => model.Views)
+                    @Html.HiddenFor(model => model.OwnWebSiteId)
+                    @Html.HiddenFor(model => model.Poster)
+                    @Html.HiddenFor(model => model.InitDate)
+                    @Html.HiddenFor(model => model.initOrg)
+                    @Html.HiddenFor(model => model.UpdateDate)
+                    <p>
+                        <input type="submit" value="更新" class="btn-button" />
+                    </p>
+                </fieldset>
+            }
+        </div>
+        <div class="tab-pane" id="tab2">
+            <p>
+                <a id="colorlink" class="btn btn-primary" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "EseFiles", new { NewsId = Model.Id })' })" href="javascript:return false;">新增檔案</a>
+
+            </p>
+            <table class="table table-v" id="FileTable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fileses.FirstOrDefault().Subject)
+                    </th>
+              
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fileses.FirstOrDefault().ListNum)
+                    </th>
+                    <th>
+                        新排序
+                    </th>
+                    <th>功能</th>
+                </tr>
+                @*注意這邊,要指定排序*@
+                @foreach (var item in Model.Fileses.OrderBy(m => m.ListNum))
+                {
+                    <tr>
+                       
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.UpFile))
+                            {
+                                <a href="@item.UpFile">@item.Subject</a>
+                            }
+                        </td>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ListNum)
+                        </td>
+                        <td>
+
+                            @Html.TextBoxFor(modelItem => item.ListNum, new { @class = "position" })
+                        </td>
+                        <td>
+
+                            <input type="button" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "EseFiles", new { id = item.Id })'})" value="編輯" class="btn btn-primary" />
+                            
+                            @using (Html.BeginForm("Delete", "EseFiles"))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                    <input type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" class="btn btn-primary" />
+                                
+
+                                @*這邊也有改*@
+                                @Html.Hidden("fileid", item.Id, new { @class = "fid" })
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @using (Html.BeginForm("Sort", "EseFiles"))
+            {
+                <div>
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" id="fileSortData" name="SortData" />
+                     <input type="submit" value="更新排序" class="btn-button" />
+
+                </div>
+            }
+        </div>
+    
+    
+
+    </div>
+</div>
+
+<div>
+    <input type="button" onclick="history.back()" class="btn btn-primary" value="回列表" />
+</div>
+
+@section Scripts {
+     <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/colorbox.css")" rel="stylesheet" type="text/css"/>
+    <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $.fn.colorbox();
+            $(".datepicker").datepicker();
+        });
+        $('#myTab a:eq(@ViewBag.type)').tab('show');
+        $("#FileTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#fileSortData").val(map);
+            }
+        });
+        $("#FileTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#fileSortData").val(map);
+            }
+        });
+        $("#ImageTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#ImageSortData").val(map);
+            }
+        });
+    </script>
+}

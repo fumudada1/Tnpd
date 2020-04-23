@@ -1,0 +1,71 @@
+﻿@using TnpdModels
+@model TnpdModels.News
+
+<div class="row">
+    <div class="col-12">
+                                     
+        <h4 class="h4title">@Model.Subject</h4>
+         <div class="mb-3 font14 text-dark"><i class="icon-chevron-sign-right"></i> 發佈單位：@Model.initOrg <span class="pl-2 pr-2">/</span>  點閱：@Model.Views</div>
+        <p>
+            @Html.Raw( Model.Article)
+        </p>
+   
+        <!---相關附件--->
+        @if (Model.NewsFileses.Count > 0)
+        {
+         
+            <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
+                <ul class="ullink">
+                
+                    @foreach (var file in Model.NewsFileses)
+                    {
+                        var fileName = file.UpFile.Split('.');
+                    
+                        <li><a href="@file.UpFile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                    }
+     
+                </ul>
+            </div>
+        }
+        <!---相關連結--->
+        @if (Model.NewsLinks.Count > 0)
+        {
+       
+            <div class="mb-2"><i class="icon-line-link"></i> 相關連結
+                <ul class="ullink">
+                    @foreach (var link in Model.NewsLinks)
+                    {
+                        string Target = "";
+                    if (link.Target == TargetType.另開視窗)
+                    {
+                        Target = "_blank";
+                    }
+                    <li><a href="@link.LinkUrl" title="@(link.Subject)(另開視窗)" target="@Target">@link.Subject</a></li>
+                    }
+              
+                </ul>
+            </div>
+        }
+        
+        <!---相關圖檔--->
+        @if (Model.NewsImagses.Count > 0)
+        {
+        
+            <div class="mb-2"><i class="icon-line-image"></i> 相關圖檔</div>
+            <div class="row imglink">
+                @foreach (var img in Model.NewsImagses)
+                {
+                    <div class="col-12 col-md-6 mb-2"><a href="@img.UpFile" title="@(img.Subject)(另開視窗)"
+                                                         target="_blank"><img src="@img.UpFile"
+                                                                              class="img-fluid" alt="@(img.Subject)"></a>
+                        <figcaption class="figure-caption">@img.Subject</figcaption>
+                    </div>
+                }
+           
+
+            </div>
+        }
+       
+
+    </div>
+</div>

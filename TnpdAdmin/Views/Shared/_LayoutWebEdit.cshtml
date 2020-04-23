@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>@ViewBag.Title-管理系統</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?20130815" />
+      <link rel="stylesheet" href="~/Content/fonts/font-awesome/css/font-awesome.min.css" />
+	  
+    <link href="~/Scripts/jquery.pageslide/jquery.pageslide.css" rel="stylesheet" />   
+    <link href="~/Content/style.css?20130815" rel="stylesheet" />
+    <link href="~/Content/style-edit.css?20130815" rel="stylesheet" />
+	<link href="/Content/site.css" rel="stylesheet"/>
+<link rel="stylesheet" media="print" href="~/Content/print.css">
+
+    @Styles.Render("~/Content/css")
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script>window.html5 || document.write('<script src="media/js/libs/fixes/html5.js"><\/script>')</script>
+  <![endif]-->
+</head>
+<body id="gowater" class="sidebar-max gowater">
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+   <div class="header-bg">
+        <div class="container-fluid" style="background:url(/images/header.png) no-repeat;height:91px">
+		
+            <a class="brand" href="/Home/Index"><i class="icon-home icon-white"></i></a>
+            <ul class="nav user_menu pull-right">
+                
+                
+                <li>
+     @* <a href="theme-docs.html">
+      </a>*@
+  </li>
+  <li class="pull-right pull-right-a" style="color:#000">
+          @Html.Partial("_LoginPartial")
+         
+  </li>
+                
+            </ul>
+<a data-target=".nav-collapse" data-toggle="collapse" class="btn_menu">
+<span class="icon-align-justify icon-white"></span>
+</a>
+            <nav>
+                <div class="nav-collapse">
+                   
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+<ul id="topbar" class="on-click">
+  <li class="pull-left">
+    <h1 id="topbar-title">
+      <i class="icon-cogs"></i>
+      <a href="index-2.html"></a>
+    </h1>
+  </li>
+  
+</ul>
+
+<div class="container-fluid" id="container">
+  <div id="sidebar">
+      <ul class="sidebar-menu on-click" id="main-menu">
+          @{
+              var menu = @ViewBag.menu;
+          }
+          @Html.Raw(@menu) 
+      </ul>
+    <a href="#" id="sidebar-resizer"> <i class="min icon-resize-small"></i> <i class="max icon-resize-full"></i> </a></div>
+  <div id="content">
+    <div class="page" id="page-dashboard">
+       @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>  
+  </div>
+
+</div>
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+  <script src="~/Scripts/modernizr-2.5.3.js"></script>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+
+ <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+
+
+  <script src="~/Scripts/bootstrap.min.js"></script>
+  <script src="~/Scripts/madmin.js"></script>
+  <script src="~/Scripts/application.js"></script>
+<script src="~/Scripts/gebo_common.js"></script>
+
+<script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
+
+<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function () {
+            //若為必填，則自動加*
+            $("[data-val='true']").parent().prev().children().prepend("<spna style='color:red'>*</span>");
+            $("[placeholder]").each(function () {
+                $(this).attr('placeholder', "請輸入" + $(this).attr('placeholder'));
+                
+            });
+          $('a:contains("回列表")').addClass("btn");
+          $('a:contains("回列表")').parent().addClass("bottom-btn");
+
+         // $(".colorbox-iframe").colorbox({ iframe: true, width: "80%", height: "80%", escKey: true });
+          $('a:contains("Back to List")').addClass('btn btn-primary btn-gray').text('回列表');
+		  $('a:contains("Edit")').addClass('btn btn-primary').text('編輯');
+		   $('a:contains("Details")').text('詳細內容');
+		    $('a:contains("Delete")').text('刪除');
+			$('a:contains("create")').text('新增');
+			 $('a:contains("Delete")').text('刪除');
+			 $('a:contains("回列表")').addClass("btn btn-primary  btn-gray")
+
+$('h3:contains("Are you sure you want to delete this?")').text('你確定要刪除此筆資料?');
+        });
+		  $('#printMe').click(function () {
+                window.print();
+            });
+$('.fa-ga').parent().attr('target','_blank').attr('href','https://www.google.com/intl/zh-TW_tw/analytics/');
+$('a:contains("流量瀏覽")').on('click',function(e){
+e.preventDefault() 
+window.open('https://www.google.com/intl/zh-TW_tw/analytics/', '_blank');
+})
+    </script>
+
+  @*需要把Scripts拉到Head 裡來 *@
+  @RenderSection("scripts", required: false)
+</body>
+</html>

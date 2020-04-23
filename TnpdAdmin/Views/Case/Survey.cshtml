@@ -1,0 +1,174 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model List<TnpdModels.Casewq>
+
+@{
+    ViewBag.Title = "案件查詢";
+   
+}
+
+<h2>案件查詢</h2>
+
+
+    @using (Html.BeginForm())
+{
+<div>
+                承辦單位：  <select id="SearchByCategories1" name="SearchByCategories1" style="font-size: 15px">
+    </select>
+    <select id="SearchByCategories2" name="SearchByCategories2" style="font-size: 15px">
+    </select><br/>
+    <input type="hidden" id="hidSearchByCategories1" value="@ViewData["SearchByCategories1"]" /> 
+    <input type="hidden" id="hidSearchByCategories2" value="@ViewData["SearchByCategories2"]" /> 
+   
+    案件別： @Html.DropDownList("SearchByCaseType", new SelectList(Enum.GetValues(typeof(TnpdModels.CaseType))).Where(x=>x.Text!="大隊隊長信箱"),"請選擇")
+               
+                   
+        	<br/> 收件日期:<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker" autocomplete="off"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker" autocomplete="off"/>
+    </div>
+ <div>
+        <input type="submit" value="搜尋" />
+    </div>
+
+    
+}
+<table width="100%" border="0" cellspacing="4" cellpadding="0">
+    <tbody>
+    <tr>
+
+        <th align="left" class="font10"><label for="name">*1.您對「首長信箱」處理本案回復內容及結案的滿意程度?</label></th>
+
+    </tr>
+    <tr>
+
+        <td align="left" class="font09">
+           (1)非常滿意 @Model.Count(x=>x.Q1==1) / @(Model.Count==0?0: ((Model.Count(x=>x.Q1==1)*1.0/Model.Count())*100)) <br/>
+           (2)滿意  @Model.Count(x=>x.Q1==2) / @(Model.Count==0?0: ((Model.Count(x=>x.Q1==2)*1.0/Model.Count())*100))<br/>
+           (3)普通  @Model.Count(x=>x.Q1==3) / @(Model.Count==0?0: ((Model.Count(x=>x.Q1==3)*1.0/Model.Count())*100))<br/>
+           (4)不滿意  @Model.Count(x=>x.Q1==4) / @(Model.Count==0?0: ((Model.Count(x=>x.Q1==4)*1.0/Model.Count())*100))<br/>
+           (5)非常不滿意  @Model.Count(x=>x.Q1==5) / @(Model.Count==0?0: ((Model.Count(x=>x.Q1==5)*1.0/Model.Count())*100))<br/>
+
+        </td>
+    </tr>
+    <tr>
+
+        <th align="left" class="font10"><label for="name">*2.您對「首長信箱」處理本案回復時間的滿意程度?</label></th>
+
+    </tr>
+    <tr>
+
+        <td align="left" class="font09">
+            (1)非常滿意 @Model.Count(x=>x.Q2==1) / @(Model.Count==0?0: ((Model.Count(x=>x.Q2==1)*1.0/Model.Count())*100)) <br/>
+            (2)滿意  @Model.Count(x=>x.Q2==2) / @(Model.Count==0?0: ((Model.Count(x=>x.Q2==2)*1.0/Model.Count())*100))<br/>
+            (3)普通  @Model.Count(x=>x.Q2==3) / @(Model.Count==0?0: ((Model.Count(x=>x.Q2==3)*1.0/Model.Count())*100))<br/>
+            (4)不滿意  @Model.Count(x=>x.Q2==4) / @(Model.Count==0?0: ((Model.Count(x=>x.Q2==4)*1.0/Model.Count())*100))<br/>
+            (5)非常不滿意  @Model.Count(x=>x.Q2==5) / @(Model.Count==0?0: ((Model.Count(x=>x.Q2==5)*1.0/Model.Count())*100))<br/>
+
+        </td>
+    </tr>
+    <tr>
+
+        <th align="left" class="font10"><label for="name">*3.整體而言，您對「首長信箱」的滿意程度?</label></th>
+
+    </tr>
+    <tr>
+
+        <td align="left" class="font09">
+            (1)非常滿意 @Model.Count(x=>x.Q3==1) / @(Model.Count==0?0: ((Model.Count(x=>x.Q3==1)*1.0/Model.Count())*100)) <br/>
+            (2)滿意  @Model.Count(x=>x.Q3==2) / @(Model.Count==0?0: ((Model.Count(x=>x.Q3==2)*1.0/Model.Count())*100))<br/>
+            (3)普通  @Model.Count(x=>x.Q3==3) / @(Model.Count==0?0: ((Model.Count(x=>x.Q3==3)*1.0/Model.Count())*100))<br/>
+            (4)不滿意  @Model.Count(x=>x.Q3==4) / @(Model.Count==0?0: ((Model.Count(x=>x.Q3==4)*1.0/Model.Count())*100))<br/>
+            (5)非常不滿意  @Model.Count(x=>x.Q3==5) / @(Model.Count==0?0: ((Model.Count(x=>x.Q3==5)*1.0/Model.Count())*100))<br/>
+
+        </td>
+    </tr>
+
+    </tbody></table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            $('#SearchByCategories1').append($("<option></option>").attr("value", '').text('請選擇'));
+            $('#SearchByCategories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+            $.getJSON("/units/GetfistUnit").done(function(json) {
+                data = json;
+
+                $.each(json,
+                    function(i, item) {
+
+                        if (item.Id == $("#hidSearchByCategories1").val()) {
+
+                            $('#SearchByCategories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected")
+                                .text(item.Subject));
+                        } else {
+                            $('#SearchByCategories1').append($("<option></option>").attr("value", item.Id)
+                                .text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#SearchByCategories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function(json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function(i, item) {
+                            if (item.Id == $("#hidSearchByCategories2").val()) {
+                                $('#SearchByCategories2').append($("<option></option>").attr("value", item.Id).attr("selected", "selected")
+                                    .text(item.Subject));
+                            } else {
+                                $('#SearchByCategories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+                           
+
+                        });
+
+
+                });
+
+
+            });
+
+            $('#SearchByCategories1').change(function() {
+                if ($('#SearchByCategories1').val() != '') {
+                    $('#SearchByCategories2').children().remove();
+
+                    var id = $('#SearchByCategories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#SearchByCategories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#SearchByCategories1').children().remove();
+
+                    $('#SearchByCategories1').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+
+        });
+    </script>
+}
+

@@ -1,0 +1,106 @@
+﻿@using TnpdModels
+@model TnpdModels.WebSiteName
+
+@{
+    ViewBag.Title = "子網站Banner設定新增";
+}
+
+<h2>子網站Banner設定新增</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>WebSiteName</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SiteCode)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SiteCode,new { placeholder=ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("SiteCode") })
+            @Html.ValidationMessageFor(model => model.SiteCode)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OrgNumber)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.OrgNumber,new { placeholder=ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("OrgNumber") })
+            @Html.ValidationMessageFor(model => model.OrgNumber)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.XmlDoc)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.XmlDoc,new { placeholder=ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("XmlDoc") })
+            @Html.ValidationMessageFor(model => model.XmlDoc)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ColorName)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ColorName,new { placeholder=ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("ColorName") })
+            @Html.ValidationMessageFor(model => model.ColorName)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImageUrl)
+
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImageUrls" />
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+       
+            
+        </div>
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

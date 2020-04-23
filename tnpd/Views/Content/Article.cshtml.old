@@ -1,0 +1,4 @@
+﻿@model TnpdModels.WebArticle
+@Html.Raw(Model.Article)
+
+<div class="people-view">瀏覽人數：@Model.Views</div>

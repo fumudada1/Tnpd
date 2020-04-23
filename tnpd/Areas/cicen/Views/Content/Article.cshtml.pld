@@ -1,0 +1,16 @@
+﻿@model TnpdModels.WebArticle
+@{
+    DateTime? date = Model.UpdateDate;
+    if (!date.HasValue)
+    {
+        date = Model.InitDate;
+    }
+}
+
+<div class="row">
+    <div class="col-12">
+        @Html.Raw(Model.Article)
+    </div>
+</div>
+<div class="updateline">Updated : @date.Value.ToString("yyyy-MM-dd") / <a href="" title="Back"><i class="icon-undo"></i>
+    Back</a></div>

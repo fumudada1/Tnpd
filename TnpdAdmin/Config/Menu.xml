@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <Modules Title="帳號管理" Controller="Member" Action="Index" Value="A" Icon="fa fa-lock" >
+    <Modules Title="管理者帳號管理" Controller="Member" Action="Index" Value="A01" Icon="fa fa-lock" />
+  </Modules>
+
+  <Modules Title="網站內容管理系統" Controller="" Action="" Value="W" Icon="fa fa-sitemap">
+    <Modules Title="網站架構與內容管理" Controller="WebSite" Action="Index" Value="W01" Icon="fa fa-sitemap" />
+    <Modules Title="分類檢索管理" Controller="MetaIndex" Action="Index" Value="W05" Icon="fa fa-sitemap" />
+    <Modules Title="首頁Banner設定" Controller="BigBanner" Action="Index" Value="W07" Icon="fa fa-sitemap" />
+    <Modules Title="首頁相關連結(小圖)" Controller="HomeLink" Action="Index" Value="U12" Icon="fa fa-map-marker"></Modules>
+    <Modules Title="系統運作效能" Controller="WebSite" Action="manage" Value="W11" Icon="fa fa-sitemap fa-ga" />
+    <Modules Title="網站維護紀錄" Controller="SystemLogs" Action="Index" Value="W08" Icon="fa fa-sitemap" />
+    <Modules Title="網站維護統計" Controller="SystemLogs" Action="Report" Value="W09" Icon="fa fa-sitemap" />
+   
+  </Modules>
+
+  <Modules Title="動態訊息編輯系統" Controller="" Action="" Value="N" Icon="fa fa-rss">
+    <Modules Title="最新消息類別管理" Controller="NewsCatalog" Action="Index" pclass="1" Value="N01" Icon="fa fa-rss" />
+    <Modules Title="最新消息" Controller="News" Action="Index" Value="N02" pclass="1" Icon="fa fa-rss" />
+    <Modules Title="破案報導類別管理" Controller="NewsCatalog" Action="Index" pclass="3" Value="N03" Icon="fa fa-rss" />
+    <Modules Title="破案報導" Controller="News" Action="Index" Value="N04" pclass="3" Icon="fa fa-rss" />
+   
+    <Modules Title="好人好事類別管理" Controller="NewsCatalog" Action="Index" pclass="6" Value="N07" Icon="fa fa-rss" />
+    <Modules Title="好人好事" Controller="News" Action="Index" Value="N08" pclass="6" Icon="fa fa-rss" />
+    <Modules Title="活動訊息類別管理" Controller="NewsCatalog" Action="Index" pclass="39" Value="N09" Icon="fa fa-rss" />
+    <Modules Title="活動訊息" Controller="News" Action="Index" Value="N10" pclass="39" Icon="fa fa-rss" />
+    <Modules Title="加強重要節日安全維護" Controller="News" Action="Index" Value="N11" pclass="8" Icon="fa fa-rss" />
+    <Modules Title="預防詐騙宣導" Controller="News" Action="Index" Value="N12" pclass="9" Icon="fa fa-rss" />
+    <Modules Title="性別主流專區" Controller="News" Action="Index" Value="N13" pclass="10" Icon="fa fa-rss" />
+    <Modules Title="預防犯罪宣導" Controller="News" Action="Index" Value="N14" pclass="11" Icon="fa fa-rss" />
+    <Modules Title="民防事務專區" Controller="News" Action="Index" Value="N15" pclass="12" Icon="fa fa-rss" />
+    <Modules Title="婦幼安全宣導" Controller="News" Action="Index" Value="N16" pclass="13" Icon="fa fa-rss" />
+    <Modules Title="交通安全宣導" Controller="News" Action="Index" Value="N17" pclass="4" Icon="fa fa-rss" />
+    <Modules Title="BULLETIN BOARD" Controller="News" Action="Index" Value="N18" pclass="51" Icon="fa fa-rss" />
+    <Modules Title="動態發布統計" Controller="News" Action="Report" Value="N20" pclass="0" Icon="fa fa-rss" />
+  </Modules>
+
+  <Modules Title="公用程式區" Controller="" Action="" Value="U" Icon="fa fa-sitemap">
+    <Modules Title="相關連結類別管理" Controller="AboutLinkCatalog" Action="Index" Value="U11" Icon="fa fa-map-marker"></Modules>
+    <Modules Title="相關連結" Controller="AboutLink" Action="Index" Value="U01" Icon="fa fa-map-marker"></Modules>
+    <Modules Title="申辦服務類別管理" Controller="EseCatalog" Action="Index"  Value="U12" Icon="fa fa-rss" />
+    <Modules Title="申辦服務" Controller="Ese" Action="Index" Value="U13"  Icon="fa fa-rss" />
+    <Modules Title="分局派出所資訊" Controller="StationInfo" Action="Index" Value="U14"  Icon="fa fa-rss" />
+    <Modules Title="婦幼安全警示地點" Controller="Wanda" Action="Index" Value="U15"  Icon="fa fa-rss" />
+    <Modules Title="FAQ類別管理" Controller="NewsCatalog" Action="Index" pclass="58" Value="U02" Icon="fa fa-rss" />
+    <Modules Title="FAQ" Controller="News" Action="Index" Value="U03" pclass="58" Icon="fa fa-rss" />
+    <Modules Title="表單下載類別管理" Controller="NewsCatalog" Action="Index" pclass="14" Value="U04" Icon="fa fa-rss" />
+    <Modules Title="表單下載" Controller="News" Action="Index" Value="U05" pclass="14" Icon="fa fa-rss" />
+    <Modules Title="警政統計類別管理" Controller="NewsCatalog" Action="Index" Value="U12" pclass="21" Icon="fa fa-rss" />
+    <Modules Title="警政統計" Controller="News" Action="Index" Value="U06" pclass="21" Icon="fa fa-rss" />
+    <Modules Title="即時路況" Controller="News" Action="Index" Value="U07" pclass="56" Icon="fa fa-rss" />
+    <Modules Title="保護您小祕方" Controller="News" Action="Index" Value="U08" pclass="35" Icon="fa fa-rss" />
+    <Modules Title="公告具高再犯危險之性侵害加害人人數專區" Controller="News" Action="Index" Value="U09" pclass="54" Icon="fa fa-rss" />
+    <Modules Title="景點介紹" Controller="News" Action="Index" Value="U10" pclass="46" Icon="fa fa-rss" />
+
+  </Modules>
+
+
+  <Modules Title="影片相片" Controller="" Action="" Value="V" Icon="fa fa-sitemap">
+    <Modules Title="活動相簿類別管理" Controller="NewsCatalog" Action="Index" pclass="7" Value="V01" Icon="fa fa-rss" />
+    <Modules Title="活動相簿" Controller="News" Action="Index" Value="V02" pclass="7" Icon="fa fa-rss" />
+    <Modules Title="宣導影片類別管理" Controller="NewsCatalog" Action="Index" pclass="16" Value="V03" Icon="fa fa-rss" />
+    <Modules Title="宣導影片" Controller="News" Action="Index" Value="V04" pclass="16" Icon="fa fa-rss" />
+  </Modules>
+
+
+  <Modules Title="宣導專區" Controller="" Action="" Value="S" Icon="fa fa-sitemap">
+    <Modules Title="其他宣導類別管理" Controller="NewsCatalog" Action="Index" pclass="23" Value="S01" Icon="fa fa-rss" />
+    <Modules Title="其他宣導" Controller="News" Action="Index" Value="S02" pclass="23" Icon="fa fa-rss" />
+
+    <Modules Title="青春專案宣導類別管理" Controller="NewsCatalog" Action="Index" pclass="24" Value="S03" Icon="fa fa-rss" />
+    <Modules Title="青春專案宣導" Controller="News" Action="Index" Value="S04" pclass="24" Icon="fa fa-rss" />
+
+    <Modules Title="治安宣導類別管理" Controller="NewsCatalog" Action="Index" pclass="25" Value="S05" Icon="fa fa-rss" />
+    <Modules Title="治安宣導" Controller="News" Action="Index" Value="S06" pclass="25" Icon="fa fa-rss" />
+    <Modules Title="人事業務宣導" Controller="News" Action="Index" Value="S07" pclass="28" Icon="fa fa-rss" />
+
+    <Modules Title="自衛槍枝宣導類別管理" Controller="NewsCatalog" Action="Index" pclass="31" Value="S08" Icon="fa fa-rss" />
+    <Modules Title="自衛槍枝宣導" Controller="News" Action="Index" Value="S09" pclass="31" Icon="fa fa-rss" />
+
+    <Modules Title="社區警政宣導" Controller="News" Action="Index" Value="S10" pclass="32" Icon="fa fa-rss" />
+    <Modules Title="政風宣導" Controller="News" Action="Index" Value="S11" pclass="34" Icon="fa fa-rss" />
+    <Modules Title="公務資料安全宣導" Controller="News" Action="Index" Value="S12" pclass="36" Icon="fa fa-rss" />
+    <Modules Title="法規宣導" Controller="News" Action="Index" Value="S13" pclass="38" Icon="fa fa-rss" />
+    <Modules Title="政令宣導" Controller="News" Action="Index" Value="S14" pclass="49" Icon="fa fa-rss" />
+    <Modules Title="人權兩公約宣導" Controller="News" Action="Index" Value="S15" pclass="52" Icon="fa fa-rss" />
+    <Modules Title="中央遙控警報系統測試期前宣導" Controller="News" Action="Index" Value="S16" pclass="53" Icon="fa fa-rss" />
+    <Modules Title="戶口組宣導專區" Controller="News" Action="Index" Value="S17" pclass="55" Icon="fa fa-rss" />
+
+  </Modules>
+
+  <Modules Title="其他專區" Controller="" Action="" Value="O" Icon="fa fa-sitemap">
+    <Modules Title="廉政暨清廉監督專區類別管理" Controller="NewsCatalog" Action="Index" pclass="22" Value="O01" Icon="fa fa-rss" />
+    <Modules Title="廉政暨清廉監督專區" Controller="News" Action="Index" Value="O02" pclass="22" Icon="fa fa-rss" />
+    <Modules Title="員工協助方案專區類別管理" Controller="NewsCatalog" Action="Index" pclass="33" Value="O03" Icon="fa fa-rss" />
+    <Modules Title="員工協助方案專區" Controller="News" Action="Index" Value="O05" pclass="33" Icon="fa fa-rss" />
+    <Modules Title="申辦服務類別管理" Controller="EscCatalog" Action="Index" pclass="15" Value="O06" Icon="fa fa-rss" />
+    <Modules Title="申辦服務" Controller="Esc" Action="Index" Value="O07" pclass="15" Icon="fa fa-rss" />
+  </Modules>
+
+  <Modules Title="法規專區" Controller="" Action="" Value="F" Icon="fa fa-sitemap">
+    <Modules Title="地方自治法規類別管理" Controller="NewsCatalog" Action="Index" pclass="19" Value="F01" Icon="fa fa-rss" />
+    <Modules Title="地方自治法規" Controller="News" Action="Index" Value="F02" pclass="19" Icon="fa fa-rss" />
+    <Modules Title="個資保護專區類別管理" Controller="NewsCatalog" Action="Index" pclass="15" Value="F03" Icon="fa fa-rss" />
+    <Modules Title="個資保護專區" Controller="News" Action="Index" Value="F04" pclass="15" Icon="fa fa-rss" />
+    <Modules Title="政府公開資訊類別管理" Controller="NewsCatalog" Action="Index" pclass="18" Value="F05" Icon="fa fa-rss" />
+    <Modules Title="政府公開資訊" Controller="News" Action="Index" Value="F06" pclass="18" Icon="fa fa-rss" />
+    <Modules Title="性侵高再犯危險人數公告" Controller="News" Action="Index" Value="F07" pclass="41" Icon="fa fa-rss" />
+    <Modules Title="家庭暴力防治相關法規" Controller="News" Action="Index" Value="F08" pclass="42" Icon="fa fa-rss" />
+    <Modules Title="性騷擾防治相關法規" Controller="News" Action="Index" Value="F19" pclass="43" Icon="fa fa-rss" />
+    <Modules Title="性侵害防治相關法規" Controller="News" Action="Index" Value="F20" pclass="44" Icon="fa fa-rss" />
+    <Modules Title="自然法規公告" Controller="News" Action="Index" Value="F21" pclass="47" Icon="fa fa-rss" />
+  </Modules>
+  
+
+  <Modules Title="首長信箱案件" Controller="" Action="" Value="M0" Icon="fa fa-sitemap">
+    <Modules Title="派案作業" Controller="Case" Action="Assign" pclass="1" Value="M001" Icon="fa fa-rss" />
+    <Modules Title="案件狀態回復" Controller="Case" Action="Restone" pclass="1" Value="M002" Icon="fa fa-rss" />
+    <Modules Title="退文派案" Controller="Case" Action="Goback" pclass="1"  Value="M003" Icon="fa fa-rss" />
+    <Modules Title="結案作業" Controller="Case" Action="Close" pclass="1"  Value="M005" Icon="fa fa-rss" />
+    <Modules Title="案件查詢" Controller="Case" Action="Index" pclass="1"  Value="M006" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表" Controller="Case" Action="Report1" pclass="1" Value="M007" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表" Controller="Case" Action="Report2" pclass="1" Value="M009" Icon="fa fa-rss" />
+    <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="1"  Value="M008" Icon="fa fa-rss" />
+    <Modules Title="案件滿意度調查表" Controller="Case" Action="Survey" pclass="1"  Value="M009" Icon="fa fa-rss" />
+    <Modules Title="單位改派" Controller="Case" Action="UnitAssign" pclass="1"  Value="M010" Icon="fa fa-rss" />
+    <Modules Title="白名單規則設定" Controller="CaseFilter" Action="Index" pclass="1"  Value="M011" Icon="fa fa-rss" />
+    <Modules Title="白名單案件查詢" Controller="Case" Action="Filter" pclass="1"  Value="M012" Icon="fa fa-rss" />
+    <Modules Title="免回覆設定" Controller="PoprocsSubType" Action="Index" pclass="1"  Value="M013" Icon="fa fa-rss" />
+  </Modules>
+  
+  <Modules Title="檢舉貪瀆信箱" Controller="" Action="" Value="M1" Icon="fa fa-sitemap">
+    <Modules Title="派案作業" Controller="Case" Action="Assign" pclass="2" Value="M101" Icon="fa fa-rss" />
+    <Modules Title="案件狀態回復" Controller="Case" Action="Restone" pclass="2" Value="M102" Icon="fa fa-rss" />
+    <Modules Title="退文派案" Controller="Case" Action="Goback" pclass="2"  Value="M103" Icon="fa fa-rss" />
+    <Modules Title="結案作業" Controller="Case" Action="Close" pclass="2"  Value="M105" Icon="fa fa-rss" />
+    <Modules Title="案件查詢" Controller="Case" Action="Index" pclass="2"  Value="M106" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表" Controller="Case" Action="Report1" pclass="2" Value="M207" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表" Controller="Case" Action="Report2" pclass="2" Value="M209" Icon="fa fa-rss" />
+    <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="2"  Value="M108" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="網路報案案件" Controller="" Action="" Value="M2" Icon="fa fa-sitemap">
+    <Modules Title="派案作業" Controller="Case" Action="Assign" pclass="3" Value="M201" Icon="fa fa-rss" />
+    <Modules Title="案件狀態回復" Controller="Case" Action="Restone" pclass="3" Value="M202" Icon="fa fa-rss" />
+    <Modules Title="退文派案" Controller="Case" Action="Goback" pclass="3"  Value="M203" Icon="fa fa-rss" />
+    <Modules Title="結案作業" Controller="Case" Action="Close" pclass="3"  Value="M205" Icon="fa fa-rss" />
+    <Modules Title="案件查詢" Controller="Case" Action="Index" pclass="3"  Value="M206" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表" Controller="Case" Action="Report1" pclass="3" Value="M207" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表" Controller="Case" Action="Report2" pclass="3" Value="M209" Icon="fa fa-rss" />
+    <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="3"  Value="M208" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="婦幼安全警示地點" Controller="" Action="" Value="M3" Icon="fa fa-sitemap">
+    <Modules Title="派案作業" Controller="Case" Action="Assign" pclass="4" Value="M301" Icon="fa fa-rss" />
+    <Modules Title="案件狀態回復" Controller="Case" Action="Restone" pclass="4" Value="M302" Icon="fa fa-rss" />
+    <Modules Title="退文派案" Controller="Case" Action="Goback" pclass="4"  Value="M303" Icon="fa fa-rss" />
+    <Modules Title="結案作業" Controller="Case" Action="Close" pclass="4"  Value="M305" Icon="fa fa-rss" />
+    <Modules Title="案件查詢" Controller="Case" Action="Index" pclass="4"  Value="M306" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表" Controller="Case" Action="Report1" pclass="4" Value="M207" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表" Controller="Case" Action="Report2" pclass="4" Value="M209" Icon="fa fa-rss" />
+    <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="4"  Value="M308" Icon="fa fa-rss" />
+  </Modules>
+ 
+  <Modules Title="交通檢舉信箱" Controller="" Action="" Value="T" Icon="fa fa-sitemap">
+    <Modules Title="派案作業" Controller="CaseTraffics" Action="Assign" Value="T01" Icon="fa fa-rss" />
+    <Modules Title="案件狀態回復" Controller="CaseTraffics" Action="Restone"  Value="T03" Icon="fa fa-rss" />
+    <Modules Title="退文派案" Controller="CaseTraffics" Action="Goback" Value="T04" Icon="fa fa-rss" />
+    <Modules Title="結案作業" Controller="CaseTraffics" Action="Close"  Value="T05" Icon="fa fa-rss" />
+    <Modules Title="案件查詢" Controller="CaseTraffics" Action="Index"  Value="T06" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表" Controller="CaseTraffics" Action="Report1" Value="T11" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表" Controller="CaseTraffics" Action="Report2"  Value="T12" Icon="fa fa-rss" />
+    <Modules Title="檢舉違規行為態樣表" Controller="CaseTraffics" Action="Report3"  Value="T17" Icon="fa fa-rss" />
+    <Modules Title="展期案件審核" Controller="CaseTraffics" Action="Extension"   Value="T08" Icon="fa fa-rss" />
+    <Modules Title="單位改派" Controller="CaseTraffics" Action="UnitAssign"   Value="T09" Icon="fa fa-rss" />
+   
+    <Modules Title="不舉發原因維護" Controller="TrafficViolationsRejectclass" Action="Index"  Value="T11" Icon="fa fa-rss" />
+    <Modules Title="舉發原因維護" Controller="TrafficViolationsClass" Action="Index"  Value="T12" Icon="fa fa-rss" />
+    <Modules Title="自動分派承辦人" Controller="Trafficdisdata" Action="Index"  Value="T13" Icon="fa fa-rss" />
+    <Modules Title="單位承辦人設定" Controller="TrafficDepartmentdetail" Action="Index"  Value="T14" Icon="fa fa-rss" />
+    <Modules Title="違規區域設定" Controller="TrafficRegion" Action="Index"  Value="T15" Icon="fa fa-rss" />
+    <Modules Title="違規道路設定" Controller="TrafficRoaddata" Action="Index"  Value="T16" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="承辦人作業" Controller="Case" Action="Process"  Value="M4" Icon="fa fa-rss" />
+  <Modules Title="交通承辦人作業" Controller="CaseTraffics" Action="Process"  Value="M5" Icon="fa fa-rss" />
+  <Modules Title="訊息審核作業" Controller="News" Action="Review"  Value="M6" Icon="fa fa-rss" />
+</menu>

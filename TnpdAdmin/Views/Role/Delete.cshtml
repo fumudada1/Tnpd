@@ -1,0 +1,87 @@
+﻿@model TnpdModels.Role
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>刪除資料</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Role</legend>
+
+   <table class="table table-h">
+    <tr>
+        <th width="120">
+         @Html.DisplayNameFor(model => model.Subject)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Subject)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Permission)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Permission)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Poster)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Poster)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+        @Html.DisplayNameFor(model => model.Updater)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Updater)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+        @Html.DisplayNameFor(model => model.InitDate)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.InitDate)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+        @Html.DisplayNameFor(model => model.UpdateDate)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.UpdateDate)
+            
+        </td>
+    </tr>
+   
+    
+</table>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="刪除" class="btn-button" />
+        
+    </p>
+    <p>
+        @Html.ActionLink("回列表", "Index")
+    </p>
+}

@@ -1,0 +1,85 @@
+﻿@using TnpdModels
+@model TnpdModels.BigBanner
+
+@{
+    ViewBag.Title = "網站Banner設定新增";
+}
+
+<h2>網站Banner設定新增 (圖片尺寸：1100x407px)</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>BigBanner</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.BigBanner>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage)
+
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImages" />
+       
+            
+        </div>
+
+             @Html.Hidden("ListNum","0")
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WebSiteNameId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("WebSiteNameId")
+            @Html.ValidationMessageFor(model => model.WebSiteNameId)
+       
+            
+        </div>
+                <div class="editor-label">
+            @Html.LabelFor(model => model.URL)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.URL,new { placeholder=ModelsAttributeHelper<TnpdModels.BigBanner>.GetDisplayName("URL") })
+            @Html.ValidationMessageFor(model => model.URL)
+       
+            
+        </div>
+      
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

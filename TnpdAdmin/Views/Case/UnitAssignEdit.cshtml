@@ -1,0 +1,388 @@
+﻿@using TnpdModels
+@model TnpdModels.Case
+
+@{
+    ViewBag.Title = "單位改派作業";
+    string subject = "";
+    CasePoproc poproc = Model.Poprocs.Where(x => x.Status == CaseProcessStatus.未分派).FirstOrDefault();
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+}
+
+<h2>單位改派作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Case</legend>
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="pclass" value="@ViewBag.pclass"/>
+        合併案件共 @Model.Cases.Count() 件<br/> <br/>
+        <span style="color: black">辦理情形</span>
+        <table class="table table-v">
+
+            <tbody>
+                <tr>
+                    <td style="width: 50%">案號：@Model.CaseID
+                    </td>
+                    <td></td>
+                </tr>
+            <tr>
+                <td>案件來源：@Model.CaseType
+                </td>
+                <td>案件日期：@Model.InitDate
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">所屬單位： @Html.DropDownList("WebSiteId")
+                </td>
+                <td> 
+                </td>
+            </tr>
+                <tr>
+                    <td>承辦單位：
+                    </td>
+                    <td>承辦人：
+                    </td>
+                </tr>
+                <tr>
+                    <td>預結案日：@Model.Predate
+                    </td>
+                    <td>案件狀態：未派
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CasePoprocLog log in Model.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                <td>
+                 @*   @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject*@
+                </td>
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+        <span style="color: black">案件資料</span>
+
+        @if (Model.CaseType == CaseType.分局長與大隊隊長信箱 || Model.CaseType == CaseType.首長信箱)
+        {
+    
+   
+            <table class="table table-v">
+
+                <tbody>
+                    <tr>
+                        <td>姓名：@Model.Name</td>
+                        <td>性別：@Model.Gender</td>
+
+                    </tr>
+                    <tr>
+
+                        <td>電話：@Model.TEL</td>
+                        <td>職業：@Model.Job</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">E-mail：@Model.Email</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">地址：@Model.Address</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">主題：@Model.Subject</td>
+                        @{
+            subject = Model.Subject;
+                        }
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">內容：<br />
+                             @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.參觀本局暨所屬機關)
+        {
+            <table class="table table-v">
+
+                <tbody>
+
+                    <tr>
+                        <td>參觀對象：@Model.Unit</td>
+                        <td>申請單位名稱：@Model.OrgName</td>
+
+
+                    </tr>
+                    <tr>
+                        <td>聯絡人：@Model.Name</td>
+                        <td>聯絡人電話：@Model.TEL</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">E-mail：@Model.Email</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">預定參觀人數：@Model.pcnt</td>
+
+                    </tr>
+                    <tr>
+
+                        <td>預定參觀日期：@Model.ODate </td>
+                        <td>預定參觀時間：@Model.STime ~ @Model.ETime</td>
+                    </tr>
+                    <tr>
+                        @{
+            subject = "參觀" + Model.Unit + "，預定參觀日期：" + Model.ODate + " " + Model.STime + "~" + Model.ETime;
+                        }
+                        <td colspan="2">備註：<br />
+                             @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.婦幼安全警示地點)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Name</td>
+                    <td>性別：@Model.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>電話：@Model.TEL</td>
+                    <td>職業：@Model.Job</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td>區別：@Model.OArea</td>
+                    <td>路段或地點：@Model.Oplace</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">地址：@Model.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報原因：@Model.Subject</td>
+                    @{
+            subject = Model.Subject;
+                    }
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報內容：<br />
+                         @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.檢舉貪瀆信箱)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Name</td>
+                    <td>性別：@Model.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>電話：@Model.TEL</td>
+                    <td>職業：@Model.Job</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">地址：@Model.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報原因：@Model.Subject</td>
+                    @{
+            subject = Model.Subject;
+                    }
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報內容：<br />
+                        @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.網路報案)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Name</td>
+                    <td>性別：@Model.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>聯絡電話(住家)：@Model.HomeTEL</td>
+                    <td>聯絡電話(辦公室)：@Model.OfficeTEL</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">現居地址：@Model.PostalCode @Model.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">戶籍地址：@Model.PPostalCode @Model.PAddress</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">行動電話：@Model.TEL</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">報案人類別：@Model.CaseReportType</td>
+
+                </tr>
+                <tr>
+
+                    <td>發生日期：@Model.ODate</td>
+                    <td>發生時間：@Model.STime </td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">發生地點：@Model.Oplace</td>
+
+                </tr>
+                
+                <tr>
+
+                    <td colspan="2">案情摘要：<br />
+                        @Html.Raw(UIUtility.Txt2Html(Model.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+
+
+
+
+        
+        
+   
+    <p align="center">
+        <input type="button" id="btnUnitAssign" value="單位改派"/>
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+    </p>
+    </fieldset>
+
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $("#btnUnitAssign").click(function () {
+
+                $("form").submit();
+            });
+        });
+
+    </script>
+}
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/Case/UnitAssign?pclass=@ViewBag.pclass";
+</script>
+}

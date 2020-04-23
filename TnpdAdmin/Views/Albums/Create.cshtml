@@ -1,0 +1,156 @@
+﻿@using TnpdModels
+@model TnpdModels.Albums
+
+@{
+    ViewBag.Title = "電子相簿管理系統新增";
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>電子相簿管理系統新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>Albums</legend>
+
+        <table class="table table-h">
+    <tr>
+        <th width="120">
+            @Html.LabelFor(model => model.Language)
+            
+        </th>
+        <td>
+             @Html.DropDownListFor(model => model.Language, new SelectList(Enum.GetValues(typeof(TnpdModels.LanguageType))))
+            @Html.ValidationMessageFor(model => model.Language)
+       
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Subject)
+            
+        </th>
+        <td>
+             @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.Albums>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Enable)
+            
+        </th>
+        <td>
+             @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Memo)
+            
+        </th>
+        <td>
+             @Html.TextAreaFor(model => model.Memo,new { @style = "height: 150px",placeholder=ModelsAttributeHelper<TnpdModels.Albums>.GetDisplayName("Memo") })
+            @Html.ValidationMessageFor(model => model.Memo)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.MetaId)
+            
+        </th>
+        <td>
+               @Html.DropDownList("MetaId")
+            @Html.ValidationMessageFor(model => model.MetaId)
+        </td>
+    </tr>
+    
+   
+    
+</table>
+ <div class="editor-label">
+            @Html.LabelFor(model => model.AlbumsPictures)
+
+        </div>
+        <div class="editor-field">
+            <input type="button" value="新增上傳圖片" class="AddItem btn btn-primary"/>
+            <p>
+                <span>檔案名稱：</span>
+                <input name="albumsPictures[0].Subject" id="albumsPictures[0].Subject" type="text" size="60" value="附加圖片" /> 
+                <br>
+                 <span>作　　者：</span>
+                <input name="albumsPictures[0].Author" type="text" size="60">
+                <br>
+                <span>檔案路徑：</span>
+                <input name="albumsPictures[0].UpImage" type="text" size="60">
+                
+                <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary"/>
+            </p>
+
+
+
+        </div>
+        <p>
+            <input type="submit" value="新增" class="btn-button"  />
+        </p>
+        <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+
+            $(".AddItem").click(function () {
+                var source = $(this).next();
+                var fileSubject = source.children().eq(1).val();
+                var len = $(this).parent().children().length - 1;
+                var clone = source.clone();
+                clone.children().eq(1).val(fileSubject + len);
+
+                clone.children().eq(1).attr('name', clone.children().eq(1).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(4).attr('name', clone.children().eq(4).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(7).attr('name', clone.children().eq(7).attr('name').replace('[0]', '[' + len + ']'));
+                //clone.children().eq(3).val('');
+                clone.children().eq(7).val('');
+                if (clone.children().length == 4) {
+                    clone.children().eq(4).attr('name', clone.children().eq(4).attr('name').replace('[0]', '[' + len + ']'));
+                }
+
+                // alert(clone.children().eq(4).attr('name'));
+                clone.insertAfter($(this).parent().children().last());
+            });
+            $("body").on('click', ".BrowseServer", function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+               
+                finder.selectActionFunction = function (fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(fileUrl);
+                };
+
+                finder.startupPath = 'Images:/Cypd/';
+				 finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Images';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+
+
+        });
+    </script>
+
+}

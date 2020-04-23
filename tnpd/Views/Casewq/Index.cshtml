@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "案件滿意度調查";
+}
+<div class="row">
+    <div class="col-12">
+    @using (Html.BeginForm(null, null, new {@class = "form form-vaild form-aligned trailer"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <p style="color: red">@ViewBag.Message</p> 
+
+        <input type="hidden" name="Id" value="@ViewBag.guid"/>
+        <p class="mb-2">「首長信箱、網路報案、舉發交通違規、檢舉貪瀆信箱、參觀本局暨所屬機關」各項滿意度調查情形一覽表</p>
+        <table width="100%" border="0" cellspacing="4" cellpadding="0">
+            <tbody>
+            <tr>
+
+                <th align="left" class="font10"><label for="name">*1.您對「首長信箱」處理本案回復內容及結案的滿意程度?</label></th>
+
+            </tr>
+            <tr>
+
+                <td align="left" class="font09">
+                    <input type="radio" name="q1" id="q11" value="1" checked="">非常滿意
+                    <input type="radio" name="q1" id="q12" value="2">滿意
+                    <input type="radio" name="q1" id="q13" value="3">普通
+                    <input type="radio" name="q1" id="q14" value="4">不滿意
+                    <input type="radio" name="q1" id="q15" value="5">非常不滿意
+
+                </td>
+            </tr>
+            <tr>
+
+                <th align="left" class="font10"><label for="name">*2.您對「首長信箱」處理本案回復時間的滿意程度?</label></th>
+
+            </tr>
+            <tr>
+
+                <td align="left" class="font09">
+                    <input type="radio" name="q2" id="q21" value="1" checked="">非常滿意
+                    <input type="radio" name="q2" id="q22" value="2">滿意
+                    <input type="radio" name="q2" id="q23" value="3">普通
+                    <input type="radio" name="q2" id="q24" value="4">不滿意
+                    <input type="radio" name="q2" id="q25" value="5">非常不滿意
+
+                </td>
+            </tr>
+            <tr>
+
+                <th align="left" class="font10"><label for="name">*3.整體而言，您對「首長信箱」的滿意程度?</label></th>
+
+            </tr>
+            <tr>
+
+                <td align="left" class="font09">
+                    <input type="radio" name="q3" id="q31" value="1" checked="">非常滿意
+                    <input type="radio" name="q3" id="q32" value="2">滿意
+                    <input type="radio" name="q3" id="q33" value="3">普通
+                    <input type="radio" name="q3" id="q34" value="4">不滿意
+                    <input type="radio" name="q3" id="q35" value="5">非常不滿意
+
+                </td>
+            </tr>
+
+            </tbody></table>
+        <div class="form-row  mt-4">
+            <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+                驗證碼：</label>
+
+            <div class="form-group col-auto">
+                <img id="imgVerify" src="~/Captcha/CaptchaImage?Date=@DateTime.Now.ToString("yyyyMMddhhmmsss")" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+                <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"/></a>
+
+            </div>
+            <div class="form-group col-md-3">
+                <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text"/><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+
+                @Html.ValidationMessage("CheckCode")
+            </div>
+
+        </div>
+
+        <div class="hrline"></div>
+        <input type="hidden" name="id" value="@ViewBag.UnId"/>
+        <div class="form-row justify-content-center">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-info">送出</button>
+            </div>
+            <div class="col-auto">
+                <button type="reset" class="btn btn-secondary">清除</button>
+            </div>
+        </div>
+    }
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <script>
+        alert("@ViewBag.Message");
+        window.location.href = "/Home";
+    </script>
+}
+<script type="text/javascript">
+    function PlayCode() {
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+</script>

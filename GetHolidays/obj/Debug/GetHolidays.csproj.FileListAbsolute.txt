@@ -1,0 +1,13 @@
+E:\website\tnpd\GetHolidays\bin\Debug\GetHolidays.exe.config
+E:\website\tnpd\GetHolidays\bin\Debug\GetHolidays.exe
+E:\website\tnpd\GetHolidays\bin\Debug\GetHolidays.pdb
+E:\website\tnpd\GetHolidays\bin\Debug\EntityFramework.dll
+E:\website\tnpd\GetHolidays\bin\Debug\Newtonsoft.Json.dll
+E:\website\tnpd\GetHolidays\bin\Debug\TnpdModels.dll
+E:\website\tnpd\GetHolidays\bin\Debug\TnpdModels.pdb
+E:\website\tnpd\GetHolidays\bin\Debug\EntityFramework.xml
+E:\website\tnpd\GetHolidays\bin\Debug\Newtonsoft.Json.xml
+E:\website\tnpd\GetHolidays\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\tnpd\GetHolidays\obj\Debug\GetHolidays.csprojResolveAssemblyReference.cache
+E:\website\tnpd\GetHolidays\obj\Debug\GetHolidays.exe
+E:\website\tnpd\GetHolidays\obj\Debug\GetHolidays.pdb

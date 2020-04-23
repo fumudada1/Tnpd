@@ -1,0 +1,174 @@
+﻿@model TnpdModels.AreaSearch
+
+@{
+    ViewBag.Title = "警勤區查詢服務刪除";
+}
+
+<h2>警勤區查詢服務刪除</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>AreaSearch</legend>
+
+   <table class="table table-h">
+    <tr>
+        <th width="120">
+         @Html.DisplayNameFor(model => model.Subject)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Subject)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.WebSite.Subject)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.WebSite.Subject)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.MasterName)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.MasterName)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.SlaveName)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.SlaveName)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Email)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Email)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Telphone)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Telphone)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Mobile)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Mobile)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Address)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Address)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Memo)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Memo)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.MapMemo)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.MapMemo)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.MetaIndex.Subject)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.MetaIndex.Subject)
+            
+        </td>
+    </tr>
+        <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Poster)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Poster)
+            
+        </td>
+    </tr>
+        <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.InitDate)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.InitDate)
+            
+        </td>
+    </tr>
+        <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.Updater)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.Updater)
+            
+        </td>
+    </tr>
+        <tr>
+        <th>
+         @Html.DisplayNameFor(model => model.UpdateDate)
+            
+        </th>
+        <td>
+        @Html.DisplayFor(model => model.UpdateDate)
+            
+        </td>
+    </tr>
+</table>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="刪除" class="btn-button" />
+    </p>
+    <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+}

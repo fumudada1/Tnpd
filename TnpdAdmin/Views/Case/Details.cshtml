@@ -1,0 +1,661 @@
+﻿
+@model TnpdModels.Case
+
+@{
+    ViewBag.Title = "內容";
+}
+
+<h2>內容</h2>
+
+<fieldset>
+    <legend>Case內容</legend>
+	<table>
+	<tr>
+	<td colspan="7">
+	 TnpdModels.Case
+	</td>
+
+	</tr>
+	<tr>
+    <td>
+         欄位中文名稱
+    </td>
+    <td>
+      欄位名稱
+    </td>
+	 <td>
+       是否主索引
+    </td>
+	<td>
+	是否唯讀
+	</td>
+	<td>
+	 是否外索引
+	</td>
+	<td>
+	型別
+	</td>
+</tr>
+
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Subject)
+    </td>
+    <td>
+       Subject
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Content)
+    </td>
+    <td>
+       Content
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Name)
+    </td>
+    <td>
+       Name
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Email)
+    </td>
+    <td>
+       Email
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.TEL)
+    </td>
+    <td>
+       TEL
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Job)
+    </td>
+    <td>
+       Job
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.IP)
+    </td>
+    <td>
+       IP
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.WebSite.Subject)
+    </td>
+    <td>
+       WebSiteId
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 True
+	</td>
+	<td>
+	 Int32
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Predate)
+    </td>
+    <td>
+       Predate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.OrgName)
+    </td>
+    <td>
+       OrgName
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.pcnt)
+    </td>
+    <td>
+       pcnt
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.ODate)
+    </td>
+    <td>
+       ODate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.STime)
+    </td>
+    <td>
+       STime
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.ETime)
+    </td>
+    <td>
+       ETime
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Pid)
+    </td>
+    <td>
+       Pid
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.PostalCode)
+    </td>
+    <td>
+       PostalCode
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Address)
+    </td>
+    <td>
+       Address
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.PPostalCode)
+    </td>
+    <td>
+       PPostalCode
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.PAddress)
+    </td>
+    <td>
+       PAddress
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.HomeTEL)
+    </td>
+    <td>
+       HomeTEL
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.OfficeTEL)
+    </td>
+    <td>
+       OfficeTEL
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Oplace)
+    </td>
+    <td>
+       Oplace
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Poster)
+    </td>
+    <td>
+       Poster
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.initOrg)
+    </td>
+    <td>
+       initOrg
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.InitDate)
+    </td>
+    <td>
+       InitDate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Updater)
+    </td>
+    <td>
+       Updater
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.UpdateOrg)
+    </td>
+    <td>
+       UpdateOrg
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </td>
+    <td>
+       UpdateDate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+</table>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { /* id=Model.PrimaryKey */ }) |
+     <input type="button" onclick="history.back()" value="回到上一頁" />
+</p>

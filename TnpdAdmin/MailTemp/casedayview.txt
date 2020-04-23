@@ -1,0 +1,15 @@
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>{CaseID}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{CaseType}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{initDate}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{Name}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{Subject}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{assignUnit}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{Predate}</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ {EndDateTime}</td> 
+  <td class=xl28 style='border-top:none;border-left:none'>
+  {due}
+  </td>
+  
+ </tr>

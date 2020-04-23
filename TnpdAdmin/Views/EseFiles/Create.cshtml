@@ -1,0 +1,97 @@
+﻿@using Tnpd.Models
+@model TnpdModels.EseFile
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "新增";
+
+}
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+@{
+    if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "Ese", new { id = ViewBag.NewsId, type = "1" })';
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function() {
+            $(".BrowseServer").click(function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(decodeURIComponent(fileUrl));
+                    $.post("/office/WordToPdf", { url: fileUrl })
+                        .done(function (data) {
+                            // alert( data);
+                        });
+                };
+
+                finder.startupPath = 'Files:/@ViewBag.SiteCode/';
+                finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Files';
+                //finder.readOnly = true;
+                finder.popup();
+        });
+        });
+       
+    </script>
+      
+    }
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+ 
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>新增附加檔案</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.NewsFiles>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+       
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpFile)
+
+        </div>
+        <div class="editor-field">
+           <input name="UpFile" type="text" size="60">
+                <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary"/>
+
+
+        </div>
+
+        <input type="hidden" name="EseId" value="@ViewBag.NewsId"/>
+             @Html.Hidden("ListNum", "0")
+        <p>
+            <input type="submit" value="新增" class="btn-button"  />
+        </p>
+    </fieldset>
+}
+
+
+
+

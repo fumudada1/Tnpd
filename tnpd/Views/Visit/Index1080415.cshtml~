@@ -1,0 +1,244 @@
+﻿@model tnpd.Models.VisitView
+<div class="row">
+    @using (Html.BeginForm("Index", "Visit", new { @class = "form form-vaild form-aligned trailer" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @ViewBag.Message
+        <div class="col-12">
+
+            (有 <span class="text-danger">*</span> 號請務必填寫)
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="Unit"><span class="text-danger">*</span>
+                        參觀機關：</label>
+                    <select id="Unit" class="form-control" name="Unit">
+                        <option value="總局">總局</option>
+                        <option value="第一分局">第一分局</option>
+                        <option value="第二分局">第二分局</option>
+                        <option value="第三分局">第三分局</option>
+                        <option value="第四分局">第四分局</option>
+                        <option value="第五分局">第五分局</option>
+                        <option value="第六分局">第六分局</option>
+                        <option value="新營分局">新營分局</option>
+                        <option value="白河分局">白河分局</option>
+                        <option value="麻豆分局">麻豆分局</option>
+                        <option value="善化分局">善化分局</option>
+                        <option value="佳里分局">佳里分局</option>
+                        <option value="學甲分局">學甲分局</option>
+                        <option value="新化分局">新化分局</option>
+                        <option value="歸仁分局">歸仁分局</option>
+                        <option value="永康分局">永康分局</option>
+                        <option value="玉井分局">玉井分局</option>
+                   
+                    </select>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="OrgName"><span class="text-danger">*</span>
+                        申請單位名稱：</label>
+                    <input class="form-control"   data-val="true" data-val-required="申請單位名稱必填"   id="OrgName" name="OrgName" placeholder="申請單位名稱" type="text" value="@Model.OrgName" />
+                    <span class="field-validation-valid" data-valmsg-for="OrgName" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="Name"><span class="text-danger">*</span>
+                        聯絡人：</label>
+                    <input class="form-control" data-val="true" data-val-required="聯絡人必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
+                    <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="TEL"><span class="text-danger">*</span>
+                        聯絡電話：</label>
+                    <input class="form-control"  data-val="true" data-val-required="聯絡電話必填"  id="TEL" name="TEL" placeholder="聯絡電話" type="text" value="@Model.TEL" />
+                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label" for="Email"><span class="text-danger">*</span>
+                    E-Mail：</label>
+                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label class="col-form-label" for="pcnt"><span class="text-danger">*</span>
+                        預定參觀人數：</label>
+                    <input class="form-control"  data-val="true" data-val-required="預定參觀人數必填"  id="pcnt" name="pcnt" placeholder="預定參觀人數" type="text" value="@Model.pcnt" />
+                    <span class="field-validation-valid" data-valmsg-for="pcnt" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label class="col-form-label" for="ODate"><span class="text-danger">*</span>
+                        預定參觀日期：</label>
+                    <input class="datepicker form-control"  data-val="true" data-val-required="預定參觀日期必填"  id="ODate" name="ODate" placeholder="預定參觀日期" type="text" value="@Model.ODate" />
+                    <span class="field-validation-valid" data-valmsg-for="ODate" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label class="col-form-label" for="STime"><span class="text-danger">*</span>
+                        預定參觀時間：</label>
+                    <div class="form-row">
+                        <div class="form-group col-auto">
+                            <select id="STime" class="form-control" name="STime">
+
+
+                                <!-- option value="0800" selected >08:00</option>
+                                <option value="0830"  >08:30</option -->
+                                <option value="0900">09:00</option>
+                                <option value="0930">09:30</option>
+                                <option value="1000">10:00</option>
+                                <option value="1030">10:30</option>
+                                <option value="1100">11:00</option>
+                                <!-- option value="1130"  >11:30</option>
+                                <option value="1200"  >12:00</option -->
+                                <option value="1400">14:00</option>
+                                <option value="1430">14:30</option>
+                                <option value="1500">15:00</option>
+                                <option value="1530">15:30</option>
+                                <option value="1600">16:00</option>
+                                <option value="1630">16:30</option>
+                                <option value="1700">17:00</option>
+                                <!-- option value="1730"  >17:30</option>
+                                <option value="1800"  >18:00</option -->
+       
+       
+    
+                            </select>
+                        </div>
+                        <div class="form-group col-auto align-self-center">~</div>
+                        <div class="form-group col-auto">
+                            <select id="ETime" class="form-control" name="ETime">
+
+
+                                <!-- option value="0800" selected >08:00</option>
+                                <option value="0830"  >08:30</option -->
+                                <option value="0900">09:00</option>
+                                <option value="0930">09:30</option>
+                                <option value="1000">10:00</option>
+                                <option value="1030">10:30</option>
+                                <option value="1100">11:00</option>
+                                <!-- option value="1130"  >11:30</option>
+                                <option value="1200"  >12:00</option -->
+                                <option value="1400">14:00</option>
+                                <option value="1430">14:30</option>
+                                <option value="1500">15:00</option>
+                                <option value="1530">15:30</option>
+                                <option value="1600">16:00</option>
+                                <option value="1630">16:30</option>
+                                <option value="1700">17:00</option>
+                                <!-- option value="1730"  >17:30</option>
+                                <option value="1800"  >18:00</option -->
+       
+       
+    
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label" for="Content">備註：</label>
+                <textarea class="form-control"  data-val="true" data-val-required="備註必填"  name="Content" rows="3">@Model.Content</textarea>
+                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-row  mt-4">
+                <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+                    驗證碼：</label>
+
+                <div class="form-group col-auto">
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <div id="newMessageDIV" style="display:none"></div>
+                    <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
+                   
+                </div>
+                <div class="form-group col-md-3">
+                    <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+                   
+                    @Html.ValidationMessage("CheckCode")              
+                </div>
+
+            </div>
+
+            <div class="hrline"></div>
+            <input type="hidden" name="id" value="@ViewBag.UnId"/>
+            <div class="form-row justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-info">送出</button>
+                </div>
+                <div class="col-auto">
+                    <button type="reset" class="btn btn-secondary">清除</button>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
+
+<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"/>
+<script type="text/javascript">
+    $(".datepicker").datepicker();
+    function PlayCode() {
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+</script>
+<style>
+    .field-validation-error {
+        color:red
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

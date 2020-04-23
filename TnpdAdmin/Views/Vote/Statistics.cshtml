@@ -1,0 +1,156 @@
+﻿@using Tnpd.Models
+@using TnpdModels
+@model TnpdModels.Vote
+
+@{
+    ViewBag.Title = "投票內容-統計結果";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+    <legend>@ViewBag.Title</legend>
+    <table class="table table-h" style="display:none">
+        <tr>
+            <th style="width:100px">
+                @Html.DisplayNameFor(model => model.Title)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.StartDate)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.EndDate)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Article)
+
+            </th>
+            <td>
+                @Html.Raw(Model.Article)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Poster)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InitDate)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.InitDate)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Updater)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Updater)
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.UpdateDate)
+
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+
+ 
+
+<table class="table table-v">
+   @{
+        Statistics item = (Statistics)ViewBag.statistics;
+        <tr>
+            <th >
+              標題
+            </th>
+			 <th >
+              趨勢圖
+            </th>
+			 <th >
+              投票人數
+            </th>
+			 <th >
+              比率
+            </th>
+        </tr>
+        foreach (var item2 in item.item)
+        {
+            <tr>
+                
+                <td>
+                    @item2.title
+                </td>
+                <td>
+                    <img height=10 alt=統計圖形 src="@Url.Content("~/Content/images/ask_line.gif")" width='@String.Format("{0:0.0}%", item2.percent)'>
+                </td>
+                <td>
+                    @item2.count
+                </td>
+                <td>
+                    @String.Format("{0:0.0}%", item2.percent)
+                </td>
+            </tr>
+        }
+        
+    }
+</table>
+
+
+
+<p>
+    @Html.ActionLink("回列表", "Index", "Vote")
+</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+        });
+    </script>
+}

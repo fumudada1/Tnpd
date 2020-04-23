@@ -1,0 +1,121 @@
+﻿
+@model TnpdModels.AreaSearch
+
+@{
+    ViewBag.Title = "警勤區查詢服務內容";
+}
+
+<h2>警勤區查詢服務內容</h2>
+
+<fieldset>
+    <legend>AreaSearch</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WebSite.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WebSite.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MasterName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MasterName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SlaveName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SlaveName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telphone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telphone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Mobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Memo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Memo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MapMemo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MapMemo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MetaIndex.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MetaIndex.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+</p>

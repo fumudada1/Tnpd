@@ -1,0 +1,86 @@
+﻿
+@model TnpdModels.WebSiteName
+
+@{
+    ViewBag.Title = "子網站Banner設定內容";
+}
+
+<h2>子網站Banner設定內容</h2>
+
+<fieldset>
+    <legend>WebSiteName</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SiteCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SiteCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrgNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrgNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.XmlDoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.XmlDoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ColorName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ColorName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpImageUrl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpImageUrl)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" value="回到上一頁" />
+</p>

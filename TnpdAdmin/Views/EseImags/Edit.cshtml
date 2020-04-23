@@ -1,0 +1,94 @@
+﻿
+@using TnpdModels
+@model TnpdModels.NewsImage
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "編輯";
+
+}
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+@{
+    if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "News", new { id = ViewBag.NewsId, type = "3" })';
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            $(".BrowseServer").click(function () {
+                var finder = new CKFinder();
+                finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+                    $("img[name='" + data["selectActionData"].replace('.UpFile', '.Img') + "']").attr('src', decodeURIComponent(fileUrl).replace('/images/', '/_thumbs/images/'));
+
+                    $("input[name='" + data["selectActionData"] + "']").val(decodeURIComponent(fileUrl));
+
+                };
+
+                finder.startupPath = 'Images:/tnpd/';
+                finder.defaultSortBy = 'date';
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Images';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+        });
+
+    </script>
+      
+}
+<style>
+    .position {
+        width: 27px;
+    }
+</style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>編輯附加圖片</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.NewsImage>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <input type="hidden" name="NewId" value="@Model.NewId"/>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpFile)
+
+        </div>
+        <div class="editor-field">
+            <input name="UpFile" type="text" size="60" value="@Model.UpFile">
+            <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary"/>
+
+
+        </div>
+
+        @Html.HiddenFor(model => model.ListNum)
+        @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.InitDate)
+        @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+

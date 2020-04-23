@@ -1,0 +1,12 @@
+﻿@model TnpdModels.WebArticle
+@{
+    ViewBag.Title = Model.Subject;
+    Layout = "~/Views/Shared/_LayoutNoMenu.cshtml";
+}
+@section breadcrumb
+{
+    @ViewBag.Title
+}
+@Html.Raw(Model.Article)
+
+瀏覽人數：@Model.Views

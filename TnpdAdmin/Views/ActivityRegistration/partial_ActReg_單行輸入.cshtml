@@ -1,0 +1,20 @@
+﻿@model TnpdModels.ActivityCustomField
+
+@{
+    string FieldName = string.Format("FieldName_{0}", Model.Id);
+}
+
+<div class="editor-label">
+    <label for="@Model.FieldName">@Model.FieldName</label>
+</div>
+<div class="editor-field">
+    @if (Model.IsRequire == TnpdModels.BooleanType.是)
+    {
+        <input data-val="true" data-val-required="@(Model.FieldName)必填" id="@(FieldName)" name="@(@FieldName)" placeholder="@(Model.FieldName)" type="text" value="" />
+    }
+    else
+    {
+        <input id="@(FieldName)" name="@(FieldName)" placeholder="@(Model.FieldName)" type="text" value="" />
+    }
+    <span class="field-validation-valid" data-valmsg-for="@(FieldName)" data-valmsg-replace="true"></span>
+</div>

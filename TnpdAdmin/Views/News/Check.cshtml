@@ -1,0 +1,93 @@
+﻿@using Tnpd.Helpers
+@using TnpdModels
+@using MvcPaging
+@model MvcPaging.IPagedList<TnpdModels.News>
+
+@{
+    ViewBag.Title = "動態消息管理列表";
+}
+
+<h2>列表</h2>
+
+
+    @using (Html.BeginForm())
+{
+<div class="search">
+               
+                     @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryId)：@Html.DropDownList("SearchByCategoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryId, "請選擇")  
+                     @Html.DisplayNameFor(model => model.FirstOrDefault().IsConfirm)：@Html.DropDownList("SearchByIsConfirm", new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType)),BooleanType.否))
+           <br>  @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)：@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) <input type="submit" class="btn-button" value="搜尋" />
+            </div>
+ <div>
+        
+    </div>
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Catalog.Subject)
+        </th>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+        </th>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)
+        </th>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IsConfirm)
+        </th>
+        <th width="12%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+        <th  style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+      
+        <th width="12%">功能</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Catalog.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsConfirm)
+        </td>
+        <td >
+            @Html.DisplayFor(modelItem => item.Poster)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+      
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id=item.Id,actionType="Check" }, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id,actionType="Check" }, new { @class = "btn btn-primary" })
+            @Html.Hidden("ID",item.Id)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+

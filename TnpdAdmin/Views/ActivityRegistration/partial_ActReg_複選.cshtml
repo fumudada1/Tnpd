@@ -1,0 +1,27 @@
+﻿@model TnpdModels.ActivityCustomField
+
+@{
+    string FieldName = string.Format("FieldName_{0}", Model.Id);
+
+
+    string[] arryStr = Model.FieldParameters.Split('\n');
+}
+
+<div class="editor-label">
+    <label for="@Model.FieldName">@Model.FieldName</label>
+</div>
+<div class="editor-field">
+    @foreach (string i in arryStr)
+    {
+        if (Model.IsRequire == TnpdModels.BooleanType.否)
+        {
+            <input type="checkbox" id="@(FieldName)" name="@(FieldName)" value="@i" data-val="true" />@i
+        }
+        else
+        {
+            <input type="checkbox" id="@(FieldName)" name="@(FieldName)" value="@i" data-val="true" data-val-required="@(Model.FieldName)必選" required />@i
+        }
+    }    
+    <span class="field-validation-valid" data-valmsg-for="@(FieldName)" data-valmsg-replace="true"></span>
+    <br />
+</div>

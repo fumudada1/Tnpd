@@ -1,0 +1,420 @@
+﻿@using TnpdModels
+@model TnpdModels.CaseTrafficPoproc
+
+@{
+    ViewBag.Title = "結案作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>結案作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Case</legend>
+    @Html.HiddenFor(model => model.Id)
+    <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+    <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.Case.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件日期：@Model.Case.InitDate
+            </td>
+            <td>
+            </td>
+            
+        </tr>
+        <tr>
+            <td>承辦單位：@Model.assignUnit.ParentUnit.Subject - @Model.assignUnit.Subject
+            </td>
+            <td>承辦人：@Model.assignMember.Name
+            </td>
+        </tr>
+        <tr>
+            <td>預結案日：@Model.Case.Predate
+            </td>
+            <td>案件狀態：@Model.Status
+            </td>
+        </tr>
+        </tbody>
+    </table>
+@if (ViewBag.message == null)
+{
+        <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CaseTrafficPoprocLog log in Model.Case.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                @if (log.assignUnit != null)
+                {
+                    <td>
+                        @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                    </td>
+                }
+                else
+                {
+                    <td>
+                         @log.assignUnit.Subject
+                    </td>
+                }
+               
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+}
+
+    <span style="color: black">案件資料</span>
+
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td>姓名：@Model.Case.Name</td>
+            <td>性別：@Model.Case.Gender</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">身分證字號：@Model.Case.Pid</td>
+
+        </tr>
+        <tr>
+
+            <td>電話：@Model.Case.TEL</td>
+            <td>職業：@Model.Case.Job</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">E-mail：@Model.Case.Email</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">地址：@Model.Case.Address</td>
+
+        </tr>
+        <tr>
+
+            <td colspan="2">主題：@Model.Case.Subject</td>
+            @{
+                subject = Model.Case.Subject;
+            }
+        </tr>
+        <tr>
+
+            <td colspan="2">違規地點：@Model.Case.violation_place_area @Model.Case.violation_place_road @Model.Case.violation_place</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">違規時間：@Model.Case.violation_date.ToString("yyyy/MM/dd")  @Model.Case.violation_time</td>
+        </tr>
+        <tr>
+
+            <td>違規車號：@Model.Case.violation_carno</td>
+            <td>違規事項：@Model.Case.itemno</td>
+        </tr>
+        <tr>
+
+            <td colspan="2">內容：<br />
+                @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+            </td>
+
+        </tr>
+        <tr>
+
+             <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile1))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile1);
+                    if (finfo.Exists) {
+                         <a href="/TrafficFiles/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }else{
+                     <a href="http://10.128.0.43:8080/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile4))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile4);
+                    if (finfo.Exists) {
+                        <a href="/TrafficFiles/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                    }else{
+                        <a href="http://10.128.0.43:8080/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile5))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile5);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile6))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile6);
+                    if (finfo.Exists) { 
+                        <br/>  <a href="/TrafficFiles/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                    }else{
+                        
+                        <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                    }
+                }
+            </td>
+
+        </tr>
+     
+
+
+        </tbody>
+    </table>
+
+    <table class="table table-v">
+        <tr>
+            <tr style="display: none">
+
+                <td>
+                    案件分類：<select name="type1">
+   
+                        <option value=""></option>
+   
+                        <option value="行政科">行政科</option>
+	   
+                        <option value="保安科">保安科</option>
+	   
+                        <option value="防治科">防治科</option>
+	   
+                        <option value="訓練科">訓練科</option>
+	   
+                        <option value="戶口科">戶口科</option>
+	   
+                        <option value="外事科">外事科</option>
+	   
+                        <option value="後勤科">後勤科</option>
+	   
+                        <option value="犯罪預防科">犯罪預防科</option>
+	   
+                        <option value="秘書室">秘書室</option>
+	   
+                        <option value="督察室">督察室</option>
+	   
+                        <option value="保防室">保防室</option>
+	   
+                        <option value="法制室">法制室</option>
+	   
+                        <option value="公共關係室">公共關係室</option>
+	   
+                        <option value="資訊室">資訊室</option>
+	   
+                        <option value="會計室">會計室</option>
+	   
+                        <option value="人事室">人事室</option>
+	   
+                        <option value="政風室">政風室</option>
+	   
+                        <option value="勤務指揮中心">勤務指揮中心</option>
+	   
+                        <option value="刑事鑑識中心">刑事鑑識中心</option>
+	   
+                        <option value="民防管制中心">民防管制中心</option>
+	   
+                        <option value="刑事警察大隊">刑事警察大隊</option>
+	   
+                        <option value="保安警察大隊">保安警察大隊</option>
+	   
+                        <option value="交通警察大隊">交通警察大隊</option>
+	   
+                        <option value="婦幼警察隊">婦幼警察隊</option>
+	   
+                        <option value="少年警察隊">少年警察隊</option>
+	   
+                    </select>
+
+                </td>
+                <td>
+                    案件屬性： <select name="type2">
+   
+                        <option value=""></option>
+   
+                        <option value="行政興革之建議">行政興革之建議</option>
+	   
+                        <option value="行政法令之查詢">行政法令之查詢</option>
+	   
+                        <option value="行政違失之舉發">行政違失之舉發</option>
+	   
+                        <option value="行政權益之維護">行政權益之維護</option>
+	   
+                    </select>
+
+                </td>
+
+            </tr>
+        <tr>
+            <td colspan="2">
+                回覆附件：
+                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                {
+                    <a href="/Casefiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                }
+                else
+                {
+                    <span>無上傳附件</span>
+                }
+               
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                回覆情形：
+                @if (Model.PoprocsType == 1)
+                {
+                    <span>不舉發</span>
+                    <div>不舉發原因：@Model.ViolationsRejectclass.Subject</div>
+                    
+                }
+                else if (Model.PoprocsType == 2)
+                {
+                    <span>舉發</span>
+                    <div>舉發原因：@Model.ViolationsClass.Subject</div>
+                }
+              
+               
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div style="text-align: center">回覆內容</div>
+                <textarea cols="50" id="PoprocsContent" name="PoprocsContent" placeholder="請輸入回覆內容" rows="2" style="height: 300px; width: 100%">
+@Model.AssignMemo
+
+</textarea>
+
+            </td>
+        </tr>
+
+    </table>
+
+        
+    <div style="padding: 15px">
+        <input type="radio" value="0" name="Sendfile" class="process" checked="checked" />
+        <label for="assign">不寄送附件</label>
+        <input type="radio" value="1" name="Sendfile" />
+        <label for="Poprocs">寄送附件</label>
+    </div>
+    <p align="center">
+        <input name="processtype" id="processtype" value="" type="hidden" />     
+        <input type="button" id="btnClose" value="結案"/>
+        <input type="button" value="退回承辦" id="btnGoProcess" />
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+        <a href="/CaseTraffics/Print2/@Model.Id" target="_black">列印</a>|
+        <a href="/CaseTraffics/Print2all/@Model.Id" target="_black">列印(含個資資料)</a>
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+           
+            $("#btnClose").click(function() {
+                $("#processtype").val("Close");
+                $("form").submit();
+            });
+            $("#btnGoProcess").click(function() {
+                $("#processtype").val("GoProcess");
+                $("form").submit();
+            });
+
+
+           
+
+        });
+
+
+    </script>
+  
+    
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/CaseTraffics/Close";
+</script>
+}

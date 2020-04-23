@@ -1,0 +1,48 @@
+<!-- Nested node template -->
+<!-- ng-right-click="decrement(this)" -->
+
+<script type="text/ng-template" id="nodes_renderer.html">
+
+  <div context-menu="menuOptions(this)"  ui-tree-handle  class="tree-node tree-node-content">
+    <a class="btn btn-primary" ng-if="node['@DataType']=='directory'" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'fa fa-folder-o': collapsed,
+          'fa fa-folder-open-o': !collapsed
+        }"></span></a>
+    <i ng-class="[getClass(node['@DataType']), 'fa']"></i>   {{node['@title']}}
+   <span class="fa fa-trash-o pull-right" style="font-size:16px;cursor:pointer" data-nodrag="" ng-click="removes(this)"></span>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.siteMapNode" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.siteMapNode" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
+<!--  <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>  -->
+<div class="row" style="margin-bottom: 10px;">
+  <select ng-model="thisSite" ng-options="c.Subject for c in siteList" >
+
+  </select>
+  &nbsp;<input type="btuuon" class="btn btn-success btn-sm" value="更換站台" ng-click="siteChange(Site)">
+</div>
+<div class="row" style="margin-bottom:1em">
+  <input type="button"  value="網站架構(滑鼠右鍵新增)" class="btn btn-primary" context-menu="rootOption"> 
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div ui-tree="treeOptions"  id="tree-root">
+      <ol ui-tree-nodes  ng-model="data" >
+        <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="info">
+      {{info}}
+    </div>
+  
+  </div>
+</div>
+

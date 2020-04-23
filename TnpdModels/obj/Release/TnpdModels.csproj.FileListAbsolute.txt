@@ -1,0 +1,17 @@
+E:\website\tnpd\TnpdModels\bin\Release\TnpdModels.dll.config
+E:\website\tnpd\TnpdModels\bin\Release\TnpdModels.dll
+E:\website\tnpd\TnpdModels\bin\Release\TnpdModels.pdb
+E:\website\tnpd\TnpdModels\bin\Release\EntityFramework.dll
+E:\website\tnpd\TnpdModels\bin\Release\Newtonsoft.Json.dll
+E:\website\tnpd\TnpdModels\bin\Release\EntityFramework.xml
+E:\website\tnpd\TnpdModels\bin\Release\Newtonsoft.Json.xml
+E:\website\tnpd\TnpdModels\bin\Release\zh-Hant\EntityFramework.resources.dll
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.init.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.removeCaseIdNull.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.addTrafficRoaddataListNum.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.addNewsAssign.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.ChiefMailboxUnitId.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.Migrations.addcaseFilter.resources
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.csproj.GenerateResource.Cache
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.dll
+E:\website\tnpd\TnpdModels\obj\Release\TnpdModels.pdb

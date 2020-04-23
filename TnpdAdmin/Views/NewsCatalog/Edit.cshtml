@@ -1,0 +1,94 @@
+﻿
+@using TnpdModels
+@model TnpdModels.NewsCatalog
+@{
+    WebSiteName web = ViewBag.webSite;
+}
+
+<h2> @(ViewBag.Title)類別管理編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>NewsCatalog</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.NewsCatalog>.GetDisplayName("Subject") })
+           
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MetaId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("MetaId")
+            @Html.ValidationMessageFor(model => model.MetaId)
+       
+            
+        </div>
+        @if (ViewBag.admin)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.WebSiteId)
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("WebSiteId")
+                @Html.ValidationMessageFor(model => model.WebSiteId)
+
+
+            </div>
+        }
+        else
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.WebSiteId)
+
+            </div>
+            <div class="editor-field">
+                <input type="hidden" name="WebSiteId" value="@web.Id"/>
+                @web.Subject
+
+
+            </div>
+        }
+       
+
+        @Html.HiddenFor(model => model.ListNum)
+        <div class="editor-label" style="display:none">
+            @Html.LabelFor(model => model.Confirm)
+        </div>
+        <div class="editor-field" style="display:none">
+            @Html.DropDownListFor(model => model.Confirm, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Confirm)
+           
+        </div>
+        <input type="hidden" name="WebCategoryId" value="@Request["pclass"]"/>
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> 
+        </p>
+		 <p class="bottom-btn">
+    <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" /> 
+    </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

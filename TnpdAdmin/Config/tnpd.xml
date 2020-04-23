@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <Modules Title="帳號管理" Controller="Member" Action="Index" Value="A" Icon="fa fa-lock" >
+    <Modules Title="管理者帳號管理" Controller="Member" Action="Index" Value="A01" Icon="fa fa-lock" />
+  </Modules>
+
+  <Modules Title="網站內容管理系統" Controller="" Action="" Value="W" Icon="fa fa-sitemap">
+    <Modules Title="網站架構與內容管理" Controller="WebSite" Action="Index" Value="W01" Icon="fa fa-sitemap" />
+ 
+    <Modules Title="分類檢索管理" Controller="MetaIndex" Action="Index" Value="W05" Icon="fa fa-sitemap" />
+  
+    <Modules Title="網站Banner設定" Controller="BigBanner" Action="Index" Value="W07" Icon="fa fa-sitemap" />
+    <Modules Title="網頁維護紀錄" Controller="SystemLogs" Action="Index" Value="W08" Icon="fa fa-sitemap" />
+    <Modules Title="網站流量瀏覽" Controller="WebSite" Action="Index" Value="W10" Icon="fa fa-sitemap fa-ga" />
+    <Modules Title="網站發布統計" Controller="Statistics" Action="Index" Value="W11" Icon="fa fa-sitemap fa-ga" />
+  </Modules>
+  <Modules Title="動態訊息編審系統" Controller="" Action="" Value="N" Icon="fa fa-rss">
+    <Modules Title="最新消息類別管理" Controller="NewsCatalog" Action="Index" Value="N01" Icon="fa fa-rss" />
+    <Modules Title="最新消息" Controller="News" Action="Index" Value="N02" Icon="fa fa-rss" />
+    <Modules Title="活動訊息類別管理" Controller="NewsCatalog" Action="English" Value="N03" Icon="fa fa-rss" />
+    <Modules Title="活動訊息管理" Controller="News" Action="English" Value="N04" Icon="fa fa-rss" />
+    <Modules Title="動態消息管理審核" Controller="News" Action="Check" Value="N05" Icon="fa fa-rss" />
+    <Modules Title="英文動態消息管理審核" Controller="News" Action="EngCheck" Value="N06" Icon="fa fa-rss" />
+  </Modules>
+  
+  <Modules Title="相關連結" Controller="AboutLink" Action="Index" Value="O01" Icon="fa fa-map-marker"></Modules>
+  <Modules Title="FAQ" Controller="FAQ" Action="Index" Value="O02" Icon="fa fa-map-marker"></Modules>
+ 
+
+</menu>

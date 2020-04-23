@@ -1,0 +1,39 @@
+﻿@model TnpdModels.StationInfo
+
+<div class="row">
+    <div class="col-12">
+
+        <h4 class="h4title">@Model.Subject</h4>
+
+        <dl class="row dl-text text-left">
+            <dt class="col-md-2">地　　址：</dt>
+            <dd class="col-md-10">@Model.Address</dd>
+            <dt class="col-md-2">內容說明： </dt>
+            <dd class="col-md-10">@Model.Subject 簡介：<br><br>
+
+                @Html.Raw(Model.Article)
+            </dd>
+        </dl>
+
+        <!---相關圖檔--->
+@* @if (Model.StationInfoFIleses.Count > 0)
+        {
+        
+            <div class="mb-2"><i class="icon-line-image"></i> 相關圖檔</div>
+            <div class="row imglink">
+                @foreach (var img in Model.StationInfoFIleses)
+                {
+                    <div class="col-12 col-md-6 mb-2"><a href="@img.UpFile" title="@(img.Subject)(另開視窗)"
+                                                         target="_blank"><img src="@img.UpFile"
+                                                                              class="img-fluid" alt="@(img.Subject)"></a>
+                        <figcaption class="figure-caption">@img.Subject</figcaption>
+                    </div>
+                }
+           
+
+            </div>
+        }*@
+
+    </div>
+</div>
+

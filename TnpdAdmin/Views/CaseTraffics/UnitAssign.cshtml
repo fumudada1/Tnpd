@@ -1,0 +1,96 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.CaseTraffic>
+
+@{
+    ViewBag.Title = "交通檢舉信箱單位改派";
+}
+
+<h2>交通檢舉信箱單位改派</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div>
+    請輸入案件編號：<input type="text" name="CaseID" /> @Html.DropDownList("WebSiteId")<input type="submit" value="確認送出"/>
+</div>
+
+}
+
+<table class="table table-v">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseID)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().assignUnit.ParentUnit.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Predate)
+        </th>
+        <th>
+           案件狀態
+        </th>
+      
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+
+            @Html.ActionLink(item.CaseID.ToString(), "UnitAssignEdit", new { id=item.Id,pclass=Request["pclass"]}) 
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.assignUnit.ParentUnit.Subject)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Predate)
+        </td>
+        <td>
+           未分派
+        </td>
+        
+    </tr>
+}
+</tbody>
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+    共  @ViewBag.Total 筆
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+
+@if (ViewBag.message != null)
+{
+    <script>
+        alert("@ViewBag.message");
+        window.location.href = "/CaseTraffics/UnitAssign";
+    </script>
+}

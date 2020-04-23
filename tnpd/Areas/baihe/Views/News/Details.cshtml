@@ -1,0 +1,107 @@
+﻿@using TnpdModels
+@model TnpdModels.News
+
+<div class="row">
+    <div class="col-12">
+                                     
+        <h4 class="h4title">@Model.Subject</h4>
+        <div class="mb-3 font14 text-dark"><i class="icon-chevron-sign-right"></i> 發佈單位：@Model.initOrg <span class="pl-2 pr-2">/</span>  點閱：@Model.Views</div>
+        <p>
+            @Html.Raw( Model.Article)
+        </p>
+   
+        <!---相關附件--->
+       <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
+            <div style="padding-top:15px">1.「為提供使用者有文書軟體選擇的權利，本專區有提供ODF開放文件格式，建議您安裝<a href="http://zh-tw.libreoffice.org/download/libreoffice-still/" title="免費開源軟體(另開新視窗)" target="_blank">免費開源軟體</a>或以您慣用的軟體開啟文件。」
+            </div>
+            <ul class="ullink">
+                
+                @foreach (var file in Model.NewsFileses)
+                {
+                    var fileName = file.UpFile.Split('.');
+                    FileInfo finfo=new FileInfo(HttpContext.Current.Server.MapPath(file.UpFile));
+                  
+                    if (finfo.Exists)
+                    {
+                        var hashCode=UIUtility.GetSHA1Hash(finfo.FullName);
+                        <li><a href="@file.UpFile.ToLower()" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                        <span>SHA256:@hashCode</span>
+                    }
+                    if (finfo.Extension.ToLower() == ".docx")
+                    {
+                        string pdffile = file.UpFile.ToLower().Replace(".docx", ".pdf");
+                        string pdfpath = HttpContext.Current.Server.MapPath(pdffile);
+                        pdfpath = pdfpath.ToLower().Replace("tnpd\\tnpd\\", "tnpd\\tnpdadmin\\");
+                        FileInfo pdfinfo = new FileInfo(pdfpath);
+                        if (pdfinfo.Exists)
+                        {
+                            var hashCode = UIUtility.GetSHA1Hash(pdfinfo.FullName);
+                            <li><a href="@pdffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                            <span>SHA256:@hashCode</span>
+                        }
+
+                        string odffile = file.UpFile.ToLower().Replace(".docx", ".odf");
+                        string odffpath = HttpContext.Current.Server.MapPath(odffile);
+                        odffpath = odffpath.ToLower().Replace("tnpd\\tnpd\\", "tnpd\\tnpdadmin\\");
+                        FileInfo odfinfo = new FileInfo(odffpath);
+                        if (odfinfo.Exists)
+                        {
+                            var hashCode = UIUtility.GetSHA1Hash(odfinfo.FullName);
+                            <li><a href="@odffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                            <span>SHA256:@hashCode</span>
+                        }
+                    }
+
+                }
+                
+                @*@foreach (var file in Model.NewsFileses)
+                {
+                    <li><a href="@file.UpFile.ToLower()" title="@(file.Subject) (另開視窗)">@file.Subject</a></li>
+                   
+
+                }*@
+     
+            </ul>
+        </div>
+        <!---相關連結--->
+        @if (Model.NewsLinks.Count > 0)
+        {
+       
+            <div class="mb-2"><i class="icon-line-link"></i> 相關連結
+                <ul class="ullink">
+                    @foreach (var link in Model.NewsLinks)
+                    {
+                        string Target = "";
+                    if (link.Target == TargetType.另開視窗)
+                    {
+                        Target = "_blank";
+                    }
+                    <li><a href="@link.LinkUrl" title="@(link.Subject)(另開視窗)" target="@Target">@link.Subject</a></li>
+                    }
+              
+                </ul>
+            </div>
+        }
+        
+        <!---相關圖檔--->
+        @if (Model.NewsImagses.Count > 0)
+        {
+        
+            <div class="mb-2"><i class="icon-line-image"></i> 相關圖檔</div>
+            <div class="row imglink">
+                @foreach (var img in Model.NewsImagses)
+                {
+                    <div class="col-12 col-md-6 mb-2"><a href="@img.UpFile" title="@(img.Subject)(另開視窗)"
+                                                         target="_blank"><img src="@img.UpFile"
+                                                                              class="img-fluid" alt="@(img.Subject)"></a>
+                        <figcaption class="figure-caption">@img.Subject</figcaption>
+                    </div>
+                }
+           
+
+            </div>
+        }
+       
+
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿@using TnpdModels
+@model TnpdModels.AreaSearch
+
+@{
+    ViewBag.Title = "警勤區查詢服務新增";
+}
+
+<h2>警勤區查詢服務新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>AreaSearch</legend>
+
+        <table class="table table-h">
+    <tr>
+        <th width="120">
+            @Html.LabelFor(model => model.MetaId)
+           
+       
+        </th>
+        <td>
+             @Html.DropDownList("MetaId")
+            @Html.ValidationMessageFor(model => model.MetaId)
+       
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Subject)
+             
+       
+        </th>
+        <td>
+           @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.WebSiteId)
+            
+        </th>
+        <td>
+             @Html.DropDownList("WebSiteId")
+            @Html.ValidationMessageFor(model => model.WebSiteId)
+       
+            
+        </td>
+    </tr>
+    <tr style="display: none">
+        <th>
+            @Html.LabelFor(model => model.MasterName)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.MasterName,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("MasterName") })
+            @Html.ValidationMessageFor(model => model.MasterName)
+       
+        </td>
+    </tr>
+    <tr style="display: none">
+        <th>
+            @Html.LabelFor(model => model.SlaveName)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.SlaveName,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("SlaveName") })
+            @Html.ValidationMessageFor(model => model.SlaveName)
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Email)
+            
+        </th>
+        <td>
+             @Html.TextBoxFor(model => model.Email,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Email") })
+            @Html.ValidationMessageFor(model => model.Email)
+       
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Telphone)
+            
+        </th>
+        <td>
+              @Html.TextBoxFor(model => model.Telphone,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Telphone") })
+            @Html.ValidationMessageFor(model => model.Telphone)
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Mobile)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.Mobile,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Mobile") })
+            @Html.ValidationMessageFor(model => model.Mobile)
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Address)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.Address,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Address") })
+            @Html.ValidationMessageFor(model => model.Address)
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Memo)
+            
+        </th>
+        <td>
+            @Html.TextAreaFor(model => model.Memo,new { @style = "height: 150px;width: 500px",placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Memo") })
+            @Html.ValidationMessageFor(model => model.Memo)
+       
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.MapMemo) (請至google map 取得崁入地圖代碼)
+            
+        </th>
+        <td>
+            @Html.TextAreaFor(model => model.MapMemo,new { @style = "height: 150px;width: 500px",placeholder=ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("MapMemo") })
+            @Html.ValidationMessageFor(model => model.MapMemo)
+        
+        </td>
+    </tr>
+    
+</table>
+
+       
+
+        <p>
+            <input type="submit" value="新增" class="btn-button"  />
+        </p>
+        <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

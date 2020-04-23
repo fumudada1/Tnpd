@@ -1,0 +1,42 @@
+
+
+ 
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>臺南警察局檢舉違規行為態樣</title>
+
+</head>
+
+<body>
+<table border="1">
+<tr>
+<td colspan="16" align="center">臺南市政府警察局處理民眾檢舉交通違規案件數量調查表(檢舉違規行為態樣(違規項目)前10名)</td></tr>
+<tr >
+  <td colspan="16" >收件日期2019/1/1~2019/3/1</td>
+ </tr>
+ 
+<tr align="center">
+<td rowspan="2">編號</td>
+<td rowspan="2">檢舉違規行為態樣</td>
+<td rowspan="2">受理件數</td>
+<td rowspan="2">舉發件數</td>
+<td rowspan="2">不予舉發件數合計</td>
+<td colspan="{vcol}">不予舉發原因及件數</td>
+</tr>
+<tr>
+
+		{vcolname}
+		
+</tr>
+
+		{body}
+		
+
+
+		
+
+</table>
+</body>
+

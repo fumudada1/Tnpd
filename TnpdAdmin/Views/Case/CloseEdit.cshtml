@@ -1,0 +1,587 @@
+﻿@using TnpdModels
+@model TnpdModels.CasePoproc
+
+@{
+    ViewBag.Title = "結案作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>結案作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Case</legend>
+    @Html.HiddenFor(model => model.Id)
+    <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+    合併案件共 @Model.Case.Cases.Count() 件<br/> <br/>
+    <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.Case.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件來源：@Model.Case.CaseType
+            </td>
+            <td>案件日期：@Model.Case.InitDate
+            </td>
+        </tr>
+        <tr>
+            @if (@Model.assignUnit.ParentUnit != null)
+            {
+                <td>承辦單位：@Model.assignUnit.ParentUnit.Subject - @Model.assignUnit.Subject
+                </td>
+            }
+            else
+            {
+                <td>承辦單位：@Model.assignUnit.Subject
+                </td>
+            }
+          
+            <td>承辦人：@Model.assignMember.Name
+            </td>
+        </tr>
+        <tr>
+            <td>預結案日：@Model.Case.Predate
+            </td>
+            <td>案件狀態：@Model.Status
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CasePoprocLog log in Model.Case.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                @if (log.assignUnit != null)
+                {
+                    <td>
+                        @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                    </td>
+                }
+                else
+                {
+                    <td>
+                       
+                    </td>
+                }
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+    <span style="color: black">案件資料</span>
+
+    @if (Model.CaseType == CaseType.分局長與大隊隊長信箱 || Model.CaseType == CaseType.首長信箱)
+    {
+    
+   
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Case.Name</td>
+                <td>性別：@Model.Case.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.Case.TEL</td>
+                <td>職業：@Model.Case.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Case.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">主題：@Model.Case.Subject</td>
+                @{
+        subject = Model.Case.Subject;
+                }
+            </tr>
+            <tr>
+
+                <td colspan="2">內容：<br />
+                     @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+
+            </tr>
+
+                    <tr>
+
+             <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                {
+                   
+                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
+                    if (finfo.Exists) {
+                         <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }else{
+                     <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }
+                }
+                
+            </td>
+
+        </tr>
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.參觀本局暨所屬機關)
+    {
+        <table class="table table-v">
+
+            <tbody>
+
+            <tr>
+                <td>參觀對象：@Model.Case.Unit</td>
+                <td>申請單位名稱：@Model.Case.OrgName</td>
+
+
+            </tr>
+            <tr>
+                <td>聯絡人：@Model.Case.Name</td>
+                <td>聯絡人電話：@Model.Case.TEL</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">預定參觀人數：@Model.Case.pcnt</td>
+
+            </tr>
+            <tr>
+
+                <td>預定參觀日期：@Model.Case.ODate </td>
+                <td>預定參觀時間：@Model.Case.STime ~ @Model.Case.ETime</td>
+            </tr>
+            <tr>
+                @{
+        subject = "參觀" + Model.Case.Unit + "，預定參觀日期：" + Model.Case.ODate + " " + Model.Case.STime + "~" + Model.Case.ETime;
+                }
+                <td colspan="2">備註：<br />
+                     @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.婦幼安全警示地點)
+    {
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Case.Name</td>
+                <td>性別：@Model.Case.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.Case.TEL</td>
+                <td>職業：@Model.Case.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td>區別：@Model.Case.OArea</td>
+                <td>路段或地點：@Model.Case.Oplace</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Case.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">通報原因：@Model.Case.Subject</td>
+                @{
+        subject = Model.Case.Subject;
+                }
+            </tr>
+            <tr>
+
+                <td colspan="2">通報內容：<br />
+                   
+                     @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+            </tr>
+           
+
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.檢舉貪瀆信箱)
+    {
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Case.Name</td>
+                <td>性別：@Model.Case.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.Case.TEL</td>
+                <td>職業：@Model.Case.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Case.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">通報原因：@Model.Case.Subject</td>
+                @{
+        subject = Model.Case.Subject;
+                }
+            </tr>
+            <tr>
+
+                <td colspan="2">通報內容：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    }
+    else if (Model.CaseType == CaseType.網路報案)
+    {
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Case.Name</td>
+                <td>性別：@Model.Case.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td>聯絡電話(住家)：@Model.Case.HomeTEL</td>
+                <td>聯絡電話(辦公室)：@Model.Case.OfficeTEL</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">現居地址：@Model.Case.PostalCode @Model.Case.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">戶籍地址：@Model.Case.PPostalCode @Model.Case.PAddress</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">行動電話：@Model.Case.TEL</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">報案人類別：@Model.Case.CaseReportType</td>
+
+            </tr>
+            <tr>
+
+                <td>發生日期：@Model.Case.ODate</td>
+                <td>發生時間：@Model.Case.STime </td>
+            </tr>
+            <tr>
+
+                <td colspan="2">發生地點：@Model.Case.Oplace</td>
+
+            </tr>
+                
+            <tr>
+
+                <td colspan="2">案情摘要：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    }
+
+    <table class="table table-v">
+        <tr>
+            <tr>
+
+                <td>
+                    案件分類：<select name="type1">
+   
+                        <option value=""></option>
+   
+                        <option value="行政科">行政科</option>
+	   
+                        <option value="保安科">保安科</option>
+	   
+                        <option value="防治科">防治科</option>
+	   
+                        <option value="訓練科">訓練科</option>
+	   
+                        <option value="戶口科">戶口科</option>
+	   
+                        <option value="外事科">外事科</option>
+	   
+                        <option value="後勤科">後勤科</option>
+	   
+                        <option value="犯罪預防科">犯罪預防科</option>
+	   
+                        <option value="秘書室">秘書室</option>
+	   
+                        <option value="督察室">督察室</option>
+	   
+                        <option value="保防室">保防室</option>
+	   
+                        <option value="法制室">法制室</option>
+	   
+                        <option value="公共關係室">公共關係室</option>
+	   
+                        <option value="資訊室">資訊室</option>
+	   
+                        <option value="會計室">會計室</option>
+	   
+                        <option value="人事室">人事室</option>
+	   
+                        <option value="政風室">政風室</option>
+	   
+                        <option value="勤務指揮中心">勤務指揮中心</option>
+	   
+                        <option value="刑事鑑識中心">刑事鑑識中心</option>
+	   
+                        <option value="民防管制中心">民防管制中心</option>
+	   
+                        <option value="刑事警察大隊">刑事警察大隊</option>
+	   
+                        <option value="保安警察大隊">保安警察大隊</option>
+	   
+                        <option value="交通警察大隊">交通警察大隊</option>
+	   
+                        <option value="婦幼警察隊">婦幼警察隊</option>
+	   
+                        <option value="少年警察隊">少年警察隊</option>
+	   
+                    </select>
+
+                </td>
+                <td>
+                    案件屬性： <select name="type2">
+   
+                        <option value=""></option>
+   
+                        <option value="行政興革之建議">行政興革之建議</option>
+	   
+                        <option value="行政法令之查詢">行政法令之查詢</option>
+	   
+                        <option value="行政違失之舉發">行政違失之舉發</option>
+	   
+                        <option value="行政權益之維護">行政權益之維護</option>
+	   
+                    </select>
+
+                </td>
+
+            </tr>
+        <tr>
+            <td colspan="2">
+                回覆附件：
+                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                {
+                    <a href="/Casefiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                }
+                else
+                {
+                    <span>無上傳附件</span>
+                }
+               
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                回覆情形：
+                @if (Model.PoprocsType == 1)
+                {
+                    <span>一般回覆</span>
+                }
+                else if (Model.PoprocsType == 2)
+                {
+                    <span>免辦理回覆</span>
+                }
+                else if (Model.PoprocsType == 3)
+                {
+                    <span>免電子郵件回覆</span>
+                }
+               
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div style="text-align: center">回覆內容</div>
+                <textarea cols="50" id="PoprocsContent" name="PoprocsContent" placeholder="請輸入回覆內容" rows="2" style="height: 300px; width: 100%">
+@Model.AssignMemo
+
+</textarea>
+
+            </td>
+        </tr>
+
+    </table>
+
+        
+    <div style="padding: 15px">
+        <input type="radio" value="0" name="Sendfile" class="process" checked="checked" />
+        <label for="assign">不寄送附件</label>
+        <input type="radio" value="1" name="Sendfile" />
+        <label for="Poprocs">寄送附件</label>
+    </div>
+    <p align="center">
+        <input name="processtype" id="processtype" value="" type="hidden" />     
+        <input type="button" id="btnClose" value="結案"/>
+        <input type="button" value="退回承辦" id="btnGoProcess" />
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+        <a href="/Case/Print2/@Model.Id?CaseType=@Model.CaseType" target="_black">列印</a>|
+        <a href="/Case/Print2all/@Model.Id?CaseType=@Model.CaseType" target="_black">列印(含個資資料)</a>
+    </p>
+    <p style="color: red">
+        請注意，若是併案案件，在結案時，需等待所有合併案件信件發送完畢，請耐心等待，請勿關閉瀏覽器。
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+           
+            $("#btnClose").click(function() {
+                $("#processtype").val("Close");
+                $("form").submit();
+            });
+            $("#btnGoProcess").click(function() {
+                $("#processtype").val("GoProcess");
+                $("form").submit();
+            });
+
+
+           
+
+        });
+
+
+    </script>
+  
+    
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/Case/Close?pclass=@ViewBag.pclass";
+</script>
+}

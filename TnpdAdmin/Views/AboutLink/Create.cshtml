@@ -1,0 +1,79 @@
+﻿@using TnpdModels
+@model TnpdModels.AboutLink
+
+@{
+    ViewBag.Title = "相關連結新增";
+}
+
+<h2>相關連結新增</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>AboutLink</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.AboutLink>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId")
+            @Html.ValidationMessageFor(model => model.CategoryId)
+       
+            
+        </div>
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.URL)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.URL,new { placeholder=ModelsAttributeHelper<TnpdModels.AboutLink>.GetDisplayName("URL") })
+            @Html.ValidationMessageFor(model => model.URL)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Status)
+       
+            
+        </div>
+
+             @Html.Hidden("ListNum","0")
+       
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

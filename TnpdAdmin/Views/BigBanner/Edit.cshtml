@@ -1,0 +1,89 @@
+﻿
+@using TnpdModels
+@model TnpdModels.BigBanner
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2>編輯 (圖片尺寸：1100x407px)</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>BigBanner</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.BigBanner>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImages" />
+            @Html.HiddenFor(model => model.UpImage)
+            @if (!string.IsNullOrEmpty(Model.UpImage))
+            {
+                <img src="~/upfiles/images/S@(Model.UpImage)" />
+            }
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WebSiteNameId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("WebSiteNameId")
+            @Html.ValidationMessageFor(model => model.WebSiteNameId)
+           
+        </div>
+         <div class="editor-label">
+            @Html.LabelFor(model => model.URL)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.URL,new { placeholder=ModelsAttributeHelper<TnpdModels.BigBanner>.GetDisplayName("URL") })
+            @Html.ValidationMessageFor(model => model.URL)
+       
+            
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+     
+
+            @Html.HiddenFor(model => model.InitDate)
+       
+        @Html.HiddenFor(model => model.initOrg)
+        @Html.HiddenFor(model => model.UpdateOrg)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

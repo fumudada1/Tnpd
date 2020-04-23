@@ -1,0 +1,141 @@
+﻿@using Tnpd.Helpers
+@using MvcPaging
+@model MvcPaging.IPagedList<TnpdModels.News>
+
+@{
+    ViewBag.Title = ViewBag.CategoryName +"管理列表";
+}
+
+<h2>@ViewBag.CategoryName 列表</h2>
+<div class="top">
+
+    @Html.ActionLink("新增", "Create",new{CategoryId="12"}, new { @class = "btn btn-primary" })
+</div>
+
+
+
+
+@using (Html.BeginForm())
+{
+    <div class="search">
+        網站:@Html.DropDownList("SearchBySite")   @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)：@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"])<br>
+   
+        發布日期：<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/>
+        <br>
+      
+  
+        排序：
+        <select id="SearchBySortField" name="SearchBySortField">
+           
+            <option value="initDate">建立時間</option>
+            <option value="Views">點閱數	</option>
+            <option value="StartDate">開始時間</option>
+                     
+        </select>
+        <select id="SearchBySortType" name="SearchBySortType">
+            <option value="Desc">遞減</option>
+            <option value="Asc">遞增</option>
+        </select>
+        <input type="submit" class="btn-button" value="搜尋" />
+    </div>
+    <div>
+        
+    </div>
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="8%">單位</th>
+        <th width="25%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+       
+        <th width="7%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+        </th>
+        <th width="7%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)
+        </th>
+
+         <th width="7%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Views)
+        </th>
+        <th style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+       <th style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+
+        <th width="10%">功能</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.WebSite.Subject)</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+
+        <td class="center">
+            @Html.DisplayFor(modelItem => item.Views)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.Poster)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+
+        <td>
+            @Html.ActionLink("編輯", "Edit", new {id = item.Id}, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+            @Html.ActionLink("刪除", "Delete", new {id = item.Id}, new { @class = "btn btn-primary" })
+            @Html.Hidden("ID", item.Id)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            $("#SearchBySortField").children().each(function () {
+                if ($(this).val() == "@(ViewData["SearchBySortField"])") {
+                    //jQuery給法
+                    $(this).attr("selected", true); //或是給"selected"也可
+                    //javascript給法
+                    this.selected = true;
+                }
+            });
+
+            $("#SearchBySortType").children().each(function () {
+                if ($(this).val() == "@(ViewData["SearchBySortType"])") {
+                    //jQuery給法
+                    $(this).attr("selected", true); //或是給"selected"也可
+                    //javascript給法
+                    this.selected = true;
+                }
+            });
+        });
+    </script>
+}

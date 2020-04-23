@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <Modules Title="帳號管理" Controller="Member" Action="Index" Value="A" Icon="fa fa-lock" >
+    <Modules Title="管理者帳號管理" Controller="Member" Action="Index" Value="A01" Icon="fa fa-lock" />
+  </Modules>
+
+  <Modules Title="網站內容管理系統" Controller="" Action="" Value="W" Icon="fa fa-sitemap">
+    <Modules Title="網站管理" Controller="WebSite" Action="Index" Value="W01" Icon="fa fa-sitemap" />
+ 
+    <Modules Title="分類檢索管理" Controller="MetaIndex" Action="Index" Value="W05" Icon="fa fa-sitemap" />
+  
+    <Modules Title="網站Banner設定" Controller="BigBanner" Action="Index" Value="W07" Icon="fa fa-sitemap" />
+    <Modules Title="網頁維護紀錄" Controller="SystemLogs" Action="Index" Value="W08" Icon="fa fa-sitemap" />
+    <Modules Title="網站流量瀏覽" Controller="WebSite" Action="Index" Value="W10" Icon="fa fa-sitemap fa-ga" />
+    <Modules Title="網站發布統計" Controller="Statistics" Action="Index" Value="W11" Icon="fa fa-sitemap fa-ga" />
+  </Modules>
+  <Modules Title="訊息公告" Controller="" Action="" Value="N" Icon="fa fa-rss">
+    <Modules Title="動態消息類別管理" Controller="NewsCatalog" Action="Index" Value="N01" Icon="fa fa-rss" />
+    <Modules Title="最新消息管理" Controller="News" Action="news1" Value="N02" Icon="fa fa-rss" />
+    <Modules Title="警政消息管理" Controller="News" Action="news2" Value="N03" Icon="fa fa-rss" />
+    <Modules Title="破案報導管理" Controller="News" Action="new3" Value="N04" Icon="fa fa-rss" />
+    <Modules Title="榮譽榜管理" Controller="News" Action="news5" Value="N05" Icon="fa fa-rss" />
+    <Modules Title="好人好事管理" Controller="News" Action="news6" Value="N06" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="宣導專區" Controller="" Action="" Value="S" Icon="fa fa-rss">
+    <Modules Title="加強重要節日安全維護工作" Controller="News" Action="news7" Value="S01" Icon="fa fa-rss" />
+    <Modules Title="預防詐騙宣導" Controller="News" Action="news8" Value="S02" Icon="fa fa-rss" />
+    <Modules Title="性別主流專區" Controller="News" Action="news9" Value="S03" Icon="fa fa-rss" />
+    <Modules Title="預防犯罪宣導" Controller="News" Action="news10" Value="S04" Icon="fa fa-rss" />
+    <Modules Title="民防事務專區" Controller="News" Action="news11" Value="S05" Icon="fa fa-rss" />
+    <Modules Title="交通安全宣導" Controller="News" Action="news12" Value="S05" Icon="fa fa-rss" />
+    <Modules Title="婦幼安全宣導" Controller="News" Action="new13" Value="S06" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="表單下載" Controller="" Action="" Value="F" Icon="fa fa-rss" >
+    <Modules Title="表單下載類別維護" Controller="NewsCategory" Action="news14" Value="F" Icon="fa fa-rss" />
+    <Modules Title="表單下載" Controller="News" Action="news14" Value="F" Icon="fa fa-rss" />
+  </Modules>
+
+  <Modules Title="個資保護專區" Controller="" Action="" Value="protection" Icon="fa fa-rss" >
+    <Modules Title="個資保護專區類別" Controller="NewsCategory" Action="news15" Value="protection1" Icon="fa fa-rss" />
+    <Modules Title="個資保護專區" Controller="News" Action="news15" Value="protection2" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="宣導影片" Controller="" Action="" Value="Video" Icon="fa fa-rss">
+    <Modules Title="宣導影片類別" Controller="NewsCategory" Action="news16" Value="Video1" Icon="fa fa-rss" />
+    <Modules Title="宣導影片" Controller="News" Action="news16" Value="Video2" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="活動相簿" Controller="News" Action="news17" Value="Album" Icon="fa fa-rss" />
+  <Modules Title="政府公開資訊" Controller="" Action="" Value="PublicInfo" Icon="fa fa-rss">
+    <Modules Title="政府公開資訊類別" Controller="NewsCategory" Action="news18" Value="PublicInfo1" Icon="fa fa-rss" />
+    <Modules Title="政府公開資訊" Controller="News" Action="news18" Value="PublicInfo2" Icon="fa fa-rss" />
+  </Modules>
+  <Modules Title="地方自治法規" Controller="" Action="" Value="localRule" Icon="fa fa-rss">
+    <Modules Title="地方自治法規" Controller="NewsCategory" Action="news19" Value="localRule1" Icon="fa fa-rss" />
+    <Modules Title="地方自治法規" Controller="News" Action="news19" Value="localRule2" Icon="fa fa-rss" />
+  </Modules>
+ 
+  <Modules Title="版型與廣告管理" Controller="" Action="" Value="H" Icon="fa fa-columns">
+    <Modules Title="首頁版型管理" Controller="Template" Action="Index" Value="H01" Icon="fa fa-columns"></Modules>
+    <Modules Title="友站連結管理" Controller="HomeLink" Action="Index" Value="H02" Icon="fa fa-columns"></Modules>
+    <Modules Title="首頁廣告輪播管理" Controller="HomeAd" Action="Index" Value="H03" Icon="fa fa-columns"></Modules>
+    <Modules Title="首頁宣導主題管理" Controller="HomeTheme" Action="Index" Value="H04" Icon="fa fa-columns"></Modules>
+  </Modules>
+
+
+  <Modules Title="常見問題" Controller="" Action="" Value="Q" Icon="fa fa-question">
+    <Modules Title="常見問題類別" Controller="FAQCatalog" Action="Index" Value="Q01" Icon="fa fa-question"></Modules>
+    <Modules Title="常見問題" Controller="FAQ" Action="Index" Value="Q02" Icon="fa fa-question"></Modules>
+  </Modules>
+  <Modules Title="警勤區查詢服務" Controller="AreaSearch" Action="Index" Value="O05" Icon="fa fa-map-marker"></Modules>
+  <Modules Title="相關連結" Controller="AboutLink" Action="Index" Value="O01" Icon="fa fa-map-marker"></Modules>
+ 
+
+</menu>

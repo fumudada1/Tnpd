@@ -1,0 +1,77 @@
+﻿@model TnpdModels.Case
+
+<div class="row">
+
+<div class="col-12">
+
+   
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="input"><span class="text-danger">*</span>
+                參觀機關：</label>
+           @Model.Unit
+
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="input4"><span class="text-danger">*</span>
+                申請單位名稱：</label>
+            @Model.OrgName
+
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="input"><span class="text-danger">*</span>
+                聯絡人：</label>
+            @Model.Name
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="input4"><span class="text-danger">*</span>
+                聯絡電話：</label>
+            @Model.TEL
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" for="inputAddress"><span class="text-danger">*</span>
+            E-Mail：</label>
+        @Model.Email
+    </div>
+
+
+    <div class="form-group">
+            <label class="col-form-label" for="inputCity"><span class="text-danger">*</span>
+                預定參觀人數：</label>
+            @Model.pcnt
+        </div>
+    <div class="form-group">
+            <label class="col-form-label" for="inputState"><span class="text-danger">*</span>
+                預定參觀日期：</label>
+            @Model.ODate.Value.ToString("yyyy-MM-dd")
+        </div>
+    <div class="form-group">
+            <label class="col-form-label" for="inputZip"><span class="text-danger">*</span>
+                預定參觀時間：</label> @Model.STime~  @Model.ETime
+           
+        </div>
+  
+
+    <div class="form-group">
+        <label class="col-form-label" for="inputAddress">備註：</label>
+        @Html.Raw(UIUtility.Txt2Html(Model.Content)) 
+    </div>
+  
+
+    <div class="hrline"></div>
+
+        <div class="form-row justify-content-center">
+            <a href="/home">回首頁</a>
+        </div>
+    </div>
+
+</div>
+
+
+

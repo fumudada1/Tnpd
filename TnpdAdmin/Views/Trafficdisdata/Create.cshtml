@@ -1,0 +1,186 @@
+﻿@using TnpdModels
+@model TnpdModels.Trafficdisdata
+
+@{
+    ViewBag.Title = "自動分派承辦人新增";
+}
+
+<h2>自動分派承辦人新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>Trafficdisdata</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemberId)
+
+        </div>
+        <div class="editor-field">
+            <select id="Categories1" name="Categories1" style="font-size: 15px">
+            </select>
+            <select id="Categories2" name="Categories2" style="font-size: 15px">
+            </select>
+            <select id="MemberId" name="MemberId" style="font-size: 18px; width: 40%"></select>
+
+          
+            @Html.ValidationMessageFor(model => model.MemberId)
+
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.isAutoAssign)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.isAutoAssign, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.isAutoAssign)
+       
+            
+        </div>
+
+        
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+            $.getJSON("/units/GetfistUnit").done(function (json) {
+                data = json;
+
+                $.each(json,
+                    function (i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function (json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function (i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+                    console.log(cat2id);
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function (json) {
+                        data = json;
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function () {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberId').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function (json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function (i, item) {
+                                    $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function () {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberId').children().remove();
+
+                    var id = $('#Categories2').val();
+                    console.log(id);
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberId').children().remove();
+
+                    $('#MemberId').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+        });
+    </script>
+
+}

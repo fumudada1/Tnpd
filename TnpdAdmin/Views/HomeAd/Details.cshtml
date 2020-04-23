@@ -1,0 +1,72 @@
+﻿
+@model TnpdModels.HomeAd
+
+@{
+    ViewBag.Title = "首頁廣告輪播管理內容";
+}
+
+<h2>首頁廣告輪播管理內容</h2>
+
+<fieldset>
+    <legend>HomeAd</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Subject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpImage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpImage)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Url)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Url)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ListNum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ListNum)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Poster)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Poster)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Updater)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Updater)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+</p>

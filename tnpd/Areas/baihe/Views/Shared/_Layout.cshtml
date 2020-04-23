@@ -1,0 +1,300 @@
+﻿
+@using tnpd.Models
+@using TnpdModels
+@{
+    string unid = ViewBag.UnId;
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+    WebPresentation web;
+
+    string title = "";
+    string theme = "";
+    string cake = "";
+    string service = "";
+
+    if (string.IsNullOrEmpty(unid))
+    {
+        title = ViewBag.Title;
+        web = new WebPresentation(areaName);
+    }
+    else
+    {
+        web = new WebPresentation(areaName, unid);
+        title = ViewBag.Subject ?? web.GetTitle();
+        theme = ViewBag.Theme ?? web.GetTheme();
+        cake = ViewBag.Cake ?? web.GetCake();
+        service = ViewBag.Service ?? web.GetService();
+
+    }
+    BackendContext _db = new BackendContext();
+    var color = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName).ColorName;
+    var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
+
+}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta http-equiv="x-ua-compatible" content="IE=11,chrome=1" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="shortcut icon" href="~/Areas/@areaName/images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i"
+          rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css" type="text/css" />
+	 <script src="/js/jquery.min.js"></script>
+    <!-- Document Title
+    ============================================= -->
+    <title>@(site.Subject)_臺南市政府警察局</title>
+</head>
+
+<body class="stretched no-transition">
+<a href="#main_content" id="gotocenter" title="跳到主要內容區塊" tabindex="1" class="sr-only sr-only-focusable">跳到主要內容區塊</a>
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+<!-- Top Bar
+============================================= -->
+<!-- #top-bar end -->
+<!-- Header
+============================================= -->
+<header id="header" class="sticky-style-2">
+    <div class="container clearfix">
+        <!-- Logo
+        ============================================= -->
+        <div id="logo">
+            <a href="/@areaName/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo.png" alt="@(site.Subject)_臺南市政府警察局"></a>
+            <a href="/@areaName/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo@2x.png" alt="@(site.Subject)_臺南市政府警察局"></a>
+        </div><!-- #logo end -->
+        <div class="row justify-content-end no-gutters">
+            <div class="col-lg-auto col-md-12">
+                <div class="top-advert-1">
+                    <a href="#U" accesskey="U" class="alt-u" title="上方導覽區">:::</a>
+                    <div class="top-links">
+                        <ul>
+                            <li><a href="/@areaName/" title="回首頁">回首頁</a></li>
+                            <li><a href="/@areaName/Content/sitemap" title="網站導覽">網站導覽</a></li>
+                            <li><a href="/@(areaName)/en" title="English">English</a></li>
+                            <li><a href="/" title="回總局">回總局</a></li>
+                        </ul>
+                    </div>
+                    <!-- .top-links end -->
+                </div>
+            </div>
+            <div class="col-auto">
+                <div id="divScriptFontChange" class="fontch d-none d-lg-block">
+                    <ul>
+                        <noscript>您的瀏覽器不支援script語法，請按鍵盤上的Ctrl鍵+ (+)鍵放大/(-)鍵縮小來改變字型大小。</noscript>
+                        <li><a href="#" id="aSFont" title="小字級">A<sup>-</sup></a></li>
+                        <li><a href="#" id="aMFont" title="中字級" class="active">A</a></li>
+                        <li><a href="#" id="aLFont" title="大字級">A<sup>+</sup></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="header-wrap">
+        <!-- Primary Navigation
+        ============================================= -->
+        <nav id="primary-menu" class="style-2">
+            <div class="container clearfix">
+                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                @Html.Raw(web.getAllMenu())
+                <!-- Top Search
+                ============================================= -->
+                <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" style="margin-bottom: 0px;">
+                <div id="top-search" class="d-none d-lg-block ">
+                    <div class="input-group divcenter">
+                            <input id="q" type="text" class="form-control inputsear" placeholder="請輸入關鍵字" name="q" title="關鍵字搜尋"  onfocus="this.value=''" onblur="if(!value){value=defaultValue;}">
+                            <label for="q" class="nonedisplay">關鍵字搜尋</label>
+                            <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
+                            <div class="input-group-append">
+                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                            </div>
+                    </div>
+                </div>
+                </form><!-- #top-search end -->
+            </div>
+        </nav><!-- #primary-menu end -->
+    </div>
+</header>
+<!-- #header end -->
+<div class="clear"></div>
+<!-- Content
+============================================= -->
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+            <div class="row">
+                <div class="col-md-3 d-none d-md-block" id="left-menu">
+                    <a href="#L" accesskey="L" class="alt-c01" title="左方相關內容區">:::</a>
+                    <div class="leftbox">
+                        @if (!string.IsNullOrEmpty(web.getNodePath()))
+                        {
+                            @Html.Raw(web.GetLeftMenu())
+                        }
+                        else
+                        {
+                            @Html.Raw(web.GetL1LeftMenu())
+                        }
+                    </div>
+                </div>
+                <div class="col-md-9" id="printblock">
+                    <div class="clearfix" id="main_content">
+                        <ol class="breadcrumb">
+                            <a href="#C" accesskey="C" class="alt-c02" title="中間主要內容區" >:::</a>
+                            <li class="breadcrumb-item"><a href="/@areaName/"><i class="icon-home2"></i> 首頁</a></li>
+                            @if (!string.IsNullOrEmpty(web.getNodePath()))
+                            {
+                                @Html.Raw(web.getNodePath())
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item active" aria-current="page"> @title</li>
+                            }
+                        </ol>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="col-8 pr0pl0"><h3 class="h3title">@title</h3>
+                        </div>
+                        <div class="col-4 pr0pl0">
+                            <div class="societybox">
+                                <ul>
+                                    <li>
+                                        <a href="#http://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
+                                           title="網站分享至facebook(另開視窗)" target="_blank">
+                                            <i class="icon-facebook"></i>
+                                            <i class="icon-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li><noscript>
+                                            <div class="font13">當script無法執行列印時，可至[檔案]/[列印]</div>
+                                        </noscript>
+                                        <a href="javascript:window.print()" class="social-icon si-rounded si-colored si-small si-gplus"
+                                           title="友善列印">
+                                            <i class="icon-line-printer"></i>
+                                            <i class="icon-line-printer"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr class="hr01">
+                        </div>
+                    </div>
+                    <!--內容開始-->
+                    @RenderBody()
+                    <!--內容結束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- #content end -->
+<!-- Footer
+============================================= -->
+<footer id="footer">
+    <div class="container d-none d-md-block">
+        <!-- Footer Widgets
+        ============================================= -->
+        <div class="text-center footercollapse">
+            <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+               aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;"> 展開/收合</span></a>
+        </div>
+        <div class="collapse show" id="collapseExample">
+            <div class="footer-widgets-wrap clearfix">
+                <div class="row">
+                    @Html.Raw(web.getfootMenu())
+                </div>
+            </div>
+        </div>
+        <!-- .footer-widgets-wrap end -->
+    </div>
+    <!-- Copyrights
+    ============================================= -->
+    <div id="copyrights" class="dark">
+        <div class="container clearfix">
+            <a href="#Z" title="下方功能區塊" accesskey="Z" class="alt-c01">:::</a>
+            <div class="col_half">
+                <ul class="crul">
+                    <li class="li01"><a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" target="_blank" title="隱私權保護政策(另開視窗)">隱私權保護政策</a> | <a href="/Article/41fc069c-2222-676b-a6cf-ff552b9836d2" title="網站安全政策(另開視窗)" target="_blank">網站安全政策</a> | <a href="/Article/412894e9-5b63-bbd5-29ef-a93a549cb0bb" title="政府網站資料開放宣告(另開視窗)" target="_blank">政府網站資料開放宣告</a> </li>
+                    <li>地址：73256 臺南市白河區白河里中山路128號 ( <a href="/@areaName/Content/Article/7b1a3655-c25b-4d94-6dea-2a8efbeaefab" title="位置圖"><i class="icon-map-marker"></i>
+                        位置圖</a> )</li>
+                    <li>總機：(06)685-2006</li>
+                    <li>臺南市政府警察局 版權所有 © 2018</li>
+                    <li class="d-none d-md-block">建議使用IE10.0 以上或Edge、Firefox、Chrome 瀏覽器，最佳瀏覽解析度為1024*768</li>
+                   
+                </ul>
+            </div>
+            <div class="col_half col_last tright ">
+                <ul class="crul01 d-none d-md-block">
+                    <li><a href="#" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- #copyrights end -->
+</footer>
+<!-- #footer end -->
+</div>
+<!-- #wrapper end -->
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop"><a href="#" class="gotoTop-sty" title="回最上方"><i class="icon-angle-up"></i></a></div>
+<!-- External JavaScripts
+============================================= -->
+
+<script src="/js/plugins.js"></script>
+<!-- Footer Scripts
+============================================= -->
+<script src="/js/functions.js"></script>
+<script src="/js/fontsize.js"></script>
+<script>
+    $(document).ready(function () {
+
+        /* This function looks for a change in the hash (activation of an in-page link) and sets focus to and 
+        highlights the target element. This is necessary because webkit does not set focus as it should. If 
+        the hash is empty (the user hit the back button after activating an in-page link) focus is set to body.
+        */
+        $(window).bind('hashchange', function () {
+            var hash = "#" + window.location.hash.replace(/^#/, '');
+            if (hash != "#") {
+                $(hash).attr('tabindex', -1).on('blur focusout', function () {
+                    $(this).removeAttr('tabindex');
+                }).focus().yellowFade();
+            } else {
+                $("#headcontainer").attr('tabindex', -1).on('blur focusout', function () {
+                    $(this).removeAttr('tabindex');
+                }).focus();
+            }
+        });
+    });
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544581-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131544581-1');
+</script>
+</body>
+
+</html>
+
+
+
+
+
+

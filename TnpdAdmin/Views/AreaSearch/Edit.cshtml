@@ -1,0 +1,233 @@
+﻿@using TnpdModels
+@model TnpdModels.AreaSearch
+
+@{
+    ViewBag.Title = "警勤區查詢服務編輯";
+}
+<div class="tabbable">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#tab1" data-toggle="tab">基本資料</a></li>
+        <li><a href="#tab2" data-toggle="tab">村里資訊</a></li>
+       
+    </ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+        <h2>警勤區查詢服務編輯</h2>
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+<fieldset>
+        <legend>AreaSearch</legend>
+
+        @Html.HiddenFor(model => model.Id)
+       <table class="table table-h">
+    <tr>
+        <th width="120">
+            @Html.LabelFor(model => model.MetaId)
+            
+        </th>
+        <td>
+               @Html.DropDownList("MetaId")
+        @Html.ValidationMessageFor(model => model.MetaId)
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Subject)
+            
+        </th>
+        <td>
+              @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Subject") })
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.WebSiteId)
+            
+        </th>
+        <td>
+            @Html.DropDownList("WebSiteId")
+        @Html.ValidationMessageFor(model => model.WebSiteId)
+
+        </td>
+    </tr>
+    <tr  style="display: none">
+        <th>
+            @Html.LabelFor(model => model.MasterName)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.MasterName, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("MasterName") })
+
+        </td>
+    </tr>
+    <tr  style="display: none">
+        <th>
+            @Html.LabelFor(model => model.SlaveName)
+            
+        </th>
+        <td>
+           @Html.TextBoxFor(model => model.SlaveName, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("SlaveName") }) 
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Email)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.Email, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Email") })
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Telphone)
+            
+        </th>
+        <td>
+             @Html.TextBoxFor(model => model.Telphone, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Telphone") })
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Mobile)
+            
+        </th>
+        <td>
+            @Html.TextBoxFor(model => model.Mobile, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Mobile") })
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Address)
+            
+        </th>
+        <td>
+              @Html.TextBoxFor(model => model.Address, new { placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Address") })
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Memo)
+            
+        </th>
+        <td>
+            @Html.TextAreaFor(model => model.Memo, new { @style = "height: 150px;width: 500px", placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("Memo") })
+        @Html.ValidationMessageFor(model => model.Memo)
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.MapMemo)
+            
+        </th>
+        <td>
+               @Html.TextAreaFor(model => model.MapMemo, new { @style = "height: 150px;width: 500px", placeholder = ModelsAttributeHelper<TnpdModels.AreaSearch>.GetDisplayName("MapMemo") })
+        @Html.ValidationMessageFor(model => model.MapMemo)
+
+        <div>@Html.Raw(Model.MapMemo) </div>
+        </td>
+    </tr>
+    
+</table>
+
+            @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.InitDate)
+        @Html.HiddenFor(model => model.UpdateDate)
+    <p>
+            <input type="submit" value="更新" class="btn-button" />
+
+        </p>
+        <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </fieldset>
+    }
+    </div>
+   <div class="tab-pane" id="tab2">
+                    <p>
+                <a id="colorlink1" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "AreaSearchDetail", new { AreaSearchId = Model.Id })' })" href="javascript:return false;" class="btn-button">新增村里資訊</a>
+
+            </p>
+            <table class="table table-v" id="FileTable">
+                <tr>
+                    <th width>
+                        @Html.DisplayNameFor(model => model.AreaSearchDetails.FirstOrDefault().Village)
+                    </th>
+                    
+
+                    <th width>
+                        @Html.DisplayNameFor(model => model.AreaSearchDetails.FirstOrDefault().Address)
+                    </th>
+                    <th width>功能</th>
+                </tr>
+                @*注意這邊,要指定排序*@
+                @foreach (var item in Model.AreaSearchDetails.OrderBy(m => m.InitDate))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Village)
+                        </td>
+                       
+                        <td>
+
+                           @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+
+                            <input type="button" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "AreaSearchDetail", new { id = item.Id })        '})" class="btn btn-primary" value="編輯" />
+                           
+                            @using (Html.BeginForm("Delete", "AreaSearchDetail"))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                    <input class="btn btn-primary" type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" />
+                                
+
+                                @*這邊也有改*@
+                                @Html.Hidden("fileid", item.Id, new { @class = "fid" })
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+           
+    </div>
+</div>
+    </div>
+
+
+
+@section Scripts {
+     <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/colorbox.css")" rel="stylesheet" type="text/css"/>
+    <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+        });
+        $('#myTab a:eq(@ViewBag.type)').tab('show');
+        
+    </script>
+}

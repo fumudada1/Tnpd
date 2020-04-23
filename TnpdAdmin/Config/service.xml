@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+ <Modules Title="100 生育保健" url="" Value="100" />
+ <Modules Title="200 出生及收養" url="" Value="200" />
+ <Modules Title="300 求學及進修" url="" Value="300" />
+ <Modules Title="400 服兵役" url="" Value="400" />
+ <Modules Title="500 求職及就業" url="" Value="500" />
+ <Modules Title="600 開創事業" url="" Value="600" />
+ <Modules Title="700 婚姻" url="" Value="700" />
+  <Modules Title="800 投資理財" url="" Value="800" />
+ <Modules Title="900 休閒旅遊" url="" Value="900" />
+ <Modules Title="A00 交通及通訊" url="" Value="A00" />
+ <Modules Title="B00 就醫 " url="" Value="B00" />
+ <Modules Title="C00 購屋及遷徙" url="" Value="C00" />
+ <Modules Title="D00 選舉及投票" url="" Value="D00" />
+ <Modules Title="E00 生活安全及品質" url="" Value="E00" >
+    <Modules Title="E10 人身及財物安全" url="" Value="E10" />
+  </Modules>
+ <Modules Title="F00 退休" url="" Value="F00" />
+ <Modules Title="G00 老年安養" url="" Value="G00" />
+ <Modules Title="H00 生命禮儀" url="" Value="H00" />
+ <Modules Title="I00 公共資訊" url="" Value="I00" />
+
+
+</menu>

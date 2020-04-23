@@ -1,0 +1,190 @@
+﻿@using TnpdModels
+@model TnpdModels.Activity
+
+@{
+    ViewBag.Title = "新增";
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>Activity</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Title, new { placeholder = ModelsAttributeHelper<TnpdModels.Activity>.GetDisplayName("Title") })
+            @Html.ValidationMessageFor(model => model.Title)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Location, new { placeholder = ModelsAttributeHelper<TnpdModels.Activity>.GetDisplayName("Location") })
+            @Html.ValidationMessageFor(model => model.Location)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SignupStartDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SignupStartDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.SignupStartDate)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SignupEndDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SignupEndDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.SignupEndDate)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.StartDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.StartDate)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EndDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.EndDate)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contact)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Contact, new { @style = "height: 150px", placeholder = ModelsAttributeHelper<TnpdModels.Activity>.GetDisplayName("Contact") })
+            @Html.ValidationMessageFor(model => model.Contact)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Article)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Article,new { @class = "ckeditor" })
+            @Html.ValidationMessageFor(model => model.Article)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberOfApplicants)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NumberOfApplicants, new { placeholder = ModelsAttributeHelper<TnpdModels.Activity>.GetDisplayName("NumberOfApplicants") })
+            @Html.ValidationMessageFor(model => model.NumberOfApplicants)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsOpen)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IsOpen, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.IsOpen)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActivityFileses)
+
+        </div>
+        <div class="editor-field">
+            <input type="button" value="新增上傳檔案" class="AddItem btn btn-primary" />
+            <p>
+                <span>檔案名稱:</span>
+                <input name="files[0].Subject" id="files[0].Subject" type="text" size="60" value="附加檔案" />
+                <span>檔案路徑:</span>
+                <input name="files[0].UpFile" type="text" size="60">
+                <input type="button" value="選擇上傳檔案" class="BrowseServer btn btn-primary" />
+            </p>
+        </div>
+
+        <p>
+            <input type="submit" value="新增" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("回列表", "Index",new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/CKfinder/ckfinder.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+
+            $(".AddItem").click(function () {
+                var source = $(this).next();
+                var fileSubject = source.children().eq(1).val();
+                var len = $(this).parent().children().length - 1;
+                var clone = source.clone();
+                clone.children().eq(1).val(fileSubject + len);
+
+                clone.children().eq(1).attr('name', clone.children().eq(1).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(3).attr('name', clone.children().eq(3).attr('name').replace('[0]', '[' + len + ']'));
+                clone.children().eq(3).val("");
+                if (clone.children().length == 4) {
+                    clone.children().eq(4).attr('name', clone.children().eq(4).attr('name').replace('[0]', '[' + len + ']'));
+                }
+
+                // alert(clone.children().eq(4).attr('name'));
+                clone.insertAfter($(this).parent().children().last());
+            });
+            $("body").on('click', ".BrowseServer", function () {
+                var finder = new CKFinder();
+                //finder.basePath = '/upfiles/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+                finder.selectActionFunction = function (fileUrl, data) {
+
+                    $("input[name='" + data["selectActionData"] + "']").val(fileUrl);
+                };
+
+                finder.startupPath = 'Files:/tnpd/';                
+                finder.selectActionData = $(this).prev().attr('name');
+                finder.resourceType = 'Files';
+				finder.defaultSortBy = 'date';
+                //finder.readOnly = true;
+                finder.popup();
+            });
+        });
+</script>
+       
+}

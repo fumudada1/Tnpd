@@ -1,0 +1,221 @@
+﻿
+@model TnpdModels.TrafficViolationsRejectclass
+
+@{
+    ViewBag.Title = "不舉發原因維護內容";
+}
+
+<h2>不舉發原因維護內容</h2>
+
+<fieldset>
+    <legend>TrafficViolationsRejectclass不舉發原因維護內容</legend>
+	<table>
+	<tr>
+	<td colspan="7">
+	 TnpdModels.TrafficViolationsRejectclass
+	</td>
+
+	</tr>
+	<tr>
+    <td>
+         欄位中文名稱
+    </td>
+    <td>
+      欄位名稱
+    </td>
+	 <td>
+       是否主索引
+    </td>
+	<td>
+	是否唯讀
+	</td>
+	<td>
+	 是否外索引
+	</td>
+	<td>
+	型別
+	</td>
+</tr>
+
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Subject)
+    </td>
+    <td>
+       Subject
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.ListNum)
+    </td>
+    <td>
+       ListNum
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 Int32
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Poster)
+    </td>
+    <td>
+       Poster
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.initOrg)
+    </td>
+    <td>
+       initOrg
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.InitDate)
+    </td>
+    <td>
+       InitDate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.Updater)
+    </td>
+    <td>
+       Updater
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.UpdateOrg)
+    </td>
+    <td>
+       UpdateOrg
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 String
+	</td>
+	
+</tr>
+<tr>
+    <td>
+         @Html.DisplayNameFor(model => model.UpdateDate)
+    </td>
+    <td>
+       UpdateDate
+    </td>
+	 <td>
+       False
+    </td>
+	<td>
+	 False
+	</td>
+	
+	<td>
+	 False
+	</td>
+	<td>
+	 DateTime
+	</td>
+	
+</tr>
+</table>
+</fieldset>
+<p>
+    @Html.ActionLink("編輯","Edit", new { id=Model.Id }) |
+     <input type="button" onclick="history.back()" value="回到上一頁" />
+</p>

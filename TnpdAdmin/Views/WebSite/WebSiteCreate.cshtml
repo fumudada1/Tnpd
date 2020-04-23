@@ -1,0 +1,63 @@
+﻿@model TnpdModels.WebSiteName
+@using TnpdModels
+@{
+    ViewBag.Title = "網站精靈";
+}
+
+@if (Model.Enable == BooleanType.否)
+{
+    <h2>建立網站</h2>
+    using (Html.BeginForm())
+     {
+
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+
+         <fieldset>
+             <legend>WebSiteName</legend>
+
+             @Html.HiddenFor(model => model.Id)
+
+             <div class="editor-label">
+                 @Html.LabelFor(model => model.Subject)
+             </div>
+             <div class="editor-field">
+                 @Html.TextBoxFor(model => model.Subject, new {placeholder = ModelsAttributeHelper<TnpdModels.WebSiteName>.GetDisplayName("Subject")})
+
+             </div>
+
+
+             @Html.HiddenFor(model => model.SiteCode)
+             @Html.HiddenFor(model => model.OrgNumber)
+             @Html.HiddenFor(model => model.XmlDoc)
+             @Html.HiddenFor(model => model.ColorName)
+             @Html.HiddenFor(model => model.Enable)
+
+             @Html.HiddenFor(model => model.Poster)
+             @Html.HiddenFor(model => model.InitDate)
+             @Html.HiddenFor(model => model.UpdateDate)
+             <p>
+                 <input type="submit" value="建立" class="btn-button"/>
+                
+             </p>
+			 <p class="bottom-btn">
+            
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回到上一頁" />
+        </p>
+         </fieldset>
+     }
+}
+else
+{
+<span>您建立的網站網址為:</span><a href="@(System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"] + Model.SiteCode)">@(System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"] + Model.SiteCode)</a>
+    <p>
+        請設定此網站內容與動態發布系統編輯權限，設定網站內容。
+    </p>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

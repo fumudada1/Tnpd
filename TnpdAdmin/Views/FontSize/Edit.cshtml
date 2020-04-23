@@ -1,0 +1,67 @@
+﻿
+@using TnpdModels
+@model TnpdModels.FontSize
+
+@{
+    ViewBag.Title = "網站字型設定編輯";
+}
+
+<h2>網站字型設定編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>FontSize</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Subject)
+
+        <div style="margin-bottom:10px">
+            網站字型大小是以%數來設定，請用百分比的數字來設定
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BSize)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BSize,new { placeholder=ModelsAttributeHelper<TnpdModels.FontSize>.GetDisplayName("BSize") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MSize)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MSize,new { placeholder=ModelsAttributeHelper<TnpdModels.FontSize>.GetDisplayName("MSize") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SSize)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SSize,new { placeholder=ModelsAttributeHelper<TnpdModels.FontSize>.GetDisplayName("SSize") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> 
+        </p>
+		<p class="bottom-btn">
+		<input type="button" onclick="history.back()" value="回到上一頁" class="btn btn-primary btn-gray" />
+		</p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

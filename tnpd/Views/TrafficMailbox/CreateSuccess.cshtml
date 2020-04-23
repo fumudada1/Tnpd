@@ -1,0 +1,131 @@
+﻿@model TnpdModels.CaseTraffic
+
+<div class="row">
+
+<div class="col-12">
+
+   
+
+    
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="col-form-label" >
+       
+                案號：</label> @Model.CaseID
+   
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label">
+
+                姓名：</label>
+            @Model.Name
+            <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">
+
+                性別：</label>
+            @Model.Gender
+        </div>
+    </div>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" >
+            電話：</label>
+
+       @Model.TEL
+    </div>
+    <div class="form-group col-md-6">
+        <label class="col-form-label">
+            職業：</label>
+        @Model.Job
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-form-label" >
+       
+        地址：</label> @Model.Address
+   
+</div>
+
+<div class="form-group">
+    <label class="col-form-label" >
+       
+        E-Mail：</label>
+
+    @Model.Email
+</div>
+
+
+
+<h4 class="h4title">「檢舉內容」</h4>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" >
+           
+            主題：</label>
+        @Model.Subject
+
+    </div>
+</div>
+
+<div class="form-group mb-0">
+    <label class="col-form-label">
+       
+        違規地點：</label>
+    @Model.violation_place_area  @Model.violation_place_road @Model.violation_place
+    
+</div>
+
+<div class="form-group mb-0">
+    <label class="col-form-label" >
+       
+        違規時間：</label>
+    @UIUtility.Date2CrocFormat(Model.violation_date)  @Model.violation_time
+    
+</div>
+
+<div class="form-group mb-0">
+    <label class="col-form-label" >
+       
+        違規車號：</label>
+    @Model.violation_carno
+    
+</div>
+
+<div class="form-row">
+    <div class="form-group mb-0">
+        <label class="col-form-label">
+           
+            違規事項：</label>
+        @Model.itemno
+        
+    </div>
+</div>
+
+<div class="form-group">
+     
+    <label class="col-form-label">內容：</label>
+    @Html.Raw(UIUtility.Txt2Html(Model.Content)) 
+   
+</div>
+
+   
+
+  
+
+    <div class="hrline"></div>
+
+        <div class="form-row justify-content-center">
+            <a href="/home">回首頁</a>
+        </div>
+    </div>
+
+</div>
+
+
+

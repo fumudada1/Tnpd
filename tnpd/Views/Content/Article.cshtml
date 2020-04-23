@@ -1,0 +1,4 @@
+﻿@model TnpdModels.WebArticle
+@Html.Raw(Model.Article)
+
+<div class="updateline">瀏覽人數：@Model.Views ，更新日期：@UIUtility.Date2RocFormat(Model.UpdateDate) </div>

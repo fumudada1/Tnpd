@@ -1,0 +1,19 @@
+﻿@model TnpdModels.ActivityRegistration
+
+@foreach (var i in Model.ActivityCustomFieldValue.OrderBy(m => m.InitDate))
+{
+    <div class="editor-label">
+        <label for="@i.ActivityCustomField.FieldName">@i.ActivityCustomField.FieldName</label>
+    </div>
+    <div class="editor-field">
+        @if (i.ActivityCustomField.InputType == TnpdModels.CustomFieldInputType.多行輸入)
+        { 
+            @(new HtmlString(i.FieldValue.Replace("\n", "<BR />")))
+        }
+        else
+        { 
+            @i.FieldValue
+        }
+        
+    </div>
+}

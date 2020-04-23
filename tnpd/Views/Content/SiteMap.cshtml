@@ -1,0 +1,28 @@
+﻿@using tnpd.Models
+@using TnpdModels
+
+@{
+    ViewBag.Title = "網站導覽";
+ 
+    WebPresentation web = new WebPresentation("tnpd");
+}
+<div class="row">
+    
+    <div class="col-12">
+        <p>
+            本網站依無障礙網頁設計原則建置，網站的主要內容分為四大區塊：<br>
+            1. 上方功能區塊、2.左方功能區塊 3、中央內容區塊、4.下方功能區塊。<br><br>
+
+            本網站的快速鍵﹝Accesskey﹞設定如下：<br>
+            Alt+U：右上方功能區塊，包括回首頁、網站導覽、字體選擇等。<br>
+            Alt+L：左方功能區塊，此區塊列有本網站次選單連結。<br>
+            Alt+C：中央內容區塊，為本頁主要內容區。<br>
+            Alt+Z：下方功能區塊。
+        </p>
+    </div>
+    @Html.Raw(web.getSiteMap())
+</div>
+
+
+                                  
+                                       

@@ -1,0 +1,207 @@
+﻿@using TnpdModels
+@model TnpdModels.Albums
+
+@{
+    ViewBag.Title = "電子相簿管理系統編輯";
+}
+<div class="tabbable">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#tab1" data-toggle="tab">基本資料</a></li>
+        <li><a href="#tab2" data-toggle="tab">圖檔</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+         <h2 class="page-title"><i class="fa fa-pencil-square-o"></i>電子相簿管理系統編輯</h2>
+
+            @using (Html.BeginForm())
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset>
+                    <legend>Albums</legend>
+
+                    @Html.HiddenFor(model => model.Id)
+
+                    <table class="table table-h">
+    <tr>
+        <th width="120">
+                        @Html.LabelFor(model => model.Language)
+            
+        </th>
+        <td>
+              @Html.DropDownListFor(model => model.Language, new SelectList(Enum.GetValues(typeof(TnpdModels.LanguageType))))
+                        @Html.ValidationMessageFor(model => model.Language)
+        </td>
+    </tr>
+    <tr>
+        <th>
+                        @Html.LabelFor(model => model.Subject)
+            
+        </th>
+        <td>
+             @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.Albums>.GetDisplayName("Subject") })
+        </td>
+    </tr>
+    <tr>
+        <th>
+                        @Html.LabelFor(model => model.Enable)
+            
+        </th>
+        <td>
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+                        @Html.ValidationMessageFor(model => model.Enable)
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+                        @Html.LabelFor(model => model.Memo)
+            
+        </th>
+        <td>
+            @Html.TextAreaFor(model => model.Memo, new { @style = "height: 150px", placeholder = ModelsAttributeHelper<TnpdModels.Albums>.GetDisplayName("Memo") })
+                        @Html.ValidationMessageFor(model => model.Memo)
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+                        @Html.LabelFor(model => model.MetaId)
+            
+        </th>
+        <td>
+            @Html.DropDownList("MetaId")
+                        @Html.ValidationMessageFor(model => model.MetaId)
+
+        </td>
+    </tr>
+   
+    
+</table>
+
+                    @Html.HiddenFor(model => model.Poster)
+                    @Html.HiddenFor(model => model.InitDate)
+                    @Html.HiddenFor(model => model.UpdateDate)
+                    <p>
+                        <input type="submit" value="更新" class="btn-button" />
+                    </p>
+
+                </fieldset>
+            }
+        </div>
+        <div class="tab-pane" id="tab2">
+            <p>
+                <a id="colorlink" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "AlbumsPicture", new { AlbumsId = Model.Id })' })" href="javascript:return false;" class="btn-button">新增圖檔</a>
+
+            </p>
+            <table class="table table-v" id="FileTable">
+                <tr>
+                    <th width="13%">
+                        @Html.DisplayNameFor(model => model.AlbumsPictures.FirstOrDefault().Subject)
+                    </th>
+                    <th width="13%">
+                        @Html.DisplayNameFor(model => model.AlbumsPictures.FirstOrDefault().UpImage)
+                    </th>
+
+                    <th width="13%">
+                        @Html.DisplayNameFor(model => model.AlbumsPictures.FirstOrDefault().ListNum)
+                    </th>
+                    <th width="13%">新排序
+                    </th>
+                    <th width="13%">功能</th>
+                </tr>
+                @*注意這邊,要指定排序*@
+                @foreach (var item in Model.AlbumsPictures.OrderBy(m => m.ListNum))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.UpImage))
+                            {
+                                <img src="@(item.UpImage.Replace("upfiles/images/", "upfiles/_thumbs/images/"))" />
+                            }
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ListNum)
+                        </td>
+                        <td>
+
+                            @Html.TextBoxFor(modelItem => item.ListNum, new { @class = "position" })
+                        </td>
+                        <td>
+
+                            <input type="button" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "AlbumsPicture", new { id = item.Id })        '})" value="編輯" class="btn btn-primary" />
+                            
+                            @using (Html.BeginForm("Delete", "AlbumsPicture"))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                <input class="btn btn-primary" type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" />
+                                
+
+@*這邊也有改*@
+                                @Html.Hidden("fileid", item.Id, new { @class = "fid" })
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @using (Html.BeginForm("Sort", "AlbumsPicture"))
+            {
+                <div>
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" id="fileSortData" name="SortData" />
+                    <input type="submit" value="更新排序" class="btn-button" />
+
+                </div>
+            }
+        </div>
+    </div>
+
+    <p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+    </div>
+
+
+@section Scripts {
+     <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/colorbox.css")" rel="stylesheet" type="text/css"/>
+    <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+        });
+        $('#myTab a:eq(@ViewBag.type)').tab('show');
+        $("#FileTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#fileSortData").val(map);
+            }
+        });
+
+    </script>
+}

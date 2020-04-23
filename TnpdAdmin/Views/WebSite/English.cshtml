@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+<div ng-app="treeview" class="span12" style="margin-left:50px">
+    <input type="text" value="@ViewBag.webSiteName" id="thisSite" style="display: none"> 
+    @Html.DropDownList("WebSiteId")<input type="button" value="click"/>
+      <ng-view></ng-view>
+</div>
+</div>
+<style>
+.hidden {
+    display: none!important;
+    visibility: hidden!important;
+}
+</style>
+  <link rel="stylesheet" href="~/css/angular-ui-tree.css">
+  <link rel="stylesheet" href="~/Scripts/treeview/ckeditor/ng-ckeditor.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="~/css/angular-ui-tree-app.css">
+	  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="~/Scripts/treeview/bootstrap.min.js"></script>
+<script src="~/Scripts/treeview/angular.min.js"></script>
+<script src="~/Scripts/treeview/app.js"></script>
+<script src="~/Scripts/treeview/treeviewService.js"></script>
+<script src="~/Scripts/treeview/toolService.js"></script>
+<script src="~/Scripts/treeview/vendor/angular-route.min.js"></script>
+<script src="~/Scripts/treeview/main.js"></script>
+<script src="~/Scripts/treeview/controllers/handleCtrl.js"></script>
+<script src="~/Scripts/treeview/controllers/nodeCtrl.js"></script>
+<script src="~/Scripts/treeview/controllers/nodesCtrl.js"></script>
+<script src="~/Scripts/treeview/controllers/treeCtrl.js"></script>
+<script src="~/Scripts/treeview/directives/uiTree.js"></script>
+<script src="~/Scripts/treeview/directives/uiTreeHandle.js"></script>
+<script src="~/Scripts/treeview/directives/uiTreeNode.js"></script>
+<script src="~/Scripts/treeview/directives/uiTreeNodes.js"></script>
+<script src="~/Scripts/treeview/services/helper.js"></script>
+<script src="~/Scripts/treeview/vendor/angular-modal-service.js"></script>
+<script src="~/Scripts/treeview/vendor/contextMenu.js"></script>
+<script src="~/Scripts/treeview/mixin/rightclick.js"></script>
+<script src="~/Scripts/treeview/controllers/ModalCtrl.js"></script>
+<script src="~/Scripts/treeview/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/treeview/ckeditor/ng-ckeditor.js"></script>
+

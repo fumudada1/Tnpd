@@ -1,0 +1,72 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.SystemLog>
+
+@{
+    ViewBag.Title = "網頁維護紀錄列表";
+}
+
+<h2>網頁維護紀錄列表</h2>
+
+
+
+    @using (Html.BeginForm())
+{
+<div class="search">
+               異動帳號：@Html.InputSearchBox("SearchByPoster", ViewData["SearchByPoster"]) <br/>
+        	發布日期：<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/> <input type="submit" value="搜尋" class="btn-button" /> 
+    </div>
+
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="70%">
+           網頁維護紀錄
+        </th>
+        <th>
+           異動者帳號
+        </th>
+        <th>
+            更新時間
+        </th>
+   
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.Raw(item.Subject)
+        </td>
+        <td class="center">
+            @Html.DisplayFor(modelItem => item.Poster)
+        </td>
+        <td  class="center">
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+      
+    </tr>
+}
+</tbody>
+</table>
+共 @Model.TotalItemCount 篇 <input type="button" value="列印" id="printMe" class="btn btn-primary" />
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

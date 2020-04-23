@@ -1,0 +1,74 @@
+﻿
+@using TnpdModels
+@model TnpdModels.AboutLink
+
+@{
+    ViewBag.Title = "相關連結編輯";
+}
+
+<h2>相關連結編輯</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AboutLink</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.AboutLink>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId")
+            @Html.ValidationMessageFor(model => model.CategoryId)
+           
+        </div>
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.URL)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.URL,new { placeholder=ModelsAttributeHelper<TnpdModels.AboutLink>.GetDisplayName("URL") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Status)
+           
+        </div>
+        @Html.HiddenFor(model => model.initOrg)
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+    
+            @Html.HiddenFor(model => model.InitDate)
+      
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

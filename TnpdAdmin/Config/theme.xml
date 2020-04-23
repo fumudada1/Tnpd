@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <Modules Title="100內政及國土" url="" Value="100">
+    <Modules Title="110民政" url="" Value="110" />
+    <Modules Title="120戶政" url="" Value="120" />
+    <Modules Title="130役政" url="" Value="130" />
+    <Modules Title="140地政" url="" Value="140" />
+    <Modules Title="150營建" url="" Value="150" />
+    <Modules Title="1B0選舉" url="" Value="1B0" />
+    <Modules Title="1Z0其他" url="" Value="1Z0" />
+	<Modules Title="170 警政" url="" Value="170" />
+  </Modules>
+</menu>

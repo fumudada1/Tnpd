@@ -1,0 +1,17 @@
+﻿
+
+@using System.Xml
+@using tnpd.Models
+@{
+    List<NodeLink> nodeLinks = ViewBag.nodeLinks;
+}
+
+
+
+   
+@foreach (var link in nodeLinks)
+{
+    <div  class="l-title-square">
+        <a href="@link.url" target="@link.Target" title="@link.Tooltip">@link.Tooltip</a>
+    </div>
+}

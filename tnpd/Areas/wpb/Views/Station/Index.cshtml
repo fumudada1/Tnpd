@@ -1,0 +1,32 @@
+﻿@using tnpd.Helpers
+@using MvcPaging
+@model List<TnpdModels.StationInfo>
+@{
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+}
+<div class="row">
+
+    <div class="col-12">
+
+        <table class="table table-hover tablestyle rwd-table">
+            <thead>
+            <tr>
+                <th>名稱</th>
+                <th>地址</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                 <tr>
+                <td class="none"><a href="@Url.Action("Details", "Station", new RouteValueDictionary(new {id = item.Id, unid = ViewBag.UnId,area=areaName }))" title="@item.Subject">@item.Subject</a></td>
+                <td class="none">@item.Address</td>
+            </tr>
+            }
+           
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

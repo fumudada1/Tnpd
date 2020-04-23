@@ -1,0 +1,595 @@
+﻿@using TnpdModels
+@model TnpdModels.News
+
+@{
+    ViewBag.Title = ViewBag.Title;
+    List<NewsCatalog> newsCatalogs = ViewBag.newsCatalogs;
+    
+}
+
+<div class="tabbable">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#tab1" data-toggle="tab">基本資料</a></li>
+        <li><a href="#tab2" data-toggle="tab">附加檔案</a></li>
+        <li><a href="#tab3" data-toggle="tab">附加連結</a></li>
+        <li><a href="#tab4" data-toggle="tab">附加圖片</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <h2>@ViewBag.Title 編輯  </h2>
+            
+
+         
+
+            @using (Html.BeginForm())
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset>
+                    <legend>News</legend>
+
+                    @Html.HiddenFor(model => model.Id)
+                    
+                    <div class="editor-field">
+                        <a href="https://www.tnpd.gov.tw//News/PerView/@Model.Id" target="_blank"><img src="/Images/preview.png" width="50px"/> 點我預覽</a>
+                    </div>
+                    
+
+                    <div class="editor-label">
+                        @if (Request["pclass"] == "58")
+                        {
+                            <span>問題</span>
+                        }
+                        else
+                        {
+                            @Html.LabelFor(model => model.Subject)
+                        }
+                      
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Subject, new { placeholder = ModelsAttributeHelper<TnpdModels.News>.GetDisplayName("Subject") })
+
+                    </div>
+                    
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IsConfirm)
+                    </div>
+                    <div class="editor-field">
+                     @Model.IsConfirm
+                       @Html.HiddenFor(x=>x.IsConfirm)
+
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MemberId)
+
+                    </div>
+                    <div class="editor-field">
+                        @if (!Model.MemberId.HasValue)
+                        {
+                            <div style="color: red">
+                                尚未指定審核人，請於下方指定審核人
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                指定審核人為：@Model.assignMember.Name，若要修改請於下方指定新審核人
+                            </div>
+                        }
+                        <select id="Categories1" name="Categories1" style="font-size: 15px">
+                        </select>
+                        <select id="Categories2" name="Categories2" style="font-size: 15px">
+                        </select>
+                        <select id="MemberId" name="MemberId" style="font-size: 18px; width: 40%"></select>
+
+
+                        @Html.ValidationMessageFor(model => model.MemberId)
+
+
+                    </div>
+                 
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.StartDate)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.StartDate, "{0:d}", new { @class = "datepicker", target = "" })
+                        @Html.ValidationMessageFor(model => model.StartDate)
+
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.EndDate)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.EndDate, "{0:d}", new { @class = "datepicker", target = "" })
+                        @Html.ValidationMessageFor(model => model.EndDate)
+
+                    </div>
+                    <div class="editor-label">
+                        @if (Request["pclass"] == "58")
+                        {
+                            <span>答</span>
+                        }
+                        else
+                        {
+                            @Html.LabelFor(model => model.Article)
+                        }
+                       
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Article, new { @class = "ckeditor" })
+                        @Html.ValidationMessageFor(model => model.Article)
+
+                    </div>
+                    <div class="editor-label">
+                        <label> 發布站台設定</label>
+
+                    </div>
+                    <div class="editor-field">
+           
+                        @foreach (var catalog in newsCatalogs)
+                        {
+                            var catalogs = Model.NewsCatalogs;
+                            if (catalogs.Contains(catalog))
+                            {
+                              
+                                <input type="checkbox" value="@catalog.Id" name="newsCatalogID" class="chkCatalog"   checked ="checked" /> 
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="@catalog.Id" name="newsCatalogID" class="chkCatalog" /> 
+                            }
+                            <span>@catalog.WebSite.Subject - @catalog.Subject</span>
+                            <br/>
+
+                        }
+                    </div>
+
+
+                    <div class="editor-label" style="display: none">
+                        @Html.LabelFor(model => model.IsConfirm)
+                    </div>
+                    <div class="editor-field" style="display: none">
+                        @Html.DropDownListFor(model => model.IsConfirm, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+                        @Html.ValidationMessageFor(model => model.IsConfirm)
+
+                    </div>
+                   
+
+
+                    <input type="hidden" name="pclass" value="@Request["pclass"]"/>
+                    @Html.HiddenFor(model => model.Views)
+                    @Html.HiddenFor(model => model.WebCategoryId)
+                    @Html.HiddenFor(model => model.Poster)
+                    @Html.HiddenFor(model => model.InitDate)
+                    @Html.HiddenFor(model => model.initOrg)
+                    @Html.HiddenFor(model => model.UpdateDate)
+                    <p>
+                        <input type="submit" value="更新" class="btn-button" />
+                       
+                    </p>
+                </fieldset>
+            }
+        </div>
+        <div class="tab-pane" id="tab2">
+            <p>
+                <a id="colorlink" class="btn btn-primary" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "NewsFiles", new { NewsId = Model.Id,pclass=@Request["pclass"] })' })" href="javascript:return false;">新增檔案</a>
+
+            </p>
+            <table class="table table-v" id="FileTable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NewsFileses.FirstOrDefault().Subject)
+                    </th>
+              
+                    <th>
+                        @Html.DisplayNameFor(model => model.NewsFileses.FirstOrDefault().ListNum)
+                    </th>
+                    <th>
+                        新排序
+                    </th>
+                    <th>功能</th>
+                </tr>
+                @*注意這邊,要指定排序*@
+                @foreach (var item in Model.NewsFileses.OrderBy(m => m.ListNum))
+                {
+                    <tr>
+                       
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.UpFile))
+                            {
+                                <a href="@item.UpFile">@item.Subject</a>
+                            }
+                        </td>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ListNum)
+                        </td>
+                        <td>
+
+                            @Html.TextBoxFor(modelItem => item.ListNum, new { @class = "position" })
+                        </td>
+                        <td>
+
+                            <input type="button" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "NewsFiles", new { id = item.Id,pclass=@Request["pclass"] })'})" value="編輯" class="btn btn-primary" />
+                            
+                            @using (Html.BeginForm("Delete", "NewsFiles"))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                    <input type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" class="btn btn-primary" />
+                                
+
+                                @*這邊也有改*@
+                                @Html.Hidden("fileid", item.Id, new { @class = "fid" })
+                                @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @using (Html.BeginForm("Sort", "NewsFiles"))
+            {
+                <div>
+                    @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                    <input type="hidden" name="Id" value="@Model.Id"/>
+                    <input type="hidden" id="fileSortData" name="SortData"/>
+                    <input type="submit" value="更新排序" class="btn-button"/>
+
+                </div>
+            }
+        </div>
+    <div class="tab-pane" id="tab3">
+        <p>
+            <a id="colorlink" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "NewsLink", new { NewsId = Model.Id,pclass=@Request["pclass"] })' })" href="javascript:return false;" class="btn btn-primary">新增連結</a>
+
+        </p>
+        <table class="table table-v" id="LinkTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsLinks.FirstOrDefault().Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsLinks.FirstOrDefault().LinkUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsLinks.FirstOrDefault().Target)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsLinks.FirstOrDefault().ListNum)
+                </th>
+                <th>
+                    新排序
+                </th>
+                <th></th>
+            </tr>
+            @*注意這邊,要指定排序*@
+            @foreach (var item in Model.NewsLinks.OrderBy(m => m.ListNum))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.LinkUrl))
+                        {
+                            <a href="@item.LinkUrl">@item.LinkUrl</a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Target)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListNum)
+                    </td>
+                    <td>
+
+                        @Html.TextBoxFor(modelItem => item.ListNum, new { @class = "position" })
+                    </td>
+                    <td>
+
+                        <input type="button"  class="btn btn-primary" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "NewsLink", new { id = item.Id,pclass=@Request["pclass"]  })        '})" value="編輯" />
+                           
+                        @using (Html.BeginForm("Delete", "NewsLink"))
+                        {
+                            @Html.AntiForgeryToken()
+                                
+                            <input type="submit" class="btn btn-primary" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" />
+                                
+
+                                @*這邊也有改*@
+                            @Html.Hidden("linkid", item.Id, new { @class = "fid" })
+                            @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                        }
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        @using (Html.BeginForm("Sort", "NewsLink"))
+        {
+            <div>
+                @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                <input type="hidden" name="Id" value="@Model.Id"/>
+                <input type="hidden" id="linkSortData" name="SortData"/>
+                <input type="submit" value="更新排序" class="btn-button"/>
+
+            </div>
+        }
+
+    </div>
+    <div class="tab-pane" id="tab4">
+        <p>
+            <a id="colorlink" class="btn btn-primary" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Create", "NewsImags", new { NewsId = Model.Id,pclass=@Request["pclass"]  })' })" href="javascript:return false;">新增圖片</a>
+
+        </p>
+        <table class="table table-v" id="ImageTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsImagses.FirstOrDefault().Subject)
+                </th>
+              
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsImagses.FirstOrDefault().ListNum)
+                </th>
+                <th>
+                    新排序
+                </th>
+                <th>功能</th>
+            </tr>
+            @*注意這邊,要指定排序*@
+            @foreach (var item in Model.NewsImagses.OrderBy(m => m.ListNum))
+            {
+                <tr>
+                       
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.UpFile))
+                        {
+                            <a href="@item.UpFile">@item.Subject</a>
+                        }
+                    </td>
+                       
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListNum)
+                    </td>
+                    <td>
+
+                        @Html.TextBoxFor(modelItem => item.ListNum, new { @class = "position" })
+                    </td>
+                    <td>
+
+                        <input type="button" onclick="$.fn.colorbox({ width: '700', height: '600', iframe: true, href: '@Url.Action("Edit", "NewsImags", new { id = item.Id,pclass=@Request["pclass"]  }) '})" value="編輯" class="btn btn-primary" />
+                            
+                        @using (Html.BeginForm("Delete", "NewsImags"))
+                        {
+                            @Html.AntiForgeryToken()
+                                
+                            <input type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" class="btn btn-primary" />
+                                
+
+                                @*這邊也有改*@
+                            @Html.Hidden("fileid", item.Id, new { @class = "fid" })
+                            @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                        }
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        @using (Html.BeginForm("Sort", "NewsImags"))
+        {
+            <div>
+                @Html.Hidden("pclass", Request["pclass"], new { @class = "fid" })
+                <input type="hidden" name="Id" value="@Model.Id"/>
+                <input type="hidden" id="ImageSortData" name="SortData"/>
+                <input type="submit" value="更新排序" class="btn-button"/>
+
+            </div>
+        }
+    </div>
+
+    </div>
+</div>
+
+<div>
+    <input type="button" onclick="history.back()" class="btn btn-primary" value="回列表" />
+</div>
+<div style="display: none">
+    <iframe src="https://www.tnpd.gov.tw/News/check?ip=1"></iframe>
+</div>
+@section Scripts {
+     <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/colorbox.css")" rel="stylesheet" type="text/css"/>
+    <script src="@Url.Content("~/Scripts/jquery.tablednd.0.5.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript">
+    </script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+      
+        $(document).ready(function () {
+          
+           
+            $(".datepicker").datepicker();
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+           
+            $.getJSON("/units/GetfistUnit").done(function (json) {
+                
+                data = json;
+               
+                $.each(json,
+                    function (i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function (json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function (i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+                    console.log(cat2id);
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function (json) {
+                        data = json;
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function () {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberId').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function (json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function (i, item) {
+                                    $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function () {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberId').children().remove();
+
+                    var id = $('#Categories2').val();
+                    console.log(id);
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberId').children().remove();
+
+                    $('#MemberId').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+            $.fn.colorbox();
+        });
+        $('#myTab a:eq(@ViewBag.type)').tab('show');
+        $("#FileTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#fileSortData").val(map);
+            }
+        });
+        $("#LinkTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#fileSortData").val(map);
+            }
+        });
+        $("#ImageTable").tableDnD({
+            onDragClass: "showDragHandle",
+            onDrop: function (table, row) {
+                var rows = table.tBodies[0].rows;
+                var map = "";
+                for (var i = 1; i < rows.length; i++) {
+                    $(rows[i]).find(".position").val(i);
+                    map += $(rows[i]).find(".fid").val() + ":" + i + ",";
+                }
+                $("#ImageSortData").val(map);
+            }
+        });
+    </script>
+}

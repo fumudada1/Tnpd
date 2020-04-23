@@ -1,0 +1,1 @@
+select count(*) as Total,Poster as Name,initOrg from News WHERE (News.StartDate >= '2019/1/1' and News.StartDate<='2019/3/1')  group by Poster,initOrg  order by initOrg desc

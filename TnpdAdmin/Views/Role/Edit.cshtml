@@ -1,0 +1,266 @@
+﻿@using System.Collections
+
+@model TnpdModels.Role
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>角色維護</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>角色維護</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <table class="table table-h">
+    <tr>
+        <th width="120">
+            @Html.LabelFor(model => model.Subject)
+            
+        </th>
+        <td>
+              @Html.EditorFor(model => model.Subject)
+            @Html.ValidationMessageFor(model => model.Subject)
+        </td>
+    </tr>
+    <tr>
+        <th>
+             @Html.LabelFor(model => model.Permission)
+           
+        </th>
+        <td> <div id="tree3"></div>
+            @Html.HiddenFor(model => model.Permission)
+            
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Members)
+            
+        </th>
+        <td>
+            <div style="float: left; width: 250px; border-color: black; border-style: double; padding: 5px">
+            <select id="Categories1" name="Categories1">
+            </select>
+            <select id="Categories2" name="Categories2">
+            </select>
+            <select id="MemberList" multiple="multiple" name="MemberList" aria-invalid="false" class="valid">
+
+
+            </select>
+                </div>
+            <div style="float: left; width: 57px; padding: 0px 10px;margin-top: 100px">
+                <input type="button" value="==＞" id="toRight"/>
+                <input type="button" value="＜==" id="toLeft" />
+            </div>
+            <div style="float: left; width: 250px; border-color: black; border-style: double; padding: 5px; height: 280px">
+                @{
+                    foreach (var member in Model.Members)
+                    {
+                        member.Name = member.Name + "(" + member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject + ")";
+                    }
+                }
+                @Html.ListBox("selectMembers", new SelectList(Model.Members as IEnumerable, "Id", "Name", new {Multiple = "multiple"}))
+
+                <input type="hidden" id="MemberListSelect" name="MemberListSelect"/>
+            </div>
+            <div style="clear: both"></div>
+            <div>
+                @foreach (var member in Model.Members)
+                {
+                 <span>@member.Account @member.Name</span><br/>
+                }
+            </div>
+
+           
+        </td>
+    </tr>
+   
+</table>
+        @Html.HiddenFor(model => model.UnitId)
+        @Html.HiddenFor(model => model.InitDate)
+        @Html.HiddenFor(model => model.Poster)
+        <p>
+            <input type="submit" value="儲存" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("回列表", "Index")
+</div>
+
+@section Scripts {
+    @* @Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/jquery-ui.custom.js" type="text/javascript"></script>
+
+
+    <link href="~/Content/themes/base/skin/ui.dynatree.css" rel="stylesheet" type="text/css" id="skinSheet">
+    <script src="~/Scripts/jquery.dynatree.js" type="text/javascript"></script>
+    <script src="~/Role/TreeScript/@Model.Id" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+            var isAdmin = '@ViewBag.admin';
+            $.getJSON("/units/GetfistUnit").done(function(json) {
+                data = json;
+
+                $.each(json,
+                    function(i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function(json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function(i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id  + "?RoleId=@Model.Id" ).done(function(json) {
+                        data = json;
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+                if (isAdmin == 'False') {
+                    $('#Categories1').attr('disabled', 'disabled');
+
+                }
+            });
+
+            $('#Categories1').change(function() {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberList').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id+ "?RoleId=@Model.Id").done(function(json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function(i, item) {
+                                    $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function() {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberList').children().remove();
+
+                    var id = $('#Categories2').val();
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=@Model.Id").done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberList').children().remove();
+
+                    $('#MemberList').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+            initMemberListSelect();
+
+            $("#toRight").click(function() {
+
+                $("#MemberList").children(":selected").each(function() {
+                    $(this).appendTo("#selectMembers");
+                });
+                initMemberListSelect();
+            });
+
+            $("#toLeft").click(function() {
+
+                $("#selectMembers").children(":selected").each(function () {
+                    $(this).appendTo("#MemberList");
+                });
+                initMemberListSelect();
+            });
+
+            function initMemberListSelect() {
+                var list = '';
+                $("#selectMembers").children().each(function () {
+                    list += $(this).val() + ",";
+                });
+                $("#MemberListSelect").val(list);
+            }
+
+        });
+    </script>
+
+}

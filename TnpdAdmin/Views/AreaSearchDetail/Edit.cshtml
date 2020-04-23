@@ -1,0 +1,95 @@
+﻿
+@using TnpdModels
+@model TnpdModels.AreaSearchDetail
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "編輯";
+
+}
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/CKfinder/ckfinder.js"></script>
+@{
+    if (ViewBag.close == "true")
+    {
+        <script>
+            $(document).ready(function () {
+                parent.$.fn.colorbox.close();
+                parent.location = '@Url.Action("Edit", "AreaSearch", new { id = ViewBag.AreaSearchId, type = "1" })';
+            });
+        </script>
+    }
+    
+      
+    }
+    <style>
+        .position {
+            width: 27px;
+        }
+    </style>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AreaSearchDetail</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.TownId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TownId")
+
+
+
+        </div>
+
+        <div class="editor-label"   style="display: none">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field"  style="display: none">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearchDetail>.GetDisplayName("Subject") })
+            <input type="hidden" name="AreaSearchId" value="@ViewBag.AreaSearchId"/>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Village)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Village,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearchDetail>.GetDisplayName("Village") })
+           
+        </div>
+
+        <div class="editor-label"   style="display: none">
+            @Html.LabelFor(model => model.Proxy)
+        </div>
+        <div class="editor-field"   style="display: none">
+            @Html.TextBoxFor(model => model.Proxy,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearchDetail>.GetDisplayName("Proxy") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Address,new { placeholder=ModelsAttributeHelper<TnpdModels.AreaSearchDetail>.GetDisplayName("Address") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" /> 
+        </p>
+    </fieldset>
+}
+
+
+

@@ -1,0 +1,76 @@
+﻿
+@using TnpdModels
+@model TnpdModels.HomeTheme
+
+@{
+    ViewBag.Title = "首頁宣導主題管理編輯";
+}
+
+<h2>首頁宣導主題管理編輯</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>HomeTheme</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.HomeTheme>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImages" />
+            @Html.HiddenFor(model => model.UpImage)
+            @if (!string.IsNullOrEmpty(Model.UpImage))
+            {
+                <img src="~/upfiles/images/S@(Model.UpImage)" />
+            }
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Url)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Url,new { placeholder=ModelsAttributeHelper<TnpdModels.HomeTheme>.GetDisplayName("Url") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+           
+        </div>
+         @Html.HiddenFor(model => model.WebSiteNameId)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" />
+        </p>
+		<p class="bottom-btn">
+    <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" /> 
+    </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

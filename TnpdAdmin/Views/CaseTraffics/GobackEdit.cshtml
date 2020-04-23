@@ -1,0 +1,473 @@
+﻿@using TnpdModels
+@model TnpdModels.CaseTrafficPoproc
+
+@{
+    ViewBag.Title = "退文派案作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>退文派案作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Case</legend>
+    @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+    <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.Case.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件日期：@Model.Case.InitDate
+            </td>
+            <td>
+            </td>
+          
+        </tr>
+        <tr>
+            <td>承辦單位：@Model.assignUnit.ParentUnit.Subject - @Model.assignUnit.Subject
+            </td>
+            <td>承辦人：@Model.assignMember.Name
+            </td>
+        </tr>
+        <tr>
+            <td>預結案日：@Model.Case.Predate
+            </td>
+            <td>案件狀態：@Model.Status
+            </td>
+        </tr>
+        </tbody>
+    </table>
+@if (ViewBag.message == null)
+{
+        <span style="color: black">處理紀錄</span>
+    <table class="table table-v">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>承辦單位</th>
+            <th>承辦人</th>
+            <th>作業</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CaseTrafficPoprocLog log in Model.Case.PoprocslLogs.OrderByDescending(x => x.InitDate))
+        {
+            <tr>
+                <td>
+                    @log.InitDate
+                </td>
+                @if (log.assignUnit != null)
+                {
+                    <td>
+                        @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                    </td>
+                }
+                else
+                {
+                    <td>
+                       
+                    </td>
+                }
+                <td>
+                    @log.assignMember.Name
+                </td>
+                <td>
+                    @log.Action
+                </td>
+
+            </tr>
+        }
+            
+
+        </tbody>
+    </table>
+}
+
+    <span style="color: black">案件資料</span>
+        <table class="table table-v">
+
+            <tbody>
+            <tr>
+                <td>姓名：@Model.Case.Name</td>
+                <td>性別：@Model.Case.Gender</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">身分證字號：@Model.Case.Pid</td>
+
+            </tr>
+            <tr>
+
+                <td>電話：@Model.Case.TEL</td>
+                <td>職業：@Model.Case.Job</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">E-mail：@Model.Case.Email</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">地址：@Model.Case.Address</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">主題：@Model.Case.Subject</td>
+                @{
+                    subject = Model.Case.Subject;
+                }
+            </tr>
+            <tr>
+
+                <td colspan="2">違規地點：@Model.Case.violation_place_area @Model.Case.violation_place_road @Model.Case.violation_place</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">違規時間：@Model.Case.violation_date.ToString("yyyy/MM/dd")  @Model.Case.violation_time</td>
+            </tr>
+            <tr>
+
+                <td>違規車號：@Model.Case.violation_carno</td>
+                <td>違規事項：@Model.Case.itemno</td>
+            </tr>
+            <tr>
+
+                <td colspan="2">內容：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                </td>
+
+            </tr>
+            <tr>
+
+                <td colspan="2">上傳附件檔：<br />
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile1))
+                    {
+                   
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile1);
+                        if (finfo.Exists) {
+                            <a href="/TrafficFiles/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                        }else{
+                            <a href="http://10.128.0.43:8080/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                        }
+                   
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                    {
+                   
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                        if (finfo.Exists) {
+                            <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                        }else{
+                            <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                        }
+                   
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
+                    {
+                   
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
+                        if (finfo.Exists) {
+                            <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                        }else{
+                            <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                        }
+                   
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile4))
+                    {
+                   
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile4);
+                        if (finfo.Exists) {
+                            <a href="/TrafficFiles/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                        }else{
+                            <a href="http://10.128.0.43:8080/@Model.Case.Upfile4" target="_black">@Model.Case.Upfile4</a>
+                        }
+                   
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile5))
+                    {
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile5);
+                        if (finfo.Exists) { 
+                            <br/>  <a href="/TrafficFiles/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                        }else{
+                        
+                            <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile5" target="_black">@Model.Case.Upfile5</a>
+                        }
+                   
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Case.Upfile6))
+                    {
+                        FileInfo finfo = new FileInfo(path + Model.Case.Upfile6);
+                        if (finfo.Exists) { 
+                            <br/>  <a href="/TrafficFiles/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                        }else{
+                        
+                            <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile6" target="_black">@Model.Case.Upfile6</a>
+                        }
+                    }
+                </td>
+
+            </tr>
+     
+
+
+            </tbody>
+        </table>
+   
+        
+
+        <table class="table table-v">
+        <tr>
+            <tr>
+
+                <td>退文理由：<br />
+                    @Html.Raw(UIUtility.Txt2Html(Model.noplyreason))
+                </td>
+
+            </tr>
+        </tr>
+    </table>
+
+
+       
+    <div id="divAssign" style="padding: 15px">
+        @* <div style="display: none">
+            @if ( ViewBag.ca1 != 346)
+            {
+    <select id="Categories1" name="Categories1" style="font-size: 15px" disabled>
+                </select>
+            }
+            else
+            {
+                <select id="Categories1" name="Categories1" style="font-size: 15px">
+                </select>
+            }
+            
+                <select id="Categories2" name="Categories2" style="font-size: 15px">
+                </select>
+                <select id="MemberList" name="MemberList" style="font-size: 18px; width: 40%"></select>
+                <input type="button" id="addPeople" value="新增承辦人"/>
+            </div>
+            <select name="MemberListSelect" multiple="multiple" id="MemberListSelect" style="height: 320px"> <input type="button" id="removePeople" value="移除承辦人" />
+            </select>*@
+           
+        @if (ViewBag.AssignMemberCount == 0)
+        {
+            <div>
+                請先到左邊選單 【交通檢舉信箱】 -->【單位承辦人設定 】指定承辦人，謝謝。
+            </div>
+        }
+        else
+        {
+            <span>指派承辦人：</span>    @Html.DropDownList("MemberListSelect")
+        }
+
+    </div>
+        
+    <div>
+        
+       
+    </div>
+    <p align="center">
+        <input name="processtype" id="processtype" value="" type="hidden" />     
+        <input type="button" id="btnAssign" value="派案"/>
+        <input type="button" value="刪除分文" id="btnDelete" />
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+           
+            $("#btnAssign").click(function() {
+                $("#processtype").val("Assign");
+                $("form").submit();
+            });
+            $("#btnDelete").click(function() {
+                $("#processtype").val("Delete");
+                $("form").submit();
+            });
+
+
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+
+            $.getJSON("/units/GetfistUnit").done(function(json) {
+                data = json;
+
+                $.each(json,
+                    function(i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function(json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function(i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function(json) {
+                        data = json;
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function() {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberList').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function(json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function(i, item) {
+                                    $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function() {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberList').children().remove();
+
+                    var id = $('#Categories2').val();
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberList').children().remove();
+
+                    $('#MemberList').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $("#addPeople").click(function() {
+
+                $("#MemberList").children(":selected").each(function() {
+                    $(this).appendTo("#MemberListSelect");
+                });
+            });
+            $("#removePeople").click(function() {
+                $("#MemberListSelect").children(":selected").each(function() {
+                    $(this).appendTo("#MemberList");
+                });
+            });
+
+        });
+
+
+    </script>
+  
+    
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/CaseTraffics/GobackEdit";
+</script>
+}

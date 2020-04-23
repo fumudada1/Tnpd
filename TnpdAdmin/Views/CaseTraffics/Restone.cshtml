@@ -1,0 +1,74 @@
+﻿@using TnpdModels
+@model TnpdModels.CaseTrafficPoproc
+
+@{
+    ViewBag.Title = "案件狀態回復";
+    string subject = "";
+ 
+   
+}
+
+<h2>案件狀態回復</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Case</legend>
+   
+    <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+    <span style="color: black">請輸入案件編號：</span><input type="text" name="CaseID"/><input type="submit" id="btnClose" value="案件狀態回復"/>
+    
+    
+    
+    
+
+        
+    <div>
+        
+       
+    </div>
+   
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+           
+          
+
+
+           
+
+        });
+
+
+    </script>
+  
+    
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/CaseTraffics/Assign";
+</script>
+}

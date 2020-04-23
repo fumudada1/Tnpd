@@ -1,0 +1,1352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{939B8214-DC15-44FC-9FE8-FAFEC313B430}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>tnpd</RootNamespace>
+    <AssemblyName>tnpd</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiXssLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\AntiXssLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcPaging, Version=2.1.2.28, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcPaging.2.1.2\lib\net40\MvcPaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.WebRequest, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="TnpdModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\TnpdModels\bin\Debug\TnpdModels.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\baiheen\baiheenAreaRegistration.cs" />
+    <Compile Include="Areas\baiheen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\baiheen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\baihe\baiheAreaRegistration.cs" />
+    <Compile Include="Areas\baihe\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\baihe\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\baihe\Controllers\ContentController.cs" />
+    <Compile Include="Areas\baihe\Controllers\FAQController.cs" />
+    <Compile Include="Areas\baihe\Controllers\HomeController.cs" />
+    <Compile Include="Areas\baihe\Controllers\NewsController.cs" />
+    <Compile Include="Areas\baihe\Controllers\StationController.cs" />
+    <Compile Include="Areas\cicen\cicenAreaRegistration.cs" />
+    <Compile Include="Areas\cicen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\cicen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\cic\cicAreaRegistration.cs" />
+    <Compile Include="Areas\cic\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\cic\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\cic\Controllers\ContentController.cs" />
+    <Compile Include="Areas\cic\Controllers\FAQController.cs" />
+    <Compile Include="Areas\cic\Controllers\HomeController.cs" />
+    <Compile Include="Areas\cic\Controllers\NewsController.cs" />
+    <Compile Include="Areas\cic\Controllers\StationController.cs" />
+    <Compile Include="Areas\en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\en\Controllers\FAQController.cs" />
+    <Compile Include="Areas\en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\en\Controllers\NewsController.cs" />
+    <Compile Include="Areas\en\enAreaRegistration.cs" />
+    <Compile Include="Areas\guirenen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\guirenen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\guirenen\guirenenAreaRegistration.cs" />
+    <Compile Include="Areas\guiren\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\guiren\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\guiren\Controllers\ContentController.cs" />
+    <Compile Include="Areas\guiren\Controllers\FAQController.cs" />
+    <Compile Include="Areas\guiren\Controllers\HomeController.cs" />
+    <Compile Include="Areas\guiren\Controllers\NewsController.cs" />
+    <Compile Include="Areas\guiren\Controllers\StationController.cs" />
+    <Compile Include="Areas\guiren\guirenAreaRegistration.cs" />
+    <Compile Include="Areas\jialien\Controllers\ContentController.cs" />
+    <Compile Include="Areas\jialien\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jialien\jialienAreaRegistration.cs" />
+    <Compile Include="Areas\jiali\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\jiali\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\jiali\Controllers\ContentController.cs" />
+    <Compile Include="Areas\jiali\Controllers\FAQController.cs" />
+    <Compile Include="Areas\jiali\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jiali\Controllers\NewsController.cs" />
+    <Compile Include="Areas\jiali\Controllers\StationController.cs" />
+    <Compile Include="Areas\jiali\jialiAreaRegistration.cs" />
+    <Compile Include="Areas\jpben\Controllers\ContentController.cs" />
+    <Compile Include="Areas\jpben\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jpben\jpbenAreaRegistration.cs" />
+    <Compile Include="Areas\jpb\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\jpb\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\jpb\Controllers\ContentController.cs" />
+    <Compile Include="Areas\jpb\Controllers\FAQController.cs" />
+    <Compile Include="Areas\jpb\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jpb\Controllers\NewsController.cs" />
+    <Compile Include="Areas\jpb\Controllers\StationController.cs" />
+    <Compile Include="Areas\jpb\jpbAreaRegistration.cs" />
+    <Compile Include="Areas\madouen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\madouen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\madouen\madouenAreaRegistration.cs" />
+    <Compile Include="Areas\madou\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\madou\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\madou\Controllers\ContentController.cs" />
+    <Compile Include="Areas\madou\Controllers\FAQController.cs" />
+    <Compile Include="Areas\madou\Controllers\HomeController.cs" />
+    <Compile Include="Areas\madou\Controllers\NewsController.cs" />
+    <Compile Include="Areas\madou\Controllers\StationController.cs" />
+    <Compile Include="Areas\madou\madouAreaRegistration.cs" />
+    <Compile Include="Areas\mvop\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\mvop\Controllers\ContentController.cs" />
+    <Compile Include="Areas\mvop\Controllers\FAQController.cs" />
+    <Compile Include="Areas\mvop\Controllers\HomeController.cs" />
+    <Compile Include="Areas\mvop\Controllers\NewsController.cs" />
+    <Compile Include="Areas\mvop\Controllers\StationController.cs" />
+    <Compile Include="Areas\mvop\mvopAreaRegistration.cs" />
+    <Compile Include="Areas\pppcen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\pppcen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\pppcen\pppcenAreaRegistration.cs" />
+    <Compile Include="Areas\pppc\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\pppc\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\pppc\Controllers\ContentController.cs" />
+    <Compile Include="Areas\pppc\Controllers\FAQController.cs" />
+    <Compile Include="Areas\pppc\Controllers\HomeController.cs" />
+    <Compile Include="Areas\pppc\Controllers\NewsController.cs" />
+    <Compile Include="Areas\pppc\Controllers\StationController.cs" />
+    <Compile Include="Areas\pppc\pppcAreaRegistration.cs" />
+    <Compile Include="Areas\precinct1en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct1en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct1en\precinct1enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct1\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct1\precinct1AreaRegistration.cs" />
+    <Compile Include="Areas\precinct2en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct2en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct2en\precinct2enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct2\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct2\precinct2AreaRegistration.cs" />
+    <Compile Include="Areas\precinct3en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct3en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct3en\precinct3enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct3\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct3\precinct3AreaRegistration.cs" />
+    <Compile Include="Areas\precinct4en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct4en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct4en\precinct4enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct4\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct4\precinct4AreaRegistration.cs" />
+    <Compile Include="Areas\precinct5en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct5en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct5en\precinct5enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct5\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct5\precinct5AreaRegistration.cs" />
+    <Compile Include="Areas\precinct6en\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct6en\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct6en\precinct6enAreaRegistration.cs" />
+    <Compile Include="Areas\precinct6\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\ContentController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\FAQController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\NewsController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\StationController.cs" />
+    <Compile Include="Areas\precinct6\precinct6AreaRegistration.cs" />
+    <Compile Include="Areas\safe\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\safe\Controllers\ContentController.cs" />
+    <Compile Include="Areas\safe\Controllers\FAQController.cs" />
+    <Compile Include="Areas\safe\Controllers\HomeController.cs" />
+    <Compile Include="Areas\safe\Controllers\NewsController.cs" />
+    <Compile Include="Areas\safe\Controllers\StationController.cs" />
+    <Compile Include="Areas\safe\safeAreaRegistration.cs" />
+    <Compile Include="Areas\shanhuaen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\shanhuaen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\shanhuaen\shanhuaenAreaRegistration.cs" />
+    <Compile Include="Areas\shanhua\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\ContentController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\FAQController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\HomeController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\NewsController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\StationController.cs" />
+    <Compile Include="Areas\shanhua\shanhuaAreaRegistration.cs" />
+    <Compile Include="Areas\trafficen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\trafficen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\trafficen\trafficenAreaRegistration.cs" />
+    <Compile Include="Areas\traffic\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\traffic\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\traffic\Controllers\ContentController.cs" />
+    <Compile Include="Areas\traffic\Controllers\FAQController.cs" />
+    <Compile Include="Areas\traffic\Controllers\HomeController.cs" />
+    <Compile Include="Areas\traffic\Controllers\NewsController.cs" />
+    <Compile Include="Areas\traffic\Controllers\StationController.cs" />
+    <Compile Include="Areas\traffic\trafficAreaRegistration.cs" />
+    <Compile Include="Areas\wpben\Controllers\ContentController.cs" />
+    <Compile Include="Areas\wpben\Controllers\HomeController.cs" />
+    <Compile Include="Areas\wpben\wpbenAreaRegistration.cs" />
+    <Compile Include="Areas\wpb\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\wpb\Controllers\ContentController.cs" />
+    <Compile Include="Areas\wpb\Controllers\FAQController.cs" />
+    <Compile Include="Areas\wpb\Controllers\HomeController.cs" />
+    <Compile Include="Areas\wpb\Controllers\NewsController.cs" />
+    <Compile Include="Areas\wpb\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\wpb\Controllers\StationController.cs" />
+    <Compile Include="Areas\wpb\Controllers\WandaController.cs" />
+    <Compile Include="Areas\wpb\Controllers\WandaformController.cs" />
+    <Compile Include="Areas\wpb\wpbAreaRegistration.cs" />
+    <Compile Include="Areas\xinhuaen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xinhuaen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinhuaen\xinhuaenAreaRegistration.cs" />
+    <Compile Include="Areas\xinhua\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\FAQController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\NewsController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\StationController.cs" />
+    <Compile Include="Areas\xinhua\xinhuaAreaRegistration.cs" />
+    <Compile Include="Areas\xinyingen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xinyingen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinyingen\Controllers\StationController.cs" />
+    <Compile Include="Areas\xinyingen\xinyingenAreaRegistration.cs" />
+    <Compile Include="Areas\xinying\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\xinying\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\xinying\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xinying\Controllers\FAQController.cs" />
+    <Compile Include="Areas\xinying\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinying\Controllers\NewsController.cs" />
+    <Compile Include="Areas\xinying\Controllers\StationController.cs" />
+    <Compile Include="Areas\xinying\xinyingAreaRegistration.cs" />
+    <Compile Include="Areas\xuejiaen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xuejiaen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xuejiaen\xuejiaenAreaRegistration.cs" />
+    <Compile Include="Areas\xuejia\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\ContentController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\FAQController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\NewsController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\StationController.cs" />
+    <Compile Include="Areas\xuejia\xuejiaAreaRegistration.cs" />
+    <Compile Include="Areas\yongkangen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\yongkangen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yongkangen\yongkangenAreaRegistration.cs" />
+    <Compile Include="Areas\yongkang\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\ContentController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\FAQController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\NewsController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\StationController.cs" />
+    <Compile Include="Areas\yongkang\yongkangAreaRegistration.cs" />
+    <Compile Include="Areas\yujingen\Controllers\ContentController.cs" />
+    <Compile Include="Areas\yujingen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yujingen\yujingenAreaRegistration.cs" />
+    <Compile Include="Areas\yujing\Controllers\AboutLinkController.cs" />
+    <Compile Include="Areas\yujing\Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Areas\yujing\Controllers\ContentController.cs" />
+    <Compile Include="Areas\yujing\Controllers\FAQController.cs" />
+    <Compile Include="Areas\yujing\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yujing\Controllers\NewsController.cs" />
+    <Compile Include="Areas\yujing\Controllers\StationController.cs" />
+    <Compile Include="Areas\yujing\yujingAreaRegistration.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AboutLinkController.cs" />
+    <Compile Include="Controllers\AreaSearchController.cs" />
+    <Compile Include="Controllers\CaptchaController.cs" />
+    <Compile Include="Controllers\CasewqController.cs" />
+    <Compile Include="Controllers\CheckWebsiteController.cs" />
+    <Compile Include="Controllers\ChiefMailboxController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\CriminalMailboxController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FAQController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailboxController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SendMailController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\StationInfoController.cs" />
+    <Compile Include="Controllers\TowAwayController.cs" />
+    <Compile Include="Controllers\TrafficMailboxController.cs" />
+    <Compile Include="Controllers\TrafficRoaddatasController.cs" />
+    <Compile Include="Controllers\VisitController.cs" />
+    <Compile Include="Controllers\VoiceController.cs" />
+    <Compile Include="Controllers\wandaController.cs" />
+    <Compile Include="Controllers\WayPointController.cs" />
+    <Compile Include="Controllers\_BaseController.cs" />
+    <Compile Include="Extentions\ControlExtentions.cs" />
+    <Compile Include="Filters\MyAuthorizeAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ControlsHelper.cs" />
+    <Compile Include="Models\Captcha.cs" />
+    <Compile Include="Models\CaseTrafficView.cs" />
+    <Compile Include="Models\ChiefView.cs" />
+    <Compile Include="Models\GJson.cs" />
+    <Compile Include="Models\ModelsAttributeHelper.cs" />
+    <Compile Include="Models\MyHttpModule.cs" />
+    <Compile Include="Models\NewsSearchView.cs" />
+    <Compile Include="Models\NodeLink.cs" />
+    <Compile Include="Models\RSSCollections.cs" />
+    <Compile Include="Models\TowAwayjson.cs" />
+    <Compile Include="Models\Utility.cs" />
+    <Compile Include="Models\Wandaform.cs" />
+    <Compile Include="Models\WebPresentation.cs" />
+    <Compile Include="Models\ReportView.cs" />
+    <Compile Include="Models\VisitView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\jpb\Views\Content\Article.cshtml" />
+    <Content Include="Areas\jpb\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\jpb\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\jpb\Views\Home\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\News\Article.cshtml" />
+    <Content Include="Areas\jpb\Views\News\Details.cshtml" />
+    <Content Include="Areas\jpb\Views\News\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\jpb\Views\Web.config" />
+    <Content Include="Areas\jpb\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\madou\Views\Content\Article.cshtml" />
+    <Content Include="Areas\madou\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\madou\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\madou\Views\Home\Index.cshtml" />
+    <Content Include="Areas\madou\Views\News\Article.cshtml" />
+    <Content Include="Areas\madou\Views\News\Details.cshtml" />
+    <Content Include="Areas\madou\Views\News\Index.cshtml" />
+    <Content Include="Areas\madou\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\madou\Views\Web.config" />
+    <Content Include="Areas\madou\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\mvop\Views\Content\Article.cshtml" />
+    <Content Include="Areas\mvop\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\mvop\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\mvop\Views\Home\Index.cshtml" />
+    <Content Include="Areas\mvop\Views\News\Article.cshtml" />
+    <Content Include="Areas\mvop\Views\News\Details.cshtml" />
+    <Content Include="Areas\mvop\Views\News\Index.cshtml" />
+    <Content Include="Areas\mvop\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\mvop\Views\Web.config" />
+    <Content Include="Areas\mvop\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\pppc\Views\Content\Article.cshtml" />
+    <Content Include="Areas\pppc\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\pppc\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\pppc\Views\Home\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\News\Article.cshtml" />
+    <Content Include="Areas\pppc\Views\News\Details.cshtml" />
+    <Content Include="Areas\pppc\Views\News\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\pppc\Views\Web.config" />
+    <Content Include="Areas\pppc\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct1\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct1\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct1\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct1\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct1\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct1\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct1\Views\Web.config" />
+    <Content Include="Areas\precinct1\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct2\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct2\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct2\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct2\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct2\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct2\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct2\Views\Web.config" />
+    <Content Include="Areas\precinct2\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct3\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct3\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct3\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct3\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct3\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct3\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct3\Views\Web.config" />
+    <Content Include="Areas\precinct3\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct4\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct4\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct4\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct4\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct4\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct4\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct4\Views\Web.config" />
+    <Content Include="Areas\precinct4\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct5\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct5\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct5\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct5\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct5\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct5\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct5\Views\Web.config" />
+    <Content Include="Areas\precinct5\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct6\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct6\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct6\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct6\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct6\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct6\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct6\Views\Web.config" />
+    <Content Include="Areas\precinct6\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\safe\Views\Content\Article.cshtml" />
+    <Content Include="Areas\safe\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\safe\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\safe\Views\Home\Index.cshtml" />
+    <Content Include="Areas\safe\Views\News\Article.cshtml" />
+    <Content Include="Areas\safe\Views\News\Details.cshtml" />
+    <Content Include="Areas\safe\Views\News\Index.cshtml" />
+    <Content Include="Areas\safe\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\safe\Views\Web.config" />
+    <Content Include="Areas\safe\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\shanhua\Views\Content\Article.cshtml" />
+    <Content Include="Areas\shanhua\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\shanhua\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\shanhua\Views\Home\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\News\Article.cshtml" />
+    <Content Include="Areas\shanhua\Views\News\Details.cshtml" />
+    <Content Include="Areas\shanhua\Views\News\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\shanhua\Views\Web.config" />
+    <Content Include="Areas\shanhua\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\traffic\Views\Content\Article.cshtml" />
+    <Content Include="Areas\traffic\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\traffic\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\traffic\Views\Home\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\News\Article.cshtml" />
+    <Content Include="Areas\traffic\Views\News\Details.cshtml" />
+    <Content Include="Areas\traffic\Views\News\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\traffic\Views\Web.config" />
+    <Content Include="Areas\traffic\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\wpb\Views\Content\Article.cshtml" />
+    <Content Include="Areas\wpb\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\wpb\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\wpb\Views\Home\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\News\Article.cshtml" />
+    <Content Include="Areas\wpb\Views\News\Details.cshtml" />
+    <Content Include="Areas\wpb\Views\News\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\wpb\Views\Web.config" />
+    <Content Include="Areas\wpb\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xinhua\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xinhua\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xinhua\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xinhua\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\News\Article.cshtml" />
+    <Content Include="Areas\xinhua\Views\News\Details.cshtml" />
+    <Content Include="Areas\xinhua\Views\News\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xinhua\Views\Web.config" />
+    <Content Include="Areas\xinhua\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xinying\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xinying\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xinying\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xinying\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\News\Article.cshtml" />
+    <Content Include="Areas\xinying\Views\News\Details.cshtml" />
+    <Content Include="Areas\xinying\Views\News\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xinying\Views\Web.config" />
+    <Content Include="Areas\xinying\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xuejia\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xuejia\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xuejia\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xuejia\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\News\Article.cshtml" />
+    <Content Include="Areas\xuejia\Views\News\Details.cshtml" />
+    <Content Include="Areas\xuejia\Views\News\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xuejia\Views\Web.config" />
+    <Content Include="Areas\xuejia\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\yongkang\Views\Content\Article.cshtml" />
+    <Content Include="Areas\yongkang\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\yongkang\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\yongkang\Views\Home\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\News\Article.cshtml" />
+    <Content Include="Areas\yongkang\Views\News\Details.cshtml" />
+    <Content Include="Areas\yongkang\Views\News\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\yongkang\Views\Web.config" />
+    <Content Include="Areas\yongkang\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\yujing\Views\Content\Article.cshtml" />
+    <Content Include="Areas\yujing\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\yujing\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\yujing\Views\Home\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\News\Article.cshtml" />
+    <Content Include="Areas\yujing\Views\News\Details.cshtml" />
+    <Content Include="Areas\yujing\Views\News\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\yujing\Views\Web.config" />
+    <Content Include="Areas\yujing\Views\_ViewStart.cshtml" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\baihe\Views\Web.config" />
+    <Content Include="Areas\jiali\Views\Web.config" />
+    <Content Include="Areas\guiren\Views\Web.config" />
+    <Content Include="Areas\cic\Views\Web.config" />
+    <Content Include="Areas\en\Views\Web.config" />
+    <Content Include="Areas\cicen\Views\Web.config" />
+    <Content Include="App_Code\UIUtility.cshtml" />
+    <Content Include="Areas\en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\en\Views\News\Details.cshtml" />
+    <Content Include="Areas\en\Views\News\Index.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Areas\en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\cic\Views\Content\Article.cshtml" />
+    <Content Include="Areas\cic\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\cic\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\cic\Views\Home\Index.cshtml" />
+    <Content Include="Areas\cic\Views\News\Details.cshtml" />
+    <Content Include="Areas\cic\Views\News\Index.cshtml" />
+    <Content Include="Areas\cic\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\cic\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\cicen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\cicen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\cicen\Views\News\Article.cshtml" />
+    <Content Include="Areas\cicen\Views\News\Details.cshtml" />
+    <Content Include="Areas\cicen\Views\News\Index.cshtml" />
+    <Content Include="Areas\cicen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\cicen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\cicen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\cicen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Web.config" />
+    <Content Include="Areas\precinct2en\Views\Web.config" />
+    <Content Include="Areas\precinct3en\Views\Web.config" />
+    <Content Include="Areas\precinct4en\Views\Web.config" />
+    <Content Include="Areas\precinct5en\Views\Web.config" />
+    <Content Include="Areas\precinct6en\Views\Web.config" />
+    <Content Include="Areas\xinyingen\Views\Web.config" />
+    <Content Include="Areas\madouen\Views\Web.config" />
+    <Content Include="Areas\shanhuaen\Views\Web.config" />
+    <Content Include="Areas\jialien\Views\Web.config" />
+    <Content Include="Areas\xuejiaen\Views\Web.config" />
+    <Content Include="Areas\xinhuaen\Views\Web.config" />
+    <Content Include="Areas\guirenen\Views\Web.config" />
+    <Content Include="Areas\yongkangen\Views\Web.config" />
+    <Content Include="Areas\trafficen\Views\Web.config" />
+    <Content Include="Areas\pppcen\Views\Web.config" />
+    <Content Include="Areas\jpben\Views\Web.config" />
+    <Content Include="Areas\wpben\Views\Web.config" />
+    <Content Include="Areas\baiheen\Views\Web.config" />
+    <Content Include="Areas\yujingen\Views\Web.config" />
+    <Content Include="Areas\baihe\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\baihe\Views\Content\Article.cshtml" />
+    <Content Include="Areas\baihe\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\baihe\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\baihe\Views\Home\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\News\Details.cshtml" />
+    <Content Include="Areas\baihe\Views\News\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\baiheen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\baiheen\Views\Content\Article.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Areas\baiheen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\baiheen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\baiheen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\baiheen\Views\News\Article.cshtml" />
+    <Content Include="Areas\baiheen\Views\News\Details.cshtml" />
+    <Content Include="Areas\baiheen\Views\News\Index.cshtml" />
+    <Content Include="Areas\baiheen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\guirenen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\guirenen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\guirenen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\guirenen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\guirenen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\guirenen\Views\News\Article.cshtml" />
+    <Content Include="Areas\guirenen\Views\News\Details.cshtml" />
+    <Content Include="Areas\guirenen\Views\News\Index.cshtml" />
+    <Content Include="Areas\guirenen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\jialien\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\jialien\Views\Content\Article.cshtml" />
+    <Content Include="Areas\jialien\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\jialien\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\jialien\Views\Home\Index.cshtml" />
+    <Content Include="Areas\jialien\Views\News\Article.cshtml" />
+    <Content Include="Areas\jialien\Views\News\Details.cshtml" />
+    <Content Include="Areas\jialien\Views\News\Index.cshtml" />
+    <Content Include="Areas\jialien\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\jpben\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\jpben\Views\Content\Article.cshtml" />
+    <Content Include="Areas\jpben\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\jpben\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\jpben\Views\Home\Index.cshtml" />
+    <Content Include="Areas\jpben\Views\News\Article.cshtml" />
+    <Content Include="Areas\jpben\Views\News\Details.cshtml" />
+    <Content Include="Areas\jpben\Views\News\Index.cshtml" />
+    <Content Include="Areas\jpben\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\madouen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\madouen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\madouen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\madouen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\madouen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\madouen\Views\News\Article.cshtml" />
+    <Content Include="Areas\madouen\Views\News\Details.cshtml" />
+    <Content Include="Areas\madouen\Views\News\Index.cshtml" />
+    <Content Include="Areas\madouen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\pppcen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\pppcen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\pppcen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\pppcen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\pppcen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\pppcen\Views\News\Article.cshtml" />
+    <Content Include="Areas\pppcen\Views\News\Details.cshtml" />
+    <Content Include="Areas\pppcen\Views\News\Index.cshtml" />
+    <Content Include="Areas\pppcen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct1en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct1en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct1en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct1en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct1en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct2en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct2en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct2en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct2en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct2en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct2en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct2en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct2en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct2en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct3en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct3en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct3en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct3en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct3en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct3en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct3en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct3en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct3en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct4en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct4en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct4en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct4en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct4en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct4en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct4en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct4en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct4en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct5en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct5en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct5en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct5en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct5en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct5en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct5en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct5en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct5en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\precinct6en\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\precinct6en\Views\Content\Article.cshtml" />
+    <Content Include="Areas\precinct6en\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\precinct6en\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\precinct6en\Views\Home\Index.cshtml" />
+    <Content Include="Areas\precinct6en\Views\News\Article.cshtml" />
+    <Content Include="Areas\precinct6en\Views\News\Details.cshtml" />
+    <Content Include="Areas\precinct6en\Views\News\Index.cshtml" />
+    <Content Include="Areas\precinct6en\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\News\Article.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\News\Details.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\News\Index.cshtml" />
+    <Content Include="Areas\shanhuaen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\trafficen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\trafficen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\trafficen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\trafficen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\trafficen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\trafficen\Views\News\Article.cshtml" />
+    <Content Include="Areas\trafficen\Views\News\Details.cshtml" />
+    <Content Include="Areas\trafficen\Views\News\Index.cshtml" />
+    <Content Include="Areas\trafficen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\wpben\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\wpben\Views\Content\Article.cshtml" />
+    <Content Include="Areas\wpben\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\wpben\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\wpben\Views\Home\Index.cshtml" />
+    <Content Include="Areas\wpben\Views\News\Article.cshtml" />
+    <Content Include="Areas\wpben\Views\News\Details.cshtml" />
+    <Content Include="Areas\wpben\Views\News\Index.cshtml" />
+    <Content Include="Areas\wpben\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\News\Article.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\News\Details.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\News\Index.cshtml" />
+    <Content Include="Areas\xinhuaen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xinyingen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xinyingen\Views\News\Article.cshtml" />
+    <Content Include="Areas\xinyingen\Views\News\Details.cshtml" />
+    <Content Include="Areas\xinyingen\Views\News\Index.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\News\Article.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\News\Details.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\News\Index.cshtml" />
+    <Content Include="Areas\xuejiaen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\yongkangen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\yongkangen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\yongkangen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\yongkangen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\yongkangen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\yongkangen\Views\News\Article.cshtml" />
+    <Content Include="Areas\yongkangen\Views\News\Details.cshtml" />
+    <Content Include="Areas\yongkangen\Views\News\Index.cshtml" />
+    <Content Include="Areas\yongkangen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\yujingen\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\yujingen\Views\Content\Article.cshtml" />
+    <Content Include="Areas\yujingen\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\yujingen\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\yujingen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\yujingen\Views\News\Article.cshtml" />
+    <Content Include="Areas\yujingen\Views\News\Details.cshtml" />
+    <Content Include="Areas\yujingen\Views\News\Index.cshtml" />
+    <Content Include="Areas\yujingen\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\guiren\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\guiren\Views\Content\Article.cshtml" />
+    <Content Include="Areas\guiren\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\guiren\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\guiren\Views\Home\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\News\Article.cshtml" />
+    <Content Include="Areas\guiren\Views\News\Details.cshtml" />
+    <Content Include="Areas\guiren\Views\News\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\jiali\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\jiali\Views\Content\Article.cshtml" />
+    <Content Include="Areas\jiali\Views\Content\Directory.cshtml" />
+    <Content Include="Areas\jiali\Views\Content\SiteMap.cshtml" />
+    <Content Include="Areas\jiali\Views\Home\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\News\Article.cshtml" />
+    <Content Include="Areas\jiali\Views\News\Details.cshtml" />
+    <Content Include="Areas\jiali\Views\News\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\baihe\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\baihe\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\baihe\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\cic\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\cic\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\cic\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\cic\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\guiren\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\guiren\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\jiali\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\jiali\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\jpb\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\jpb\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\jpb\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\madou\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\madou\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\madou\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\madou\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\mvop\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\mvop\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\mvop\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\mvop\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\mvop\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\pppc\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\pppc\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\pppc\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct1\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct1\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct2\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct2\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct3\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct3\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct4\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\precinct4\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct4\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct5\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct5\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\precinct6\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\precinct6\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\safe\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\safe\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\safe\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\safe\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\safe\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\shanhua\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\shanhua\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\traffic\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\traffic\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\traffic\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\wpb\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Content\Article.cshtml.old" />
+    <Content Include="Areas\wpb\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\wpb\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\xinhua\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\xinhua\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\xinying\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Content\Directory.cshtml.old" />
+    <Content Include="Areas\xinying\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\xinying\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\xinying\Views\Home\Index.cshtml.old" />
+    <Content Include="Areas\xuejia\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\xuejia\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\yongkang\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\yongkang\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\yujing\Views\AboutLink\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\yujing\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\Home\HomeLink.cshtml" />
+    <Content Include="Areas\xinyingen\Views\Station\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Station\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Station\Details.cshtml" />
+    <Content Include="Areas\wpb\Views\Wanda\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Wanda\Details.cshtml" />
+    <Content Include="Areas\baihe\Views\Station\Details.cshtml" />
+    <Content Include="Areas\baihe\Views\Station\Index.cshtml" />
+    <Content Include="Areas\cic\Views\Station\Details.cshtml" />
+    <Content Include="Areas\cic\Views\Station\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\Station\Details.cshtml" />
+    <Content Include="Areas\guiren\Views\Station\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\Station\Details.cshtml" />
+    <Content Include="Areas\jiali\Views\Station\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\Station\Details.cshtml" />
+    <Content Include="Areas\jpb\Views\Station\Index.cshtml" />
+    <Content Include="Areas\madou\Views\Station\Details.cshtml" />
+    <Content Include="Areas\madou\Views\Station\Index.cshtml" />
+    <Content Include="Areas\mvop\Views\Station\Details.cshtml" />
+    <Content Include="Areas\mvop\Views\Station\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\Station\Details.cshtml" />
+    <Content Include="Areas\pppc\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct1\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct2\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct3\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct4\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct5\Views\Station\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\Station\Details.cshtml" />
+    <Content Include="Areas\precinct6\Views\Station\Index.cshtml" />
+    <Content Include="Areas\safe\Views\Station\Details.cshtml" />
+    <Content Include="Areas\safe\Views\Station\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\Station\Details.cshtml" />
+    <Content Include="Areas\shanhua\Views\Station\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\Station\Details.cshtml" />
+    <Content Include="Areas\traffic\Views\Station\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Station\Details.cshtml" />
+    <Content Include="Areas\wpb\Views\Station\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\Station\Details.cshtml" />
+    <Content Include="Areas\xinhua\Views\Station\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\Station\Details.cshtml" />
+    <Content Include="Areas\xuejia\Views\Station\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\Station\Details.cshtml" />
+    <Content Include="Areas\yongkang\Views\Station\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\Station\Details.cshtml" />
+    <Content Include="Areas\yujing\Views\Station\Index.cshtml" />
+    <Content Include="Areas\en\Views\FAQ\Details.cshtml" />
+    <Content Include="Areas\en\Views\FAQ\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\baihe\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\baihe\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\cic\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\cic\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\cic\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\guiren\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\guiren\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\jiali\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\jiali\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\jpb\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\jpb\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\madou\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\madou\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\madou\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Wandaform\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Wandaform\CreateSuccess.cshtml" />
+    <Content Include="Areas\pppc\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\pppc\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\pppc\Views\ChiefMailbox\Index.cshtml" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="HtmlPage1.html" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Content\Article.cshtml" />
+    <Content Include="Views\Content\Detail.cshtml" />
+    <Content Include="Views\Content\Directory.cshtml" />
+    <Content Include="Views\Content\SiteMap.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAreaNoMenu-en.cshtml" />
+    <Content Include="Views\Shared\_LayoutAreaNoMenu.cshtml" />
+    <Content Include="Views\Home\HomeLink.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\FAQ\Index.cshtml" />
+    <Content Include="Views\FAQ\Details.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\Details.cshtml" />
+    <Content Include="Views\AreaSearch\Index.cshtml" />
+    <Content Include="Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Views\CriminalMailbox\Index.cshtml" />
+    <Content Include="Views\CriminalMailbox\CreateSuccess.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\CreateSuccess.cshtml" />
+    <Content Include="Views\TrafficMailbox\Index.cshtml" />
+    <Content Include="Views\Visit\Index.cshtml" />
+    <Content Include="Views\Visit\CreateSuccess.cshtml" />
+    <Content Include="Views\TrafficMailbox\Create.cshtml" />
+    <Content Include="Views\TrafficMailbox\VerifyMail.cshtml" />
+    <Content Include="Views\TrafficMailbox\CreateSuccess.cshtml" />
+    <Content Include="Views\Mailbox\Index.cshtml" />
+    <Content Include="Views\TowAway\Index.cshtml" />
+    <Content Include="Views\WayPoint\Index.cshtml" />
+    <Content Include="Views\Casewq\Index.cshtml" />
+    <Content Include="Views\News\PerView.cshtml" />
+    <Content Include="Views\Error\SizeError.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\baiheen\Models\" />
+    <Folder Include="Areas\baihe\Models\" />
+    <Folder Include="Areas\cicen\Models\" />
+    <Folder Include="Areas\cic\Models\" />
+    <Folder Include="Areas\en\Models\" />
+    <Folder Include="Areas\guirenen\Models\" />
+    <Folder Include="Areas\guiren\Models\" />
+    <Folder Include="Areas\jialien\Models\" />
+    <Folder Include="Areas\jiali\Models\" />
+    <Folder Include="Areas\jpben\Models\" />
+    <Folder Include="Areas\jpb\Models\" />
+    <Folder Include="Areas\madouen\Models\" />
+    <Folder Include="Areas\madou\Models\" />
+    <Folder Include="Areas\mvop\Models\" />
+    <Folder Include="Areas\pppcen\Models\" />
+    <Folder Include="Areas\pppc\Models\" />
+    <Folder Include="Areas\precinct1en\Models\" />
+    <Folder Include="Areas\precinct1\Models\" />
+    <Folder Include="Areas\precinct2en\Models\" />
+    <Folder Include="Areas\precinct2\Models\" />
+    <Folder Include="Areas\precinct3en\Models\" />
+    <Folder Include="Areas\precinct3\Models\" />
+    <Folder Include="Areas\precinct4en\Models\" />
+    <Folder Include="Areas\precinct4\Models\" />
+    <Folder Include="Areas\precinct5en\Models\" />
+    <Folder Include="Areas\precinct5\Models\" />
+    <Folder Include="Areas\precinct6en\Models\" />
+    <Folder Include="Areas\precinct6\Models\" />
+    <Folder Include="Areas\safe\Models\" />
+    <Folder Include="Areas\shanhuaen\Models\" />
+    <Folder Include="Areas\shanhua\Models\" />
+    <Folder Include="Areas\trafficen\Models\" />
+    <Folder Include="Areas\traffic\Models\" />
+    <Folder Include="Areas\wpben\Models\" />
+    <Folder Include="Areas\wpb\Models\" />
+    <Folder Include="Areas\xinhuaen\Models\" />
+    <Folder Include="Areas\xinhua\Models\" />
+    <Folder Include="Areas\xinyingen\Models\" />
+    <Folder Include="Areas\xinying\Models\" />
+    <Folder Include="Areas\xuejiaen\Models\" />
+    <Folder Include="Areas\xuejia\Models\" />
+    <Folder Include="Areas\yongkangen\Models\" />
+    <Folder Include="Areas\yongkang\Models\" />
+    <Folder Include="Areas\yujingen\Models\" />
+    <Folder Include="Areas\yujing\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SpeechLib">
+      <Guid>{C866CA3A-32F7-11D2-9602-00C04F8EE628}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2216/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

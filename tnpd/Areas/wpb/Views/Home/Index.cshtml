@@ -1,0 +1,635 @@
+﻿@{
+    Layout = null;
+}
+
+@using tnpd.Models
+@using TnpdModels
+@{
+    string unid = ViewBag.UnId;
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+    WebPresentation web = new WebPresentation(areaName);
+
+    List<News> newse1 = ViewBag.newse1;
+    List<News> newse2 = ViewBag.newse2;
+    //List<News> newse3 = ViewBag.newse3;
+    List<BigBanner> banners = ViewBag.banners;
+
+    List<HomeAd> homeAds = ViewBag.homeAds;
+    IQueryable<HomeLink> homeLinks = ViewBag.homeLinks;
+    List<HomeTheme> homeThemes = ViewBag.homeThemes;
+    BackendContext _db = new BackendContext();
+
+    var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
+    var news1Uid = web.GetIdByTitle("最新消息");
+    var news2Uid = web.GetIdByTitle("活動訊息");
+   
+
+}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /><meta http-equiv="x-ua-compatible" content="IE=11,chrome=1" >
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="shortcut icon" href="~/Areas/@areaName/images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i"
+          rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/@areaName/include/rs-plugin/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/@areaName/include/rs-plugin/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="~/Areas/@areaName/include/rs-plugin/css/navigation.css">
+    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css" type="text/css" />
+    <!-- Document Title
+    ============================================= -->
+    <title>@(site.Subject)_臺南市政府警察局</title>
+</head>
+
+<body class="stretched no-transition">
+<a href="#main_content" id="gotocenter" title="跳到主要內容區塊" tabindex="1" class="sr-only sr-only-focusable">跳到主要內容區塊</a>
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+<!-- Top Bar
+============================================= -->
+<!-- #top-bar end -->
+<!-- Header
+============================================= -->
+<header id="header" class="sticky-style-2">
+    <div class="container clearfix">
+        <!-- Logo
+        ============================================= -->
+        <div id="logo">
+            <a href="/@areaName/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(site.Subject)_臺南市政府警察局"><img
+                                                                                                                         src="/Areas/@areaName/images/logo.png" alt="@(site.Subject)_臺南市政府警察局"></a>
+            <a href="/@areaName/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(site.Subject)_臺南市政府警察局"><img
+                                                                                                                          src="/Areas/@areaName/images/logo@2x.png" alt="@(site.Subject)_臺南市政府警察局"></a>
+        </div>
+        <!-- #logo end -->
+        <div class="row justify-content-end no-gutters">
+            <div class="col-lg-auto col-md-12">
+                <div class="top-advert-1">
+                    <a href="#U" accesskey="U" name="U" class="alt-u" title="上方導覽區">:::</a>
+                    <div class="top-links">
+                        <ul>
+                            <li><a href="/@areaName/" title="回首頁">回首頁</a></li>
+                            <li><a href="/@areaName/Content/sitemap" title="網站導覽">網站導覽</a></li>
+                            <li><a href="/@(areaName)/en" title="English">English</a></li>
+                            <li><a href="/" title="回總局">回總局</a></li>
+                        </ul>
+                    </div>
+                    <!-- .top-links end -->
+                </div>
+            </div>
+            <div class="col-auto ">
+
+                <div id="divScriptFontChange" class="fontch d-none d-lg-block">
+                    <ul>
+                        <noscript>您的瀏覽器不支援script語法，請按鍵盤上的Ctrl鍵+ (+)鍵放大/(-)鍵縮小來改變字型大小。</noscript>
+                        <li><a href="#" id="aSFont" title="小字級">A<sup>-</sup></a></li>
+                        <li><a href="#" id="aMFont" title="中字級" class="active">A</a></li>
+                        <li><a href="#" id="aLFont" title="大字級">A<sup>+</sup></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="header-wrap">
+        <!-- Primary Navigation
+        ============================================= -->
+        <nav id="primary-menu" class="style-2">
+            <div class="container clearfix">
+                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                @Html.Raw(web.getAllMenu())
+                <!-- Top Search
+                ============================================= -->
+                <div id="top-search" class="d-none d-lg-block ">
+                    <div class="input-group divcenter">
+                            <input id="q" type="text" class="form-control inputsear" placeholder="請輸入關鍵字" name="q" title="關鍵字搜尋"  onfocus="this.value=''" onblur="if(!value){value=defaultValue;}">
+                            <label for="q" class="nonedisplay">關鍵字搜尋</label>
+                            <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
+                            <div class="input-group-append">
+                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                            </div>
+                    </div>
+                </div>
+                <!-- #top-search end -->
+            </div>
+        </nav>
+        <!-- #primary-menu end -->
+    </div>
+</header>
+<!-- #header end -->
+<div class="clear"></div>
+<!-- Content
+============================================= -->
+<section id="content">
+<div class="content-wrap pt0pb0">
+<div class="content-wrap bg001">
+    <div class="container clearfix">
+        <section id="slider" class="slider-element revoslider-wrap clearfix">
+            <div id="rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#fff;padding:0px;margin-top:0px;margin-bottom:0px;">
+                <div id="rev_slider" class="rev_slider fullwidthabanner" data-version="5.0.4.1">
+                    <ul>
+                        @{
+                            var i = 1;
+                        }
+                        @foreach (BigBanner banner in banners)
+                        {
+                           
+                            <li data-index="rs-00@(i)" data-transition="crossfade" data-slotamount="4"
+                                data-easein="default" data-easeout="default" data-masterspeed="300"
+                                data-thumb="/upfiles/images/s@(banner.UpImage)" data-rotate="0" data-fstransition="fade"
+                                data-fsmasterspeed="300" data-fsslotamount="4" data-saveperformance="off"
+                                data-title="@banner.Subject" data-param1=""
+                                data-description="">
+                                <img src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"
+                                     data-lazyload="/upfiles/images/M@(banner.UpImage)" data-bgposition="center center"
+                                     data-bgfit="cover" data-.bgrepeat="no-repeat" class="rev-slidebg"
+                                     data-no-retina>
+                                <span class="tp-title">@banner.Subject</span>
+                            </li>
+                            i++;
+                        }
+
+                    </ul>
+                    <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="content-wrap" id="main_content">
+    <div class="container clearfix">
+        <a href="#C" accesskey="C" name="C" class="alt-c02" title="中間主要內容區" >:::</a>
+        <div class="row">
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box01">
+                    <div class="fbox-icon fbox-icon01">
+                        <a href="/Article/d50c22e4-fb47-69cc-e33a-795e2bc87aac" title="E化服務查詢(另開視窗)" target="_blank"><i class="icon-line-zoom-in i-alt"></i></a>
+                    </div>
+                    <h3>E化服務查詢</h3>
+                </div>
+            </div>
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box02">
+                    <div class="fbox-icon fbox-icon02">
+                        <a href="/News/429f4276-b1d5-50f2-d997-99cead1afe75/18" title="政府公開資訊(另開視窗)" target="_blank"><i class="icon-line2-globe i-alt"></i></a>
+                    </div>
+                    <h3>政府公開資訊</h3>
+                </div>
+            </div>
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box03">
+                    <div class="fbox-icon fbox-icon03">
+                        <a href="/@areaName/FAQ/Index/ae42be19-92d6-b5b7-192d-c7806f8a1951" title="常見問答"><i class="icon-group i-alt"></i></a>
+                    </div>
+                    <h3>常見問答</h3>
+                </div>
+            </div>
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box04">
+                    <div class="fbox-icon fbox-icon04">
+                        <a href="/Directory/547649a8-cfa6-5d7b-d3e8-0c2927517d4d" title="線上申辦(另開視窗)" target="_blank"><i class="icon-screen i-alt"></i></a>
+                    </div>
+                    <h3>線上申辦</h3>
+                </div>
+            </div>
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box05">
+                    <div class="fbox-icon fbox-icon05">
+                        <a href="/News/05f7e717-4261-3df2-77bd-2de656ac98ae/14" title="表單下載(另開視窗)" target="_blank"><i class="icon-download i-alt"></i></a>
+                    </div>
+                    <h3>表單下載</h3>
+                </div>
+            </div>
+            <div class="col-md-2  col-6">
+                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box06">
+                    <div class="fbox-icon fbox-icon06">
+                        <a href="/News/9d45c10f-5ee5-0c25-408f-ac504ded48bb/21" title="警政統計(另開視窗)"  target="_blank"><i class="icon-bar-chart i-alt"></i></a>
+                    </div>
+                    <h3>警政統計</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrap bg02">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12 col25 ">
+                <div class="i_box">
+
+                    <div id="fb-root"></div>
+                    <script>
+                        (function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src =
+                                'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.1';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-page" data-href="https://www.facebook.com/wpb9166/" data-tabs="timeline"
+                         data-small-header="true" data-width="500" data-height="495"
+                         data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                        <blockquote cite="https://www.facebook.com/wpb9166/" class="fb-xfbml-parse-ignore" xml:lang="zh"><a
+                                                                                                               href="https://www.facebook.com/wpb9166/" title="@(site.Subject)_粉絲專頁(另開視窗)"
+                                                                                                               target="_blank">@(site.Subject)_粉絲專頁</a></blockquote>
+                    </div>
+                    
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col60 ">
+                <div class="tabs tabs-bordered clearfix" id="tab-2">
+                    <ul class="tab-nav clearfix" id="tabNewHeader">
+                        <li><a href="#tabs-news-1">最新消息</a></li>
+                        <li><a href="#tabs-news-2">活動訊息</a></li>
+                    </ul>
+                    <div class="tab-container">
+                        <noscript>
+                            <ul class="tab-nav-noscript">
+                                <li><a href="#" title="最新消息">最新消息</a></li>
+                            </ul>
+                        </noscript>
+                        <div id='tabs-news-1' class="tab-content clearfix">
+                            <!---->
+                            @{
+                                 var fistRow1 = newse1.FirstOrDefault();
+                            }
+                            @if (fistRow1 != null)
+                                            {
+                                                var row = fistRow1.NewsImagses.FirstOrDefault();
+                                <div class="i_newbox">
+                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow1.Id, sClass = 1, unid = news1Uid, area = areaName })))" title="@fistRow1.Subject">@fistRow1.Subject</a></h3>
+                                    <div class="row">
+                                        <div class="col-md-4 pr0 sm_mb20">
+                                            @if (fistRow1.NewsImagses.Count > 0)
+                                                            {
+                                                <img src="@row.UpFile" alt="@row.Subject">
+                                                            }
+                                                            else
+                                                            {
+                                                <img alt="" src="/images/news_prectinct.jpg">
+                                                            }
+                                        </div>
+                                        <div class="col-md-8">
+                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow1.Article), 100)
+                                        </div>
+                                    </div>
+                                </div>
+                                                            newse1.Remove(fistRow1);
+                                            }
+
+                            <!---->
+                            <div class="i_newbox">
+                                <ul>
+                                    @foreach (News news in newse1)
+                                    {
+                                       
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 1, unid = news1Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        </a></li>                   
+                                    }
+
+                                </ul>
+                                <div class="newmore">
+                                    <a title="更多最新消息" class="more" href="/@areaName/News/Index/@news1Uid?sClass=1">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                        <noscript>
+                            <ul class="tab-nav-noscript">
+                                <li><a href="#" title="活動訊息">活動訊息</a></li>
+                            </ul>
+                        </noscript>
+                        <div id='tabs-news-2' class="tab-content clearfix">
+                            @{
+                            var fistRow2 = newse2.FirstOrDefault();
+                            }
+                            @if (fistRow2 != null)
+                        {
+                            var row = fistRow2.NewsImagses.FirstOrDefault();
+                                <div class="i_newbox">
+                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 39, unid = news2Uid, area = areaName })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h3>
+                                    <div class="row">
+                                        <div class="col-md-4 pr0 sm_mb20">
+                                            @if (fistRow2.NewsImagses.Count > 0)
+                                        {
+                                                <img src="@row.UpFile" alt="@row.Subject">
+                                        }
+                                        else
+                                        { 
+                                                <img alt="" src="/images/news_prectinct.jpg">
+                                        }
+                                        </div>
+                                        <div class="col-md-8">
+                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 50)
+                                        </div>
+                                    </div>
+                                </div>
+                            newse2.Remove(fistRow2);
+                        }
+
+                            <div class="i_newbox">
+                                <ul>
+                                    @foreach (News news in newse2)
+                                    {
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 39, unid = news2Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        </a></li>        
+                                                           
+                                    }
+
+                                </ul>
+                                <div class="newmore">
+                                    <a title="更多活動訊息" class="more" href="/@areaName/News/Index/@news2Uid?sClass=39">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col15 ">
+                <div class="i_box">
+                    <div class="i_title01">
+                        <h4>相關連結</h4>
+                        <span><a title="更多相關連結" class="more" href="/@areaName/Home/HomeLink">MORE</a></span>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="i_link">
+                        <ul>
+                            @foreach (HomeLink link in homeLinks.Take(5))
+                            {
+                              
+                                <li><a title="@link.Subject" href="@link.Url">
+                                    <img src="@link.UpImage" alt="@link.Subject"></a></li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+<!-- #content end -->
+<!-- Footer
+============================================= -->
+<footer id="footer">
+    <div class="container d-none d-md-block">
+        <!-- Footer Widgets
+        ============================================= -->
+        <div class="text-center footercollapse">
+            <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+               aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;"> 展開/收合</span></a>
+        </div>
+        <div class="collapse show" id="collapseExample">
+            <div class="footer-widgets-wrap clearfix">
+                <div class="row">
+
+                    @Html.Raw(web.getfootMenu())
+
+                </div>
+            </div>
+        </div>
+        <!-- .footer-widgets-wrap end -->
+    </div>
+    <!-- Copyrights
+    ============================================= -->
+    <div id="copyrights" class="dark">
+        <div class="container clearfix">
+            <a href="#Z" title="下方功能區塊" accesskey="Z" name="Z" class="alt-c01">:::</a>
+            <div class="col_half">
+                <ul class="crul">
+                    <li class="li01"><a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" target="_blank" title="隱私權保護政策(另開視窗)">隱私權保護政策</a> | <a href="/Article/41fc069c-2222-676b-a6cf-ff552b9836d2" title="網站安全政策(另開視窗)" target="_blank">網站安全政策</a> | <a href="/Article/412894e9-5b63-bbd5-29ef-a93a549cb0bb" title="政府網站資料開放宣告(另開視窗)" target="_blank">政府網站資料開放宣告</a> </li>
+                    <li>地址：71060 臺南市永康區龍埔街137號3樓 ( <a href="/@areaName/Content/Article/cf17310b-f0fb-8d20-53ae-8269f7075692" title="位置圖"><i class="icon-map-marker"></i>
+                        位置圖</a> )</li>
+                    <li>總機：(06)2043628 傳真：(06)2043989</li>
+                    <li>臺南市政府警察局 版權所有 © 2018</li>
+                    <li class="d-none d-md-block">建議使用IE10.0 以上或Edge、Firefox、Chrome 瀏覽器，最佳瀏覽解析度為1024*768</li>
+                   
+                </ul>
+            </div>
+            <div class="col_half col_last tright ">
+                <ul class="crul01 d-none d-md-block">
+                    <li><a href="#" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- #copyrights end -->
+</footer>
+<!-- #footer end -->
+</div>
+<!-- #wrapper end -->
+<!-- Go To Top
+
+============================================= -->
+<div id="gotoTop"><a href="#" class="gotoTop-sty" title="回最上方"><i class="icon-angle-up"></i></a></div>
+<!-- External JavaScripts
+============================================= -->
+<script src="/js/jquery.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/Areas/@areaName/js/custom.js"></script>
+<!-- Footer Scripts
+============================================= -->
+<script src="/js/functions.js"></script>
+<script src="/js/fontsize.js"></script>
+<script>
+    $(document).ready(function () {
+
+        /* This function looks for a change in the hash (activation of an in-page link) and sets focus to and 
+        highlights the target element. This is necessary because webkit does not set focus as it should. If 
+        the hash is empty (the user hit the back button after activating an in-page link) focus is set to body.
+        */
+        $(window).bind('hashchange', function () {
+            var hash = "#" + window.location.hash.replace(/^#/, '');
+            if (hash != "#") {
+                $(hash).attr('tabindex', -1).on('blur focusout', function () {
+                    $(this).removeAttr('tabindex');
+                }).focus().yellowFade();
+            } else {
+                $("#headcontainer").attr('tabindex', -1).on('blur focusout', function () {
+                    $(this).removeAttr('tabindex');
+                }).focus();
+            }
+        });
+    });
+</script>
+<!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
+<script src="~/Areas//@areaName/include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="~/Areas//@areaName/include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<script>
+    var revapi23;
+    jQuery(document).ready(function () {
+        if (jQuery("#rev_slider").revolution == undefined) {
+            revslider_showDoubleJqueryError("#rev_slider");
+        } else {
+            revapi23 = jQuery("#rev_slider").show().revolution({
+                sliderType: "standard",
+                sliderLayout: "auto",
+                dottedOverlay: "none",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "on",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation: "off",
+                    onHoverStop: "on",
+                    bullets: {
+                        enable: false,
+                        hide_onmobile: false,
+                        style: "hesperiden",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 30,
+                        space: 5,
+                        tmp: ''
+                    },
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    arrows: {
+                        style: "hesperiden",
+                        enable: false,
+                        hide_onmobile: true,
+                        hide_under: 778,
+                        hide_onleave: true,
+                        hide_delay: 200,
+                        hide_delay_mobile: 200,
+                        tmp: '',
+                        left: {
+                            h_align: "left",
+                            v_align: "center",
+                            h_offset: 20,
+                            v_offset: 0
+                        },
+                        right: {
+                            h_align: "right",
+                            v_align: "center",
+                            h_offset: 20,
+                            v_offset: 0
+                        }
+                    },
+                    thumbnails: {
+                        style: "gyges",
+                        enable: true,
+                        width: 115,
+                        height: 80,
+                        min_width: 115,
+                        wrapper_padding: 5,
+                        wrapper_color: "#fff",
+                        wrapper_opacity: "1",
+                        tmp: '<span class="tp-thumb-img-wrap">  <span class="tp-thumb-image"></span></span>',
+                        visibleAmount: 5,
+                        hide_onmobile: false,
+                        hide_over: 777,
+                        hide_onleave: false,
+                        direction: "vertical",
+                        span: true,
+                        position: "outer-left",
+                        space: 5,
+                        h_align: "left",
+                        v_align: "top",
+                        h_offset: 0,
+                        v_offset: 0
+                    },
+                    tabs: {
+                        style: "gyges",
+                        enable: true,
+                        width: 340,
+                        height: 112,
+                        min_width: 340,
+                        wrapper_padding: 20,
+                        wrapper_color: "#fff",
+                        wrapper_opacity: "1",
+                        tmp: ' <a class="tp-tab01" href="#"><div class="tp-tab-content">  <span class="tp-tab-date">{{param1}}</span>  <span class="tp-tab-title">{{title}}</span></div><div class="tp-tab-image"></div></a>',
+                        visibleAmount: 10,
+                        hide_onmobile: true,
+                        hide_under: 778,
+                        hide_onleave: false,
+                        hide_delay: 200,
+                        direction: "vertical",
+                        span: true,
+                        position: "outer-left",
+                        space: 0,
+                        h_align: "left",
+                        v_align: "top",
+                        h_offset: 0,
+                        v_offset: 0
+                    }
+                },
+                gridwidth: 760,
+                gridheight: 500,
+                lazyType: "single",
+                shadow: 0,
+                spinner: "spinner5",
+                stopLoop: "off",
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+                shuffle: "off",
+                autoHeight: "off",
+                disableProgressBar: "on",
+                hideThumbsOnMobile: "off",
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                startWithSlide: 0,
+                debugMode: false,
+                fallbacks: {
+                    simplifyAll: "off",
+                    nextSlideOnWindowFocus: "off",
+                    disableFocusListener: "off",
+                }
+                 });
+                revapi23.one('revolution.slide.onloaded', function () {
+                    var links = $(".tp-tab01");
+                    var totalSlides = revapi23.revmaxslide();
+                    if (links != null && links.length > 0) {
+                        links.bind("focus", function () {
+                            var liindex = $(this).parent().attr("data-liindex");
+                            if (liindex == 0)
+                            {
+                                revapi23.revpause();
+                            }
+                            $(this).trigger("click");
+                        });
+                        links.last().bind("blur", function () {
+                            revapi23.revresume();
+                        });
+                    }
+            });
+        }
+    }); /*ready*/
+</script>
+<script src="/Areas/@areaName/js/publib.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131544581-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131544581-1');
+</script>
+</body>

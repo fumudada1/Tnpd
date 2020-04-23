@@ -1,0 +1,55 @@
+﻿@using TnpdModels
+@model TnpdModels.ForumsCatalog
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2 class="page-title"><i class="fa fa-pencil-square-o"></i>編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ForumsCatalog</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Title,new { placeholder=ModelsAttributeHelper<TnpdModels.ForumsCatalog>.GetDisplayName("Title") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Memo)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Memo,new { @style = "height: 150px",placeholder=ModelsAttributeHelper<TnpdModels.ForumsCatalog>.GetDisplayName("Memo") })
+            @Html.ValidationMessageFor(model => model.Memo)
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+            @Html.HiddenFor(model => model.Poster)
+            @Html.HiddenFor(model => model.InitDate)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" class="btn-button" />
+        </p>
+    </fieldset>
+}
+
+
+<p class="bottom-btn">
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回列表" />
+        </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

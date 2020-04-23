@@ -1,0 +1,968 @@
+﻿@using TnpdModels
+@model TnpdModels.CasePoproc
+
+@{
+    ViewBag.Title = "承辦人作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>承辦人作業</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Case</legend>
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" name="pclass" value="@ViewBag.pclass" />
+        合併案件共 @Model.Case.Cases.Count() 件<br/> <br/>
+        <span style="color: black">辦理情形</span>
+    <table class="table table-v">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%">案號：@Model.Case.CaseID
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>案件來源：@Model.Case.CaseType
+            </td>
+            <td>案件日期：@Model.Case.InitDate
+            </td>
+        </tr>
+        <tr>
+            <td>承辦單位：
+                @if (@Model.assignUnit.ParentUnit != null)
+                {
+                    <td>承辦單位：@Model.assignUnit.ParentUnit.Subject - @Model.assignUnit.Subject
+                    </td>
+                }
+                else
+                {
+                    <td>承辦單位：@Model.assignUnit.Subject
+                    </td>
+                }
+            </td>
+            <td>承辦人：@Model.assignMember.Name
+            </td>
+        </tr>
+        <tr>
+            <td>預結案日：@Model.Case.Predate
+            </td>
+            <td>案件狀態：@Model.Status
+            </td>
+        </tr>
+        </tbody>
+    </table>
+@if (ViewBag.message == null)
+{
+     <span style="color: black">處理紀錄</span>
+        <table class="table table-v">
+            <thead>
+              <tr>
+                    <th>日期</th>
+                    <th>承辦單位</th>
+                    <th>承辦人</th>
+                    <th>作業</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (CasePoprocLog log in Model.Case.PoprocslLogs.OrderByDescending(x => x.InitDate))
+            {
+                <tr>
+                    <td>
+                        @log.InitDate
+                    </td>
+                    @if (log.assignUnit != null)
+                    {
+                        <td>
+                            @log.assignUnit.ParentUnit.Subject - @log.assignUnit.Subject
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                        
+                        </td>
+                    }
+                    <td>
+                        @log.assignMember.Name
+                    </td>
+                    <td>
+                        @log.Action
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @if (log.Action == "單位改派" || log.Action == "案件申請展延" || log.Action == "案件申請退文")
+                        {
+                        
+
+                            <div>
+                                @Html.Raw(UIUtility.Txt2Html(log.ActionMemo))
+                            </div>
+                        }
+                    
+
+
+                    </td>
+                </tr>
+            }
+            
+
+            </tbody>
+        </table>
+}
+       
+        <span style="color: black">案件資料</span>
+
+        @if (Model.CaseType == CaseType.分局長與大隊隊長信箱 || Model.CaseType == CaseType.首長信箱)
+        {
+    
+   
+            <table class="table table-v">
+
+                <tbody>
+                    <tr>
+                        <td>姓名：@Model.Case.Name</td>
+                        <td>性別：@Model.Case.Gender</td>
+
+                    </tr>
+                    <tr>
+
+                        <td>電話：@Model.Case.TEL</td>
+                        <td>職業：@Model.Case.Job</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">E-mail：@Model.Case.Email</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">地址：@Model.Case.Address</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">主題：@Model.Case.Subject</td>
+                        @{
+            subject = Model.Case.Subject;
+                        }
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">內容：<br />
+                              @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.參觀本局暨所屬機關)
+        {
+            <table class="table table-v">
+
+                <tbody>
+
+                    <tr>
+                        <td>參觀對象：@Model.Case.Unit</td>
+                        <td>申請單位名稱：@Model.Case.OrgName</td>
+
+
+                    </tr>
+                    <tr>
+                        <td>聯絡人：@Model.Case.Name</td>
+                        <td>聯絡人電話：@Model.Case.TEL</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">E-mail：@Model.Case.Email</td>
+
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">預定參觀人數：@Model.Case.pcnt</td>
+
+                    </tr>
+                    <tr>
+
+                        <td>預定參觀日期：@Model.Case.ODate </td>
+                        <td>預定參觀時間：@Model.Case.STime ~ @Model.Case.ETime</td>
+                    </tr>
+                    <tr>
+                        @{
+            subject = "參觀" + Model.Case.Unit + "，預定參觀日期：" + Model.Case.ODate + " " + Model.Case.STime + "~" + Model.Case.ETime;
+                        }
+                        <td colspan="2">備註：<br />
+                              @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.婦幼安全警示地點)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Case.Name</td>
+                    <td>性別：@Model.Case.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>電話：@Model.Case.TEL</td>
+                    <td>職業：@Model.Case.Job</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Case.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td>區別：@Model.Case.OArea</td>
+                    <td>路段或地點：@Model.Case.Oplace</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">地址：@Model.Case.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報原因：@Model.Case.Subject</td>
+                    @{
+            subject = Model.Case.Subject;
+                    }
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報內容：<br />
+                          @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.檢舉貪瀆信箱)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Case.Name</td>
+                    <td>性別：@Model.Case.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>電話：@Model.Case.TEL</td>
+                    <td>職業：@Model.Case.Job</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Case.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">地址：@Model.Case.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報原因：@Model.Case.Subject</td>
+                    @{
+            subject = Model.Case.Subject;
+                    }
+                </tr>
+                <tr>
+
+                    <td colspan="2">通報內容：<br />
+                        @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else if (Model.CaseType == CaseType.網路報案)
+        {
+            <table class="table table-v">
+
+                <tbody>
+                <tr>
+                    <td>姓名：@Model.Case.Name</td>
+                    <td>性別：@Model.Case.Gender</td>
+
+                </tr>
+                <tr>
+
+                    <td>聯絡電話(住家)：@Model.Case.HomeTEL</td>
+                    <td>聯絡電話(辦公室)：@Model.Case.OfficeTEL</td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">現居地址：@Model.Case.PostalCode @Model.Case.Address</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">戶籍地址：@Model.Case.PPostalCode @Model.Case.PAddress</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">行動電話：@Model.Case.TEL</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">E-mail：@Model.Case.Email</td>
+
+                </tr>
+                <tr>
+
+                    <td colspan="2">報案人類別：@Model.Case.CaseReportType</td>
+
+                </tr>
+                <tr>
+
+                    <td>發生日期：@Model.Case.ODate</td>
+                    <td>發生時間：@Model.Case.STime </td>
+                </tr>
+                <tr>
+
+                    <td colspan="2">發生地點：@Model.Case.Oplace</td>
+
+                </tr>
+                
+                <tr>
+
+                    <td colspan="2">案情摘要：<br />
+                        @Html.Raw(UIUtility.Txt2Html(Model.Case.Content))
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        }
+
+
+
+        <div style="padding: 15px;display: none">
+            <input type="radio" value="assign" name="process" class="process" />
+            <label for="assign">派案</label>
+            <input type="radio" value="Poprocs" name="process"  checked="checked" />
+            <label for="Poprocs">回覆</label>
+        </div>
+        @if (ViewBag.isAdmin == true)
+        {
+  <div id="divAssign" style="padding: 15px;" >
+            <div>
+                <select id="Categories1" name="Categories1" style="font-size: 15px" disabled="disabled">
+                </select>
+                <select id="Categories2" name="Categories2" style="font-size: 15px">
+                </select>
+                <select id="MemberId" name="MemberId" style="font-size: 18px; width: 40%"></select>
+                <input type="button" id="btnModifyPeople" value="指定承辦人" />
+            </div>
+        </div>
+        }
+      
+    
+        <div id="divPoprocs" style=" padding: 15px">
+            回覆情形：
+            <input type="radio" id="PoprocsType1" name="PoprocsType" checked="checked" value="1" />
+            <label for="PoprocsType1">一般回覆</label>
+            <div style="display: none">
+ @Model.Case.Name 先生/女士您好：
+      台端  @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value) 來文洽悉「@subject」案，您提供之寶貴意見，是我們施政的重要資訊，也是決策的重要參考資訊。
+      我們將善加利用，感謝您的建言！謝謝！
+            </div>
+            <input type="radio" id="PoprocsType2" name="PoprocsType" value="2" />
+            <label for="PoprocsType2">免辦理回覆</label>
+            <input type="radio" id="PoprocsType3" name="PoprocsType" value="3" />
+            <label for="PoprocsType3">免電子郵件回覆</label>
+            <div style="display: none" id="noPoprocs"><br/>
+              <span style="color: blue;font-weight: "> 免辦理回覆原因 </span> 
+              
+                  <br/><br/>
+                <input type="radio" id="PoprocsSubType1" name="PoprocsSubType" value="1"/>
+                <label for="PoprocsSubType1"> 經查案內所陳事項本局承辦人，業已多次回復在案</label>
+                <div style="display: none">
+ @Model.Case.Name 先生/女士您好：
+    您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、經查案內所陳事項本局承辦人，業已多次回復在案。
+                    
+    依上開規定得不與處理，並登記以利查考，感謝您的來信。
+
+ 敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+@UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+
+                <input type="radio" id="PoprocsSubType3" name="PoprocsSubType"   value="2"/>
+                <label for="PoprocsSubType3"> 經檢視本案並無具體之陳情內容</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、經檢視本案並無具體之陳情內容。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+ @UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                
+                
+                <input style="display: none" type="radio" id="PoprocsSubType4" name="PoprocsSubType"   value="3"/>
+                <label style="display: none" for="PoprocsSubType4"> 本案係非理性情緒發洩、漫罵及惡意檢舉</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、本案係非理性情緒發洩、漫罵及惡意檢舉。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+
+ @UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+                
+                <input type="radio" id="PoprocsSubType5" name="PoprocsSubType"  value="4"/>
+                <label for="PoprocsSubType5"> 查您所留之姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、查您所留之姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+ @UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+                
+                <input type="radio" id="PoprocsSubType6" name="PoprocsSubType"   value="5"/>
+                <label for="PoprocsSubType6"> 本局非陳情事項之主管機關，已多次為您轉知權責單位辦理</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、本局非陳情事項之主管機關，已多次為您轉知權責單位辦理。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+
+ @UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+                
+                <input type="radio" id="PoprocsSubType7" name="PoprocsSubType"   value="6"/>
+                <label for="PoprocsSubType7"> 您以同一事由分向本局及本局各分局陳情，並已多次為您轉知權責單位辦理回復</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、您以同一事由分向本局及本局各分局陳情，並已多次為您轉知權責單位辦理回復。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+
+@UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+                
+                <input type="radio" id="PoprocsSubType8" name="PoprocsSubType"  value="7"/>
+                <label for="PoprocsSubType8"> 經與您連繫，表示本案無需再派員處理</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、經與您連繫，表示本案無需再派員處理。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+@UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+                
+                <input type="radio" id="PoprocsSubType9" name="PoprocsSubType"   value="8"/>
+                <label for="PoprocsSubType9"> 經與您連繫（接獲您的陳情案件編號：000000000），表示想撤銷（案件編號：000000000）陳情案</label>
+                <div style="display: none">
+@Model.Case.Name 先生/女士您好：
+     您於 @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value)來文洽悉「@subject」案，現將查處情形為您答復如下：
+ 一、依據「行政院暨所屬各機關處理人民陳情案件要點」，人民陳情案件有下列情形之一者，受理機關得依分層負責權限規定，不予處理，但仍應予以登記，以利查考：
+    (一)無具體內容、未具姓名或住址者。
+    (二)同一事由，經予適當處理，並已明確答復後，而仍一再陳情者。
+    (三)經查證所留姓名、住址、聯絡電話或電子郵件位址屬偽冒、匿名虛報或不實者。
+    (四)非陳情事項之主管機關，接獲陳情人以同一事由已分向各主管機關陳情者，合先敘明。	
+二、經與您連繫（接獲您的陳情案件編號：000000000），表示想撤銷（案件編號：000000000）陳情案。
+
+依上開規定得不與處理，並登記以利查考，感謝您的來信。
+     敬祝
+身體健康  萬事如意
+臺南市政府警察局  敬啟
+
+@UIUtility.Date2CrocFormat(DateTime.Now)
+                </div>
+                <br/>
+            </div>
+            <p>
+                <textarea cols="50" id="PoprocsContent" name="PoprocsContent" placeholder="請輸入回覆內容" rows="2" style="height: 300px;width: 100%">
+@Model.Case.Name 先生/女士您好：
+    台端  @UIUtility.Date2CrocFormat(Model.Case.InitDate.Value) 來文洽悉「 @(subject)」案，您提供之寶貴意見，是我們施政的重要資訊，也是決策的重要參考資訊。
+我們將善加利用，感謝您的建言！謝謝！
+
+</textarea>
+                <span>上傳附件：</span> <input type="file" name="Upfile" />
+            </p>
+           
+    </div> 
+        <div id="divExtension" style="padding: 15px;display: none">
+            <table class="table table-v">
+                <tr>
+                    <td>
+                        展延日期
+                    </td>
+                    <td>
+                        @{
+        DateTime extensionDay = ViewBag.ExtensionDay;
+                        }
+                        <input type="text" name="DelyDateTime" id="DelyDateTime" class="datepicker" value="@extensionDay.ToString("yyyy/MM/dd")"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        展延原因
+                    </td>
+                    <td>
+                        <textarea cols="50" id="DelyMemo" name="DelyMemo" id="DelyMemo" placeholder="請輸入展延原因" rows="2" style="height: 300px;width: 100%">
+
+
+</textarea>
+                      
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" id="btnExtension" value="展期" />  <input type="button" class="return" value="回上頁" /> 
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <div id="divGoback" style="padding: 15px;display: none">
+        <table class="table table-v">
+           
+            <tr>
+                <td>
+                    退回理由
+                </td>
+                <td>
+                    <textarea cols="50" id="noplyreason" name="noplyreason" placeholder="請輸入退回理由" rows="2" style="height: 300px;width: 100%">
+
+
+</textarea>
+                      
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="btnGoback" value="退文" /> <input type="button" class="return" value="回上頁" /> 
+                </td>
+            </tr>
+        </table>
+    </div>
+        <div>
+        <input type="hidden" value="@Model.process" id="saveprocess"/>
+        <input type="hidden" value="@Model.PoprocsType" id="savePoprocsType"/>
+        <input type="hidden" value="@Model.PoprocsSubType" id="savePoprocsSubType"/>
+        <input type="hidden" value="@Model.AssignMemo" id="saveAssignMemo"/>
+       
+    </div>
+    <p align="center" id="btngroup">
+        <input name="processtype" id="processtype" value="" type="hidden" />
+        <input type="button" id="btnAssign" value="派案" style="display: none"/>
+        <input type="button" id="btnSave" value="存檔" />
+        <input type="button" id="btnOpenExtension" value="展期" />
+       
+        <input type="button" id="btnPoprocs" value="核判送出" />
+        <input type="button" id="btnOpenGoback" value="退文" />
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+        <a href="/Case/Print2/@Model.Id?CaseType=@Model.CaseType" target="_black">列印</a>|
+        <a href="/Case/Print2all/@Model.Id?CaseType=@Model.CaseType" target="_black">列印(含個資資料)</a>
+    </p>
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            $("#btnSave").click(function() {
+                $("#processtype").val("Save");
+                $("form").submit();
+            });
+            $("#btnAssign").click(function() {
+                $("#processtype").val("Assign");
+                $("form").submit();
+            });
+            $("#btnPoprocs").click(function() {
+                $("#processtype").val("Poprocs");
+                $("form").submit();
+            }); 
+
+            $("#btnModifyPeople").click(function() {
+                $("#processtype").val("ModifyPeople");
+                $("form").submit();
+            });
+
+            $("#btnOpenExtension").click(function() {
+                $("#btngroup").hide();
+                $("#divPoprocs").hide();
+                $("#divExtension").show();
+                $("#divGoback").hide();
+
+            });
+            $("#btnOpenGoback").click(function() {
+                $("#btngroup").hide();
+                $("#divPoprocs").hide();
+                $("#divExtension").hide();
+                $("#divGoback").show();
+            });
+
+            $("#btnExtension").click(function() {
+                if ($("#DelyMemo").val() == "") {
+                    alert("請輸入展延原因");
+                    retrun;
+                }
+                if ($("#DelyDateTime").val() == "") {
+                    alert("請輸入展延日期");
+                    retrun;
+                }
+                $("#processtype").val("Extension");
+                $("form").submit();
+            });
+            $("#btnGoback").click(function() {
+                if ($("#noplyreason").val() == "") {
+                    alert("請輸入退回理由");
+                    retrun;
+                }
+                $("#processtype").val("Goback");
+                $("form").submit();
+            });
+            $(".return").click(function() {
+                $("#btngroup").show();
+                $("#divPoprocs").show();
+                $("#divExtension").hide();
+                $("#divGoback").hide();
+            });
+
+            $('input[type=radio][name=process]').change(function() {
+                if (this.value == 'assign') {
+                    $("#divAssign").show();
+                    $("#divPoprocs").hide();
+                    $("#btnSave").hide();
+                    $("#btnAssign").show();
+                    $("#btnPoprocs").hide();
+                } else if (this.value == 'Poprocs') {
+                    $("#divPoprocs").show();
+                    $("#divAssign").hide();
+                    $("#btnSave").show();
+                    $("#btnAssign").hide();
+                    $("#btnPoprocs").show();
+                }
+            });
+            $('input[type=radio][name=PoprocsType]').change(function() {
+                switch (this.value) {
+                case "1":
+                    $("#noPoprocs").hide();
+                    var text = $(this).next().next();
+                    $("#PoprocsContent").val(text.text());
+                    break;
+                case "2":
+                    $("#noPoprocs").show();
+                    break;
+                case "3":
+                    $("#noPoprocs").show();
+                    break;
+                }
+            });
+
+            $('input[type=radio][name=PoprocsSubType]').change(function() {
+                var text = $(this).next().next();
+                $("#PoprocsContent").val(text.text());
+            });
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+            $.getJSON("/units/GetfistUnit").done(function (json) {
+                data = json;
+
+                $.each(json,
+                    function (i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function (json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function (i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+                    console.log(cat2id);
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function (json) {
+                        data = json;
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function () {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberId').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function (json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function (i, item) {
+                                    $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function () {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberId').children().remove();
+
+                    var id = $('#Categories2').val();
+                    console.log(id);
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function (json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function (i, item) {
+                                $('#MemberId').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberId').children().remove();
+
+                    $('#MemberId').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+
+            //restore save info
+            if ($("#saveAssignMemo").val() != "") {
+                $('input[type=radio][name=process]').each(function() {
+                    if ($(this).val() == "Poprocs") {
+                        $(this).attr("checked", "checked");
+                    }
+                });
+                $("#divPoprocs").show();
+                $("#divAssign").hide();
+                $("#btnSave").show();
+                $("#btnAssign").hide();
+                $("#btnPoprocs").show();
+
+               
+                $('input[type=radio][name=PoprocsType]').each(function() {
+                    if (this.value == $("#savePoprocsType").val()) {
+                        $(this).attr("checked", "checked");
+                    }
+
+
+                });
+                switch ($("#savePoprocsType").val()) {
+                case "1":
+                    $("#noPoprocs").hide();
+                    var text = $(this).next().next();
+                    $("#PoprocsContent").val(text.text());
+                    break;
+                case "2":
+                    $("#noPoprocs").show();
+                    break;
+                case "3":
+                    $("#noPoprocs").show();
+                    break;
+                }
+                $('input[type=radio][name=PoprocsSubType]').each(function() {
+                    if (this.value == $("#savePoprocsSubType").val()) {
+                        $(this).attr("checked", "checked");
+                    }
+
+
+                });
+                $("#PoprocsContent").val($("#saveAssignMemo").val());
+            }
+
+        });
+
+
+    </script>
+
+
+}
+
+@if (ViewBag.message != null)
+{
+<script>
+    alert("@ViewBag.message");
+    window.location.href = "/Case/Process?pclass=@ViewBag.pclass";
+</script>
+}

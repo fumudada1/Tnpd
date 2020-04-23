@@ -1,0 +1,95 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model List<TnpdAdmin.Models.CaseMerge>
+
+@{
+    ViewBag.Title = "案件合併作業";
+}
+
+<h2>案件合併作業</h2>
+  
+@Html.ActionLink("回派案作業","Assign",new {pclass=Request["pclass"]})
+
+<table class="table table-v">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        <th></th>
+   
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseID)
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InitDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+       
+        <td>
+            @using (Html.BeginForm("RemoveMerge", "Case"))
+            {
+                @Html.AntiForgeryToken()
+                                
+                <input type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" class="btn btn-primary" />
+                                
+
+                                @*這邊也有改*@
+                @Html.Hidden("id", item.Id)
+               
+            }
+
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+<div>
+@using (Html.BeginForm("MergeList", "Case"))
+{
+    @Html.AntiForgeryToken()
+    <span>請輸入要合併的案號：</span><input type="text" name="CaseID" value=""/>
+                                                                    <input type="hidden" name="pclass" value="@Request["pclass"]"/>
+                                                           <input type="submit"  value="送出"/>
+}
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

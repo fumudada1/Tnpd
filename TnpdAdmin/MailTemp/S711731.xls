@@ -1,0 +1,2799 @@
+﻿
+
+ 
+
+
+
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 10">
+<link rel=File-List href="Book1.files/filelist.xml">
+<link rel=Edit-Time-Data href="Book1.files/editdata.mso">
+<link rel=OLE-Object-Data href="Book1.files/oledata.mso">
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>leijunkuo</o:Author>
+  <o:LastAuthor>leijunkuo</o:LastAuthor>
+  <o:LastPrinted>2011-01-31T01:08:25Z</o:LastPrinted>
+  <o:Created>2011-01-31T01:05:08Z</o:Created>
+  <o:LastSaved>2011-01-31T01:09:44Z</o:LastSaved>
+  <o:Version>10.6867</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:DownloadComponents/>
+  <o:LocationOfComponents HRef="file:///\\"/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:.98in .75in .98in .75in;
+	mso-header-margin:.51in;
+	mso-footer-margin:.51in;
+	mso-page-orientation:landscape;}
+tr
+	{mso-height-source:auto;
+	mso-ruby-visibility:none;}
+col
+	{mso-width-source:auto;
+	mso-ruby-visibility:none;}
+br
+	{mso-data-placement:same-cell;}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:一般;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:nowrap;
+	mso-rotate:0;}
+.xl24
+	{mso-style-parent:style0;
+	border:.5pt solid windowtext;}
+.xl25
+	{mso-style-parent:style0;
+	text-align:center;}
+.xl26
+	{mso-style-parent:style0;
+	text-align:center;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid windowtext;
+	border-left:none;}
+.xl27
+	{mso-style-parent:style0;
+	text-align:center;
+	border:.5pt solid windowtext;}
+.xl28
+	{mso-style-parent:style0;
+	text-align:left;
+	border:.5pt solid windowtext;}
+ruby
+	{ruby-align:left;}
+rt
+	{color:windowtext;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:新細明體, serif;
+	mso-font-charset:136;
+	mso-char-type:none;
+	display:none;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <x:ExcelWorkbook>
+  <x:ExcelWorksheets>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet1</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:Print>
+      <x:ValidPrinterInfo/>
+      <x:PaperSizeIndex>9</x:PaperSizeIndex>
+      <x:HorizontalResolution>600</x:HorizontalResolution>
+      <x:VerticalResolution>0</x:VerticalResolution>
+     </x:Print>
+     <x:Selected/>
+     <x:Panes>
+      <x:Pane>
+       <x:Number>3</x:Number>
+       <x:ActiveRow>3</x:ActiveRow>
+       <x:ActiveCol>1</x:ActiveCol>
+      </x:Pane>
+     </x:Panes>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet2</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+   <x:ExcelWorksheet>
+    <x:Name>Sheet3</x:Name>
+    <x:WorksheetOptions>
+     <x:DefaultRowHeight>330</x:DefaultRowHeight>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+  </x:ExcelWorksheets>
+  <x:WindowHeight>9120</x:WindowHeight>
+  <x:WindowWidth>11715</x:WindowWidth>
+  <x:WindowTopX>240</x:WindowTopX>
+  <x:WindowTopY>75</x:WindowTopY>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ProtectWindows>False</x:ProtectWindows>
+ </x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+
+<body link=blue vlink=purple>
+
+<table x:str border=0 cellpadding=0 cellspacing=0 width=1019 style='border-collapse:
+ collapse;table-layout:fixed;width:766pt'>
+ <col width=72 style='width:54pt'>
+ <col width=108 style='mso-width-source:userset;mso-width-alt:3456;width:81pt'>
+ <col width=129 style='mso-width-source:userset;mso-width-alt:4128;width:97pt'>
+ <col width=142 style='mso-width-source:userset;mso-width-alt:4544;width:107pt'>
+ <col width=109 style='mso-width-source:userset;mso-width-alt:3488;width:82pt'>
+ <col width=129 style='mso-width-source:userset;mso-width-alt:4128;width:97pt'>
+ <col width=124 style='mso-width-source:userset;mso-width-alt:3968;width:93pt'>
+ <col width=134 style='mso-width-source:userset;mso-width-alt:4288;width:101pt'>
+ <col width=72 style='width:54pt'>
+ <tr height=22 style='height:16.5pt'>
+  <td colspan=9 height=22 class=xl25 width=1019 style='height:16.5pt;
+  width:766pt'>台南市政府警察局案件一覽表</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td colspan=9 height=22 class=xl26 style='height:16.5pt'>收件日期2018/11/25~2019/01/03</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl27 style='height:16.5pt;border-top:none'>案號</td>
+  <td class=xl27 style='border-top:none;border-left:none'>案件來源</td>
+  <td class=xl27 style='border-top:none;border-left:none'>申辦日期</td>
+  <td class=xl27 style='border-top:none;border-left:none'>寄件者</td>
+  <td class=xl27 style='border-top:none;border-left:none'>主旨</td>
+  <td class=xl27 style='border-top:none;border-left:none'>承辦單位</td>
+  <td class=xl27 style='border-top:none;border-left:none'>預結案日期</td>  
+  <td class=xl27 style='border-top:none;border-left:none'>結案日期</td>
+  <td class=xl27 style='border-top:none;border-left:none'>辦理天數</td>
+ </tr>
+ 
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100010</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡鐘葳 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MMA-1221 機車違規行駛禁行機車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.82
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100013</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>胡佳明 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車299- HNV 行駛時駕駛人違規未戴安全帽。 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.72
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100018</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>跨越雙白線行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.71
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100044</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡瀧喬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.42
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100048</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>邱彥翔 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.4
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100056</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>王宏州 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MFW-3602超越停止線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.38
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100058</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭益感 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>停紅燈超越停止線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.38
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100061</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳育騰 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車行駛道路未載安全帽．． </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.37
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100062</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭益感 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>停紅燈超越停止線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.37
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100068</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>行駛禁行機車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.35
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100069</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>王宏州 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>A2019010100056地址更正 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.35
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100070</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>王宏州 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>A2019010100056地址更正 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.35
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100073</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.33
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100075</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.33
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100076</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.33
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100078</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.3
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100080</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.29
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100081</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.29
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100082</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.28
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100086</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>併排違停機車道 後視鏡折起來 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.28
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100090</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>張兆柏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MEX-5989 闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.27
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100093</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>張兆柏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MEX-5989 闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.27
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100095</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>張兆柏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MEX-5989 闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.27
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100098</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳函倪 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車格堆放雜物 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.26
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100100</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳函倪 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車格堆放雜物 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.26
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100114</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.23
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100128</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>林文智 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>車號AVY-6153紅線違規停車-已超過3分鐘 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100135</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>曾博瑞 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100136</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100149</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李宛柔 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規跨越行駛槽化線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100155</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100159</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>115-PFY </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100161</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MYF-2381 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100162</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>張哲睿 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100167</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>831-CAC </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100169</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>林祈宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100174</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>張哲睿 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100177</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>林祈宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>小客車行駛機慢車優先道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100178</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃建源 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>UQ-828貨車後車斗載人 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>305學甲分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100201</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>716-JPT 兩項違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.14
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100210</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳乃竺 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車佔用汽車停車格 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.12
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200024</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳育騰 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車行駛道路未載安全帽．． </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.88
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200025</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳育騰 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車紅線路段違規停車.... </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.87
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200043</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳育騰 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車違規紅線路段停車... </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.67
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200046</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.65
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200045</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.66
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200044</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.67
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200042</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.67
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200041</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.67
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200055</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>曾俊國 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違停機車格 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.56
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200056</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李榕平 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.54
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200061</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李榕平 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.54
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200088</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭賀月 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.52
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200049</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>莊子萱 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.59
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200039</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>王賀華 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>非雨、霧天氣開啟後霧燈，未依規定使用燈光 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100140</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳擇龍 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100085</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.28
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100084</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.28
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100019</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳星翰 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>AWU-2768雙黃線逆向超車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100017</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>變換車道未施打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.71
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100016</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違停機車道 駕駛07:34上車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.71
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100015</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>併排停車(內有機車) </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.71
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100014</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>併排停車(內有機車) </td>
+  <td class=xl28 style='border-top:none;border-left:none'>304佳里分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.72
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200092</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.5
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200093</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>賴昱誠 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.5
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200095</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.5
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200091</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃志暉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車未兩段式左轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.5
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200097</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>右轉無方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.49
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200090</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.52
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200086</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃志暉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>占用機車停等區 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.52
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200085</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.52
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200079</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200076</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃志暉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車未兩段式左轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200068</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃志暉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200060</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李文生 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>跨越雙白實線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.54
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200057</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李文生 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>直行車占用左轉車道直行 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.54
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200094</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃志暉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車未兩段式左轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.5
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200040</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100005</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳柏宇 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>人行道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  2.01
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100006</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳柏宇 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>人行道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.99
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200037</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100063</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200098</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.48
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200034</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200033</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200031</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.68
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200030</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.69
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100064</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200029</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳奇宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.69
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200022</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>曾博瑞 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規臨時停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.95
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200021</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>曾博瑞 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規臨時停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.95
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200011</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>ACJ-3367 紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.07
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200010</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>965-PWZ  跨越槽化線行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.07
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200009</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>FR3-206  跨越槽化線行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.08
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100225</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>楊勝貴 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.11
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100221</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳登豐 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.11
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100214</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李忠穎 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅線違規停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.12
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100206</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>郭柏承 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽+4貼 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.13
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100200</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>1785-ZP 闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.14
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100197</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>8709-XD 逆向行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.14
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100181</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>邱勝豐 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>4063-JD 交通違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.15
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100173</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡良彬 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>ADX-6052 闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100170</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>L7X-258 三項違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.16
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100166</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MHC-9256 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100154</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>969-CAG </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100152</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>MSD-1632 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100151</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>KD2-583.209-LSP等兩車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100145</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李宛柔 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>轉彎不打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100144</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>李宛柔 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>轉彎不打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100130</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>江 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>188-PLR.H76-650等兩車  </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100123</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>林昆明 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>跨越雙黃線行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.22
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100119</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉致瑋 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.23
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100066</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉俊成 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.35
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100012</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>蔡鐘葳 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>3N-6408 汽車違規行駛左轉專用道直行 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>310永康分局-復興所</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.82
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200100</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>右轉無方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.44
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200102</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅線違停 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.43
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200104</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅線違停 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.43
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200105</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅線違停 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.43
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200106</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>廖信智 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>測試 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>502交通警察大隊-執法組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.43
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200109</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅線違停 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.42
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200099</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>賴昱誠 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>315第五分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.47
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200111</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳家豪 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>AHS-3109紅燈時超越停車線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>302白河分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.42
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200112</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳忠義 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>右轉無方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.42
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200114</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝佾哲 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定打方向燈變換車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.42
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200119</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>任意以迫近、驟然變換車道或其他不當方式，迫使他車讓道。 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200120</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200121</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200087</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉盈慶 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>照後鏡不全或損壞不予修復 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>310永康分局-永康所</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.52
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200123</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>汽車占用機慢車優先道行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.4
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200124</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>任意跨越兩條車道（雙白線）行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.39
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200126</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>鄭家馨 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>311第一分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.39
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200129</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>1-未依標示行駛(僅能直行卻右轉) 多車道右轉彎未先駛入外側車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.38
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200130</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>1-未依標示行駛(僅能直行卻右轉) 多車道右轉彎未先駛入外側車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.38
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200132</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>2-紅燈右轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.38
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200133</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>2-紅燈右轉 補A2019010200132檔案 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.37
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200066</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉盈慶 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>不依規定駛入來車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>310永康分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100120</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.22
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200142</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳明哲 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>檢舉699-CAG機車違規 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.37
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100207</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>余鴻喜 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規併排停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.13
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100184</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>林祈宏 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>小貨車紅燈占用機車停格區 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.15
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100164</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>余鴻喜 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>違規併排停車 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.17
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100156</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100153</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>占用機車停等區 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100150</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.18
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100148</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈越線 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100142</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100141</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>黃銘賢 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>紅燈佔用機車等待區 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200148</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>賴昱誠 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200149</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>逆向行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100138</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未依規定使用方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.19
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200150</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>謝宗廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>逆向行駛 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100133</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100131</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100127</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.2
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100122</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.22
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100121</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>未戴安全帽 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.22
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100118</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>朱世維 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.23
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100047</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車變換車道未打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200065</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉盈慶 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>不依規定駛入來車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>310永康分局-永信所</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100046</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車變換車道未打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100045</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥廷 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車變換車道未打方向燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.41
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100041</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車違規改裝非原廠方向燈顏色(白色燈光)造成後方刺眼影響行車安全 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.64
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100039</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>機車違規改裝非原廠方向燈顏色(白色燈光)造成後方刺眼影響行車安全 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.64
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100038</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>休旅車違規迴轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.64
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100037</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>休旅車違規迴轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.65
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100036</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>休旅車違規迴轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.65
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200063</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉盈慶 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>不依規定駛入來車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>310永康分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.53
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010100035</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/01</td>
+  <td class=xl28 style='border-top:none;border-left:none'>吳彥昌 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>休旅車違規迴轉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>308歸仁分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/18</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  1.65
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200153</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>劉盈慶 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>闖紅燈 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>313第三分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.35
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200151</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>高書政 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>轉彎車占用直行車道 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>313第三分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.36
+  </td>
+  
+ </tr>
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>A2019010200140</td>
+  <td class=xl28 style='border-top:none;border-left:none'>首長信箱</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/01/02</td>
+  <td class=xl28 style='border-top:none;border-left:none'>陳先聲 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>交通違規檢舉 </td>
+  <td class=xl28 style='border-top:none;border-left:none'>312第二分局-交通組</td>
+  <td class=xl28 style='border-top:none;border-left:none'>2019/02/19</td>  
+  <td class=xl28 style='border-top:none;border-left:none'>
+ </td>
+  <td class=xl28 style='border-top:none;border-left:none'>
+  0.37
+  </td>
+  
+ </tr>
+
+ 
+ 
+ 
+ 
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=72 style='width:54pt'></td>
+  <td width=108 style='width:81pt'></td>
+  <td width=129 style='width:97pt'></td>
+  <td width=142 style='width:107pt'></td>
+  <td width=109 style='width:82pt'></td>
+  <td width=129 style='width:97pt'></td>
+  <td width=124 style='width:93pt'></td>
+  <td width=90 style='width:60pt'></td>
+  <td width=102 style='width:84pt'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</body>
+
+</html>

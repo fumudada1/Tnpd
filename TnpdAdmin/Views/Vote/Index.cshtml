@@ -1,0 +1,107 @@
+﻿@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.Vote>
+
+@{
+    ViewBag.Title = "線上投票管理";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="top">
+   @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-primary" })
+</div>
+
+
+
+
+@using (Html.BeginForm())
+{
+<div class="search">
+
+        時間區間：@Html.InputSearchBox("SearchByStartDate", ViewData["SearchByStartDate"], new { @class = "datepicker", target = "" })~@Html.InputSearchBox("SearchByEndDate", ViewData["SearchByEndDate"], new { @class = "datepicker", target = "" }) <br>
+        關鍵字：@Html.InputSearchBox("SearchByTitle", ViewData["SearchByTitle"]) <input type="submit" value="搜尋" class="btn-button">
+
+    </div>
+   
+
+    
+}
+
+<table class="table table-v">
+    <tr>
+        <th width="15%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+        </th>
+        <th width="5%">
+          張貼日期
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IsOpen)
+        </th>
+        <th width="7%">
+           報名人數
+        </th>
+        <th width="5%">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Poster)
+        </th>
+        <th width="13%" style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Updater)
+        </th>
+        <th width="13%" style="display:none">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateDate)
+        </th>
+        <th width="23%">功能</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+             @Html.DisplayFor(modelItem => item.StartDate) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsOpen)
+        </td>
+        <td>
+            @string.Format("{0}", item.VoteWrite.Count())
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Poster)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.Updater)
+        </td>
+        <td style="display:none">
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.ActionLink("投票內容", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("投票結果", "Statistics", new { id = item.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("編輯", "Edit", new { id=item.Id },new { @class = "btn btn-primary" })
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id },new { @class = "btn btn-primary" })
+            @Html.Hidden("ID",item.Id)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+        });
+    </script>
+
+}

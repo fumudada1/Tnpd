@@ -1,0 +1,116 @@
+﻿
+@using TnpdModels
+@model TnpdModels.HomeLink
+
+@{
+    ViewBag.Title = "首頁相關連結(小圖)編輯";
+}
+
+<h2>首頁相關連結(小圖)編輯 (圖片尺寸：300x106px)</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>HomeLink</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WebSiteNameId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("WebSiteNameId")
+            @Html.ValidationMessageFor(model => model.WebSiteNameId)
+           
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.HomeLink>.GetDisplayName("Subject") })
+           
+        </div>
+
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.StartDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.StartDate)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EndDate,"{0:d}",new {@class="datepicker",target="" })
+            @Html.ValidationMessageFor(model => model.EndDate)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImages" />
+            @Html.HiddenFor(model => model.UpImage)
+            @if (!string.IsNullOrEmpty(Model.UpImage))
+            {
+                <img src="@(Model.UpImage)" />
+            }
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Url)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Url,new { placeholder=ModelsAttributeHelper<TnpdModels.HomeLink>.GetDisplayName("Url") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Enable)
+           
+        </div>
+
+       
+        @Html.HiddenFor(model => model.DataType)
+       
+        @Html.HiddenFor(model => model.OwnWebSiteId)
+            @Html.HiddenFor(model => model.Poster)
+      
+        @Html.HiddenFor(model => model.initOrg)
+            @Html.HiddenFor(model => model.InitDate)
+      
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+        });
+    </script>
+
+    }

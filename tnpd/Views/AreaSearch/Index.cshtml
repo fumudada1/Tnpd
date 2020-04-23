@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "警局地圖";
+}
+<div class="row">
+    <div class="col-12">
+	<p class="mb-2">當您選擇行政區位置或選取轄區分局，本系統將提供您行政區內本局警察單位資訊。</p>
+
+    <div class="form-row mt-2">
+    <label class="col-form-label" for="orgs">依照分局搜尋：</label>
+        <div class="form-group col-auto">
+        <select name="orgs" id="orgs" class="form-control"></select>
+        </div>
+        <div class="form-group col-auto">
+        <input type="button" class="btn btn-secondary" value="搜尋" id="orgsSend">
+        </div>
+        </div>
+
+        <div class="form-row mt-1">
+            <label class="col-form-label" for="towns">依照地區搜尋：</label>
+                <div class="form-group col-auto">
+                        <select name="towns" id="towns" class="form-control"></select>
+                    
+                </div>
+                <div class="form-group col-auto">
+
+                    <input type="button" class="btn btn-secondary" value="搜尋" id="townsSend">
+                </div>
+                </div>
+       
+		<p class="mb-2">
+		您也可輸入精確地址，或地標(例如:奇美博物館)，本系統將提供距離您輸入位置5公里內之本局警察單位資訊。
+        </p>
+        
+        <div class="form-row mt-2">
+            <label class="col-form-label" for="keywordText" >請輸入地址或地標：</label>
+                <div class="form-group col-auto">
+                        <input type="text" id="keywordText" class="form-control" placeholder="請輸入請輸入地址或地標">                    
+                </div>
+                <div class="form-group col-auto">
+                        <input type="button" class="btn btn-secondary" value="搜尋" id="keywordSend">
+                </div>
+                </div>
+
+        <div id="map" style="height: 500px; width: 100%;" class="mt-3"></div>
+    </div>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy7niYo3hKVoLoxDPCbZqRZWG_x7jml4k">
+</script>
+<script>
+    (function () {
+        var _url = '/';
+        var orgs = document.querySelector('#orgsSend');
+        var towns = document.querySelector('#townsSend');
+        var keywordSend = document.querySelector('#keywordSend');
+        function GetOrgs() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', _url + 'StationInfo/GetOrgs');
+            xhr.send(null);
+            xhr.onload = function () {
+                var data = JSON.parse(xhr.response);
+                var str = '';
+                for (var i = 0; data.length > i; i++) {
+                    str += '<option value="' + data[i].id + '">' + data[i].subject + '</option>'
+                }
+                document.querySelector('#orgs').innerHTML = str;
+            }
+        }
+        function GetTowns() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', _url + 'StationInfo/GetTowns');
+            xhr.send(null);
+            xhr.onload = function () {
+                console.log(xhr)
+                var data = JSON.parse(xhr.response);
+                var str = '';
+                for (var i = 0; data.length > i; i++) {
+                    str += '<option value="' + data[i].id + '">' + data[i].subject + '</option>'
+                }
+                document.querySelector('#towns').innerHTML = str;
+            }
+        }
+        GetOrgs()
+        GetTowns()
+        orgs.addEventListener('click',function(e){
+            var _targetUrl = _url+'StationInfo/GetPointByStation?id='+document.querySelector('#orgs').value;
+            showMap(_targetUrl)
+        })
+        towns.addEventListener('click', function (e) {
+            var _targetUrl = _url + 'StationInfo/GetPointByArea?id=' + document.querySelector('#towns').value;
+            showMap(_targetUrl)
+        })
+        keywordSend.addEventListener('click',function(e){
+            var _targetUrl = _url + 'StationInfo/GetPointByAddress?address='+document.querySelector('#keywordText').value;
+            console.log(_targetUrl);
+            showMap(_targetUrl)
+        })
+        // 預設載入
+        showMap(_url +'StationInfo/GetPointByStation?id=2')
+        function showMap(target){
+        
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', target);
+            xhr.send(null);
+            xhr.onload = function () {
+                //記錄當前點擊 google window
+                var currentInfoWindow = '';
+                var data = JSON.parse(xhr.response);
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 9,
+                    center: { lat: 22.6048695, lng: 120.299119 }
+                });
+                var bounds = new google.maps.LatLngBounds();
+                for (i = 0; i < data.length; i++) {
+            
+                    var content= 
+                        '<p style="font-weight:bold">'+ data[i].subject+'</p>'+
+                            '<span>電話：<a href="tel:'+ data[i].tel+'">'+data[i].tel+'</a></span></br>'+
+                            '<span>地址：'+data[i].address+'</span>' ;
+                    ;
+              
+                    var str = {};
+                    var place = {};
+                    place.lat = parseFloat(data[i]['lat']);
+                    place.lng = parseFloat(data[i]['lng']);
+                    str.map = map;
+                    str.title = data[i].subject
+                    str.position = place;
+                    var marker = new google.maps.Marker(str);
+                    loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+                    infowindow(marker,content)
+                    bounds.extend(loc);
+                }
+                function infowindow(marker, content) {
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: content
+                    });
+
+                    marker.addListener('click', function () {
+                        if (currentInfoWindow) {
+                            currentInfoWindow.close();
+                            currentInfoWindow = '';
+                        }
+                        infowindow.open(marker.get('map'), marker);
+                        currentInfoWindow = infowindow;
+                    });
+
+                }
+                map.fitBounds(bounds);
+                map.panToBounds(bounds);
+            }
+        }
+    })()
+</script>

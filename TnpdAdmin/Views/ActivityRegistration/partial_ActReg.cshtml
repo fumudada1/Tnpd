@@ -1,0 +1,20 @@
+﻿@model TnpdModels.ActivityRegistration
+
+@using (Html.BeginForm("Registration", "ActivityRegistration", new { Id = Model.ActivityId }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>報名表</legend>
+
+        @foreach (var i in Model.Activity.ActivityCustomFields.OrderBy(m => m.ListNum))
+        {
+            @Html.Partial("partial_ActReg_" + i.InputType, i)
+        }
+        <p>
+            <input type="submit" value="報名" class="btn-button" />
+        </p>
+    </fieldset>
+}

@@ -1,0 +1,58 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+@model MvcPaging.IPagedList<TnpdModels.WebSiteName>
+
+@{
+    ViewBag.Title = "子網站Banner設定列表";
+}
+
+<h2>子網站Banner設定列表</h2>
+<table class="table table-v">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SiteCode)
+        </th>
+       
+        <th></th>
+    </tr>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteCode)
+        </td>
+        
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id=item.Id},new{@class="btn btn-primary"}) 
+            @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
+            @*@Html.ActionLink("刪除", "Delete", new { id=item.Id },new{@class="btn btn-primary"}) *@
+            @Html.Hidden("ID",item.Id)
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+
+        });
+    </script>
+}
+

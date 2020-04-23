@@ -1,0 +1,92 @@
+﻿
+@using TnpdModels
+@model TnpdModels.Wanda
+
+@{
+    ViewBag.Title = "婦幼安全警示地點編輯";
+}
+
+<h2>婦幼安全警示地點編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Wanda</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.Wanda>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StationInfoId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("StationInfoId")
+            @Html.ValidationMessageFor(model => model.StationInfoId)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.beginning)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.beginning,new { placeholder=ModelsAttributeHelper<TnpdModels.Wanda>.GetDisplayName("beginning") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.destination)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.destination,new { placeholder=ModelsAttributeHelper<TnpdModels.Wanda>.GetDisplayName("destination") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Article)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Article,new { @class = "ckeditor" })
+            @Html.ValidationMessageFor(model => model.Article)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.Status)
+           
+        </div>
+
+      
+        @Html.HiddenFor(model => model.OwnWebSiteId)
+            @Html.HiddenFor(model => model.Poster)
+    
+        @Html.HiddenFor(model => model.initOrg)
+            @Html.HiddenFor(model => model.InitDate)
+       
+        @Html.HiddenFor(model => model.UpdateOrg)
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+   <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    }

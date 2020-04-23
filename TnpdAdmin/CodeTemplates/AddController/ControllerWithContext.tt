@@ -1,0 +1,354 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ import namespace="System.Reflection" #>
+<#
+var Model = (MvcTextTemplateHost)Host;
+var routePrefix = String.Empty;
+if (!String.IsNullOrWhiteSpace(Model.AreaName)) {
+    routePrefix = "/" + Model.AreaName;
+}
+routePrefix += "/" + Model.ControllerRootName + "/";
+#>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.Objects" #>
+<#@ import namespace="System.Linq" #>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using MvcPaging;
+using System.Web.Mvc;
+<# if(MvcTextTemplateHost.NamespaceNeeded(Model.Namespace, Model.ModelType.Namespace)) { #>
+using <#= Model.ModelType.Namespace #>;
+<# } #>
+<# if(Model.ContextType.Namespace != Model.ModelType.Namespace && MvcTextTemplateHost.NamespaceNeeded(Model.Namespace, Model.ContextType.Namespace)) { #>
+using <#= Model.ContextType.Namespace #>;
+<# } #>
+
+namespace <#= Model.Namespace #>
+{
+<#
+    var modelName = Model.ModelType.Name;
+    var entitySetName = Model.EntitySetName;
+    var modelVariable = modelName.ToLowerInvariant();
+    var entitySetVariable = entitySetName.ToLowerInvariant();
+    var primaryKey = Model.PrimaryKeys[0];
+    var lambdaVar = modelVariable[0];
+    var isObjectContext = typeof(ObjectContext).IsAssignableFrom(Model.ContextType);
+
+    bool  hasFiles=false;
+    bool  hasArticle=false;
+    bool  IsListNum=false;
+    string sortType="InitDate";
+	string sortcode="OrderByDescending";
+    string filesParameter="";
+    string filesCode="";
+    string indexParameter="";
+    string searchCode="";
+    string ViewBagReturnCode="";
+    string EntitySetName="";
+    foreach (PropertyInfo prop in Model.ModelType.GetProperties()) { 
+       if(prop.Name=="ListNum"){
+            IsListNum=true;
+            sortType="ListNum";
+			sortcode="OrderBy";
+         }
+
+
+        if(prop.Name.IndexOf("Article")>-1 || prop.Name.IndexOf("Description")>-1){
+            hasArticle=true;
+         }
+       if(prop.Name.IndexOf("UpFile")>-1){
+            hasFiles=true;
+            filesParameter +=",HttpPostedFileBase " + prop.Name +"s";
+            filesCode +="                if (" + prop.Name +"s" + " != null){ \r\n";
+            filesCode +="                    " +  modelVariable + "." + prop.Name + " = Utility.SaveUpFile(" + prop.Name +"s" + "); \r\n";
+            filesCode +="                } \r\n";
+            filesCode +="                System.Threading.Thread.Sleep(1000); \r\n";
+        }
+       
+        if(prop.Name.IndexOf("UpImage")>-1 || prop.Name.IndexOf("UpPic")>-1){
+            hasFiles=true;
+            filesParameter +=",HttpPostedFileBase " + prop.Name + "s";
+            filesCode +="                if (" + prop.Name +"s" + " != null){ \r\n";
+            filesCode +="                    if (" + prop.Name +"s" + ".ContentType.IndexOf(\"image\", System.StringComparison.Ordinal) == -1) \r\n";
+            filesCode +="                   { \r\n";
+            filesCode +="                        ViewBag.Message = \"檔案型態錯誤!\"; \r\n";
+            foreach (var property in Model.RelatedProperties.Values) {
+                filesCode +="                        ViewBag." + property.ForeignKeyPropertyName + "= new SelectList(_db." + property.EntitySetName + ".OrderBy(p=>p.ListNum), \"" + property.PrimaryKey +"\", \"" + property.DisplayPropertyName + "\", " + modelVariable + "." + property.ForeignKeyPropertyName + ");\r\n";
+            }
+            filesCode +="                        return View(" + modelVariable + "); \r\n";           
+            filesCode +="                    } \r\n";
+            filesCode +=" \r\n";
+            filesCode +="                    " +  modelVariable + "." + prop.Name + " = Utility.SaveUpImage(" +　prop.Name +"s"　+　"); \r\n";
+            filesCode +="                    Utility.GenerateThumbnailImage(" +  modelVariable + "." + prop.Name + ", " + prop.Name +"s" + ".InputStream, Server.MapPath(\"~/upfiles/images\"), \"S\", 127, 127); \r\n";
+            filesCode +="                } \r\n";
+            filesCode +="                System.Threading.Thread.Sleep(1000); \r\n";
+        }
+        if(prop.Name=="Subject" || prop.Name=="Title" || prop.Name=="Name"){
+            indexParameter +="string " + prop.Name + ",";
+            searchCode +="            if (hasViewData(\"SearchBy" + prop.Name + "\")) \r\n";
+            searchCode +="            { \r\n";
+			searchCode +="            string searchBy" + prop.Name + " = getViewDateStr(\"SearchBy" + prop.Name + "\");";
+			searchCode +="             \r\n";
+            searchCode +="                publishes = publishes.Where(w => w." + prop.Name + ".Contains(searchBy" + prop.Name + ")); \r\n";
+            searchCode +="            } \r\n \r\n";
+            ViewBagReturnCode+="//            ViewBag." + prop.Name + " = " + prop.Name + ";";
+        }
+        if( Model.RelatedProperties.ContainsKey(prop.Name)){
+            indexParameter +=prop.PropertyType + "? " + prop.Name + ",";
+            searchCode +="            if (hasViewData(\"SearchBy" + prop.Name + "\")) \r\n";
+            searchCode +="            { \r\n";
+			searchCode +="            int searchBy" + prop.Name + " = getViewDateInt(\"SearchBy" + prop.Name + "\");";
+			searchCode +="             \r\n";
+            searchCode +="                publishes = publishes.Where(w => w." + prop.Name + " == searchBy" + prop.Name + "); \r\n";
+            searchCode +="            } \r\n";
+        }
+		if(prop.PropertyType.IsEnum){
+            indexParameter +=prop.PropertyType + "? " + prop.Name + ",";
+            searchCode +="            if (hasViewData(\"SearchBy" + prop.Name + "\")) \r\n";
+            searchCode +="            { \r\n";
+			searchCode +="            string " + prop.Name + " = getViewDateStr(\"SearchBy" + prop.Name + "\");";
+			searchCode +="             \r\n";
+			searchCode +="             " + prop.PropertyType + " searchBy" + prop.Name + "= (" + prop.PropertyType + ")Enum.Parse(typeof(" + prop.PropertyType + "), " + prop.Name + ", false); \r\n";
+			searchCode +="             \r\n";
+            searchCode +="                publishes = publishes.Where(w => w." + prop.Name + " == searchBy" + prop.Name + "); \r\n";
+            searchCode +="            } \r\n \r\n";
+        }
+        
+    }
+	searchCode=searchCode.Replace("publishes",entitySetVariable);
+#>
+	[PermissionFilters]
+    [Authorize]
+    public class <#= Model.ControllerName #> : _BaseController
+    {
+        private <#= Model.ContextType.Name #> _db = new <#= Model.ContextType.Name #>();
+        private const int DefaultPageSize = 15;
+        //
+
+        
+
+
+        public ActionResult Index(int? page, FormCollection fc )
+        {
+			//記住搜尋條件
+            GetCatcheRoutes(page, fc);
+
+            //取得正確的頁面
+            int currentPageIndex = getCurrentPage(page, fc);
+<#   var includeExpressions1 = "";
+    if(isObjectContext) {
+        includeExpressions1 = String.Join("", Model.RelatedProperties.Values.Select(property => String.Format(".Include(\"{0}\")", property.PropertyName)));
+    }
+    else {
+        includeExpressions1 = String.Join("", Model.RelatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.PropertyName)));
+    }
+    
+#>
+            
+
+            var <#= entitySetVariable #> = _db.<#= entitySetName #><#= includeExpressions1 #>.OrderByDescending(p => p.<#= sortType #>).AsQueryable();
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(_db.<#= property.EntitySetName #>.OrderBy(p=>p.<#= sortType #>), "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>");
+<# } #>
+<#= searchCode #>
+<#= ViewBagReturnCode #>
+            return View(<#= entitySetVariable #>.<#= sortcode #>(p => p.<#= sortType #>).ToPagedList(currentPageIndex, DefaultPageSize));
+
+        }
+
+
+
+<#
+    if(IsListNum){
+#>
+        [HttpPost]
+        public ActionResult Sort(string sortData)
+        {
+            if (!string.IsNullOrEmpty(sortData))
+            {
+                string[] tempDatas = sortData.TrimEnd(',').Split(',');
+                foreach (string tempData in tempDatas)
+                {
+                    string[] itemDatas = tempData.Split(':');
+                    <# if(isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == itemDatas[0]);
+<# } else { #>
+<#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Find(Convert.ToInt16(itemDatas[0]));
+<# } #>
+                    <#= modelVariable #>.ListNum = Convert.ToInt16(itemDatas[1]) ;
+
+                    //_db.Entry(publish).State = EntityState.Modified;
+                    _db.SaveChanges();
+
+                }
+
+            }
+            return RedirectToAction("Index");
+        }
+<#
+}
+
+#>
+        
+
+        //
+        // GET: <#= routePrefix #>Details/5
+
+        public ActionResult Details(<#= primaryKey.ShortTypeName #> id = <#= primaryKey.DefaultValue #>)
+        {
+<# if(isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Find(id);
+<# } #>
+            if (<#= modelVariable #> == null)
+            {
+                //return HttpNotFound();
+				 return View();
+            }
+            return View(<#= modelVariable #>);
+        }
+
+        //
+        // GET: <#= routePrefix #>Create
+
+        public ActionResult Create()
+        {
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(_db.<#= property.EntitySetName #>.OrderBy(p=>p.ListNum), "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>");
+<# } #>
+            return View();
+        }
+
+        //
+        // POST: <#= routePrefix #>Create
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        <#= hasArticle?"[ValidateInput(false)]":"" #>
+        public ActionResult Create(<#= modelName #> <#= modelVariable #> <#= filesParameter  #>)
+        {
+            if (ModelState.IsValid)
+            {
+<#= filesCode #>
+<# if(primaryKey.Type == typeof(Guid)) { #>
+                <#= modelVariable #>.<#= primaryKey.Name #> = Guid.NewGuid();
+<# } #>
+<# if(isObjectContext) { #>
+                _db.<#= entitySetName #>.AddObject(<#= modelVariable #>);
+<# } else { #>
+                _db.<#= entitySetName #>.Add(<#= modelVariable #>);
+<# } #>
+<# 
+	 if(IsListNum){ #>
+	  int maxListNum = 0;
+      if (( _db.<#= entitySetName #>.Any()))
+      {
+		 maxListNum = _db.<#= entitySetName #>.Max(x => x.ListNum) ;
+      }                
+				<#= modelVariable #>.ListNum = maxListNum +1; 
+<#	 }
+#>
+                <#= modelVariable #>.Create(_db,_db.<#= entitySetName #>);
+                return RedirectToAction("Index");
+            }
+
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(_db.<#= property.EntitySetName #>.OrderBy(p=>p.ListNum), "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return View(<#= modelVariable #>);
+        }
+
+        //
+        // GET: <#= routePrefix #>Edit/5
+
+        public ActionResult Edit(<#= primaryKey.ShortTypeName #> id = <#= primaryKey.DefaultValue #>)
+        {
+<# if(isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Find(id);
+<# } #>
+            if (<#= modelVariable #> == null)
+            {
+                return HttpNotFound();
+            }
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(_db.<#= property.EntitySetName #>.OrderBy(p=>p.ListNum), "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return View(<#= modelVariable #>);
+        }
+
+        //
+        // POST: <#= routePrefix #>Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+         <#= hasArticle?"[ValidateInput(false)]":"" #>
+        public ActionResult Edit(<#= modelName #> <#= modelVariable #><#= filesParameter  #>)
+        {
+            if (ModelState.IsValid)
+            {
+<#= filesCode #>
+<# if(isObjectContext) { #>
+                _db.<#= entitySetName #>.Attach(<#= modelVariable #>);
+                _db.ObjectStateManager.ChangeObjectState(<#= modelVariable #>, EntityState.Modified);
+<# } else { #>
+               //_db.Entry(<#= modelVariable #>).State = EntityState.Modified;
+<# } #>
+                <#= modelVariable #>.Update();
+                return RedirectToAction("Index",new{Page=-1});
+            }
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(_db.<#= property.EntitySetName #>.OrderBy(p=>p.ListNum), "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return View(<#= modelVariable #>);
+        }
+
+        //
+        // GET: <#= routePrefix #>Delete/5
+
+        public ActionResult Delete(<#= primaryKey.ShortTypeName #> id = <#= primaryKey.DefaultValue #>)
+        {
+<# if(isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Find(id);
+<# } #>
+            if (<#= modelVariable #> == null)
+            {
+                return HttpNotFound();
+            }
+            return View(<#= modelVariable #>);
+        }
+
+        //
+        // POST: <#= routePrefix #>Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(<#= primaryKey.ShortTypeName #> id)
+        {
+<# if(isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+            _db.<#= entitySetName #>.DeleteObject(<#= modelVariable #>);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = _db.<#= entitySetName #>.Find(id);
+            _db.<#= entitySetName #>.Remove(<#= modelVariable #>);
+<# } #>
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+
+}

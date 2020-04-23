@@ -1,0 +1,56 @@
+﻿@using TnpdModels
+@model TnpdModels.WebSiteName
+
+@{
+    ViewBag.Title = "子網站Banner設定編輯";
+}
+
+<h2>子網站Banner設定編輯</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>WebSiteName</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Subject)
+        @Html.HiddenFor(model => model.SiteCode)
+        @Html.HiddenFor(model => model.OrgNumber)
+        @Html.HiddenFor(model => model.XmlDoc)
+         @Html.HiddenFor(model => model.ColorName)
+         @Html.HiddenFor(model => model.Enable)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImageUrl)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImageUrls" />
+            @Html.HiddenFor(model => model.UpImageUrl)
+            @if (!string.IsNullOrEmpty(Model.UpImageUrl))
+            {
+                <img src="~/upfiles/images/S@(Model.UpImageUrl)" />
+            }
+
+        </div>
+
+      
+
+        @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.InitDate)
+        @Html.HiddenFor(model => model.UpdateDate)
+		<p><input type="submit" value="更新" class="btn-button" /></p>
+        <p class="bottom-btn">
+            
+            <input type="button" onclick="history.back()" class="btn btn-primary btn-gray" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
