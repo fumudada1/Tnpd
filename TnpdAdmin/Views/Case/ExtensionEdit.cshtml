@@ -147,14 +147,17 @@
                     <tr>
 
              <td colspan="2">上傳附件檔：<br />
-                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile1))
                 {
-                   
-                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
-                    if (finfo.Exists) {
-                         <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }else{
-                     <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile1);
+                    if (finfo.Exists)
+                    {
+                         <a href="/TrafficFiles/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }
+                    else
+                    {
+                     <a href="http://10.128.0.43:8080/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
                     }
                    
                 }

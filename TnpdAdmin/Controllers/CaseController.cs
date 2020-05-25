@@ -994,6 +994,7 @@ namespace TnpdAdmin.Controllers
                 _db.CasePoprocLogs.Add(log);
                 ViewBag.message = "案件已結案!";
 
+                System.Threading.Thread.Sleep(10000);
                 if (myPoproc.PoprocsType != 3)
                 {
                     //發信
@@ -1014,7 +1015,7 @@ namespace TnpdAdmin.Controllers
 
                     mailbody = mailbody.Replace("{URL}", InternetURL + "casewq/index/" + myPoproc.Case.CaseGuid);
                     //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
-                    Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
+                  //  Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
 
                     //併案發信
                     if (myPoproc.Case.Cases.Count() > 0)
@@ -1037,7 +1038,7 @@ namespace TnpdAdmin.Controllers
 
                             mailbody = mailbody.Replace("{URL}", InternetURL + "casewq/index/" + ChildCase.CaseGuid);
                             //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
-                            Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
+                        //    Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
                         }
                     }
 

@@ -69,4 +69,3 @@ E:\website\tnpd\TnpdAdmin\bin\System.Net.Http.Formatting.xml
 E:\website\tnpd\TnpdAdmin\bin\zh-Hant\System.Net.Http.Formatting.resources.dll
 E:\website\tnpd\TnpdAdmin\bin\CKFinder.dll
 E:\website\tnpd\TnpdAdmin\bin\CKFinder.pdb
-E:\website\tnpd\TnpdAdmin\obj\Debug\TnpdAdmin.csprojResolveAssemblyReference.cache

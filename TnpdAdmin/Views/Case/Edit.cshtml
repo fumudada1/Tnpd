@@ -41,9 +41,14 @@
         </tr>
            
         <tr>
-            <td colspan="2">預結案日：@Model.Predate
+            <td >預結案日：@Model.Predate
             </td>
-       
+            <td >
+                @if (Model.CaseType == CaseType.分局長與大隊隊長信箱)
+                {
+                    <span>單位：@Model.WebSite.Subject</span>
+                }
+            </td>
            
         </tr>
         </tbody>
@@ -513,10 +518,12 @@
 
             $("#btnRestone").click(function () {
                 $("#processtype").val("Restone");
+                $("#btnRestone").attr("disabled", "disabled");
                 $("form").submit();
             });
             $("#btnSendMail").click(function () {
                 $("#processtype").val("SendMail");
+                $("#processtype").attr("disabled", "disabled");
                 $("form").submit();
             });
           

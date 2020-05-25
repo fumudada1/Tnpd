@@ -90,36 +90,39 @@
                     <tr>
 
              <td colspan="2">上傳附件檔：<br />
-                @if (!string.IsNullOrEmpty(Model.Upfile1))
-                {
-                   
-                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
-                    if (finfo.Exists) {
+               @if (!string.IsNullOrEmpty(Model.Upfile1))
+               {
+
+                   FileInfo finfo = new FileInfo(path + Model.Upfile1);
+                   if (finfo.Exists)
+                   {
                          <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }else{
+                   }
+                   else
+                   {
                      <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                   }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile2))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile2);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile2" target="_black">@Model.Upfile2</a>
                     }
                    
                 }
-                @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                @if (!string.IsNullOrEmpty(Model.Upfile3))
                 {
-                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                    FileInfo finfo = new FileInfo(path + Model.Upfile3);
                     if (finfo.Exists) { 
-                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
                     }else{
                         
-                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
-                    }
-                   
-                }
-                @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
-                {
-                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
-                    if (finfo.Exists) { 
-                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
-                    }else{
-                        
-                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile3" target="_black">@Model.Upfile3</a>
                     }
                 }
                 
@@ -442,10 +445,12 @@
 
             $("#btnRestone").click(function () {
                 $("#processtype").val("Restone");
+                $("#btnRestone").attr("disabled", "disabled");
                 $("form").submit();
             });
             $("#btnSendMail").click(function () {
                 $("#processtype").val("SendMail");
+                $("#btnSendMail").attr("disabled", "disabled");
                 $("form").submit();
             });
           

@@ -157,7 +157,48 @@
                 </td>
 
             </tr>
+                 <tr>
 
+             <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Upfile1))
+                {
+
+                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
+                    if (finfo.Exists)
+                    {
+                         <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }
+                    else
+                    {
+                     <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile2))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile2);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Upfile3))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Upfile3);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                    }
+                }
+                
+            </td>
+
+        </tr>
 
             </tbody>
         </table>
@@ -349,6 +390,7 @@
 
             $("#btnRestone").click(function () {
                 $("#processtype").val("Restone");
+                $("#btnRestone").attr("disabled", "disabled");
                 $("form").submit();
             });
            

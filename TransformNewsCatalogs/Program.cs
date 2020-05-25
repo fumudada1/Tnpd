@@ -111,9 +111,9 @@ namespace TransformNewsCatalogs
             //TransformWanda();
 
             //景點(新)
-            //TransformSenceClass("SenceClass", 46);
-            //TransformSence("Sence", 46);
-            //TransformNewsImages("SenceFile", 46, "/images/pubtncgb/police/");
+            TransformSenceClass("SenceClass", 46);
+            TransformSence("Sence", 46);
+            TransformNewsImages("SenceFile", 46, "/images/pubtncgb/police/");
 
             //轉碼
             //TransformHtmlToText();
@@ -213,7 +213,7 @@ namespace TransformNewsCatalogs
             SqlConnection conn = new SqlConnection(GetConnectionStringByName("OldTnpdConnection"));
             SqlCommand command = new SqlCommand();
             command.Connection = conn;
-            command.CommandText = "select * from " + tableName;
+            command.CommandText = "select * from " + tableName + " where Serno='201104080001'";
             SqlDataAdapter da = new SqlDataAdapter(command);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -254,7 +254,7 @@ namespace TransformNewsCatalogs
             SqlConnection conn = new SqlConnection(GetConnectionStringByName("OldTnpdConnection"));
             SqlCommand command = new SqlCommand();
             command.Connection = conn;
-            command.CommandText = "select * from " + tableName + " where CreateDate > '20180830'";
+            command.CommandText = "select * from " + tableName + " where  Mserno='201104080001'";
             SqlDataAdapter da = new SqlDataAdapter(command);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -875,7 +875,7 @@ namespace TransformNewsCatalogs
             SqlConnection conn = new SqlConnection(GetConnectionStringByName("OldTnpdConnection"));
             SqlCommand command = new SqlCommand();
             command.Connection = conn;
-            command.CommandText = "select * from " + tableName + " where Serno='201807210001'";
+            command.CommandText = "select * from " + tableName + " where Serno in (select Serno from  Sence where  Mserno='201104080001' )";
             SqlDataAdapter da = new SqlDataAdapter(command);
             DataSet ds = new DataSet();
             da.Fill(ds);

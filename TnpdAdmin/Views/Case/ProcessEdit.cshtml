@@ -164,7 +164,45 @@
                         </td>
 
                     </tr>
+                     <tr>
 
+             <td colspan="2">上傳附件檔：<br />
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile1))
+                {
+
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile1);
+                    if (finfo.Exists) {
+                         <a href="/TrafficFiles/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }else{
+                     <a href="http://10.128.0.43:8080/@Model.Case.Upfile1" target="_black">@Model.Case.Upfile1</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile2))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile2);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile2" target="_black">@Model.Case.Upfile2</a>
+                    }
+                   
+                }
+                @if (!string.IsNullOrEmpty(Model.Case.Upfile3))
+                {
+                    FileInfo finfo = new FileInfo(path + Model.Case.Upfile3);
+                    if (finfo.Exists) { 
+                         <br/>  <a href="/TrafficFiles/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }else{
+                        
+                   <br/>    <a href="http://10.128.0.43:8080/@Model.Case.Upfile3" target="_black">@Model.Case.Upfile3</a>
+                    }
+                }
+                
+            </td>
+
+        </tr>
 
                 </tbody>
             </table>
@@ -729,6 +767,7 @@
                     retrun;
                 }
                 $("#processtype").val("Extension");
+                $("#processtype").attr("disabled", "disabled");
                 $("form").submit();
             });
             $("#btnGoback").click(function() {
@@ -737,6 +776,7 @@
                     retrun;
                 }
                 $("#processtype").val("Goback");
+                $("#btnGoback").attr("disabled", "disabled");
                 $("form").submit();
             });
             $(".return").click(function() {

@@ -208,7 +208,7 @@ namespace tnpd.Models
                 {
                     NodeLink link = getNodeLink(node);
 
-                    stack.Push(string.Format("<li class=\"{0}\"><a  href=\"{1}\" Target=\"{2}\" title=\"{4}\">{3}</a></li>", className, link.url, link.Target, link.Tooltip,link.title));
+                    stack.Push(string.Format("<li class=\"{0}\"><a  href=\"{1}\" Target=\"{2}\" title=\"{4}\">{3}</a></li>", className, link.url, link.Target, link.Tooltip, link.title));
                     node = node.ParentNode;
 
                 }
@@ -300,7 +300,7 @@ namespace tnpd.Models
                         NodeLink nlink = getNodeLink(node);
 
 
-                        sb.AppendFormat("<li ><a href=\"{0}\" target=\"{1}\" title=\"{3}\">{2}</a>\n", nlink.url, nlink.Target, nlink.Tooltip,nlink.title);
+                        sb.AppendFormat("<li ><a href=\"{0}\" target=\"{1}\" title=\"{3}\">{2}</a>\n", nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
                     }
 
                 }
@@ -361,7 +361,7 @@ namespace tnpd.Models
                     }
                     else
                     { //子結點
-                        sb.AppendFormat("<li><a href=\"{0}\" target=\"{1}\" title=\"{3}\"><div>{2}</div></a></li>", nlink.url, nlink.Target, nlink.Tooltip,nlink.title);
+                        sb.AppendFormat("<li><a href=\"{0}\" target=\"{1}\" title=\"{3}\"><div>{2}</div></a></li>", nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
                     }
                 }
 
@@ -397,7 +397,7 @@ namespace tnpd.Models
                     }
                     else
                     { //子結點
-                        sb.AppendFormat("<li ><a {0} href=\"{1}\" target=\"{2}\" title=\"{4}\">{3}</a></li>\n", beSelect, nlink.url, nlink.Target, nlink.Tooltip,nlink.title);
+                        sb.AppendFormat("<li ><a {0} href=\"{1}\" target=\"{2}\" title=\"{4}\">{3}</a></li>\n", beSelect, nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
                     }
                 }
 
@@ -419,22 +419,32 @@ namespace tnpd.Models
 
                 foreach (XmlNode node in _xmlDoc.ChildNodes[0].ChildNodes)
                 {
-                    NodeLink nlinkTitle = getNodeLink(node);
-
-                    sb.AppendLine(" <div class='col'>");
-                    sb.AppendLine("<div class='footerbox'>");
-
-                    sb.AppendLine(" <h4>" + nlinkTitle.Tooltip + "</h4>");
-                    sb.AppendLine("<ul>");
-                    foreach (XmlNode c2Node in node.ChildNodes)
+                    if (node.Attributes["Visible"].Value == "1")
                     {
-                        NodeLink c2link = getNodeLink(c2Node);
-                        sb.AppendLine("<li><a href='" + c2link.url + "' title='" + c2link.title + "' target='" + c2link.Target + "'>" + c2link.Tooltip + "</a></li>");
-                    }
-                    sb.AppendLine("</ul>");
-                    sb.AppendLine("</div>");
+                        NodeLink nlinkTitle = getNodeLink(node);
 
-                    sb.AppendLine("</div>");
+                        sb.AppendLine(" <div class='col'>");
+                        sb.AppendLine("<div class='footerbox'>");
+
+                        sb.AppendLine(" <h4>" + nlinkTitle.Tooltip + "</h4>");
+                        sb.AppendLine("<ul>");
+                        foreach (XmlNode c2Node in node.ChildNodes)
+                        {
+                            if (c2Node.Attributes["Visible"].Value == "1")
+                            {
+                                NodeLink c2link = getNodeLink(c2Node);
+                                sb.AppendLine("<li><a href='" + c2link.url + "' title='" + c2link.title + "' target='" + c2link.Target + "'>" + c2link.Tooltip + "</a></li>");
+                            }
+
+
+                        }
+                        sb.AppendLine("</ul>");
+                        sb.AppendLine("</div>");
+
+                        sb.AppendLine("</div>");
+                    }
+
+
 
 
 
@@ -615,9 +625,9 @@ namespace tnpd.Models
 
             switch (node.Attributes["DataType"].Value)
             {
-                    
+
                 case "text-Undefine":
-                    
+
                     link.url = "#";
                     link.Target = "_self";
                     link.Tooltip = node.Attributes["title"].Value;
@@ -655,8 +665,8 @@ namespace tnpd.Models
                         }
                     }
 
-                    link.Target = node.Attributes["Target"].Value ;
-                    link.Tooltip = node.Attributes["title"].Value ;
+                    link.Target = node.Attributes["Target"].Value;
+                    link.Tooltip = node.Attributes["title"].Value;
                     link.title = node.Attributes["title"].Value + openMessage;
                     break;
 
