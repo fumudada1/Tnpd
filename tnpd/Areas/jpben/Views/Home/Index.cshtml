@@ -82,7 +82,7 @@
         <ul class="header-extras">
             <li>
                 <div class="he-text">
-                   <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" style="margin-bottom: 0px;">
+                   <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" style="margin-bottom: 0px;">  @Html.AntiForgeryToken()
                 <div id="top-search" class="d-none d-lg-block ">
                     <div class="input-group divcenter">
                             <input id="q" type="text" class="form-control inputsear" placeholder="請輸入關鍵字" name="q" title="關鍵字搜尋"  onfocus="this.value=''" onblur="if(!value){value=defaultValue;}">
@@ -285,7 +285,7 @@
             <div class="d-none d-md-block"><a href="#Z" title="Bottom Area" accesskey="Z" class="alt-c01">:::</a></div>
             <div class="col_half">
                 <ul class="crul">
-                    <li>Address : No. 137, Longchang St., Yongkang Dist., Tainan City 710, Taiwan , R.O.C.</li>
+                    <li>Address : No. 137, Longchang St., Yongkang Dist., Tainan City 710036, Taiwan , R.O.C.</li>
                     <li>Tel : 886-6-2022880 </li>
                     <li>Tainan City Police Department © 2018</li>
                     <li class="d-none d-md-block">Best viewed with IE10.0+, Firefox, Chrome or higher with 1024

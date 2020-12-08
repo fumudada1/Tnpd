@@ -14,7 +14,8 @@
 @using (Html.BeginForm())
 {
     <div>
-      
+        <span> 承辦單位：</span>  <select id="SearchByCategories1" name="SearchByCategories1" style="font-size: 15px">
+        </select>
         <br/> 收件日期:<input type="text" name="SearchByStartDate" value="" class = "datepicker" autocomplete="off"/> ~ <input type="text" name="SearchByEndDate" value="" class = "datepicker" autocomplete="off"/>
     </div>
     <div>
@@ -33,7 +34,33 @@
     <script>
         $(document).ready(function() {
             $(".datepicker").datepicker();
-            
+            $('#SearchByCategories1').append($("<option></option>").attr("value", '').text('請選擇'));
+           
+
+            $.getJSON("/units/GetfistUnit").done(function (json) {
+                data = json;
+
+                $.each(json,
+                    function (i, item) {
+
+                        if (item.Id == $("#hidSearchByCategories1").val()) {
+
+                            $('#SearchByCategories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected")
+                                .text(item.Subject));
+                        } else {
+                            $('#SearchByCategories1').append($("<option></option>").attr("value", item.Id)
+                                .text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#SearchByCategories1').val();
+                
+
+
+            });
             
 
 

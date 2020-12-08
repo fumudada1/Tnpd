@@ -130,6 +130,7 @@ namespace TnpdModels
         [MaxLength(100)]
         public string violation_place_road { get; set; }
 
+        [Display(Name = "違規事項")]
         [MaxLength(50)]
         public string itemno { get; set; }
 

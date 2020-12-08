@@ -58,6 +58,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="政府行政機關辦公日曆表.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TnpdModels\TnpdModels.csproj">

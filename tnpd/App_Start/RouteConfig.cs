@@ -72,6 +72,12 @@ namespace tnpd
                 new { controller = "Rss", action = "Index", id = UrlParameter.Optional, siteCode = UrlParameter.Optional },  // Parameter defaults
                 namespaces: new[] { "tnpd.Controllers" }
             );
+            routes.MapRoute(
+                "API",                                              // Route name
+                "API/GetMonitor/{id}",                           // URL with parameters
+                new { controller = "API", action = "GetMonitor", id = UrlParameter.Optional },  // Parameter defaults
+                namespaces: new[] { "tnpd.Controllers" }
+            );
 
 
             routes.MapRoute(

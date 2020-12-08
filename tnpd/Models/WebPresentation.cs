@@ -52,7 +52,7 @@ namespace tnpd.Models
             _i = 1;
             _intLayer = 1;
             _orgId = orgId;
-            _uid = unId;
+            _uid = unId.Replace("'", "&apos;");
             _xmlDoc = new XmlDocument();
 
             webSite = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == orgId);
@@ -66,9 +66,14 @@ namespace tnpd.Models
                 _title = _currXmlNode.Attributes["title"].Value;
                 int MetaID = Convert.ToInt32(_currXmlNode.Attributes["MetaID"].Value);
                 var meta = _db.MetaIndices.Find(MetaID);
-                _theme = meta.Theme;
-                _cake = meta.Cake;
-                _service = meta.Service;
+                if (meta != null)
+                {
+                    _theme = meta.Theme;
+                    _cake = meta.Cake;
+                    _service = meta.Service;
+                }
+
+
                 _IsRight = true;
 
             }

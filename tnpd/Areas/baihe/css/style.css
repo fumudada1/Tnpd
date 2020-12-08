@@ -38,8 +38,6 @@ body,
     font-size: 1em;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Basic
 -----------------------------------------------------------------*/
@@ -89,10 +87,8 @@ li {
     /*  outline: none !important;*/
 }
 
-:focus {
-    /* outline: none !important;*/
-    outline: 2px dashed #ff7200;
-    /* background-color: #c5ebe6; */
+:focus, input:focus, select:focus, button:focus, a:focus, img:focus {
+    outline: 2px dashed #ff7200!important;
 }
 
 
@@ -126,8 +122,6 @@ img {
 iframe {
     border: none !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Basic Layout Styles
@@ -211,8 +205,6 @@ small {
     font-family: 'Lato', sans-serif;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Helper Classes
 -----------------------------------------------------------------*/
@@ -225,7 +217,7 @@ small {
     text-transform: lowercase !important;
 }
 
-5 .capitalize {
+.capitalize {
     text-transform: capitalize !important;
 }
 
@@ -722,8 +714,6 @@ span.middot {
     max-width: 800px;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Sections
 -----------------------------------------------------------------*/
@@ -770,8 +760,6 @@ span.middot {
 .section:hover .revealer-image {
     bottom: -50px;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Columns & Grids
@@ -871,8 +859,6 @@ body.stretched .container-fullwidth {
     clear: right;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Flex Slider
 -----------------------------------------------------------------*/
@@ -895,7 +881,6 @@ body.stretched .container-fullwidth {
 .fslider {
     min-height: 32px;
 }
-
 
 .flex-container a:active,
 .flexslider a:active,
@@ -997,8 +982,6 @@ html[xmlns] .slider-wrap {
     background-color: #FFF;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Top Bar
 -----------------------------------------------------------------*/
@@ -1013,12 +996,9 @@ html[xmlns] .slider-wrap {
     color: #fff;
 }
 
-
 #top-bar .col_half {
     width: auto;
 }
-
-
 
 /* Top Links
 ---------------------------------*/
@@ -1086,8 +1066,6 @@ html[xmlns] .slider-wrap {
     /* background-color: #EEE;*/
     color: #2ddbc1;
 }
-
-
 
 .top-links ul ul,
 .top-links ul div.top-link-section {
@@ -1163,8 +1141,6 @@ html[xmlns] .slider-wrap {
     right: 0;
 }
 
-
-
 /* Top Social
 -----------------------------------------------------------------*/
 #top-social,
@@ -1214,8 +1190,6 @@ html[xmlns] .slider-wrap {
     font-size: 0.875em;
 }
 
-
-
 /* Top Login
 -----------------------------------------------------------------*/
 #top-login {
@@ -1253,8 +1227,6 @@ html[xmlns] .slider-wrap {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Header
@@ -1335,8 +1307,6 @@ body.stretched #header.full-header .container {
     border-bottom: none;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Logo
 -----------------------------------------------------------------*/
@@ -1377,8 +1347,6 @@ body.stretched #header.full-header .container {
     display: none;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Header Right Area
 -----------------------------------------------------------------*/
@@ -1416,8 +1384,6 @@ body.stretched #header.full-header .container {
     font-weight: 400;
     color: #1ABC9C;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Primary Menu
@@ -1597,12 +1563,10 @@ body.no-superfish #primary-menu li:hover>.mega-menu-content {
 
 #primary-menu ul ul>li.sub-menu>a,
 #primary-menu ul ul>li.sub-menu:hover>a {
-    background-image: url("images/icons/submenu.png");
+    background-image: url("/images/icons/submenu.png");
     background-position: right center;
     background-repeat: no-repeat;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Mega Menu
@@ -1725,7 +1689,6 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
     padding-left: 12px;
 }
 
-
 .mega-menu-column .entry-meta {
     margin: 8px -10px 0 0 !important;
     border: none !important;
@@ -1737,8 +1700,6 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
     border: none !important;
     margin: 0 10px 0 0 !important;
 }
-
-
 
 
 /* Primary Menu - Style 2
@@ -1780,8 +1741,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 
 }
 
-
-
 /* Primary Menu - Style 3
 -----------------------------------------------------------------*/
 #primary-menu.style-3>ul>li>a {
@@ -1802,8 +1761,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
     background-color: #1ABC9C;
 }
 
-
-
 /* Primary Menu - Style 4
 -----------------------------------------------------------------*/
 #primary-menu.style-4>ul>li>a {
@@ -1818,8 +1775,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 #primary-menu.style-4>ul>li.current>a {
     border-color: #1ABC9C;
 }
-
-
 
 /* Primary Menu - Style 5
 -----------------------------------------------------------------*/
@@ -1846,8 +1801,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
     font-size: 1.750em;
     line-height: 1;
 }
-
-
 
 /* Primary Menu - Style 6
 -----------------------------------------------------------------*/
@@ -1877,8 +1830,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 #primary-menu.style-6>div>ul>li:hover>a:after {
     width: 100%;
 }
-
-
 
 /* Primary Menu - Sub Title
 -----------------------------------------------------------------*/
@@ -1933,8 +1884,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
     display: none;
 }
 
-
-
 /* Primary Menu - Style 2 with Sub Title
 -----------------------------------------------------------------*/
 #primary-menu.sub-title.style-2>div>ul>li {
@@ -1959,8 +1908,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
     padding-top: 17px;
     padding-bottom: 22px;
 }
-
-
 
 /* Primary Menu - Split Menu
 -----------------------------------------------------------------*/
@@ -1996,8 +1943,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 #header.split-menu #primary-menu>ul:last-child {
     float: right;
 }
-
-
 
 /* Primary Menu - Overlay Menu
 -----------------------------------------------------------------*/
@@ -2105,8 +2050,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
         transform: translateY(0);
     }
 }
-
-
 
 /* ----------------------------------------------------------------
 	Top Search
@@ -2240,8 +2183,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 .sticky-header #top-search form input {
     border: none !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Top Cart
@@ -2394,8 +2335,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
     color: #1ABC9C;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Top Account
 -----------------------------------------------------------------*/
@@ -2441,8 +2380,6 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
     top: 1px;
     margin-left: 5px;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Sticky Header
@@ -2647,8 +2584,6 @@ body.top-search-open #top-account {
     display: none;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Page Menu
 -----------------------------------------------------------------*/
@@ -2796,8 +2731,6 @@ body:not(.device-touch) #page-menu nav li a {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-
-
 /* Page Menu - Dots Style
 -----------------------------------------------------------------*/
 @media (min-width: 992px) {
@@ -2902,8 +2835,6 @@ body:not(.device-touch) #page-menu nav li a {
     }
 }
 
-
-
 /* ----------------------------------------------------------------
 	One Page
 -----------------------------------------------------------------*/
@@ -2919,8 +2850,6 @@ body:not(.device-touch) #page-menu nav li a {
     text-align: center;
     color: #222;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Side Header
@@ -3207,8 +3136,6 @@ body:not(.device-touch) #page-menu nav li a {
     }
 }
 
-
-
 /* ----------------------------------------------------------------
 	Side Push Panel
 -----------------------------------------------------------------*/
@@ -3352,8 +3279,6 @@ body.side-panel-open:not(.device-xs):not(.device-sm):not(.device-md) .body-overl
     cursor: url('images/icons/close.png') 15 15, default;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Slider
 -----------------------------------------------------------------*/
@@ -3404,15 +3329,11 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     -webkit-backface-visibility: hidden;
 }
 
-
-
 /* Boxed Slider
 -----------------------------------------------------------------*/
 .boxed-slider {
     padding-top: 40px;
 }
-
-
 
 /* Flex Slider - Thumbs
 -----------------------------------------------------------------*/
@@ -3459,8 +3380,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     opacity: 1;
 }
 
-
-
 /* Flex Thumbs - Flexible
 -----------------------------------------------------------------*/
 .fslider.flex-thumb-grid .flex-control-nav.flex-control-thumbs {
@@ -3503,8 +3422,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     width: 100% !important;
     height: auto !important;
 }
-
-
 
 /* Swiper Slider
 -----------------------------------------------------------------*/
@@ -3597,15 +3514,11 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     background-color: #FFF !important;
 }
 
-
-
 /* Revolution Slider
 -----------------------------------------------------------------*/
 .tp-banner .button {
     height: auto !important;
 }
-
-
 
 /* Video Overlay
 -----------------------------------------------------------------*/
@@ -3637,8 +3550,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     z-index: 4;
     background-repeat: no-repeat !important;
 }
-
-
 
 /* Slider Caption
 -----------------------------------------------------------------*/
@@ -3725,8 +3636,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     left: auto;
     right: 50px;
 }
-
-
 
 /* Slider Arrows
 -----------------------------------------------------------------*/
@@ -3844,8 +3753,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-
-
 /* Slide Number
 -----------------------------------------------------------------*/
 .slide-number {
@@ -3892,8 +3799,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
     line-height: 40px;
 }
 
-
-
 /* Pagination
 -----------------------------------------------------------------*/
 .slider-element .owl-dots {
@@ -3918,8 +3823,6 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner {
 .slider-element .owl-dots .owl-dot:hover {
     background-color: #FFF !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Page Title
@@ -3989,7 +3892,6 @@ body.stretched .container-fullwidth .breadcrumb {
 .breadcrumb i {
     width: auto !important;
 }
-
 
 /* Page Title - Dark
 -----------------------------------------------------------------*/
@@ -4093,8 +3995,6 @@ body.stretched .container-fullwidth .breadcrumb {
     background-repeat: no-repeat;
 }
 
-
-
 /* Page Title - Mini
 -----------------------------------------------------------------*/
 #page-title.page-title-mini {
@@ -4111,16 +4011,12 @@ body.stretched .container-fullwidth .breadcrumb {
     display: none;
 }
 
-
-
 /* Page Title - No Background
 -----------------------------------------------------------------*/
 #page-title.page-title-nobg {
     background: transparent !important;
     border-bottom: 1px solid #F5F5F5;
 }
-
-
 
 /* Page Title - Video
 -----------------------------------------------------------------*/
@@ -4145,8 +4041,6 @@ body.stretched .container-fullwidth .breadcrumb {
 #page-title.page-title-video .video-wrap video {
     width: 100%;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Content
@@ -4180,8 +4074,6 @@ body:not(.device-touch) .grid-container {
     -o-transition: height .4s ease;
     transition: height .4s ease;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Portfolio
@@ -4243,8 +4135,6 @@ body:not(.device-touch) .grid-container {
     padding: 13px 18px;
 }
 
-
-
 /* Portfolio - Filter: Style 2
 -----------------------------------------------------------------*/
 .portfolio-filter.style-2,
@@ -4281,8 +4171,6 @@ body:not(.device-touch) .grid-container {
     margin: 0;
 }
 
-
-
 /* Portfolio - Filter: Style 3
 -----------------------------------------------------------------*/
 .portfolio-filter.style-3 li a {
@@ -4295,8 +4183,6 @@ body:not(.device-touch) .grid-container {
     background-color: transparent;
     margin: 0;
 }
-
-
 
 /* Portfolio - Filter: Style 4
 -----------------------------------------------------------------*/
@@ -4335,8 +4221,6 @@ body:not(.device-touch) .grid-container {
     background-color: #1ABC9C;
 }
 
-
-
 /* Portfolio - Center Aligned
 -----------------------------------------------------------------*/
 .portfolio-filter.center.style-2 li,
@@ -4345,8 +4229,6 @@ body:not(.device-touch) .grid-container {
     display: inline-block;
     float: none;
 }
-
-
 
 /* Portfolio - Shuffle Icon
 -----------------------------------------------------------------*/
@@ -4371,8 +4253,6 @@ body:not(.device-touch) .grid-container {
     color: #FFF;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-
-
 
 /* Portfolio - Items
 -----------------------------------------------------------------*/
@@ -4418,8 +4298,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .portfolio-notitle .port
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
-
-
 
 /* Portfolio - Item Title
 -----------------------------------------------------------------*/
@@ -4510,8 +4388,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     display: none !important;
 }
 
-
-
 /* Portfolio - No Margin
 -----------------------------------------------------------------*/
 .portfolio.portfolio-nomargin,
@@ -4528,8 +4404,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     padding: 15px 10px 15px;
 }
 
-
-
 /* Portfolio - 100% Full Width
 -----------------------------------------------------------------*/
 .portfolio.portfolio-full {
@@ -4545,8 +4419,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     padding: 15px;
 }
 
-
-
 /* Portfolio - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .portfolio-desc h3 {
@@ -4556,8 +4428,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .postcontent .portfolio-desc span {
     font-size: 0.750em;
 }
-
-
 
 /* Portfolio - Sidebar - No Title
 -----------------------------------------------------------------*/
@@ -4575,8 +4445,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     margin-top: -50px !important;
 }
 
-
-
 /* Portfolio - Both Sidebars
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio {
@@ -4591,8 +4459,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     display: none !important;
 }
 
-
-
 /* Portfolio - Items - 3 Columns
 -----------------------------------------------------------------*/
 .portfolio.portfolio-3 {
@@ -4604,8 +4470,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     padding: 0 15px 15px 0;
 }
 
-
-
 /* Portfolio - Sidebar - Items - 3 Columns
 -----------------------------------------------------------------*/
 .postcontent .portfolio-3 .portfolio-desc h3 {
@@ -4615,8 +4479,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .postcontent .portfolio-3 .portfolio-desc span {
     font-size: 0.813em;
 }
-
-
 
 /* Portfolio - Sidebar - Items - 3 Columns - No Title
 -----------------------------------------------------------------*/
@@ -4633,8 +4495,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .postcontent .portfolio-3.portfolio-notitle .portfolio-item:hover .portfolio-overlay a {
     margin-top: -40px !important;
 }
-
-
 
 /* Portfolio - Both Sidebars - Items - 3 Columns
 -----------------------------------------------------------------*/
@@ -4658,8 +4518,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     font-size: 0.750em;
 }
 
-
-
 /* Portfolio - Both Sidebars - Items - 3 Columns - No Title
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio-3.portfolio-notitle .portfolio-desc {
@@ -4675,8 +4533,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .bothsidebar .portfolio-3.portfolio-notitle .portfolio-item:hover .portfolio-overlay a {
     margin-top: -50px !important;
 }
-
-
 
 /* Portfolio - Items - 2 Columns
 -----------------------------------------------------------------*/
@@ -4702,15 +4558,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     font-size: 0.875em;
 }
 
-
-
 /* Portfolio - Items - 2 Columns - No Margin
 -----------------------------------------------------------------*/
 .portfolio-2.portfolio-nomargin .portfolio-desc {
     padding: 20px 15px 20px;
 }
-
-
 
 /* Portfolio - Items - 2 Columns - No Title
 -----------------------------------------------------------------*/
@@ -4724,8 +4576,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     bottom: -90px;
 }
 
-
-
 /* Portfolio - Sidebar - Items - 2 Columns
 -----------------------------------------------------------------*/
 .postcontent .portfolio-2 .portfolio-desc h3 {
@@ -4736,15 +4586,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     font-size: 0.875em;
 }
 
-
-
 /* Portfolio - Sidebar - Items - 2 Columns - No Margin
 -----------------------------------------------------------------*/
 .postcontent .portfolio-2.portfolio-nomargin .portfolio-desc {
     padding-bottom: 20px;
 }
-
-
 
 /* Portfolio - Sidebar - Items - 2 Columns - No Title
 -----------------------------------------------------------------*/
@@ -4762,8 +4608,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     margin-top: -40px !important;
 }
 
-
-
 /* Portfolio - Both Sidebars - Items - 2 Columns
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio-2 .portfolio-desc {
@@ -4780,15 +4624,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     font-size: 0.813em;
 }
 
-
-
 /* Portfolio - Both Sidebars - Items - 2 Columns - No Margin
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio-2.portfolio-nomargin .portfolio-desc {
     padding-bottom: 15px;
 }
-
-
 
 /* Portfolio - Both Sidebars - Items - 2 Columns - No Title
 -----------------------------------------------------------------*/
@@ -4806,8 +4646,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     margin-top: -40px !important;
 }
 
-
-
 /* Portfolio - Items - 5 Columns
 -----------------------------------------------------------------*/
 .portfolio.portfolio-5 {
@@ -4822,8 +4660,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .portfolio-5 .portfolio-desc h3 {
     font-size: 1.063em;
 }
-
-
 
 /* Portfolio - Items - 5 Columns - No Title
 -----------------------------------------------------------------*/
@@ -4840,8 +4676,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .portfolio-5.portfolio-notitle .portfolio-item:hover .portfolio-overlay a {
     margin-top: -30px !important;
 }
-
-
 
 /* Portfolio - Sidebar - Items - 5 Columns
 -----------------------------------------------------------------*/
@@ -4865,8 +4699,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     padding: 15px 10px;
 }
 
-
-
 /* Portfolio - Sidebar - Items - 5 Columns - No Title
 -----------------------------------------------------------------*/
 .postcontent .portfolio-5.portfolio-notitle .portfolio-desc {
@@ -4882,8 +4714,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .postcontent .portfolio-5.portfolio-notitle .portfolio-item:hover .portfolio-overlay a {
     margin-top: -50px !important;
 }
-
-
 
 /* Portfolio - Items - 6 Columns
 -----------------------------------------------------------------*/
@@ -4904,8 +4734,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     font-size: 0.750em;
 }
 
-
-
 /* Portfolio - Items - 6 Columns - No Title
 -----------------------------------------------------------------*/
 .portfolio-6.portfolio-notitle .portfolio-desc {
@@ -4921,8 +4749,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
 .portfolio-6.portfolio-notitle .portfolio-item:hover .portfolio-overlay a {
     margin-top: -40px !important;
 }
-
-
 
 /* Portfolio - Items - 1 Column
 -----------------------------------------------------------------*/
@@ -4981,8 +4807,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     margin: 3px 0;
 }
 
-
-
 /* Portfolio - Items - 1 Column - Both Sidebar
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio-1 .iconlist {
@@ -5028,8 +4852,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-desc {
     left: auto;
     right: 50%;
 }
-
-
 
 /* Portfolio - Items - 1 Column - Full Width
 -----------------------------------------------------------------*/
@@ -5118,8 +4940,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .portfolio-1.portfolio-f
     right: 33%;
 }
 
-
-
 /* Portfolio - Items - 1 Column - Full Width - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .portfolio.portfolio-1.portfolio-fullwidth {
@@ -5150,8 +4970,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .portfolio-1.portfolio-f
     padding: 25px;
 }
 
-
-
 /* Portfolio - Items - 1 Column - Full Width - Both Sidebar
 -----------------------------------------------------------------*/
 .bothsidebar .portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image {
@@ -5166,8 +4984,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .portfolio-1.portfolio-f
     -o-transform: translateX(0px);
     transform: translateX(0px);
 }
-
-
 
 /* Portfolio - Parallax
 -----------------------------------------------------------------*/
@@ -5265,8 +5081,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .portfolio.portfolio-par
 .portfolio.portfolio-parallax .portfolio-overlay {
     background-color: rgba(0, 0, 0, 0.4);
 }
-
-
 
 /* Portfolio - Overlay
 -----------------------------------------------------------------*/
@@ -5424,13 +5238,9 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     display: none !important;
 }
 
-
-
 /* Portfolio Single
 -----------------------------------------------------------------*/
 .portfolio-single {}
-
-
 
 /* Portfolio Single - Image
 -----------------------------------------------------------------*/
@@ -5454,8 +5264,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     height: auto !important;
 }
 
-
-
 /* Portfolio Single - Gallery Thumbs
 -----------------------------------------------------------------*/
 .portfolio-single-image-full .swiper-container {
@@ -5477,8 +5285,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     width: 100%;
     height: auto;
 }
-
-
 
 /* Portfolio & Blog Single - Masonry
 -----------------------------------------------------------------*/
@@ -5529,8 +5335,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
 .masonry-thumbs .overlay {
     padding: 0 1px 1px 0;
 }
-
-
 
 /* Portfolio Single - Content
 -----------------------------------------------------------------*/
@@ -5588,8 +5392,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     font-size: 1.625em;
 }
 
-
-
 /* Portfolio Single - Meta
 -----------------------------------------------------------------*/
 .portfolio-meta,
@@ -5626,8 +5428,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     margin: 20px 0;
     border-color: #E5E5E5;
 }
-
-
 
 /* Portfolio Single Navigation
 -----------------------------------------------------------------*/
@@ -5704,8 +5504,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
     margin-top: 0;
 }
 
-
-
 /* Individual Portfolio Item
 -----------------------------------------------------------------*/
 .iportfolio {
@@ -5732,8 +5530,6 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay {
 .iportfolio .portfolio-overlay {
     height: 100% !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Blog
@@ -5909,8 +5705,6 @@ body:not(.device-touch) .entry-link {
     font-style: italic;
 }
 
-
-
 /* Small Thumbs
 -----------------------------------------------------------------*/
 .small-thumbs .entry-image,
@@ -5943,8 +5737,6 @@ body:not(.device-touch) .entry-link {
     font-weight: 600;
 }
 
-
-
 /* Small Thumbs - Right
 -----------------------------------------------------------------*/
 .small-thumbs.alt .entry-image {
@@ -5956,8 +5748,6 @@ body:not(.device-touch) .entry-link {
     float: none;
     margin: 0 0 20px 0;
 }
-
-
 
 /* Small Thumbs - Both Sidebar
 -----------------------------------------------------------------*/
@@ -5978,8 +5768,6 @@ body:not(.device-touch) .entry-link {
 .bothsidebar .small-thumbs .entry-title h2 {
     font-size: 1.125em;
 }
-
-
 
 /* Blog - Grid
 -----------------------------------------------------------------*/
@@ -6010,8 +5798,6 @@ body:not(.device-touch) .entry-link {
     font-size: 0.813em;
 }
 
-
-
 /* Blog - Grid - 3 Columns
 -----------------------------------------------------------------*/
 .post-grid.grid-3 {
@@ -6027,8 +5813,6 @@ body:not(.device-touch) .entry-link {
     font-size: 1.125em;
 }
 
-
-
 /* Blog - Grid - 3 Columns - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .post-grid.grid-3 {
@@ -6042,8 +5826,6 @@ body:not(.device-touch) .entry-link {
 .postcontent .post-grid.grid-3 .entry-title h2 {
     font-size: 1em;
 }
-
-
 
 /* Blog - Grid - 2 Columns
 -----------------------------------------------------------------*/
@@ -6060,15 +5842,11 @@ body:not(.device-touch) .entry-link {
     font-size: 1.125em;
 }
 
-
-
 /* Blog - Grid - 2 Columns - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .post-grid.grid-2 .entry-title h2 {
     font-size: 1.125em;
 }
-
-
 
 /* Blog - Grid - 2 Columns - Both Sidebar
 -----------------------------------------------------------------*/
@@ -6076,16 +5854,12 @@ body:not(.device-touch) .entry-link {
     font-size: 1em;
 }
 
-
-
 /* Blog - Masonry
 -----------------------------------------------------------------*/
 .post-masonry .entry-image,
 .post-masonry .entry-image img {
     height: auto !important;
 }
-
-
 
 /* Blog - Masonry Full
 -----------------------------------------------------------------*/
@@ -6109,8 +5883,6 @@ body:not(.device-touch) .entry-link {
 .post-masonry-full.grid-3 .entry {
     width: 33.30% !important;
 }
-
-
 
 /* Blog - Timeline
 -----------------------------------------------------------------*/
@@ -6212,8 +5984,6 @@ body:not(.device-touch) .entry-link {
     color: #1ABC9C;
 }
 
-
-
 /* Blog - Timeline - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .timeline-border {
@@ -6250,8 +6020,6 @@ body:not(.device-touch) .entry-link {
     left: 64px;
     width: 32px;
 }
-
-
 
 /* Individual Post
 -----------------------------------------------------------------*/
@@ -6310,8 +6078,6 @@ body:not(.device-touch) .entry-link {
     border-bottom-color: #555;
 }
 
-
-
 /* Related Posts
 -----------------------------------------------------------------*/
 .overlay-icon {
@@ -6332,8 +6098,6 @@ body:not(.device-touch) .entry-link {
     color: #FFF;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-
-
 
 /* Small Post
 -----------------------------------------------------------------*/
@@ -6406,8 +6170,6 @@ body:not(.device-touch) .entry-link {
     margin: 0 10px 0 0;
 }
 
-
-
 /* Medium Post
 -----------------------------------------------------------------*/
 .mpost .entry-image {
@@ -6454,8 +6216,6 @@ body:not(.device-touch) .entry-link {
     margin: 40px 0 50px;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Blog - Author
 -----------------------------------------------------------------*/
@@ -6470,8 +6230,6 @@ body:not(.device-touch) .entry-link {
     width: 84px;
     height: 84px;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Comments List
@@ -6646,8 +6404,6 @@ body:not(.device-touch) .entry-link {
     color: #888;
 }
 
-
-
 /* ----------------------------------------------------------------
 	Comment Form
 -----------------------------------------------------------------*/
@@ -6697,8 +6453,6 @@ body:not(.device-touch) .entry-link {
     width: 100% !important;
     margin: 0;
 }
-
-
 
 /* Post Elements
 -----------------------------------------------------------------*/
@@ -6766,8 +6520,6 @@ p.wp-caption-text {
     margin: 0 !important;
 }
 
-
-
 /* Infinity Scroll - Message Style
 -----------------------------------------------------------------*/
 #infscr-loading,
@@ -6818,8 +6570,6 @@ p.wp-caption-text {
 .page-load-status .css3-spinner-ball-pulse-sync>div {
     background-color: #333;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Shop
@@ -6987,8 +6737,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
     background-color: #777;
 }
 
-
-
 /* Shop - 3 Columns
 -----------------------------------------------------------------*/
 .shop.product-3 {
@@ -7000,8 +6748,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
     width: 33.33333333%;
 }
 
-
-
 /* Shop - 3 Columns - Sidebar
 -----------------------------------------------------------------*/
 .postcontent .shop.product-3 {
@@ -7011,8 +6757,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
 .postcontent .product-3 .product {
     padding: 0 25px 25px 0;
 }
-
-
 
 /* Shop - 2 Columns - Sidebar
 -----------------------------------------------------------------*/
@@ -7025,8 +6769,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
     width: 50%;
 }
 
-
-
 /* Shop - 2 Columns - Both Sidebar
 -----------------------------------------------------------------*/
 .bothsidebar .shop.product-2 {
@@ -7036,8 +6778,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
 .bothsidebar .product-2 .product {
     padding: 0 40px 20px 0;
 }
-
-
 
 /* Shop - 1 Column
 -----------------------------------------------------------------*/
@@ -7082,8 +6822,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
     margin-bottom: 15px;
 }
 
-
-
 /* Shop - 1 Column - Both Sidebar
 -----------------------------------------------------------------*/
 .bothsidebar .product-1 .product {
@@ -7108,8 +6846,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
 .bothsidebar .product-1 .product-desc .product-price {
     font-size: 1em;
 }
-
-
 
 /* Shop - Single
 -----------------------------------------------------------------*/
@@ -7249,8 +6985,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
     font-size: 1.125em;
 }
 
-
-
 /* Individual Product
 -----------------------------------------------------------------*/
 .product.iproduct {
@@ -7265,8 +6999,6 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
 .iproduct .product-image img {
     height: auto;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Cart
@@ -7337,8 +7069,6 @@ td.actions {
     vertical-align: top !important;
     background-color: #F5F5F5;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Events
@@ -7506,8 +7236,6 @@ td.actions {
     margin-bottom: 6px;
 }
 
-
-
 /* Individual Events
 -----------------------------------------------------------------*/
 .ievent {
@@ -7545,14 +7273,6 @@ td.actions {
 .ievent .entry-meta li:first-child {
     padding-left: 0;
 }
-
-
-
-/* ----------------------------------------------------------------
-
-	Countdown
-
------------------------------------------------------------------*/
 
 /* ----------------------------------------------------------------
 	Countdown
@@ -7595,7 +7315,6 @@ td.actions {
 }
 
 
-
 /* Countdown - Medium
 -----------------------------------------------------------------*/
 .countdown-medium .countdown-section {
@@ -7606,8 +7325,6 @@ td.actions {
     font-size: 1.875em;
     margin-bottom: 7px;
 }
-
-
 
 /* Countdown - Large
 -----------------------------------------------------------------*/
@@ -7620,8 +7337,6 @@ td.actions {
     font-weight: 700;
     margin-bottom: 8px;
 }
-
-
 
 /* Countdown - Inline
 -----------------------------------------------------------------*/
@@ -7662,8 +7377,6 @@ td.actions {
     width: auto;
 }
 
-
-
 /* Countdown - Coming Soon
 -----------------------------------------------------------------*/
 body:not(.device-sm):not(.device-xs) .countdown.countdown-large.coming-soon .countdown-section {
@@ -7678,8 +7391,6 @@ body:not(.device-sm):not(.device-xs) .countdown.countdown-large.coming-soon .cou
     background-color: rgba(0, 0, 0, 0.2);
     margin-bottom: 15px !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Buttons
@@ -7837,8 +7548,6 @@ body:not(.device-touch) .button {
     border-radius: 3px;
 }
 
-
-
 /* Buttons - Border
 -----------------------------------------------------------------*/
 .button.button-border {
@@ -7909,8 +7618,6 @@ body:not(.device-touch) .button {
     text-shadow: none;
 }
 
-
-
 /* Buttons - Border
 -----------------------------------------------------------------*/
 .button.button-3d {
@@ -7931,8 +7638,6 @@ body:not(.device-touch) .button {
     text-shadow: none;
     color: #333;
 }
-
-
 
 /* Buttons - Icon Reveal
 -----------------------------------------------------------------*/
@@ -8099,8 +7804,6 @@ body:not(.device-touch) .button.button-reveal span {
     left: -22px;
 }
 
-
-
 /* Buttons - Promo 100% Width
 -----------------------------------------------------------------*/
 .button.button-full {
@@ -8141,8 +7844,6 @@ body:not(.device-touch) .button.button-full strong {
     border-bottom-color: #EEE;
 }
 
-
-
 /* Buttons - Circle
 -----------------------------------------------------------------*/
 .button.button-circle {
@@ -8164,8 +7865,6 @@ body:not(.device-touch) .button.button-full strong {
 .button.button-xlarge.button-circle {
     border-radius: 26px;
 }
-
-
 
 /* Buttons - Fill Effect
 -----------------------------------------------------------------*/
@@ -8245,8 +7944,6 @@ body:not(.device-touch) .button.button-full strong {
 .button.button-border.button-fill.fill-from-bottom:hover:before {
     height: 100%;
 }
-
-
 
 /* Buttons - Colors
 -----------------------------------------------------------------*/
@@ -8489,8 +8186,6 @@ body:not(.device-touch) .button.button-full strong {
     background-color: #F9F9F9 !important;
 }
 
-
-
 /* Buttons - No Hover
 -----------------------------------------------------------------*/
 .button.button-nohover:hover {
@@ -8499,8 +8194,6 @@ body:not(.device-touch) .button.button-full strong {
     color: inherit !important;
     border-color: inherit !important;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Promo Boxes
@@ -8553,8 +8246,6 @@ body:not(.device-touch) .button.button-full strong {
     margin-top: -40px;
 }
 
-
-
 /* Promo Uppercase
 -----------------------------------------------------------------*/
 .promo-uppercase {
@@ -8570,8 +8261,6 @@ body:not(.device-touch) .button.button-full strong {
     font-size: 0.938em;
 }
 
-
-
 /* Promo - with Border
 -----------------------------------------------------------------*/
 .promo.promo-border {
@@ -8584,8 +8273,6 @@ body:not(.device-touch) .button.button-full strong {
     right: 30px;
 }
 
-
-
 /* Promo - Light
 -----------------------------------------------------------------*/
 .promo.promo-light {
@@ -8597,8 +8284,6 @@ body:not(.device-touch) .button.button-full strong {
 .promo.promo-light a.button {
     right: 30px;
 }
-
-
 
 /* Promo - Dark
 -----------------------------------------------------------------*/
@@ -8633,8 +8318,6 @@ body:not(.device-touch) .button.button-full strong {
     right: 30px;
 }
 
-
-
 /* Promo - Flat
 -----------------------------------------------------------------*/
 .promo.promo-flat {
@@ -8658,8 +8341,6 @@ body:not(.device-touch) .button.button-full strong {
     text-shadow: none;
 }
 
-
-
 /* Promo - 100% Full Width
 -----------------------------------------------------------------*/
 .promo-full {
@@ -8678,14 +8359,11 @@ body:not(.device-touch) .button.button-full strong {
     left: 15px !important;
 }
 
-
 /* Promo - Parallax
 -----------------------------------------------------------------*/
 .promo.parallax {
     padding: 80px 0 !important;
 }
-
-
 
 /* Promo - Right Align
 -----------------------------------------------------------------*/
@@ -8699,8 +8377,6 @@ body:not(.device-touch) .button.button-full strong {
     right: auto;
 }
 
-
-
 /* Promo - with Border & Right Align
 -----------------------------------------------------------------*/
 .promo.promo-right.promo-border:not(.promo-mini),
@@ -8712,8 +8388,6 @@ body:not(.device-touch) .button.button-full strong {
 .promo.promo-dark.promo-right a.button {
     left: 30px;
 }
-
-
 
 /* Promo - Center Align
 -----------------------------------------------------------------*/
@@ -8729,8 +8403,6 @@ body:not(.device-touch) .button.button-full strong {
     left: 0 !important;
     right: 0;
 }
-
-
 
 /* Promo - Mini
 -----------------------------------------------------------------*/
@@ -8760,23 +8432,17 @@ body:not(.device-touch) .button.button-full strong {
     right: 0;
 }
 
-
-
 /* Promo - Mini - Center Align
 -----------------------------------------------------------------*/
 .promo.promo-mini.promo-center {
     text-align: center;
 }
 
-
-
 /* Promo - Mini - Right Align
 -----------------------------------------------------------------*/
 .promo.promo-mini.promo-right {
     text-align: right;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Featured Boxes
@@ -8823,7 +8489,7 @@ body:not(.device-touch) .button.button-full strong {
     line-height: 64px;
 }
 
-.feature-box h3 {
+.feature-box h2 {
     font-size: 1.125em;
     text-transform: uppercase;
     margin-bottom: 0;
@@ -8839,8 +8505,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box .before-heading {
     font-size: 0.875em;
 }
-
-
 
 /* Feature Box - Icon Large
 -----------------------------------------------------------------*/
@@ -8858,8 +8522,6 @@ body:not(.device-touch) .button.button-full strong {
     line-height: 96px;
 }
 
-
-
 /* Feature Box - Icon Outline
 -----------------------------------------------------------------*/
 .feature-box.fbox-outline .fbox-icon {
@@ -8872,8 +8534,6 @@ body:not(.device-touch) .button.button-full strong {
     line-height: 56px;
 }
 
-
-
 /* Feature Box - Icon Outline Large
 -----------------------------------------------------------------*/
 .feature-box.fbox-outline.fbox-large .fbox-icon {
@@ -8883,8 +8543,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-outline.fbox-large .fbox-icon i {
     line-height: 86px;
 }
-
-
 
 /* Feature Box - Icon Rounded
 -----------------------------------------------------------------*/
@@ -8897,8 +8555,6 @@ body:not(.device-touch) .button.button-full strong {
     border-radius: 3px !important;
 }
 
-
-
 /* Feature Box - Icon Rounded & Large
 -----------------------------------------------------------------*/
 .feature-box.fbox-rounded.fbox-large .fbox-icon {
@@ -8909,8 +8565,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-rounded.fbox-large .fbox-icon img {
     border-radius: 4px !important;
 }
-
-
 
 /* Feature Box - Light Background
 -----------------------------------------------------------------*/
@@ -8941,8 +8595,6 @@ body:not(.device-touch) .button.button-full strong {
     line-height: 84px;
 }
 
-
-
 /* Feature Box - Dark Background
 -----------------------------------------------------------------*/
 .feature-box.fbox-dark.fbox-outline .fbox-icon {
@@ -8953,8 +8605,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-dark .fbox-icon img {
     background-color: #333;
 }
-
-
 
 /* Feature Box - Border
 -----------------------------------------------------------------*/
@@ -8982,8 +8632,6 @@ body:not(.device-touch) .button.button-full strong {
     line-height: 94px !important;
 }
 
-
-
 /* Feature Box - Border - Light
 -----------------------------------------------------------------*/
 .feature-box.fbox-border.fbox-light .fbox-icon {
@@ -8995,8 +8643,6 @@ body:not(.device-touch) .button.button-full strong {
     color: #888;
 }
 
-
-
 /* Feature Box - Border - Dark
 -----------------------------------------------------------------*/
 .feature-box.fbox-border.fbox-dark .fbox-icon {
@@ -9007,8 +8653,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-border.fbox-dark .fbox-icon img {
     color: #444;
 }
-
-
 
 /* Feature Box - Plain
 -----------------------------------------------------------------*/
@@ -9087,8 +8731,6 @@ body:not(.device-touch) .button.button-full strong {
     color: #444;
 }
 
-
-
 /* Feature Box - Center
 -----------------------------------------------------------------*/
 .feature-box.fbox-center {
@@ -9120,8 +8762,6 @@ body:not(.device-touch) .button.button-full strong {
     font-size: 0.875em;
     margin-top: 15px;
 }
-
-
 
 /* Feature Box - Center & Large Icons
 -----------------------------------------------------------------*/
@@ -9175,8 +8815,6 @@ body:not(.device-touch) .button.button-full strong {
     height: 128px;
 }
 
-
-
 /* Feature Box - Center & Large Icons
 -----------------------------------------------------------------*/
 .feature-box.fbox-center.fbox-small .fbox-icon {
@@ -9218,8 +8856,6 @@ body:not(.device-touch) .button.button-full strong {
     margin-left: 0;
 }
 
-
-
 /* Feature Box - Right
 -----------------------------------------------------------------*/
 .feature-box.fbox-right {
@@ -9243,8 +8879,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-right.fbox-plain.fbox-small p {
     margin: 0 -42px 0 0;
 }
-
-
 
 /* Feature Box - Subtitle
 -----------------------------------------------------------------*/
@@ -9283,8 +8917,6 @@ body:not(.device-touch) .button.button-full strong {
     font-style: italic;
     font-family: 'Lato', sans-serif;
 }
-
-
 
 /* Feature Box - Background
 -----------------------------------------------------------------*/
@@ -9327,8 +8959,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-bg.fbox-center.fbox-outline .fbox-icon {
     background-color: #FFF;
 }
-
-
 
 /* Animated Icon Hovers
 -----------------------------------------------------------------*/
@@ -9457,8 +9087,6 @@ body:not(.device-touch) .button.button-full strong {
     opacity: 1;
 }
 
-
-
 /* Media Featured Box
 -----------------------------------------------------------------*/
 .feature-box.media-box {
@@ -9501,7 +9129,6 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.media-box.fbox-bg .fbox-media img {
     border-radius: 5px 5px 0 0;
 }
-
 
 
 /* ----------------------------------------------------------------
@@ -9560,8 +9187,6 @@ body:not(.device-touch) .button.button-full strong {
 .flipbox.flipbox-vertical.hover .flipbox-inner {
     transform: rotateX(180deg);
 }
-
-
 
 /* ----------------------------------------------------------------
 	Process Steps
@@ -9640,8 +9265,6 @@ body:not(.device-touch) .button.button-full strong {
 .process-steps li:last-child:after {
     display: none;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Alerts
@@ -9737,8 +9360,6 @@ body:not(.device-touch) .button.button-full strong {
     left: auto;
     right: 10px;
 }
-
-
 
 /* ----------------------------------------------------------------
 	Styled Icons

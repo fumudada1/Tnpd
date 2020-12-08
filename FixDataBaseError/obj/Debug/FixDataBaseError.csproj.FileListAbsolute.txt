@@ -1,0 +1,13 @@
+E:\website\Tnpd\FixDataBaseError\bin\Debug\FixDataBaseError.exe.config
+E:\website\Tnpd\FixDataBaseError\bin\Debug\FixDataBaseError.exe
+E:\website\Tnpd\FixDataBaseError\bin\Debug\FixDataBaseError.pdb
+E:\website\Tnpd\FixDataBaseError\bin\Debug\TnpdModels.dll
+E:\website\Tnpd\FixDataBaseError\bin\Debug\EntityFramework.dll
+E:\website\Tnpd\FixDataBaseError\bin\Debug\Newtonsoft.Json.dll
+E:\website\Tnpd\FixDataBaseError\bin\Debug\TnpdModels.pdb
+E:\website\Tnpd\FixDataBaseError\bin\Debug\EntityFramework.xml
+E:\website\Tnpd\FixDataBaseError\bin\Debug\Newtonsoft.Json.xml
+E:\website\Tnpd\FixDataBaseError\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\Tnpd\FixDataBaseError\obj\Debug\FixDataBaseError.exe
+E:\website\Tnpd\FixDataBaseError\obj\Debug\FixDataBaseError.pdb
+E:\website\tnpd\FixDataBaseError\obj\Debug\FixDataBaseError.csprojResolveAssemblyReference.cache

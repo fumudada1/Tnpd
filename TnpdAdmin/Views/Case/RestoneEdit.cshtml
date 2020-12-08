@@ -127,7 +127,7 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Name</td>
-                <td>性別：@Model.Gender</td>
+                <td style="display:none ">性別：@Model.Gender</td>
 
             </tr>
             <tr>
@@ -254,13 +254,13 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Name</td>
-                <td>性別：@Model.Gender</td>
+                <td style="display:none ">性別：@Model.Gender</td>
 
             </tr>
             <tr>
 
                 <td>電話：@Model.TEL</td>
-                <td>職業：@Model.Job</td>
+                <td style="display:none ">職業：@Model.Job</td>
             </tr>
             <tr>
 
@@ -390,8 +390,9 @@
 
             $("#btnRestone").click(function () {
                 $("#processtype").val("Restone");
-                $("#btnRestone").attr("disabled", "disabled");
+                
                 $("form").submit();
+                $("#btnRestone").attr("disabled", "disabled");
             });
            
           

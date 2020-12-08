@@ -49,7 +49,7 @@ namespace Tnpd.Controllers
             int currentPageIndex = getCurrentPage(page, fc);
 
             var newses = db.Newses.OrderByDescending(x => x.InitDate).AsQueryable();
-            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
+            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) )
             {
                 newses = newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == pclass) > 0);
             }
@@ -163,9 +163,13 @@ namespace Tnpd.Controllers
             }
 
             var newsCatalogs = db.NewsCatalogs.Where(x => x.WebCategoryId == pclass).AsQueryable();
+            //if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
+            //{
+            //    newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id || x.WebSiteId==1);
+            //}
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
             {
-                newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id || x.WebSiteId==1);
+                newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
             }
             var newsCatalogs1 = newsCatalogs.OrderBy(x => x.WebSiteId).ToList();
 

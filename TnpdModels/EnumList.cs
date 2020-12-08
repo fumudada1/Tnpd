@@ -77,7 +77,19 @@ namespace TnpdModels
         英文版
     }
 
+    public enum CarType
+    {
+        汽車,
+        輕型機車,
+        重型機車,
+        拖車
+    }
 
+    public enum CarAllow
+    {
+        車主本人,
+        車主本人同意
+    }
  
     /// <summary>
     /// 報名狀態

@@ -40,6 +40,16 @@ namespace tnpd.Controllers
                 ModelState.AddModelError("CheckDate", "發生日期格式錯誤!!");
                 return View(reportView);
             }
+            DateTime duDateTime = DateTime.Now.AddMinutes(-30);
+            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == reportView.Email && x.ConfirmDate >= duDateTime);
+            if (mailCheck == null)
+            {
+                ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+                ViewBag.UnId = id.ToString();
+
+                
+                return View(reportView);
+            }
 
             if (ModelState.IsValid)
             {
@@ -147,7 +157,7 @@ namespace tnpd.Controllers
                 mailbody = mailbody.Replace("{Address}", mailCase.Address);
                 mailbody = mailbody.Replace("{Email}", mailCase.Email);
                 mailbody = mailbody.Replace("{Pid}", mailCase.Pid);
-                mailbody = mailbody.Replace("{Gender}", mailCase.Gender.ToString());
+                //mailbody = mailbody.Replace("{Gender}", mailCase.Gender.ToString());
                 mailbody = mailbody.Replace("{HomeTEL}", mailCase.HomeTEL);
                 mailbody = mailbody.Replace("{OfficeTEL}", mailCase.OfficeTEL);
                 mailbody = mailbody.Replace("{PAddress}", mailCase.PAddress);
@@ -248,6 +258,59 @@ namespace tnpd.Controllers
             var MyCase = _db.Cases.FirstOrDefault(x => x.CaseGuid == id);
             return View(MyCase);
         }
+
+        public ActionResult SendVerifyMail(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return Content("Email 不可空白");
+            }
+            if (Utility.IsValidEmail(id))
+            {
+                CaseMailCheck mailCheck = new CaseMailCheck
+                {
+                    CaseGuid = Guid.NewGuid().ToString(),
+                    Email = id,
+                    InitDate = DateTime.Now,
+                    ConfirmDate = DateTime.Now.AddYears(-25),
+                    IsConfirm = BooleanType.否
+                };
+                _db.caseMailChecks.Add(mailCheck);
+                _db.SaveChanges();
+                string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
+
+                string mailBody = "親愛的市民朋友，您好，這是臺南市政府警察局-網路報案 Email認證信件。<br/>";
+                mailBody += "<a href='" + InternetURL + "/Report/VerifyMail/" + mailCheck.CaseGuid + "'>請點選此連結認證您的信箱</a><br/>";
+                mailBody += "本郵件是由系統自動寄出，請勿直接回覆此郵件。";
+
+                //Utility.SendGmailMail("topidea.justin@gmail.com", id, "交通違規檢舉系統Email認證", mailBody, "xuqoqvdvvsbwyrbl");
+                Utility.SystemSendMail(id, "臺南市政府警察局-網路報案  Email認證信件", mailBody);//發信
+                return Content("認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+            }
+            return Content("Email 格式錯誤");
+        }
+
+        public ActionResult VerifyMail(string id)
+        {
+            CaseMailCheck mailCheck = _db.caseMailChecks.OrderByDescending(x => x.Id).FirstOrDefault(x => x.CaseGuid == id);
+            if (mailCheck == null)
+            {
+                ViewBag.message = "驗證錯誤";
+                return View();
+            }
+            if (mailCheck.InitDate.AddMinutes(30) <= DateTime.Now)
+            {
+                ViewBag.message = "驗證超時，請重新驗證";
+                return View();
+            }
+            mailCheck.IsConfirm = BooleanType.是;
+            mailCheck.ConfirmDate = DateTime.Now;
+            _db.SaveChanges();
+            ViewBag.message = "驗證成功，請回原頁面輸入資料";
+            return View();
+        }
+
+
 
     }
 }

@@ -42,14 +42,14 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i"
           rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="~/Areas/@areaName/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/style.css?123" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/dark.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/font-icons.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/animate.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
-    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css" type="text/css" />
-	 <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css?123" type="text/css" />
+	 <script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
     <!-- Document Title
     ============================================= -->
     <title>@(site.Subject)_臺南市政府警察局</title>
@@ -69,10 +69,10 @@
     <div class="container clearfix">
         <!-- Logo
         ============================================= -->
-        <div id="logo">
+        <h1 id="logo" class="nomargin">
             <a href="/@areaName/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo.png" alt="@(site.Subject)_臺南市政府警察局"></a>
             <a href="/@areaName/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo@2x.png" alt="@(site.Subject)_臺南市政府警察局"></a>
-        </div><!-- #logo end -->
+        </h1><!-- #logo end -->
         <div class="row justify-content-end no-gutters">
             <div class="col-lg-auto col-md-12">
                 <div class="top-advert-1">
@@ -92,9 +92,9 @@
                 <div id="divScriptFontChange" class="fontch d-none d-lg-block">
                     <ul>
                         <noscript>您的瀏覽器不支援script語法，請按鍵盤上的Ctrl鍵+ (+)鍵放大/(-)鍵縮小來改變字型大小。</noscript>
-                        <li><a href="#" id="aSFont" title="小字級">A<sup>-</sup></a></li>
-                        <li><a href="#" id="aMFont" title="中字級" class="active">A</a></li>
-                        <li><a href="#" id="aLFont" title="大字級">A<sup>+</sup></a></li>
+                        <li><a href="#" id="aSFont" title="小字級">A<sup>-</sup><span class="sr-only">小字級</span></a></li>
+                        <li><a href="#" id="aMFont" title="中字級" class="active">A<span class="sr-only">中字級</span></a></li>
+                        <li><a href="#" id="aLFont" title="大字級">A<sup>+</sup><span class="sr-only">大字級</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 @Html.Raw(web.getAllMenu())
                 <!-- Top Search
                 ============================================= -->
-                <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" style="margin-bottom: 0px;">
+                <form id="cse-search-box" action="https://www.google.com/cse" name="cse-search-box" target="_blank" style="margin-bottom: 0px;">  @Html.AntiForgeryToken()
                 <div id="top-search" class="d-none d-lg-block ">
                     <div class="input-group divcenter">
                             <input id="q" type="text" class="form-control inputsear" placeholder="請輸入關鍵字" name="q" title="關鍵字搜尋"  onfocus="this.value=''" onblur="if(!value){value=defaultValue;}">
@@ -168,11 +168,16 @@
                         <div class="col-4 pr0pl0">
                             <div class="societybox">
                                 <ul>
+									<li>
+                                        <div class="line-it-button" style="display: none;" data-type="share-c" data-lang="zh-Hant" ></div>
+                                        <script src="//scdn.line-apps.com/n/line_it/thirdparty/loader.min.js" async="async" defer="defer" ></script>
+									</li>
                                     <li>
                                          <a href="http://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
                                            title="網站分享至facebook(另開視窗)" target="_blank">
                                             <i class="icon-facebook"></i>
                                             <i class="icon-facebook"></i>
+                                            <span class="sr-only">網站分享至facebook</span>
                                         </a>
                                     </li>
                                     <li><noscript>
@@ -182,6 +187,7 @@
                                            title="友善列印">
                                             <i class="icon-line-printer"></i>
                                             <i class="icon-line-printer"></i>
+                                            <span class="sr-only">友善列印</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -227,7 +233,7 @@
             <div class="col_half">
                 <ul class="crul">
                     <li class="li01"><a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" target="_blank" title="隱私權保護政策(另開視窗)">隱私權保護政策</a> | <a href="/Article/41fc069c-2222-676b-a6cf-ff552b9836d2" title="網站安全政策(另開視窗)" target="_blank">網站安全政策</a> | <a href="/Article/412894e9-5b63-bbd5-29ef-a93a549cb0bb" title="政府網站資料開放宣告(另開視窗)" target="_blank">政府網站資料開放宣告</a> </li>
-                    <li>地址：70248臺南市南區南都里中華南路2段241號 ( <a href="/@areaName/Content/Article/c3c387fa-02d4-2ee1-56f8-14ecb772e65b" title="位置圖"><i class="icon-map-marker"></i>
+                    <li>地址：702008臺南市南區南都里中華南路2段241號 ( <a href="/@areaName/Content/Article/c3c387fa-02d4-2ee1-56f8-14ecb772e65b" title="位置圖"><i class="icon-map-marker"></i>
                         位置圖</a> )</li>
                     <li>總機：(06)264-0556</li>
                     <li>臺南市政府警察局 版權所有 © 2018</li>
@@ -237,7 +243,7 @@
             </div>
             <div class="col_half col_last tright ">
                 <ul class="crul01 d-none d-md-block">
-                    <li><a href="#" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                     <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
                 </ul>
             </div>
@@ -250,7 +256,7 @@
 <!-- #wrapper end -->
 <!-- Go To Top
 ============================================= -->
-<div id="gotoTop"><a href="#" class="gotoTop-sty" title="回最上方"><i class="icon-angle-up"></i></a></div>
+<div id="gotoTop"><a href="#" class="gotoTop-sty" title="回最上方"><i class="icon-angle-up"></i><span class="sr-only">回最上方</span></a></div>
 <!-- External JavaScripts
 ============================================= -->
 <script src="/js/plugins.js"></script>

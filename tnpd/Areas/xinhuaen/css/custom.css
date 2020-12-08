@@ -11,7 +11,7 @@
 
 a {
     text-decoration: none !important;
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 h1>span:not(.nocolor):not(.badge),
@@ -63,12 +63,7 @@ h6>span:not(.nocolor):not(.badge) {
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
-a.gotoTop-sty {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-}
+a.gotoTop-sty {     display: block;      width:100%;      height:100%;     color: #fff;     }
 
 .hr01 {
     border-bottom: 1px solid #cecece;
@@ -78,7 +73,7 @@ a.gotoTop-sty {
 }
 
 #header {
-    border-bottom: 15px solid #3b9ed3;
+    border-bottom: 15px solid #0073b1;
 }
 
 #header.sticky-style-2 {
@@ -89,11 +84,11 @@ a.gotoTop-sty {
     float: none;
     max-width: none;
     border-top: 1px solid #cccccc;
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 #header.sticky-style-2 #header-wrap {
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 #primary-menu ul li:hover>a,
@@ -104,7 +99,7 @@ a.gotoTop-sty {
 #primary-menu ul ul li:hover>a {
     background-color: #F9F9F9;
     padding-left: 18px;
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 .input-group>.input-group-append>.btn {
@@ -112,7 +107,7 @@ a.gotoTop-sty {
 }
 
 .bg001 {
-    background-color: #ddf3fe !important;
+    background-color: #ddf3fe!important;
 }
 
 .bg02 {
@@ -137,7 +132,7 @@ a.gotoTop-sty {
 }
 
 ul.tab-nav:not(.tab-nav-lg) li.ui-tabs-active a {
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 .fontch {
@@ -269,10 +264,12 @@ a.tp-tab01 {
     margin: 0;
 }
 
-/*.open::before {
-    content: '展�?';    
-
-}*/
+a.gotoTop-sty {
+    display: block; 
+    width:100%; 
+    height:100%;
+    color: #fff;
+    }
 
 .open::before {
     content: url(../images/new/btn01_close.png);
@@ -372,12 +369,12 @@ input.inputsear {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    border-bottom: 10px solid #3b9ed3;
+    border-bottom: 10px solid #0073b1;
     margin-bottom: 20px;
 }
 
-.leftbox h3 {
-    background-color: #3b9ed3;
+.leftbox h2 {
+    background-color: #0073b1;
     margin-bottom: 0px;
     padding: 6px 10px 6px 20px;
     color: #fff;
@@ -433,11 +430,11 @@ input.inputsear {
 }
 
 .leftbox ul li a.active {
-    color: #3b9ed3 !important;
+    color: #0073b1 !important;
 }
 
 .leftbox ul li a:hover {
-    color: #3b9ed3 !important;
+    color: #0073b1 !important;
 }
 
 .pagetitle {
@@ -760,15 +757,15 @@ dl.row {
 .page-link,
 .page-link:hover,
 .page-link:focus {
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 .page-item.active .page-link,
 .page-link:hover,
 .page-link:focus {
     color: #FFF !important;
-    background-color: #3b9ed3 !important;
-    border-color: #3b9ed3 !important;
+    background-color: #0073b1 !important;
+    border-color: #0073b1 !important;
 }
 
 .mt0mb0 {
@@ -1699,10 +1696,10 @@ ol.chinese li ol li span {
     height: auto;
 }
 
-.team-content ul li {
+.team-content ul li{     
     padding: 4px 0 4px 15px;
     background-repeat: no-repeat;
     background-position: left 7px;
     background-image: url(../images/icons/widget-link.png);
-
+    
 }

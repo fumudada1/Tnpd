@@ -50,7 +50,7 @@
                 <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
                 <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" style="display: none">
                 <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
                     性別：</label>
                 <div class="form-group">
@@ -66,6 +66,29 @@
                 <span class="field-validation-valid" data-valmsg-for="Pid" data-valmsg-replace="true"></span>
             </div>
         </div>
+        
+        <div class="form-group">
+            <label class="col-form-label" for="Email"><span class="text-danger">*</span>
+                E-Mail：</label>
+            <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group">
+            <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
+            <span style="color: red" id="mailMessage"></span>
+        </div>
+
+        <h4 class="h4title">寄送認證郵件注意事項：</h4>
+
+        <ul class="ultxt">
+            <li>填寫e-mail → 點選「寄送認證郵件」鈕→
+                出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
+            </li>
+            <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
+            </li>
+            <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
+            </li>
+        </ul>
         <div class="form-group">
             <label class="col-form-label" for="PostalCode"><span class="text-danger">*</span>
                 現居地址：</label>
@@ -132,12 +155,7 @@
 
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-form-label" for="Email"><span class="text-danger">*</span>
-                E-Mail：</label>
-            <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
-            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-        </div>
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="CaseReportType"><span class="text-danger">*</span>
@@ -289,6 +307,15 @@
             }
         }
     }
+
+    $("#sendmail").click(function () {
+        var email = $('#Email').val();
+        $("#mailMessage").text('發送信件' + $('#Email').val());
+        $.get("/Report/SendVerifyMail/", { id: $('#Email').val() })
+            .done(function (data) {
+                $("#mailMessage").text(data);
+            });
+    });
 </script>
 <style>
     .field-validation-error {

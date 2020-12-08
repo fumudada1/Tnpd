@@ -69,7 +69,7 @@ namespace Tnpd.Controllers
         /// <param name="id">網站代號</param>
         /// <param name="webDoc">網站JSON內容</param>
         /// <returns></returns>
-        [HttpPost]
+      
         [AllowAnonymous]
         [ValidateInput(false)]
         public ActionResult UpdateWebDocJson(string id, string webDoc)
@@ -84,6 +84,14 @@ namespace Tnpd.Controllers
             }
 
             var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == id);
+            //if (webSite.Subject.Contains("英文版"))
+            //{
+            //    if (isChinese(webDoc))
+            //    {
+            //        return new ContentResult { Content = "Parameters Error" };
+            //    }
+            //}
+
             System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
 
             XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(webDoc);
@@ -92,7 +100,33 @@ namespace Tnpd.Controllers
 
             return new ContentResult { Content = "Success" };
         }
+        /// <summary>
+        /// 字串是否包含中文
+        /// </summary>
+        /// <param name="strChinese">字串</param>
+        /// <returns></returns>
+        public static bool isChinese(string strChinese)
+        {
+            bool bresult = true;
+            int dRange = 0;
+            int dstringmax = Convert.ToInt32("9fff", 16);
+            int dstringmin = Convert.ToInt32("4e00", 16);
+            for (int i = 0; i < strChinese.Length; i++)
+            {
+                dRange = Convert.ToInt32(Convert.ToChar(strChinese.Substring(i, 1)));
+                if (dRange >= dstringmin && dRange < dstringmax)
+                {
+                    bresult = true;
+                    break;
+                }
+                else
+                {
+                    bresult = false;
+                }
+            }
 
+            return bresult;
+        }
 
         /// <summary>
         /// 新增網站節點

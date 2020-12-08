@@ -1,0 +1,147 @@
+﻿@using TnpdModels
+@model TnpdModels.TrafficSMSCarInfo
+@{
+    ViewBag.Title = "交通違規簡訊申辦服務";
+    TrafficSMS trafficSms = ViewBag.trafficSms;
+}
+<div class="row">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    @Html.ValidationMessage("Message")
+
+    <div class="col-12">
+
+
+ 
+
+  
+    (有 <span class="text-danger">*</span> 號請務必填寫)
+    <div class="form-row" style="width: 800px">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="CarNO">
+                <span class="text-danger">*</span>
+                車牌號碼：</label>
+            <input class="form-control" data-val="true" data-val-required="車牌號碼必填" id="CarNO" name="CarNO" placeholder="車牌號碼" type="text" value="@Model.CarNO"/>
+            <span class="field-validation-valid" data-valmsg-for="CarNO" data-valmsg-replace="true"></span>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
+                車子類型：</label>
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.CarType, new SelectList(Enum.GetValues(typeof(TnpdModels.CarType))),new {@class="form-control"})
+               
+
+
+            </div>
+        </div>
+    </div>
+  
+
+    <div class="form-group">
+        <label class="col-form-label" for="CarOwner">
+            <span class="text-danger">*</span>
+            車主/公司名稱： <span style="color: red">請務必按照行照輸入</span>
+        </label>
+
+        <input id="CarOwner" class="form-control" data-val="true" data-val-required="車主/公司名稱必填" name="CarOwner" placeholder="請輸入車主/公司名稱" type="text" value="@Model.CarOwner"/>
+        <span class="field-validation-valid" data-valmsg-for="CarOwner" data-valmsg-replace="true"></span>
+       
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Pid">
+                <span class="text-danger">*</span>
+                身分證字號：</label>
+            <input id="Pid" class="form-control"  data-val="true" data-val-required="身分證字號必填"  name="Pid" placeholder="請輸入身分證字號"  type="text" value="@Model.Pid"/>
+            <span class="field-validation-valid" data-valmsg-for="Pid" data-valmsg-replace="true"></span>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="CarAllow"><span class="text-danger">*</span>
+               身分 </label>
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.CarAllow, new SelectList(Enum.GetValues(typeof(TnpdModels.CarAllow))),new {@class="form-control"})
+                      
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-row justify-content-center">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-info">加入</button>
+        </div>
+        <div class="col-auto">
+            <button type="reset" class="btn btn-secondary">清除</button>
+        </div>
+    </div>
+  
+    </div>
+
+}
+</div>
+<table class="table table-hover tablestyle rwd-table">
+    <thead>
+    <tr>
+       
+        <th class="w-15">車牌號碼</th>
+        <th>車子類型</th>
+        <th class="w-15">車主/公司名稱</th>
+        <th class="w-15">身分證字號</th>
+        <th class="w-10">身分</th>
+        <th class="w-10">功能</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in trafficSms.trafficSmsCarInfos)
+    {
+          
+            
+        <tr>
+            
+             <td data-th="車牌號碼" class="none title01">@item.CarNO</td>
+            <td  data-th="車子類型" class="none">@item.CarType</td>
+            <td data-th="車主/公司名稱">@item.CarOwner</td>
+            <td data-th="身分證字號">@item.Pid.Substring(0,2) <span>******</span> @item.Pid.Substring(item.Pid.Length-2,2)</td>
+            <td data-th="身分">@item.CarAllow</td>
+            <td data-th="功能">
+                @using (Html.BeginForm("Delete",null))
+                {
+                    <input type="hidden" name="id" value="@item.Id"/>
+                     <button type="submit" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">刪除</button>                                              
+                }
+            </td>
+            
+
+        </tr>
+    }
+
+    </tbody>
+</table>
+<style>
+    .field-validation-error {
+        color:red
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>
+
+@if (ViewBag.isSuccess == true)
+{
+    <script>
+        $(document).ready(function () {
+            alert("新增成功!");
+            window.location.href = "/TrafficSMS/AddCarInfo/@ViewBag.guid";
+        });
+      
+    </script>
+}

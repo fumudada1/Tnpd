@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "交通違規簡訊服務內容說明";
+}
+
+ <div class="row">
+    <div class="col-12">
+    @using (Html.BeginForm("Create", "TrafficSMS", FormMethod.Get, new { @class = "form form-vaild form-aligned trailer" }))
+    {
+       
+      
+
+        <div id="pricing-switch" class="pricing clearfix">
+
+            <div class="pricing-box">
+                <div class="pricing-title">
+                    <h3 class="text-info">交通違規簡訊服務內容說明</h3>
+                </div>
+                <div class="pricing-features">
+                    <ul class="ultxt">
+                        <li>
+                            <h4 class="mb-0 text-info">服務項目：本項便民服務措施以臺南市區道路上遭<span style="color:red">民眾由本局交通違規檢舉系統檢舉</span>之案件為主。 </h4> </li>
+                        <li>
+                            <h4 class="mb-0 text-info">服務區域：全國各地監理單位所登錄之車輛。 </h4></li>
+          
+                        <li>
+                            <h4 class="mb-0 text-info">通知對象：本項作業<span style="color:red">係以通知車主為主，未經車主同意而自行申辦者，將負相關法律責任。</span>
+                            </h4>
+               
+                        </li>
+                        <li>
+                            <h4 class="mb-0 text-info">服務目的：</h4>
+                            <ul class="ultxtul">
+                                一般民眾交通檢舉之逕行舉發案件寄發通知單之作業時程約需30天，爰此簡訊提醒之服務措施，係當檢舉人上傳違規資料受理成案後，即發送訊息通知該車預先登錄之手機號碼，提醒民眾即時改正違規行為，避免遭重複舉發及改善停車秩序、防制交通危害。
+                                                  
+                            </ul>
+                        </li>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="checkRead1" name="checkRead1" value="agree" data-val="true" data-val-mandatory="請同意使用規則" required>
+                            <label class="form-check-label" for="checkRead1"><span class="text-danger">我已閱讀，並瞭解本項服務內容</span></label>
+
+                        </div>
+                        <li>
+                            <h4 class="mb-2 text-info">限制說明：</h4>
+                            <ul class="ultxtul">
+                                <li>簡訊發送僅具告知性質，與後續案件是否成案或是否舉發無關，民眾仍應<span style="color:red">以收到臺南市政府警局掛號郵寄送達之「舉發違反道路交通管理事件通知單」為主。</span>
+                                </li>
+                                <li>為避免浪費行政資源及促使民眾減少違規，本系統將於109年10月1日起採記次方式，如同一車號於6個月內遭累計6次，第6次後即予以停權半年、第12次後停權1年、第18次違反則該車號不再發送簡訊提醒。</li>
+                                <li>申辦方式：申請人填入欲接收通知簡訊之門號後即發送驗證碼，須先進行驗證碼填寫確認後，即可進行整批車輛綁定，每一車輛須提供車號、車種、車主名稱(公司名稱)、車主身分證統一編號(公司統一編號) ，經審核所登錄之車籍與公路監理機關登錄之資料相符後，再發送核准綁定車輛申請之簡訊通知。</li>
+                                <li>本項服務由個人或公司名義上網登錄申辦，並以電腦連結公路監理機關所登記資料進行審核，如資料正確符合申辦要件，即核准通過；若未符合申辦要件，申辦人得再次進行申請綁定。</li>
+                   
+                            </ul>
+                        </li>
+           
+                    </ul>
+
+                  
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="checkRead" name="checkRead" value="agree" data-val="true" data-val-mandatory="請同意使用規則" required>
+                        <label class="form-check-label" for="checkRead"><span class="text-danger">我已詳閱
+            上述條款，並已閱讀本局 【<a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" target="_blank">隱私權保護政策</a>】 暨相關 【<a href="/Article/5bdf7e5d-97e0-7451-1d90-338d8b57082a" target="_blank">資訊安全政策</a>】 且確認所有填寫資料皆為真實，若相關資料經查證為不實或偽造之違法行為，願負起相關民事或刑事責任。</span></label>
+
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="@ViewBag.UnId"/>
+                <div class="pricing-action">
+                    <button type="submit" class="btn btn-info">下一步</button>
+                </div>
+            </div>
+
+        </div>
+    }
+    </div>
+</div>
+<script>
+    //驗證讓CHECKBOX可過
+    $(function () {
+        //REF: http://bit.ly/hySvLa
+        $.validator.unobtrusive.adapters.addBool("mandatory", "required");
+    });
+
+</script>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>

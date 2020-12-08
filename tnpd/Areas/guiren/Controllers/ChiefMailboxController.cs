@@ -48,7 +48,16 @@ namespace tnpd.Areas.guiren.Controllers
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
                 return View(chief);
             }
+            DateTime duDateTime = DateTime.Now.AddMinutes(-30);
+            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == chief.Email && x.ConfirmDate >= duDateTime);
+            if (mailCheck == null)
+            {
+                ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+                ViewBag.UnId = id.ToString();
 
+
+                return View(chief);
+            }
             if (ModelState.IsValid)
             {
                 string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
@@ -119,7 +128,7 @@ namespace tnpd.Areas.guiren.Controllers
                     poproc.CaseType = mailCase.CaseType;
                     poproc.CaseTime = mailCase.InitDate.Value;
 
-                    poproc.Status =CaseProcessStatus.結案;
+                    poproc.Status = CaseProcessStatus.結案;
                     poproc.AssignDateTime = DateTime.Now;
                     poproc.AssignMemo = filterItem.PoprocsSubType.Article;
                     poproc.AssignMemo = poproc.AssignMemo.Replace("{Name}", mailCase.Name);
@@ -144,6 +153,7 @@ namespace tnpd.Areas.guiren.Controllers
                 mailbody = mailbody.Replace("{Email}", mailCase.Email);
                 mailbody = mailbody.Replace("{Subject}", mailCase.Subject);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(mailCase.Content));
+                mailbody = mailbody.Replace("{Files}", "");
 
                 Utility.SystemSendMail(mailCase.Email, "臺南市政府警察局-分局長信箱", mailbody);
 

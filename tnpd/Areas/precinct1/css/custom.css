@@ -11,7 +11,7 @@
 
 a {
     text-decoration: none !important;
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 h1>span:not(.nocolor):not(.badge),
@@ -79,18 +79,18 @@ a.gotoTop-sty {
 
 #header.sticky-style-2 {
     height: 160px;
-    border-top: 5px solid #147eb7;
+    border-top: 5px solid #0073b1;
 }
 
 #primary-menu.style-2 {
     float: none;
     max-width: none;
     border-top: 1px solid #cccccc;
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 #header.sticky-style-2 #header-wrap {
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 #primary-menu ul li:hover>a,
@@ -101,7 +101,7 @@ a.gotoTop-sty {
 #primary-menu ul ul li:hover>a {
     background-color: #F9F9F9;
     padding-left: 18px;
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 .input-group>.input-group-append>.btn {
@@ -134,7 +134,7 @@ a.gotoTop-sty {
 }
 
 ul.tab-nav:not(.tab-nav-lg) li.ui-tabs-active a {
-    background-color: #3b9ed3;
+    background-color: #0073b1;
 }
 
 .fontch {
@@ -209,11 +209,20 @@ ul.crul01 li {
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
+
+.gyges .tp-tab:focus, .gyges .tp-tab:active {
+    outline: 2px dashed #ff7200!important;
+}
+
 a.tp-tab01 {
     float: left;
 }
 
-.footerbox h3 {
+a.tp-tab01:active, a.tp-tab01:focus {
+    outline: 2px dashed #ff7200!important;
+}
+
+.footerbox h4 {
     color: #38baff;
     font-size: 1.125em;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
@@ -221,7 +230,7 @@ a.tp-tab01 {
     padding-bottom: 8px;
 }
 
-.footerbox h3:before {
+.footerbox h4:before {
     font-family: 'lined-icons';
     content: "\e049";
     padding-right: 3px;
@@ -369,12 +378,12 @@ input.inputsear {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    border-bottom: 10px solid #3b9ed3;
+    border-bottom: 10px solid #0073b1;
     margin-bottom: 20px;
 }
 
-.leftbox h3 {
-    background-color: #3b9ed3;
+.leftbox h2 {
+    background-color: #0073b1;
     margin-bottom: 0px;
     padding: 6px 10px 6px 20px;
     color: #fff;
@@ -430,11 +439,11 @@ input.inputsear {
 }
 
 .leftbox ul li a.active {
-    color: #3b9ed3 !important;
+    color: #0073b1 !important;
 }
 
 .leftbox ul li a:hover {
-    color: #3b9ed3 !important;
+    color: #0073b1 !important;
 }
 
 .pagetitle {
@@ -762,23 +771,23 @@ dl.row {
 .page-link,
 .page-link:hover,
 .page-link:focus {
-    color: #3b9ed3;
+    color: #0073b1;
 }
 
 .page-item.active .page-link,
 .page-link:hover,
 .page-link:focus {
     color: #FFF !important;
-    background-color: #3b9ed3 !important;
-    border-color: #3b9ed3 !important;
+    background-color: #0073b1 !important;
+    border-color: #0073b1 !important;
 }
 
 .pager .current,
 .pager a:hover,
 .pager a:focus {
     color: #FFF !important;
-    background-color: #3b9ed3 !important;
-    border-color: #3b9ed3 !important;
+    background-color: #0073b1 !important;
+    border-color: #0073b1 !important;
 }
 
 .mt0mb0 {

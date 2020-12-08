@@ -27,12 +27,12 @@ namespace TnpdModels
         public DateTime? InitDate { get; set; }
 
         [MaxLength(20)]
-        [Display(Name = "更新者")]
+        [Display(Name = "最後更新者")]
         [JsonIgnore]
         public string Updater { get; set; }
 
         [MaxLength(20)]
-        [Display(Name = "更新單位")]
+        [Display(Name = "最後更新單位")]
         [JsonIgnore]
         public string UpdateOrg { get; set; }
 
@@ -134,7 +134,45 @@ namespace TnpdModels
             }
 
         }
+        //public void Update(BackendContext db, System.Data.Entity.DbSet dbSet)
+        //{
 
+        //    this.UpdateDate = DateTime.Now;
+        //    this.Updater = System.Web.HttpContext.Current.User.Identity.Name;
+        //    db.Entry(this).State = EntityState.Modified;
+
+        //    var manager = ((IObjectContextAdapter)db).ObjectContext;
+
+        //    var myObjectState = manager.ObjectStateManager.GetObjectStateEntry(manager);
+        //    var modifiedProperties = myObjectState.GetModifiedProperties();
+        //    StringBuilder sb=new StringBuilder();
+        //    foreach (var propName in modifiedProperties)
+        //    {
+        //        sb.Append(
+        //            $"Property {propName} changed from {myObjectState.OriginalValues[propName]} to {myObjectState.CurrentValues[propName]}");
+
+               
+        //    }
+
+        //    if (!string.IsNullOrEmpty(this.SystemMessage))
+        //    {
+        //        SystemLog log = new SystemLog();
+        //        log.InitDate = DateTime.Now;
+        //        log.Poster = HttpContext.Current.User.Identity.Name;
+        //        log.Subject =sb.ToString();
+        //        db.SystemLogs.Add(log);
+        //    }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+        //    {
+
+        //        throw ex;
+        //    }
+
+        //}
         /// <summary>
         /// 刪除
         /// </summary>

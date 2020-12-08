@@ -57,6 +57,7 @@
     <Compile Include="BigBanner.cs" />
     <Compile Include="Case.cs" />
     <Compile Include="CaseFilters.cs" />
+    <Compile Include="CaseMailCheck.cs" />
     <Compile Include="CasePoproc.cs" />
     <Compile Include="CasePoprocLog.cs" />
     <Compile Include="CaseTrafficPoproc.cs" />
@@ -86,6 +87,26 @@
     <Compile Include="Migrations\202004210251301_addCaseFiles.Designer.cs">
       <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007150831418_addCaseIsConfirm.cs" />
+    <Compile Include="Migrations\202007150831418_addCaseIsConfirm.Designer.cs">
+      <DependentUpon>202007150831418_addCaseIsConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008231030042_TrafficSMS.cs" />
+    <Compile Include="Migrations\202008231030042_TrafficSMS.Designer.cs">
+      <DependentUpon>202008231030042_TrafficSMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008231229241_addSMSGuid.cs" />
+    <Compile Include="Migrations\202008231229241_addSMSGuid.Designer.cs">
+      <DependentUpon>202008231229241_addSMSGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008231246016_addsmsRequired.cs" />
+    <Compile Include="Migrations\202008231246016_addsmsRequired.Designer.cs">
+      <DependentUpon>202008231246016_addsmsRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011040905586_addRefugeStation.cs" />
+    <Compile Include="Migrations\202011040905586_addRefugeStation.Designer.cs">
+      <DependentUpon>202011040905586_addRefugeStation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsAttributeHelper.cs" />
     <Compile Include="News.cs">
@@ -105,6 +126,7 @@
     </Compile>
     <Compile Include="PoprocsSubType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefugeStation.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="StationInfo.cs" />
     <Compile Include="StationInfoFIles.cs" />
@@ -118,6 +140,8 @@
     <Compile Include="TrafficMailCheck.cs" />
     <Compile Include="TrafficRegion.cs" />
     <Compile Include="TrafficRoaddata.cs" />
+    <Compile Include="TrafficSMS.cs" />
+    <Compile Include="TrafficSMSCarInfo.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Village.cs" />
     <Compile Include="TrafficViolationsClass.cs" />
@@ -148,6 +172,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004210251301_addCaseFiles.resx">
       <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007150831418_addCaseIsConfirm.resx">
+      <DependentUpon>202007150831418_addCaseIsConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231030042_TrafficSMS.resx">
+      <DependentUpon>202008231030042_TrafficSMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231229241_addSMSGuid.resx">
+      <DependentUpon>202008231229241_addSMSGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231246016_addsmsRequired.resx">
+      <DependentUpon>202008231246016_addsmsRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011040905586_addRefugeStation.resx">
+      <DependentUpon>202011040905586_addRefugeStation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,11 +11,12 @@ using MvcPaging;
 using Newtonsoft.Json;
 using Tnpd.Filters;
 using Tnpd.Models;
+using TnpdAdmin.Models;
 using TnpdModels;
 
 namespace Tnpd.Controllers
 {
-   
+
     [Authorize]
     public class MemberController :_BaseController
     {
@@ -418,6 +419,8 @@ namespace Tnpd.Controllers
                 return true;
             }
 
+            
+
             try
             {
                 DirectoryEntry de = new DirectoryEntry("LDAP://" + ADschema, UserName, Password);
@@ -475,13 +478,13 @@ namespace Tnpd.Controllers
             return member;
         }
 
-        [HttpPost]
+        
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+       
         public ActionResult LogOff()
         {
             System.Web.Security.FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            return RedirectToAction("LoginAdmin");
         }
 
         //輸出treeView javascript Code 

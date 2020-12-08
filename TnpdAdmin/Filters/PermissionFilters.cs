@@ -21,8 +21,8 @@ namespace Tnpd.Filters
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 filterContext.Controller.ViewBag.menu = "";
+                HttpContext.Current.Response.Redirect(FormsAuthentication.LoginUrl);
 
-                
             }
             string controllerName= string.IsNullOrEmpty(Module) ? filterContext.Controller.ControllerContext.RouteData.Values["controller"].ToString() : Module;
             string actionName = string.IsNullOrEmpty(Module) ? filterContext.Controller.ControllerContext.RouteData.Values["action"].ToString() : Module;

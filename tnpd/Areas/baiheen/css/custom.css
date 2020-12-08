@@ -11,7 +11,7 @@
 
 a {
     text-decoration: none !important;
-    color: #dd607c;
+    color: #c42b55;
 }
 
 h1>span:not(.nocolor):not(.badge),
@@ -20,12 +20,12 @@ h3>span:not(.nocolor):not(.badge),
 h4>span:not(.nocolor):not(.badge),
 h5>span:not(.nocolor):not(.badge),
 h6>span:not(.nocolor):not(.badge) {
-    color: #dd607c;
+    color: #c42b55;
 }
 
 .title-block {
     padding: 2px 0 3px 10px;
-    border-left: 7px solid #dd607c;
+    border-left: 7px solid #c42b55;
     margin-bottom: 30px;
 }
 
@@ -36,7 +36,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 .h4title {
-    color: #dd607c;
+    color: #c42b55;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.375em;
     letter-spacing: 1px;
@@ -44,7 +44,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 .h5title {
-    color: #dd607c;
+    color: #c42b55;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.2em;
     letter-spacing: 1px;
@@ -54,7 +54,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 .h5title a {
-    color: #dd607c;
+    color: #c42b55;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
@@ -63,12 +63,7 @@ h6>span:not(.nocolor):not(.badge) {
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
-a.gotoTop-sty {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-}
+a.gotoTop-sty {     display: block;      width:100%;      height:100%;     color: #fff;     }
 
 .hr01 {
     border-bottom: 1px solid #cecece;
@@ -77,7 +72,7 @@ a.gotoTop-sty {
 }
 
 #header {
-    border-bottom: 15px solid #dd607c;
+    border-bottom: 15px solid #c42b55;
 }
 
 #header.sticky-style-2 {
@@ -88,11 +83,11 @@ a.gotoTop-sty {
     float: none;
     max-width: none;
     border-top: 1px solid #cccccc;
-    background-color: #dd607c;
+    background-color: #c42b55;
 }
 
 #header.sticky-style-2 #header-wrap {
-    background-color: #dd607c;
+    background-color: #c42b55;
 }
 
 #primary-menu ul li:hover>a,
@@ -103,7 +98,7 @@ a.gotoTop-sty {
 #primary-menu ul ul li:hover>a {
     background-color: #F9F9F9;
     padding-left: 18px;
-    color: #dd607c;
+    color: #c42b55;
 }
 
 .input-group>.input-group-append>.btn {
@@ -136,7 +131,7 @@ a.gotoTop-sty {
 }
 
 ul.tab-nav:not(.tab-nav-lg) li.ui-tabs-active a {
-    background-color: #dd607c;
+    background-color: #c42b55;
 }
 
 .fontch {
@@ -268,12 +263,10 @@ a.tp-tab01 {
     margin: 0;
 }
 
-a.gotoTop-sty {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-}
+/*.open::before {
+    content: '展�?';    
+
+}*/
 
 .open::before {
     content: url(../images/new/btn01_close.png);
@@ -373,12 +366,12 @@ input.inputsear {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    border-bottom: 10px solid #dd607c;
+    border-bottom: 10px solid #c42b55;
     margin-bottom: 20px;
 }
 
-.leftbox h3 {
-    background-color: #dd607c;
+.leftbox h2 {
+    background-color: #c42b55;
     margin-bottom: 0px;
     padding: 6px 10px 6px 20px;
     color: #fff;
@@ -434,11 +427,11 @@ input.inputsear {
 }
 
 .leftbox ul li a.active {
-    color: #dd607c !important;
+    color: #c42b55 !important;
 }
 
 .leftbox ul li a:hover {
-    color: #dd607c !important;
+    color: #c42b55 !important;
 }
 
 .pagetitle {
@@ -457,7 +450,7 @@ input.inputsear {
 
 .team-title span {
     display: block;
-    color: #dd607c;
+    color: #c42b55;
     font-weight: 500;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.2em;
@@ -634,7 +627,7 @@ dl.row {
 }
 
 .ulsitemap a:hover {
-    color: #dd607c;
+    color: #c42b55;
 }
 
 .ulsitemap li {
@@ -761,15 +754,15 @@ dl.row {
 .page-link,
 .page-link:hover,
 .page-link:focus {
-    color: #dd607c;
+    color: #c42b55;
 }
 
 .page-item.active .page-link,
 .page-link:hover,
 .page-link:focus {
     color: #FFF !important;
-    background-color: #dd607c !important;
-    border-color: #dd607c !important;
+    background-color: #c42b55 !important;
+    border-color: #c42b55 !important;
 }
 
 .mt0mb0 {
@@ -1008,7 +1001,7 @@ ol.private01 li ul li {
 }
 
 .i_title01 {
-    border-bottom: 2px solid #dd607c;
+    border-bottom: 2px solid #c42b55;
 }
 
 .i_title01 h4 {
@@ -1093,7 +1086,7 @@ ol.private01 li ul li {
 }
 
 .i_newbox a:hover {
-    color: #dd607c;
+    color: #c42b55;
 }
 
 .i_newbox ul {
@@ -1113,7 +1106,7 @@ ol.private01 li ul li {
 }
 
 .i_newbox ul li span {
-    color: #dd607c;
+    color: #c42b55;
     margin-right: 5px;
     display: inline-block;
 }
@@ -1152,7 +1145,7 @@ ol.private01 li ul li {
 }
 
 .progress_bars .bars_list li .bar .progress {
-    background-color: #dd607c;
+    background-color: #c42b55;
 }
 
 .progress_bars .bars_list {
@@ -1626,7 +1619,7 @@ ul.about03 li ol li {
 @media screen and (min-width: 300px) and (max-width: 578px) {
 
     .i_newbox ul li span {
-        color: #dd607c;
+        color: #c42b55;
         margin-right: 5px;
         display: block;
     }
@@ -1666,16 +1659,16 @@ ol.chinese li ul li {
 }
 
 ol.chinese li ul li ol li {
-    list-style: decimal;
+   list-style: decimal;
     padding: 2px 0px;
 }
 
 ol.chinese p {
-    color: #c3405e;
+    color: #c3405e;  
 }
 
 ol.chinese li ul li span {
-    color: #c3405e;
+     color: #c3405e;  
 }
 
 ol.chinese li ol {
@@ -1699,11 +1692,10 @@ ol.chinese li ol li span {
     max-width: 100%;
     height: auto;
 }
-
-.team-content ul li {
+.team-content ul li{     
     padding: 4px 0 4px 15px;
     background-repeat: no-repeat;
     background-position: left 7px;
     background-image: url(../images/icons/widget-link.png);
-
+    
 }

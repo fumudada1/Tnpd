@@ -1,0 +1,214 @@
+﻿@model tnpd.Models.TrafficSMSView
+
+@{
+    ViewBag.Title = "交通違規簡訊申辦服務";
+}
+<div class="row">
+@using (Html.BeginForm( )) 
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+      @Html.ValidationMessage("Message")
+    <div class="col-12">
+
+    <h4 class="h4title">一、交通違規簡訊申辦服務注意事項：</h4>
+
+    <ul class="ultxt">
+        <li>有 <span class="text-danger">*</span>號為必填欄位，請務必填寫。
+        </li>
+        <li>請先輸入手機號碼，並按下"取得認證簡訊"，等待30秒左右，會取得驗證簡訊。
+        </li>
+        <li>請注意，本簡訊使用中華電信企業簡訊服務，而各家電信公司有提供 <span class="text-danger">拒收企業簡訊之服務</span>，可能導致無法正常接收驗證碼簡訊，若是您收不到簡訊，請檢查是否有申請拒收企業簡訊服務。
+        </li>
+    </ul>
+
+   
+    <h4 class="h4title">申辦服務</h4>
+
+    <div class="hrline"></div>
+    (有 <span class="text-danger">*</span> 號請務必填寫)
+
+    <div class="form-group">
+        <label class="col-form-label" for="Name">
+            <span class="text-danger">*</span>
+            姓名：</label>
+        <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name"/>
+        <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" for="TEL">
+            <span class="text-danger">*</span>
+            手機號碼：
+        </label>
+
+        <input id="Mobile" class="form-control" data-val="true" data-val-required="電話必填" name="Mobile" placeholder="請輸入聯絡電話" type="text" value="@Model.Mobile"/>
+        <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
+        <button type="button" id="sendSms" class="btn btn-info" style="MARGIN-TOP: 10PX">取得認證簡訊</button> <span id="smstime" style="color: blue"></span><br/>
+        <span style="color: red" id="smsMessage"></span>
+       
+    </div>
+    
+    <div class="form-group">
+        <label class="col-form-label" for="SMSCode">
+            <span class="text-danger">*</span>
+            簡訊驗證碼：</label>
+            <input id="SMSCode" class="form-control"  data-val="true" data-val-required="簡訊驗證碼必填"  name="SMSCode" placeholder="請輸入簡訊驗證碼"  type="text" value="@Model.SMSCode"/>
+            <span class="field-validation-valid" data-valmsg-for="SMSCode" data-valmsg-replace="true"></span>
+            <span style="color: red">@ViewBag.Message</span>
+           
+    </div>
+
+
+   
+
+    <div class="form-row  mt-4">
+        <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+            驗證碼：</label>
+
+        <div class="form-group col-auto">
+            <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+			<div id="newMessageDIV" style="display:none"></div>
+            <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"/></a>
+
+        </div>
+        <div class="form-group col-md-3">
+            <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text"/> <span style="color: blue">(點擊圖片可以更換驗證碼)</span> <noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+
+            @Html.ValidationMessage("CheckCode")
+           
+        </div>
+
+    </div>
+
+    <div class="hrline"></div>
+    <input type="hidden" name="id" value="@ViewBag.UnId"/>
+    <div class="form-row justify-content-center">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-info">送出</button>
+        </div>
+        <div class="col-auto">
+            <button type="reset" class="btn btn-secondary">清除</button>
+        </div>
+    </div>
+  
+    </div>
+}
+</div>
+
+<script type="text/javascript">
+    function PlayCode() {
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+
+    var smsTimer;
+    var t = 180;
+    function showTime() {
+        t -= 1;
+        document.getElementById('smstime').innerHTML = "請留意手機簡訊，若一直沒有收到可在" + t + "秒後可再傳送一次。";
+
+        if (t <= 0) {
+
+            $("#sendSms").prop('disabled', false);
+          
+        } else {
+            smsTimer = setTimeout("showTime()", 1000);
+        }
+
+
+        
+    }
+
+   
+    $("#sendSms").click(function () {
+        $("#smsMessage").text('');
+       
+        var Mobile = $('#Mobile').val();
+        if (!is_mobile(Mobile)) {
+            $("#smsMessage").text('手機格式錯誤!');
+            return;
+
+        }
+        $("#sendSms").prop('disabled', true);
+        showTime();
+        $("#smsMessage").text('發送簡訊至' + Mobile+'中，請稍後!');
+        SendSMS(Mobile);
+
+
+    });
+    function SendSMS(Mobile) {
+        $.post("/TrafficSMS/SendCheckCode", { mobile: Mobile })
+            .done(function (data) {
+                if (data != '已經發送，請留意簡訊訊息!') {
+                    $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送");
+                    SendSMS(Mobile);
+                } else {
+                    $("#smsMessage").text(data);
+                }
+
+            });
+    }
+    //訂單提交頁-驗證手機號
+    function is_mobile(mobile) {
+        if (mobile == "") {
+            return false;
+        } else {
+            if (! /^(09([0-9]){8})$/.test(mobile)) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+</script>
+<style>
+    .field-validation-error {
+        color:red
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

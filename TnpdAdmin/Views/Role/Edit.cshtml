@@ -63,7 +63,15 @@
                 @{
                     foreach (var member in Model.Members)
                     {
-                        member.Name = member.Name + "(" + member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject + ")";
+                        if (member.MyUnit.ParentUnit == null)
+                        {
+                            member.Name = member.Name + "(<span style='color:red'>此帳號單位設定有誤</span>-" + member.MyUnit.Subject + ")";
+                        }
+                        else
+                        {
+                            member.Name = member.Name + "(" + member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject + ")";
+                        }
+                        
                     }
                 }
                 @Html.ListBox("selectMembers", new SelectList(Model.Members as IEnumerable, "Id", "Name", new {Multiple = "multiple"}))
@@ -74,7 +82,7 @@
             <div>
                 @foreach (var member in Model.Members)
                 {
-                 <span>@member.Account @member.Name</span><br/>
+                 <span>@member.Account @Html.Raw(member.Name) </span><br/>
                 }
             </div>
 

@@ -1,0 +1,156 @@
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115108.rar'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115108.rar'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115322.rar'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115322.rar'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406(1).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406(1).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406.mp4'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115406.mp4'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 86
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115412.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115412.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115412.avi'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115412.avi'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522(1).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522(1).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522(1)(2).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115522(1)(2).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 86
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532(1).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532(1).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532.mp4'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115532.mp4'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 86
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115641.rar'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115641.rar'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115707.mov'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115707.mov'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115707.png'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115707.png'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724(1).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724(1).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724.mp4'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115724.mp4'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 86
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754(1).jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754(1).jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754.mp4'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115754.mp4'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 86
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.rar'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.rar'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.jpg'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.jpg'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.avi'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200816115826.avi'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 72
+System.IO.FileNotFoundException: 找不到檔案 'E:\website\Tnpd\tnpd\TrafficFiles\20200817120006.rar'。
+檔案名稱: 'E:\website\Tnpd\tnpd\TrafficFiles\20200817120006.rar'
+   於 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   於 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   於 System.IO.File.Copy(String sourceFileName, String destFileName)
+   於 FixDataBaseError.Program.Main(String[] args) 於 e:\website\Tnpd\FixDataBaseError\Program.cs: 行 58

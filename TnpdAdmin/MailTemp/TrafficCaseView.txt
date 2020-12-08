@@ -28,6 +28,9 @@
   {violation_carno}
   </td>
 <td class=xl28 style='border-top:none;border-left:none'>
+  {itemno}
+  </td>
+<td class=xl28 style='border-top:none;border-left:none'>
   {Content}
   </td>
 

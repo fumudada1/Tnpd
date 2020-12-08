@@ -1,0 +1,425 @@
+﻿@using TnpdModels
+@model List<TnpdAdmin.Models.CaseMerge>
+@{
+    ViewBag.Title = "交通檢舉承辦人作業";
+    string subject = "";
+    string path = @"C:\website\tnpd\tnpd\TrafficFiles\";
+   
+}
+
+<h2>交通檢舉承辦人作業</h2>
+ <span style="color: black">辦理情形</span>
+        <table class="table table-v">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CaseID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CaseType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+                </th>
+                <th></th>
+   
+            </tr>
+            <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CaseID)
+            
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CaseType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InitDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        <form action="/CaseTraffics/RemoveList" method="post">
+ <input type="submit" value="刪除" onclick="javascript: if (!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;" class="btn btn-primary" />
+                                
+
+                                @*這邊也有改*@
+                            @Html.Hidden("id", item.Id)
+                        </form>
+                                
+                           
+               
+                   
+                    </td>
+      
+                </tr>
+            }
+            </tbody>
+        </table>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Case</legend>
+       
+
+
+    <div style="padding: 15px; display: none">
+        <input type="radio" value="assign" name="process" class="process"/>
+        <label for="assign">派案</label>
+        <input type="radio" value="Poprocs" name="process" checked="checked"/>
+        <label for="Poprocs">回覆</label>
+    </div>
+    <div id="divAssign" style="padding: 15px; display: none">
+        <div>
+            <select id="Categories1" name="Categories1" style="font-size: 15px">
+            </select>
+            <select id="Categories2" name="Categories2" style="font-size: 15px">
+            </select>
+            <select id="MemberList" name="MemberList" style="font-size: 18px; width: 40%"></select>
+            <input type="button" id="addPeople" value="新增承辦人"/>
+        </div>
+        <select name="MemberListSelect" multiple="multiple" id="MemberListSelect" style="height: 320px"> <input type="button" id="removePeople" value="移除承辦人"/>
+        </select>
+
+
+    </div>
+    <div id="divPoprocs" style="padding: 15px">
+        舉發狀態：
+        <input type="radio" id="PoprocsType1" name="PoprocsType" checked="checked" value="1"/>
+        <label for="PoprocsType1">不舉發</label>
+
+        <input type="radio" id="PoprocsType2" name="PoprocsType" value="2"/>
+        <label for="PoprocsType2">舉發</label>
+
+        <div id="ViolationsRejectclasses"><br/>
+            <span style="color: blue; font-weight: "> 不舉發原因 </span>
+            @Html.DropDownList("ViolationsRejectclasses")
+            <br/><br/>
+
+        </div>
+        <div style="display: none" id="ViolationsClasses"><br/>
+            <span style="color: blue; font-weight: "> 舉發原因 </span>
+            @Html.DropDownList("ViolationsClasses")
+            <br/><br/>
+
+        </div>
+
+        <div>回覆內容</div>
+        <p>
+            <textarea cols="50" id="PoprocsContent" name="PoprocsContent" placeholder="請輸入回覆內容" rows="2" style="height: 300px; width: 100%">
+
+
+</textarea>
+           
+        </p>
+
+    </div>
+
+    <div>
+
+
+    </div>
+    <p align="center" id="btngroup">
+        <input name="processtype" id="processtype" value="" type="hidden"/>
+
+        <input type="button" id="btnPoprocs" value="核判送出"/>
+
+        <input type="button" onclick="history.back()" value="回到上一頁"/>
+
+    </p>
+
+    </fieldset>
+}
+<style>
+    label {
+        display: inline;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
+   
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+            
+            $("#btnPoprocs").click(function() {
+                $("#processtype").val("Poprocs");
+                $("form").submit();
+                $("#btnPoprocs").attr("disabled", "disabled");
+            });
+
+           
+
+            $('input[type=radio][name=process]').change(function() {
+                if (this.value == 'assign') {
+                    $("#divAssign").show();
+                    $("#divPoprocs").hide();
+                    $("#btnSave").hide();
+                    $("#btnAssign").show();
+                    $("#btnPoprocs").hide();
+                } else if (this.value == 'Poprocs') {
+                    $("#divPoprocs").show();
+                    $("#divAssign").hide();
+                    $("#btnSave").show();
+                    $("#btnAssign").hide();
+                    $("#btnPoprocs").show();
+                }
+            });
+            $('input[type=radio][name=PoprocsType]').change(function() {
+                switch (this.value) {
+                case "1":
+                    $("#ViolationsRejectclasses").show();
+                    $("#ViolationsClasses").hide();
+
+                    break;
+                case "2":
+                    $("#ViolationsClasses").show();
+                    $("#ViolationsRejectclasses").hide();
+                    break;
+                }
+            });
+
+            $('input[type=radio][name=PoprocsSubType]').change(function() {
+                var text = $(this).next().next();
+                $("#PoprocsContent").val(text.text());
+            });
+            var cat1 = @ViewBag.ca1;
+            var cat2 = @ViewBag.ca2;
+
+            $.getJSON("/units/GetfistUnit").done(function(json) {
+                data = json;
+
+                $.each(json,
+                    function(i, item) {
+                        if (item.Id == cat1) {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id)
+                                .attr("selected", "selected").text(item.Subject));
+                        } else {
+                            $('#Categories1').append($("<option></option>").attr("value", item.Id).text(item.Subject));
+                        }
+
+
+                    });
+
+                var cat1id = $('#Categories1').val();
+                $.getJSON("/units/GetUnit/" + cat1id).done(function(json) {
+                    data = json;
+
+
+                    $.each(json,
+                        function(i, item) {
+                            if (item.Id == cat2) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .attr("selected", "selected").text(item.Subject));
+                            } else {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+                            }
+
+
+                        });
+                    var cat2id = $('#Categories2').val();
+
+                    $.getJSON("/units/GetMemberByUnitId/" + cat2id + "?RoleID=0").done(function(json) {
+                        data = json;
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+
+                            });
+                    });
+
+
+                });
+
+
+            });
+
+            $('#Categories1').change(function() {
+                if ($('#Categories1').val() != '') {
+                    $('#Categories2').children().remove();
+
+                    var id = $('#Categories1').val();
+                    $.getJSON("/units/GetUnit/" + id).done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#Categories2').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Subject));
+
+                            });
+
+                        $('#MemberList').children().remove();
+
+                        var id = $('#Categories2').val();
+                        $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleID=0").done(function(json) {
+                            data = json;
+
+
+                            $.each(json,
+                                function(i, item) {
+                                    $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                        .text(item.Name));
+
+                                });
+
+
+                        });
+                    });
+                } else {
+                    $('#Categories2').children().remove();
+
+                    $('#Categories2').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $('#Categories2').change(function() {
+                if ($('#Categories2').val() != '') {
+                    $('#MemberList').children().remove();
+
+                    var id = $('#Categories2').val();
+                    $.getJSON("/units/GetMemberByUnitId/" + id + "?RoleId=0").done(function(json) {
+                        data = json;
+
+
+                        $.each(json,
+                            function(i, item) {
+                                $('#MemberList').append($("<option></option>").attr("value", item.Id)
+                                    .text(item.Name));
+
+                            });
+
+
+                    });
+                } else {
+                    $('#MemberList').children().remove();
+
+                    $('#MemberList').append($("<option></option>").attr("value", '').text('請選擇'));
+
+                }
+
+
+            });
+
+            $("#addPeople").click(function() {
+
+                $("#MemberList").children(":selected").each(function() {
+                    $(this).appendTo("#MemberListSelect");
+                });
+            });
+            $("#removePeople").click(function() {
+                $("#MemberListSelect").children(":selected").each(function() {
+                    $(this).appendTo("#MemberList");
+                });
+            });
+
+
+            //restore save info
+
+            if ($("#saveAssignMemo").val() != "") {
+                //console.log($("#saveAssignMemo").val());
+                $('input[type=radio][name=process]').each(function() {
+                    if ($(this).val() == "Poprocs") {
+                        $(this).attr("checked", "checked");
+                    }
+                });
+                $("#divPoprocs").show();
+                $("#divAssign").hide();
+                $("#btnSave").show();
+                $("#btnAssign").hide();
+                $("#btnPoprocs").show();
+
+                
+                switch ($("#savePoprocsType").val()) {
+                case "1":
+                    $("#noPoprocs").hide();
+                    var text = $(this).next().next();
+                    $("#PoprocsContent").val(text.text());
+                    break;
+                case "2":
+                    $("#noPoprocs").show();
+                    break;
+                case "3":
+                    $("#noPoprocs").show();
+                    break;
+                }
+                $('input[type=radio][name=PoprocsSubType]').each(function() {
+                    if (this.value == $("#savePoprocsSubType").val()) {
+                        $(this).attr("checked", "checked");
+                    }
+
+
+                });
+
+                
+
+            }
+
+            $("#ViolationsClasses option").each(function() {
+                //console.log($("#TrafficViolationsClassId").val());
+                if (this.value == $("#TrafficViolationsClassId").val()) {
+                   
+                    $(this).attr("selected", "selected");
+                }
+            });
+            $("#ViolationsRejectclasses option").each(function() {
+               
+                if ($(this).val() == $("#ViolationsRejectclassId").val()) {
+                   
+                    $(this).attr("selected", "selected");
+                }
+            });
+
+            $("#PoprocsContent").val($("#saveAssignMemo").val());
+            console.log($("#PoprocsContent").val());
+            $('input[type=radio][name=PoprocsType]').each(function() {
+                if (this.value == $("#savePoprocsType").val()) {
+                    $(this).attr("checked", "checked");
+                }
+
+
+            });
+
+            
+        });
+
+
+    </script>
+
+
+}
+
+@if (ViewBag.message != null)
+{
+    <script>
+        alert("@ViewBag.message");
+        window.location.href = "/CaseTraffics/Process";
+    </script>
+}

@@ -12,4 +12,9 @@ E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.init.resources
 E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.csproj.GenerateResource.Cache
 E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.BigBinnerLink.resources
 E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addCaseFiles.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addCaseIsConfirm.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.TrafficSMS.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addSMSGuid.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addsmsRequired.resources
+E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.Migrations.addRefugeStation.resources
 E:\website\tnpd\TnpdModels\obj\Debug\TnpdModels.csprojResolveAssemblyReference.cache

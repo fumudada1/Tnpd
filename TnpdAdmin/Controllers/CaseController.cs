@@ -18,7 +18,7 @@ using TnpdModels;
 namespace TnpdAdmin.Controllers
 {
     [PermissionFilters]
-    [Authorize]
+   
     public class CaseController : _BaseController
     {
         private BackendContext _db = new BackendContext();
@@ -1015,7 +1015,7 @@ namespace TnpdAdmin.Controllers
 
                     mailbody = mailbody.Replace("{URL}", InternetURL + "casewq/index/" + myPoproc.Case.CaseGuid);
                     //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
-                  //  Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
+                    Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
 
                     //併案發信
                     if (myPoproc.Case.Cases.Count() > 0)
@@ -1038,7 +1038,7 @@ namespace TnpdAdmin.Controllers
 
                             mailbody = mailbody.Replace("{URL}", InternetURL + "casewq/index/" + ChildCase.CaseGuid);
                             //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
-                        //    Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
+                            Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
                         }
                     }
 
@@ -1474,7 +1474,7 @@ namespace TnpdAdmin.Controllers
 
                 return RedirectToAction("Assign", "Case", new { pclass = pclass });
             }
-            if (processtype == "SendMail") //指派
+            if (processtype == "SendMail") //指派發信
             {
                 //發信
                 string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
@@ -2094,7 +2094,7 @@ namespace TnpdAdmin.Controllers
             switch (pclass)
             {
                 case 1:
-                    if (member.MyUnit.Id == 29)
+                    if (member.MyUnit.Id == 29 || member.Roles.Any(x => x.Subject.Contains("最高權限管理者")))
                     {
                         casePoprocs = casePoprocs.Where(w => (w.Case.CaseType == CaseType.參觀本局暨所屬機關 && w.Case.WebSiteId == webSite.Id) || w.Case.CaseType == CaseType.首長信箱);
                     }
@@ -2134,7 +2134,7 @@ namespace TnpdAdmin.Controllers
 
             var casePoprocslist = casePoprocs.OrderByDescending(x => x.Case.InitDate).ToList();
             StringBuilder sb = new StringBuilder();
-            foreach (var casePoproc in casePoprocslist)
+            foreach (var casePoproc in casePoprocslist.Where(x=>x.assignUnit!=null))
             {
                 string strTr = temptr;
                 strTr = strTr.Replace("{CaseID}", casePoproc.Case.CaseID);
@@ -2142,7 +2142,18 @@ namespace TnpdAdmin.Controllers
                 strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
                 strTr = strTr.Replace("{Name}", casePoproc.Case.Name + " ");
                 strTr = strTr.Replace("{Subject}", casePoproc.Case.Subject + " ");
-                strTr = strTr.Replace("{assignUnit}", casePoproc.assignUnit.ParentUnit.Subject + "-" + casePoproc.assignUnit.Subject);
+                if (casePoproc.assignUnit.ParentUnit != null)
+                {
+                    strTr = strTr.Replace("{assignUnit}",
+                        casePoproc.assignUnit.ParentUnit.Subject + "-" + casePoproc.assignUnit.Subject);
+                }
+                else
+                {
+                    strTr = strTr.Replace("{assignUnit}",
+                         casePoproc.assignUnit.Subject);
+                }
+
+
                 strTr = strTr.Replace("{Predate}", casePoproc.Case.Predate.ToString("yyyy/MM/dd"));
 
                 Double timespan;
@@ -2420,7 +2431,7 @@ namespace TnpdAdmin.Controllers
                 }
 
 
-                foreach (CaseMerge merge in caseMerges)
+                foreach (CaseMerge merge in caseMerges.Where(x=>x.CaseID!=CaseID))
                 {
                     Case mCase = _db.Cases.Find(merge.Id);
                     mCase.ParentId = ParentCase.Id;

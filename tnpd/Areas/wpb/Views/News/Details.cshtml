@@ -11,58 +11,22 @@
         </p>
    
         <!---相關附件--->
-        <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
-            <div style="padding-top:15px">1.「為提供使用者有文書軟體選擇的權利，本專區有提供ODF開放文件格式，建議您安裝<a href="http://zh-tw.libreoffice.org/download/libreoffice-still/" title="免費開源軟體(另開新視窗)" target="_blank">免費開源軟體</a>或以您慣用的軟體開啟文件。」
-            </div>
-            <ul class="ullink">
+        @if (Model.NewsFileses.Count > 0)
+        {
+         
+            <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
+                <ul class="ullink">
                 
-                @foreach (var file in Model.NewsFileses)
-                {
-                    var fileName = file.UpFile.Split('.');
-                    FileInfo finfo=new FileInfo(HttpContext.Current.Server.MapPath(file.UpFile));
-                  
-                    if (finfo.Exists)
+                    @foreach (var file in Model.NewsFileses)
                     {
-                        var hashCode=UIUtility.GetSHA1Hash(finfo.FullName);
-                        <li><a href="@file.UpFile.ToLower()" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
-                        <span>SHA256:@hashCode</span>
+                        var fileName = file.UpFile.Split('.');
+                    
+                        <li><a href="@file.UpFile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
                     }
-                    if (finfo.Extension.ToLower() == ".docx")
-                    {
-                        string pdffile = file.UpFile.ToLower().Replace(".docx", ".pdf");
-                        string pdfpath = HttpContext.Current.Server.MapPath(pdffile);
-                        pdfpath = pdfpath.ToLower().Replace("tnpd\\tnpd\\", "tnpd\\tnpdadmin\\");
-                        FileInfo pdfinfo = new FileInfo(pdfpath);
-                        if (pdfinfo.Exists)
-                        {
-                            var hashCode = UIUtility.GetSHA1Hash(pdfinfo.FullName);
-                            <li><a href="@pdffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
-                            <span>SHA256:@hashCode</span>
-                        }
-
-                        string odffile = file.UpFile.ToLower().Replace(".docx", ".odf");
-                        string odffpath = HttpContext.Current.Server.MapPath(odffile);
-                        odffpath = odffpath.ToLower().Replace("tnpd\\tnpd\\", "tnpd\\tnpdadmin\\");
-                        FileInfo odfinfo = new FileInfo(odffpath);
-                        if (odfinfo.Exists)
-                        {
-                            var hashCode = UIUtility.GetSHA1Hash(odfinfo.FullName);
-                            <li><a href="@odffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
-                            <span>SHA256:@hashCode</span>
-                        }
-                    }
-
-                }
-                
-                @*@foreach (var file in Model.NewsFileses)
-                {
-                    <li><a href="@file.UpFile.ToLower()" title="@(file.Subject) (另開視窗)">@file.Subject</a></li>
-                   
-
-                }*@
      
-            </ul>
-        </div>
+                </ul>
+            </div>
+        }
         <!---相關連結--->
         @if (Model.NewsLinks.Count > 0)
         {

@@ -6,6 +6,7 @@
         <div id="pricing-switch" class="pricing clearfix mt-3">
             @using (Html.BeginForm("Create", "ChiefMailbox", FormMethod.Get, new { @class = "form form-vaild form-aligned trailer" }))
             {
+                @Html.AntiForgeryToken()
                 <div class="pricing-box">
                     <div class="pricing-title">
                         <h3 class="text-info">線上受理民眾陳情案件聲明</h3>
@@ -63,7 +64,7 @@
             <tr>
                 <td>5</td>
                 <td>設置或維修號誌、劃線（測速照相為警察局），公有停車場</td>
-                <td><a href="https://www.rpb.gov.tw/" target="_blank" title="臺南市政府交通局(另開視窗)">臺南市政府交通局</a></td>
+                <td><a href="https://traffic.tainan.gov.tw/" target="_blank" title="臺南市政府交通局(另開視窗)">臺南市政府交通局</a></td>
             </tr>
             <tr>
                 <td>6</td>
@@ -78,7 +79,7 @@
             <tr>
                 <td>8</td>
                 <td>流浪動物導致髒亂</td>
-                <td><a href="http://web.tainan.gov.tw/ahipo/page.asp?nSub=H0A000" target="_blank" title="臺南市政府動物保護處(另開視窗)">臺南市政府動物保護處</a></td>
+                <td><a href="https://ahipo.tainan.gov.tw/" target="_blank" title="臺南市政府動物防疫保護處(另開視窗)">臺南市政府動物防疫保護處</a></td>
             </tr>
             <tr>
                 <td>9</td>

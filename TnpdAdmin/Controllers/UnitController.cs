@@ -13,7 +13,7 @@ using TnpdModels;
 namespace Tnpd.Controllers
 {
     [PermissionFilters]
-    [Authorize]
+  
     public class UnitController : Controller
     {
         private BackendContext db = new BackendContext();

@@ -217,6 +217,7 @@ rt
   <td class=xl27 style='border-top:none;border-left:none'>違規時間</td>
   <td class=xl27 style='border-top:none;border-left:none'>違規地點</td>
   <td class=xl27 style='border-top:none;border-left:none'>車號</td>
+  <td class=xl27 style='border-top:none;border-left:none'>違規事項</td>
   <td class=xl27 style='border-top:none;border-left:none'>陳述內容</td>
  </tr>
  
@@ -240,7 +241,12 @@ rt
   <td width=102 style='width:84pt'></td>
    <td width=102 style='width:84pt'></td>
     <td width=102 style='width:84pt'></td>
-	 <td width=102 style='width:400pt'></td>
+	 <td width=102 style='width:100pt'></td>
+	  <td width=102 style='width:100pt'></td>
+	   <td width=102 style='width:100pt'></td>
+	    <td width=102 style='width:100pt'></td>
+		 <td width=102 style='width:200pt'></td>
+		  <td width=102 style='width:200pt'></td>
  </tr>
  <![endif]>
 </table>

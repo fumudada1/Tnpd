@@ -66,14 +66,8 @@ namespace tnpd.Models
         [Display(Name = "附件3")]
         public string Upfile3 { get; set; }
 
-        [Display(Name = "違規時間日期year")]
-        public string violation_dateYear { get; set; }
-
-        [Display(Name = "違規時間日期month")]
-        public string violation_dateMonth { get; set; }
-
-        [Display(Name = "違規時間日期day")]
-        public string violation_dateday { get; set; }
+        [Display(Name = "違規時間日期")]
+        public DateTime violation_date { get; set; }
 
         [Display(Name = "違規時間")]
         [MaxLength(10)]

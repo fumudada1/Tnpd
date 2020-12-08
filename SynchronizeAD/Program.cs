@@ -32,7 +32,7 @@ namespace SynchronizeAD
                 adm = xn["LogonID"].InnerText;
                 pwd = xn["Password"].InnerText;
                 Domain = xn["Name"].InnerText;
-                domainOU = xn["OU"].InnerText;
+                domainOU = xn["OU"].InnerText; 
                 title = xn.Attributes["Title"].Value;
 
                 ADschema = GetLDAPPath(Domain, domainOU);

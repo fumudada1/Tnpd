@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Tnpd.Controllers;
 using Tnpd.Filters;
 using Tnpd.Models;
+using TnpdAdmin.Models;
 using TnpdModels;
 
 namespace TnpdAdmin.Controllers
@@ -25,7 +26,7 @@ namespace TnpdAdmin.Controllers
     public class CaseTrafficsController : _BaseController
     {
         private BackendContext _db = new BackendContext();
-        private const int DefaultPageSize = 15;
+        private const int DefaultPageSize = 30;
         //
 
 
@@ -42,15 +43,72 @@ namespace TnpdAdmin.Controllers
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
+            var trafficDepartmentdetails = _db.TrafficDepartmentdetails.Where(x => x.assignMember.MyUnit.ParentId == member.MyUnit.ParentId)
+                .OrderBy(p => p.InitDate).ToList();
+
+
             cases = cases.Where(w => w.UnitId == member.MyUnit.ParentId && (w.IsUnitAssign == BooleanType.否 || w.IsUnitAssign == null));
 
 
             cases = cases.Where(w => w.Poprocs.Count(x => x.Status != CaseProcessStatus.未分派) == 0);
 
+
+            ViewBag.MemberListSelect = new SelectList(trafficDepartmentdetails, "assignMember.Id", "assignMember.Name");
             ViewBag.Total = cases.Count();
 
             //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
             return View(cases.OrderBy(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+
+        }
+
+        [HttpPost]
+        public ActionResult Assign(string hidItem, int MemberListSelect)
+        {
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+
+            hidItem = hidItem.Trim(',');
+            string[] itemIds = hidItem.Split(',');
+            foreach (string itemId in itemIds)
+            {
+                int intId = Convert.ToInt32(itemId);
+                CaseTrafficPoproc tpoproc = _db.CaseTrafficPoprocs.FirstOrDefault(x => x.CaseId == intId);
+                if (tpoproc != null)
+                {
+                    return RedirectToAction("Assign");
+                }
+
+                CaseTraffic mycase = _db.CaseTraffics.Find(Convert.ToInt32(itemId));
+                if (mycase != null)
+                {
+                    var AssignMember = _db.Members.Find(MemberListSelect);
+                    CaseTrafficPoproc poproc = new CaseTrafficPoproc();
+                    poproc.CaseId = mycase.Id;
+                    poproc.MemberId = AssignMember.Id;
+                    poproc.CaseTime = mycase.InitDate.Value;
+                    poproc.UnitId = AssignMember.UnitId;
+                    poproc.Status = CaseProcessStatus.待辦;
+                    poproc.AssignDateTime = DateTime.Now;
+                    poproc.AssignMemo = "";
+                    poproc.process = "assign";
+                    //poproc.PoprocsType = "";
+                    //poproc.PoprocsSubType = PoprocsSubType;
+
+                    _db.CaseTrafficPoprocs.Add(poproc);
+                    CaseTrafficPoprocLog log = new CaseTrafficPoprocLog();
+                    log.CaseId = mycase.Id;
+                    log.MemberId = member.Id;
+                    log.InitDate = DateTime.Now;
+                    log.Action = "派案";
+                    log.UnitId = member.UnitId;
+                    log.ActionMemo = "案件指派";
+                    _db.CaseTrafficPoprocLogs.Add(log);
+                }
+
+            }
+
+            _db.SaveChanges();
+            return RedirectToAction("Assign");
 
         }
 
@@ -505,6 +563,19 @@ namespace TnpdAdmin.Controllers
 
             ViewBag.Total = casePoprocs.Count();
 
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            ViewBag.caseMerges = caseMerges;
+
             //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
             return View(casePoprocs.OrderBy(p => p.Case.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
 
@@ -678,6 +749,181 @@ namespace TnpdAdmin.Controllers
 
             return View(myPoproc);
         }
+
+        public ActionResult ProcessBatch()
+        {
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            ViewBag.ca1 = member.MyUnit.ParentUnit.Id;
+            ViewBag.ca2 = member.UnitId;
+
+
+            ViewBag.ViolationsClasses = new SelectList(_db.TrafficViolationsClasses.OrderBy(p => p.ListNum), "Id", "Subject");
+            ViewBag.ViolationsRejectclasses = new SelectList(_db.TrafficViolationsRejectclasses.OrderBy(p => p.ListNum), "Id", "Subject");
+
+
+            return View(caseMerges);
+        }
+
+        public ActionResult AddMerges(string id)
+        {
+            string[] ids = id.Trim(',').Split(',');
+
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            foreach (var item in ids)
+            {
+                int itemid = Convert.ToInt32(item);
+                if (caseMerges.Count(x => x.Id == itemid) > 0)
+                {
+                    continue;
+                }
+                CaseTrafficPoproc mCase = _db.CaseTrafficPoprocs.Find(itemid);
+                if (mCase == null)
+                {
+                    continue;
+                }
+                CaseMerge caseMerge = new CaseMerge();
+                caseMerge.CaseID = mCase.Case.CaseID;
+                caseMerge.CaseType = mCase.Case.CaseType;
+                caseMerge.Id = mCase.Id;
+                caseMerge.Subject = mCase.Case.Subject;
+                caseMerge.Name = mCase.Case.Name;
+                caseMerge.InitDate = mCase.Case.InitDate;
+                caseMerges.Add(caseMerge);
+                Session["TrafficCaseMerge"] = caseMerges;
+            }
+
+            return Content(caseMerges.Count().ToString());
+        }
+
+        [HttpPost]
+        public ActionResult RemoveMerge(int id)
+        {
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            CaseMerge mCase = caseMerges.FirstOrDefault(x => x.Id == id);
+            if (mCase == null)
+            {
+                return Content("Error");
+            }
+            caseMerges.Remove(mCase);
+            Session["TrafficCaseMerge"] = caseMerges;
+            return RedirectToAction("ProcessBatch");
+        }
+
+        public ActionResult RemoveList(int id)
+        {
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            CaseMerge mCase = caseMerges.FirstOrDefault(x => x.Id == id);
+            if (mCase == null)
+            {
+                return Content("Error");
+            }
+            caseMerges.Remove(mCase);
+            Session["TrafficCaseMerge"] = caseMerges;
+            return RedirectToAction("ProcessBatch");
+        }
+        //
+        // POST: /Case/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult ProcessBatch(string processtype, string PoprocsContent, string process, int? PoprocsType, int? ViolationsRejectclasses, int? ViolationsClasses, DateTime? DelyDateTime, string DelyMemo, string noplyreason, HttpPostedFileBase Upfile)
+        {
+            Member member =
+           _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+
+            List<CaseMerge> caseMerges;
+            if (Session["TrafficCaseMerge"] == null)
+            {
+                caseMerges = new List<CaseMerge>();
+
+            }
+            else
+            {
+                caseMerges = (List<CaseMerge>)Session["TrafficCaseMerge"];
+            }
+
+            foreach (CaseMerge caseMerge in caseMerges)
+            {
+                CaseTrafficPoproc myPoproc = _db.CaseTrafficPoprocs.Find(caseMerge.Id);
+                if (processtype == "Poprocs") //
+                {
+
+                    CaseTrafficPoproc poproc = myPoproc;
+                    poproc.Status = CaseProcessStatus.已辦;
+                    poproc.AssignMemo = PoprocsContent;
+                    poproc.process = process;
+                    poproc.PoprocsType = PoprocsType;
+                    poproc.ViolationsRejectclassId = ViolationsRejectclasses;
+                    poproc.TrafficViolationsClassId = ViolationsClasses;
+                   
+                    CaseTrafficPoprocLog log = new CaseTrafficPoprocLog();
+                    log.CaseId = poproc.CaseId;
+                    log.MemberId = member.Id;
+                    log.InitDate = DateTime.Now;
+                    log.Action = "核判送出";
+                    log.UnitId = member.UnitId;
+                    log.ActionMemo = PoprocsContent;
+                    _db.CaseTrafficPoprocLogs.Add(log);
+                    ViewBag.message = "案件已核判送出!";
+
+
+                }
+            }
+
+
+
+
+
+
+            _db.SaveChanges();
+            Session["TrafficCaseMerge"] = null;
+
+            return RedirectToAction("Process");
+        }
+
 
         public ActionResult Extension(int? page, FormCollection fc)
         {
@@ -953,6 +1199,10 @@ namespace TnpdAdmin.Controllers
             }
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            if (myPoproc.Status == CaseProcessStatus.結案)
+            {
+                return View(myPoproc);
+            }
 
             if (processtype == "Close") //結案
             {
@@ -1240,13 +1490,7 @@ namespace TnpdAdmin.Controllers
             if (processtype == "SendMail") //指派
             {
 
-                List<CaseTrafficPoproc> caseTrafficPoprocs =
-                    _db.CaseTrafficPoprocs.Where(x => x.Status == CaseProcessStatus.結案).ToList();
 
-                foreach (CaseTrafficPoproc poproc in caseTrafficPoprocs)
-                {
-
-                }
 
                 //發信
                 string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
@@ -1282,7 +1526,7 @@ namespace TnpdAdmin.Controllers
                 mailbody = mailbody.Replace("{URL}", InternetURL + "Casewq/index/" + mycase.CaseGuid);
                 //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
                 Utility.SystemSendMail(mycase.Email, "臺南市政府警察局-結案通知(修正滿意度調查表連結)", mailbody);
-                Utility.SystemSendMail("topidea.justin@gmail.com", "臺南市政府警察局-結案通知(修正滿意度調查表連結)", mailbody);
+                //Utility.SystemSendMail("topidea.justin@gmail.com", "臺南市政府警察局-結案通知(修正滿意度調查表連結)", mailbody);
                 ViewBag.message = "信件已寄出!";
 
 
@@ -1371,7 +1615,7 @@ namespace TnpdAdmin.Controllers
             temp = temp.Replace("{Predate}", case1.Predate.ToString("yyyy/MM/dd"));
 
             temp = temp.Replace("{Job}", case1.Job);
-            temp = temp.Replace("{Gender}", case1.Gender.ToString());
+            //temp = temp.Replace("{Gender}", case1.Gender.ToString());
             temp = temp.Replace("{violation_place}", case1.violation_place_area + case1.violation_place_road + case1.violation_place);
             temp = temp.Replace("{violation_date}", case1.violation_date.ToString("yyyy/MM/dd") + " " + case1.violation_time);
             temp = temp.Replace("{violation_carno}", case1.violation_carno);
@@ -1418,7 +1662,7 @@ namespace TnpdAdmin.Controllers
             temp = temp.Replace("{Predate}", case1.Predate.ToString("yyyy/MM/dd"));
 
             temp = temp.Replace("{Job}", case1.Job);
-            temp = temp.Replace("{Gender}", case1.Gender.ToString());
+            //temp = temp.Replace("{Gender}", case1.Gender.ToString());
 
 
             temp = temp.Replace("{violation_place}", case1.violation_place_area + case1.violation_place_road + case1.violation_place);
@@ -1463,7 +1707,7 @@ namespace TnpdAdmin.Controllers
             temp = temp.Replace("{Predate}", caseTraffic.Predate.ToString("yyyy/MM/dd"));
 
             temp = temp.Replace("{Job}", caseTraffic.Job);
-            temp = temp.Replace("{Gender}", caseTraffic.Gender.ToString());
+            //temp = temp.Replace("{Gender}", caseTraffic.Gender.ToString());
 
             temp = temp.Replace("{violation_place}", caseTraffic.violation_place_area + caseTraffic.violation_place_road + caseTraffic.violation_place);
             temp = temp.Replace("{violation_date}", caseTraffic.violation_date.ToString("yyyy/MM/dd") + " " + caseTraffic.violation_time);
@@ -1509,7 +1753,7 @@ namespace TnpdAdmin.Controllers
             temp = temp.Replace("{Predate}", caseTraffic.Predate.ToString("yyyy/MM/dd"));
 
             temp = temp.Replace("{Job}", caseTraffic.Job);
-            temp = temp.Replace("{Gender}", caseTraffic.Gender.ToString());
+            //temp = temp.Replace("{Gender}", caseTraffic.Gender.ToString());
 
             temp = temp.Replace("{violation_place}", caseTraffic.violation_place_area + caseTraffic.violation_place_road + caseTraffic.violation_place);
             temp = temp.Replace("{violation_date}", caseTraffic.violation_date.ToString("yyyy/MM/dd") + " " + caseTraffic.violation_time);
@@ -1568,7 +1812,8 @@ namespace TnpdAdmin.Controllers
                 string strTr = temptr;
                 strTr = strTr.Replace("{CaseID}", casePoproc.Case.CaseID);
                 strTr = strTr.Replace("{CaseType}", "交通檢舉信箱");
-                strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
+                //strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
+                strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString());
                 strTr = strTr.Replace("{Name}", casePoproc.Case.Name + " ");
                 strTr = strTr.Replace("{Subject}", casePoproc.Case.Subject + " ");
                 strTr = strTr.Replace("{assignUnit}", casePoproc.assignUnit.ParentUnit.Subject + "-" + casePoproc.assignUnit.Subject);
@@ -1676,8 +1921,9 @@ namespace TnpdAdmin.Controllers
 
                 strTr = strTr.Replace("{violation_date}", casePoproc.Case.violation_date.ToString("yyyy/MM/dd"));
                 strTr = strTr.Replace("{violation_time}", casePoproc.Case.violation_time);
-                strTr = strTr.Replace("{violation_place}", casePoproc.Case.violation_place);
+                strTr = strTr.Replace("{violation_place}", casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place);
                 strTr = strTr.Replace("{violation_carno}", casePoproc.Case.violation_carno);
+                strTr = strTr.Replace("{itemno}", casePoproc.Case.itemno);
                 strTr = strTr.Replace("{Content}", casePoproc.Case.Content);
 
 
@@ -1745,7 +1991,7 @@ namespace TnpdAdmin.Controllers
 
         public ActionResult Report3()
         {
-            var cases = _db.CaseTraffics.Include(x=>x.Poprocs).Where(x=>x.Id==0).AsQueryable();
+            var cases = _db.CaseTraffics.Include(x => x.Poprocs).Where(x => x.Id == 0).AsQueryable();
             return View(cases.ToList());
         }
 
@@ -1754,10 +2000,18 @@ namespace TnpdAdmin.Controllers
         {
             string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/report3.xls"), System.Text.Encoding.UTF8);
             string sql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/report3.sql"), System.Text.Encoding.Default);
+            string UnitName = "";
+            if (!string.IsNullOrEmpty(SearchByCategories1))
+            {
+                string strSearchUnit = "between '2019/1/1' and '2019/3/1' and CaseTrafficPoprocs.UnitId in(select id from Units where ParentId=" +SearchByCategories1+ ")";
+                sql = sql.Replace("between '2019/1/1' and '2019/3/1'", strSearchUnit);
+                Unit unit = _db.Units.Find(Convert.ToInt32(SearchByCategories1) );
+                UnitName ="-"+ unit.Subject;
+            }
 
             if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
             {
-               
+
                 DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
                 sql = sql.Replace("2019/1/1", SearchByStartDate);
                 sql = sql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
@@ -1769,31 +2023,31 @@ namespace TnpdAdmin.Controllers
                 return View();
             }
 
-            
+
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TnpdConnection"].ToString());
-            SqlCommand comm=new SqlCommand(sql,conn);
-            SqlDataAdapter da=new SqlDataAdapter(comm);
-            DataTable dt=new DataTable();
+            SqlCommand comm = new SqlCommand(sql, conn);
+            SqlDataAdapter da = new SqlDataAdapter(comm);
+            DataTable dt = new DataTable();
             da.Fill(dt);
             int vcol = dt.Columns.Count;
             string vcolname = "";
             string body = "";
-            tempBody = tempBody.Replace("{vcol}", (vcol-5).ToString());
-            for (int i = 5; i <= vcol-1; i++)
+            tempBody = tempBody.Replace("{vcol}", (vcol - 5).ToString());
+            for (int i = 5; i <= vcol - 1; i++)
             {
-                vcolname = vcolname + "<td>" + dt.Columns[i].ColumnName+ "</td>";
+                vcolname = vcolname + "<td>" + dt.Columns[i].ColumnName + "</td>";
             }
             tempBody = tempBody.Replace("{vcolname}", vcolname);
             foreach (DataRow row in dt.Rows)
             {
                 body = body + "<tr align=\"center\">";
-                for (int i = 0; i <= vcol-1; i++)
+                for (int i = 0; i <= vcol - 1; i++)
                 {
                     body = body + "<td>" + row[i].ToString() + "</td>";
                 }
                 body = body + "</tr>";
-                
+
             }
             tempBody = tempBody.Replace("{body}", body);
             Member member =
@@ -1802,7 +2056,7 @@ namespace TnpdAdmin.Controllers
             string fileName = member.Account + "3.xls";
             System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
 
-            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "檢舉違規行為態樣表.xls");
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "檢舉違規行為態樣表" +UnitName + ".xls");
 
         }
 

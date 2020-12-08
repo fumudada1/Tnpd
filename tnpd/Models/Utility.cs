@@ -194,12 +194,14 @@ namespace tnpd.Models
         /// <returns>儲存檔名</returns>
         static public string SaveTraffFile(HttpPostedFileBase upfile)
         {
+            string trafficFilesPath = ConfigurationManager.AppSettings["TrafficFiles"];
+
             //取得副檔名
             string extension = upfile.FileName.Split('.')[upfile.FileName.Split('.').Length - 1];
             string fileName = DateTime.Now.ToString("yyyyMMddhhmmsss");
             string fileNameTemp = fileName;
             int i = 1;
-            while (System.IO.File.Exists(Path.Combine(@"C:\website\tnpd\tnpd\TrafficFiles\", string.Format("{0}.{1}", fileNameTemp, extension))))
+            while (System.IO.File.Exists(Path.Combine(trafficFilesPath, string.Format("{0}.{1}", fileNameTemp, extension))))
             {
                 fileNameTemp = fileNameTemp + "(" + i.ToString(CultureInfo.InvariantCulture) + ")";
                 i++;
@@ -207,7 +209,31 @@ namespace tnpd.Models
 
             //新檔案名稱
             fileName = string.Format("{0}.{1}", fileNameTemp, extension);
-            string savedName = Path.Combine(@"C:\website\tnpd\tnpd\TrafficFiles\", fileName);
+            string savedName = Path.Combine(trafficFilesPath, fileName);
+            upfile.SaveAs(savedName);
+            return fileName;
+        }
+        /// <summary>
+        /// 儲存上傳檔案
+        /// </summary>
+        /// <param name="upfile">HttpPostedFile 物件</param>
+        /// <returns>儲存檔名</returns>
+        static public string SaveTraffFile(HttpPostedFileBase upfile,string savePath)
+        {
+            //取得副檔名
+            string extension = upfile.FileName.Split('.')[upfile.FileName.Split('.').Length - 1];
+            string fileName = DateTime.Now.ToString("yyyyMMddhhmmsss");
+            string fileNameTemp = fileName;
+            int i = 1;
+            while (System.IO.File.Exists(Path.Combine(savePath, string.Format("{0}.{1}", fileNameTemp, extension))))
+            {
+                fileNameTemp = fileNameTemp + "(" + i.ToString(CultureInfo.InvariantCulture) + ")";
+                i++;
+            }
+
+            //新檔案名稱
+            fileName = string.Format("{0}.{1}", fileNameTemp, extension);
+            string savedName = Path.Combine(savePath, fileName);
             upfile.SaveAs(savedName);
             return fileName;
         }
@@ -1034,36 +1060,45 @@ namespace tnpd.Models
 
         public static void SystemSendMail(string toAddress, string subject, string mailBody)
         {
-            MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
-            mailMessage.Subject = subject;
-            mailMessage.IsBodyHtml = true;
-            mailMessage.Body = mailBody;
-            // SMTP Server
-            SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
-            System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
-            mailSender.Credentials = basicAuthenticationInfo;
-            mailSender.Send(mailMessage);
-            mailMessage.Dispose();
+            
 
-                //MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
-                //mailMessage.Subject = subject;
-                //mailMessage.IsBodyHtml = true;
-                //mailMessage.Body = mailBody;
-                //// SMTP Server
-                //SmtpClient mailSender = new SmtpClient("mail.tnpd.gov.tw");
-                //System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
-                //mailSender.Credentials = basicAuthenticationInfo;
-                //mailSender.Send(mailMessage);
-                //mailMessage.Dispose();
+            //MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
+            //mailMessage.Subject = subject;
+            //mailMessage.IsBodyHtml = true;
+            //mailMessage.Body = mailBody;
+            //// SMTP Server
+            //SmtpClient mailSender = new SmtpClient("mail.tnpd.gov.tw");
+            //System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
+            //mailSender.Credentials = basicAuthenticationInfo;
+            //mailSender.Send(mailMessage);
+            //mailMessage.Dispose();
 
             try
             {
-                
+                MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom1"], toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+                // SMTP Server
+                SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer1"]);
+                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount1"], ConfigurationManager.AppSettings["MailPassword1"]);
+                mailSender.Credentials = basicAuthenticationInfo;
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
 
             }
             catch
             {
-                return;
+                MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+                // SMTP Server
+                SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
+                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
+                mailSender.Credentials = basicAuthenticationInfo;
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
             }
         }
 

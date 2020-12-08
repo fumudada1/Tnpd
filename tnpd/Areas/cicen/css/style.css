@@ -89,10 +89,8 @@ li {
     /*  outline: none !important;*/
 }
 
-:focus {
-    /* outline: none !important;*/
-    outline: 2px dashed #ff7200;
-    /* background-color: #c5ebe6; */
+:focus, input:focus, select:focus, button:focus, a:focus, img:focus {
+    outline: 2px dashed #ff7200!important;
 }
 
 

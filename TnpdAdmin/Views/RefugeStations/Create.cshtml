@@ -1,0 +1,131 @@
+﻿@using Tnpd.Models
+@model TnpdModels.RefugeStation
+
+@{
+    ViewBag.Title = "防空疏散避難設施地圖新增";
+}
+
+<h2>防空疏散避難設施地圖新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>RefugeStation</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DIstrict)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DIstrict,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("DIstrict") })
+            @Html.ValidationMessageFor(model => model.DIstrict)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Village)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Village,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Village") })
+            @Html.ValidationMessageFor(model => model.Village)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Address,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Address") })
+            @Html.ValidationMessageFor(model => model.Address)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Number)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Number,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Number") })
+            @Html.ValidationMessageFor(model => model.Number)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Precinct)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Precinct") 
+           
+            @Html.ValidationMessageFor(model => model.Precinct)
+
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Twd97X)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Twd97X,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Twd97X") })
+            @Html.ValidationMessageFor(model => model.Twd97X)
+            
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Twd97Y)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Twd97Y,new { placeholder=ModelsAttributeHelper<TnpdModels.RefugeStation>.GetDisplayName("Twd97Y") })
+            @Html.ValidationMessageFor(model => model.Twd97Y)
+       
+            
+        </div>
+
+        
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function() {
+            $("#btnGetLocation").click(function() {
+                $.post("/RefugeStations/GetPointByAddress", { address: $("#Address").val() })
+                    .done(function (data) {
+                        Console.log(data);
+                    });
+            });
+        });
+    </script>
+
+
+}

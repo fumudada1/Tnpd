@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="~/Areas/@areaName/css/animate.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
-    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css?123" type="text/css" />
 
     <!-- Document Title
     ============================================= -->
@@ -70,12 +70,12 @@
             <div class="container clearfix ">
                 <!-- Logo
                 ============================================= -->
-                <div id="logo">
+                <h1 id="logo" class="nomargin">
                     <a href="/@path/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(alias)_Tainan City Police Department"><img
                             src="/Areas/@areaName/images/logo.png" alt="@(alias)_Tainan City Police Department"></a>
                     <a href="/@path/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(alias)_Tainan City Police Department"><img
                             src="/Areas/@areaName/images/logo@2x.png" alt="@(alias)_Tainan City Police Department"></a>
-                </div><!-- #logo end -->
+                </h1><!-- #logo end -->
                 <div class="row justify-content-end no-gutters">
                     <div class="col-lg-auto col-md-12">
                         <div class="top-advert-1">
@@ -96,9 +96,9 @@
                                 <noscript>Your browser does not support script syntax. To increase the size of text and
                                     images, please press Ctrl and “+” at the same time; to decrease the size, press
                                     Ctrl and “-” at the same time.</noscript>
-                                <li><a href="#" id="aSFont" title="Font-Size:Small">A<sup>-</sup></a></li>
-                                <li><a href="#" id="aMFont" title="Font-Size:Middle" class="active">A</a></li>
-                                <li><a href="#" id="aLFont" title="Font-Size:Large">A<sup>+</sup></a></li>
+                                <li><a href="#" id="aSFont" title="Font-Size:Small">A<sup>-</sup><span class="sr-only">Font-Size:Small</span></a></li>
+                                <li><a href="#" id="aMFont" title="Font-Size:Middle" class="active">A<span class="sr-only">Font-Size:Middle</span></a></li>
+                                <li><a href="#" id="aLFont" title="Font-Size:Large">A<sup>+</sup><span class="sr-only">Font-Size:Large</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                         <div class="col-md-3 d-none d-md-block" id="left-menu">
                             <a href="#L" accesskey="L" class="alt-c01" title="Left block">:::</a>
                             <div class="leftbox">
-                                <h3><i class="icon-line-layers"></i> Menu</h3>
+                                <h2><i class="icon-line-layers"></i> Menu</h2>
                                 @Html.Raw(web.GetEnLeftMenu())
                             </div>
                         </div>
@@ -159,6 +159,7 @@
                                                     title="facebook(Open New Window)" target="_blank">
                                                     <i class="icon-facebook"></i>
                                                     <i class="icon-facebook"></i>
+                                                    <span class="sr-only">facebook(Open New Window)</span>
                                                 </a>
                                             </li>
                                             <li><noscript>
@@ -169,6 +170,7 @@
                                                     title="Print">
                                                     <i class="icon-line-printer"></i>
                                                     <i class="icon-line-printer"></i>
+                                                    <span class="sr-only">Print</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -198,7 +200,7 @@
                     <a href="#Z" title="Bottom Area" accesskey="Z" class="alt-c01">:::</a>
                     <div class="col_half">
                         <ul class="crul">
-                            <li>No.294, Huazong Rd., Xuejia Dist., Tainan City 726, Taiwan (R.O.C.)</li>
+                            <li>No.294, Huazong Rd., Xuejia Dist., Tainan City 726003, Taiwan (R.O.C.)</li>
                             <li>Tel : 886-6-7832701</li>
                             <li>@alias. Tainan City Police Department © 2018</li>
                             <li class="d-none d-md-block">Best viewed with IE10.0+, Firefox, Chrome or higher with 1024
@@ -221,7 +223,7 @@
     <!-- #wrapper end -->
     <!-- Go To Top
     ============================================= -->
-    <div id="gotoTop"><a href="#" class="gotoTop-sty" title="Go To Top"><i class="icon-angle-up"></i></a></div>
+    <div id="gotoTop"><a href="#" class="gotoTop-sty" title="Go To Top"><i class="icon-angle-up"></i><span class="sr-only">Go To Top</span></a></div>
     <!-- External JavaScripts
     ============================================= -->
     <script src="~/Areas//@areaName/js/jquery.js"></script>

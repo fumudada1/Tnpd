@@ -132,13 +132,13 @@
                 <tbody>
                     <tr>
                         <td>姓名：@Model.Case.Name</td>
-                        <td>性別：@Model.Case.Gender</td>
+                        <td style="display:none ">性別：@Model.Case.Gender</td>
 
                     </tr>
                     <tr>
 
                         <td>電話：@Model.Case.TEL</td>
-                        <td>職業：@Model.Case.Job</td>
+                        <td style="display:none ">職業：@Model.Case.Job</td>
                     </tr>
                     <tr>
 
@@ -260,13 +260,13 @@
                 <tbody>
                 <tr>
                     <td>姓名：@Model.Case.Name</td>
-                    <td>性別：@Model.Case.Gender</td>
+                    <td style="display:none ">性別：@Model.Case.Gender</td>
 
                 </tr>
                 <tr>
 
                     <td>電話：@Model.Case.TEL</td>
-                    <td>職業：@Model.Case.Job</td>
+                    <td style="display:none ">職業：@Model.Case.Job</td>
                 </tr>
                 <tr>
 
@@ -310,13 +310,13 @@
                 <tbody>
                 <tr>
                     <td>姓名：@Model.Case.Name</td>
-                    <td>性別：@Model.Case.Gender</td>
+                    <td style="display:none ">性別：@Model.Case.Gender</td>
 
                 </tr>
                 <tr>
 
                     <td>電話：@Model.Case.TEL</td>
-                    <td>職業：@Model.Case.Job</td>
+                    <td style="display:none ">職業：@Model.Case.Job</td>
                 </tr>
                 <tr>
 
@@ -354,7 +354,7 @@
                 <tbody>
                 <tr>
                     <td>姓名：@Model.Case.Name</td>
-                    <td>性別：@Model.Case.Gender</td>
+                    <td style="display:none ">性別：@Model.Case.Gender</td>
 
                 </tr>
                 <tr>
@@ -727,20 +727,25 @@
             $(".datepicker").datepicker();
             $("#btnSave").click(function() {
                 $("#processtype").val("Save");
+                
                 $("form").submit();
+                $("#btnSave").attr("disabled", "disabled");
             });
             $("#btnAssign").click(function() {
                 $("#processtype").val("Assign");
                 $("form").submit();
+                $("#btnAssign").attr("disabled", "disabled");
             });
             $("#btnPoprocs").click(function() {
                 $("#processtype").val("Poprocs");
                 $("form").submit();
+                $("#btnPoprocs").attr("disabled", "disabled");
             }); 
 
             $("#btnModifyPeople").click(function() {
                 $("#processtype").val("ModifyPeople");
                 $("form").submit();
+                $("#btnModifyPeople").attr("disabled", "disabled");
             });
 
             $("#btnOpenExtension").click(function() {
@@ -767,8 +772,8 @@
                     retrun;
                 }
                 $("#processtype").val("Extension");
-                $("#processtype").attr("disabled", "disabled");
                 $("form").submit();
+                $("#btnExtension").attr("disabled", "disabled");
             });
             $("#btnGoback").click(function() {
                 if ($("#noplyreason").val() == "") {
@@ -776,8 +781,8 @@
                     retrun;
                 }
                 $("#processtype").val("Goback");
-                $("#btnGoback").attr("disabled", "disabled");
                 $("form").submit();
+                $("#btnGoback").attr("disabled", "disabled");
             });
             $(".return").click(function() {
                 $("#btngroup").show();

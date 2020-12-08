@@ -21,7 +21,7 @@
     <input type="hidden" id="hidSearchByCategories1" value="@ViewData["SearchByCategories1"]" /> 
     <input type="hidden" id="hidSearchByCategories2" value="@ViewData["SearchByCategories2"]" /> 
    
-    案件別： @Html.DropDownList("SearchByCaseType", new SelectList(Enum.GetValues(typeof(TnpdModels.CaseType))).Where(x=>x.Text!="大隊隊長信箱"),"請選擇")
+   @* 案件別： @Html.DropDownList("SearchByCaseType", new SelectList(Enum.GetValues(typeof(TnpdModels.CaseType))).Where(x=>x.Text!="大隊隊長信箱"),"請選擇")*@
                
                    
         	<br/> 收件日期:<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker" autocomplete="off"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker" autocomplete="off"/>
@@ -52,7 +52,7 @@
     </tr>
     <tr>
 
-        <th align="left" class="font10"><label for="name">*2.您對「首長信箱」處理本案回復時間的滿意程度?</label></th>
+        <th align="left" class="font10"><label for="name">*2.您對「首長交通檢舉信箱」處理本案回復時間的滿意程度?</label></th>
 
     </tr>
     <tr>
@@ -68,7 +68,7 @@
     </tr>
     <tr>
 
-        <th align="left" class="font10"><label for="name">*3.整體而言，您對「首長信箱」的滿意程度?</label></th>
+        <th align="left" class="font10"><label for="name">*3.整體而言，您對「首長交通檢舉信箱」的滿意程度?</label></th>
 
     </tr>
     <tr>

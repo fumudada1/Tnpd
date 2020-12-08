@@ -36,8 +36,10 @@ namespace tnpd.Controllers
             var newse4 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 6 && y.WebSiteId == 1) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
                 .OrderByDescending(p => p.StartDate).Take(7);
 
-           
-          
+            
+
+
+
 
             var homeAds = _db.HomeAds.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId == 1).OrderBy(x => x.ListNum);
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,13 +30,11 @@ namespace tnpd.Controllers
             }
             ViewBag.UnId = id.ToString();
             CaseTrafficView caseTraffic = new CaseTrafficView();
-            caseTraffic.violation_dateYear = (DateTime.Now.Year-1911).ToString();
-            caseTraffic.violation_dateMonth = DateTime.Now.Month.ToString();
-            caseTraffic.violation_dateday = DateTime.Now.Day.ToString();
+            
             caseTraffic.violation_time1 = DateTime.Now.Hour.ToString();
             caseTraffic.violation_time2 = DateTime.Now.Minute.ToString();
 
-            
+
 
 
             ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
@@ -44,7 +44,7 @@ namespace tnpd.Controllers
 
         // POST: /Mailbox/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public ActionResult Create(Guid id, CaseTrafficView trafficView, string checkCode, HttpPostedFileBase Upfile1, HttpPostedFileBase Upfile2, HttpPostedFileBase Upfile3, HttpPostedFileBase Upfile4, HttpPostedFileBase Upfile5, HttpPostedFileBase Upfile6)
         {
             ViewBag.UnId = id.ToString();
@@ -55,7 +55,7 @@ namespace tnpd.Controllers
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
                 ViewBag.UnId = id.ToString();
-               
+
                 ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
                 return View(trafficView);
             }
@@ -68,7 +68,7 @@ namespace tnpd.Controllers
             //    ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
             //    return View(trafficView);
             //}
-            DateTime Odate = Convert.ToDateTime((Convert.ToInt32(trafficView.violation_dateYear) + 1911).ToString() + "/" + trafficView.violation_dateMonth + "/" + trafficView.violation_dateday);
+            DateTime Odate = trafficView.violation_date;
             if (DateTime.Today.AddDays(-8) > Odate)
             {
                 ModelState.AddModelError("CheckCode", "已逾七日之檢舉。");
@@ -89,11 +89,14 @@ namespace tnpd.Controllers
                 return View(trafficView);
             }
 
-           
+
 
             if (ModelState.IsValid)
             {
-               CaseTraffic traffic=new CaseTraffic();
+                string trafficFilesPath = ConfigurationManager.AppSettings["TrafficFiles"];
+                string relativeAddress = "/";
+
+                CaseTraffic traffic = new CaseTraffic();
 
                 traffic.Address = trafficView.Address;
                 traffic.Subject = trafficView.Subject;
@@ -104,7 +107,7 @@ namespace tnpd.Controllers
                 traffic.Name = trafficView.Name;
                 traffic.TEL = trafficView.TEL;
                 traffic.itemno = trafficView.itemno;
-                traffic.violation_date = Convert.ToDateTime((Convert.ToInt32(trafficView.violation_dateYear)+1911).ToString() + "/" + trafficView.violation_dateMonth + "/" + trafficView.violation_dateday) ;
+                traffic.violation_date = trafficView.violation_date;
                 traffic.violation_carno = trafficView.violation_carno1 + "-" + trafficView.violation_carno2;
                 TrafficRoaddata roaddata =
                     _db.TrafficRoaddatas.FirstOrDefault(x => x.Id == trafficView.violation_place_road);
@@ -113,6 +116,15 @@ namespace tnpd.Controllers
                     traffic.violation_place_area = roaddata.Region.Subject;
                     traffic.violation_place_road = roaddata.Subject;
                     traffic.UnitId = roaddata.Region.UnitId;
+                    trafficFilesPath = trafficFilesPath + roaddata.Region.assignUnit.Subject;
+                    //if (!System.IO.Directory.Exists(trafficFilesPath))
+                    //{
+                    //    Directory.CreateDirectory(trafficFilesPath);
+                        
+                    //}
+
+                    relativeAddress = relativeAddress + roaddata.Region.assignUnit.Subject + "/";
+
                 }
                 else
                 {
@@ -122,20 +134,21 @@ namespace tnpd.Controllers
                 traffic.violation_place = trafficView.violation_place;
                 traffic.violation_time = trafficView.violation_time1 + ":" + trafficView.violation_time2;
                 traffic.Gender = trafficView.Gender;
+
                 if (Upfile1 != null)
                 {
 
                     //if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1)
                     //{
                     //    ViewBag.Message = "檔案型態錯誤!";
-                     
+
                     //}
                     filesName += Upfile1.FileName + "<br/>";
-                    traffic.Upfile1 = Utility.SaveTraffFile(Upfile1);
+                    traffic.Upfile1 =   Utility.SaveTraffFile(Upfile1);
 
 
                 }
-                System.Threading.Thread.Sleep(300);
+
 
                 if (Upfile2 != null)
                 {
@@ -146,10 +159,10 @@ namespace tnpd.Controllers
 
                     //}
                     filesName += Upfile2.FileName + "<br/>";
-                    traffic.Upfile2 = Utility.SaveTraffFile(Upfile2);
+                    traffic.Upfile2 =  Utility.SaveTraffFile(Upfile2);
 
                 }
-                System.Threading.Thread.Sleep(300);
+
 
                 if (Upfile3 != null)
                 {
@@ -160,30 +173,30 @@ namespace tnpd.Controllers
 
                     //}
                     filesName += Upfile3.FileName + "<br/>";
-                    traffic.Upfile3 = Utility.SaveTraffFile(Upfile3);
+                    traffic.Upfile3 =   Utility.SaveTraffFile(Upfile3);
 
                 }
-                System.Threading.Thread.Sleep(300);
+
                 if (Upfile4 != null)
                 {
 
-                  
+
                     filesName += Upfile4.FileName + "<br/>";
-                    traffic.Upfile4 = Utility.SaveTraffFile(Upfile4);
+                    traffic.Upfile4 =   Utility.SaveTraffFile(Upfile4);
 
 
                 }
-                System.Threading.Thread.Sleep(300);
+
 
                 if (Upfile5 != null)
                 {
 
-                  
+
                     filesName += Upfile5.FileName + "<br/>";
-                    traffic.Upfile5 = Utility.SaveTraffFile(Upfile5);
+                    traffic.Upfile5 =   Utility.SaveTraffFile(Upfile5);
 
                 }
-                System.Threading.Thread.Sleep(300);
+
 
                 if (Upfile6 != null)
                 {
@@ -194,24 +207,35 @@ namespace tnpd.Controllers
 
                     //}
                     filesName += Upfile6.FileName + "<br/>";
-                    traffic.Upfile6 = Utility.SaveTraffFile(Upfile6);
+                    traffic.Upfile6 =   Utility.SaveTraffFile(Upfile6);
 
                 }
 
-
                 traffic.CaseGuid = Guid.NewGuid().ToString();
 
-               
-             
+
+
                 Holiday holiday = new Holiday();
-                traffic.Predate = holiday.GetWorkDay(DateTime.Today, 45);
+                //traffic.Predate = holiday.GetWorkDay(DateTime.Today, 45);
+                traffic.Predate = DateTime.Today.AddDays(30);
 
                 traffic.IP = Request.UserHostAddress;
                 traffic.InitDate = DateTime.Now;
                 _db.CaseTraffics.Add(traffic);
 
                 Trafficdisdata disTrafficdisdata = _db.Trafficdisdatas
-                    .FirstOrDefault(x => x.assignMember.MyUnit.ParentId == traffic.UnitId && x.isAutoAssign==BooleanType.是);
+                    .FirstOrDefault(x => x.assignMember.MyUnit.ParentId == traffic.UnitId && x.isAutoAssign == BooleanType.是);
+
+                _db.SaveChanges();
+
+                trafficFilesPath = trafficFilesPath + "\\" +traffic.CaseID;
+                relativeAddress = relativeAddress + traffic.CaseID +"/" ;
+                //if (!System.IO.Directory.Exists(trafficFilesPath))
+                //{
+                //    Directory.CreateDirectory(trafficFilesPath);
+                //}
+
+                //save file
                 
                 _db.SaveChanges();
 
@@ -251,13 +275,13 @@ namespace tnpd.Controllers
                 mailbody = mailbody.Replace("{Predate}", traffic.Predate.ToString("yyyy/MM/dd"));
                 mailbody = mailbody.Replace("{Address}", traffic.Address);
                 mailbody = mailbody.Replace("{Email}", traffic.Email);
-                mailbody = mailbody.Replace("{Subject}","【車號：" + traffic.violation_carno + "】" + traffic.Subject);
+                mailbody = mailbody.Replace("{Subject}", "【車號：" + traffic.violation_carno + "】" + traffic.Subject);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(traffic.Content));
                 mailbody = mailbody.Replace("{Files}", filesName);
 
                 Utility.SystemSendMail(traffic.Email, "臺南市政府警察局-違規舉發", mailbody);//發信
                 //Utility.SendGmailMail("topidea.justin@gmail.com", traffic.Email, "臺南市政府警察局-違規舉發", mailbody, "xuqoqvdvvsbwyrbl");
-                
+
 
 
                 return RedirectToAction("CreateSuccess", new { unid = id, id = traffic.CaseGuid });
@@ -359,7 +383,7 @@ namespace tnpd.Controllers
 
         public ActionResult VerifyMail(string id)
         {
-            TrafficMailCheck mailCheck = _db.TrafficMailChecks.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.CaseGuid == id);
+            TrafficMailCheck mailCheck = _db.TrafficMailChecks.OrderByDescending(x => x.Id).FirstOrDefault(x => x.CaseGuid == id);
             if (mailCheck == null)
             {
                 ViewBag.message = "驗證錯誤";
@@ -371,7 +395,7 @@ namespace tnpd.Controllers
                 return View();
             }
             mailCheck.IsConfirm = BooleanType.是;
-            mailCheck.ConfirmDate=DateTime.Now;
+            mailCheck.ConfirmDate = DateTime.Now;
             _db.SaveChanges();
             ViewBag.message = "驗證成功，請回原頁面輸入資料";
             return View();

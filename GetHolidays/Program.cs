@@ -16,31 +16,24 @@ namespace GetHolidays
         static BackendContext _db = new BackendContext();
         static void Main(string[] args)
         {
-            string Json3 = GetJsonContent("http://data.ntpc.gov.tw/api/v1/rest/datastore/382000000A-000077-002");
-            var holidays = JsonConvert.DeserializeObject<HolidayJSON.HolidayJSON>(Json3);
-            var holidaysList = _db.Holidays.ToList();
-            foreach (records itemRecord in holidays.result.records.Where(x => x.date.Year >= DateTime.Now.Year))
+            string content = System.IO.File.ReadAllText(@"E:\website\Tnpd\GetHolidays\政府行政機關辦公日曆表.csv").Replace("\"","");
+            foreach (var day in content.Split('\n'))
             {
-                if (holidaysList.Count(x => x.InitDate == itemRecord.date) == 0)
+                string[] array = day.Split(',');
+                DateTime date = Convert.ToDateTime(array[0]);
+                if ((date.Year == 2021 || date.Year == 2020) && array[2] == "是")
                 {
                     Holiday holiday = new Holiday();
-
-                    holiday.Description = itemRecord.description;
-                    holiday.HolidayCategory = itemRecord.holidayCategory;
-                    if (itemRecord.isHoliday == "是")
-                    {
-                        holiday.IsHoliday = true;
-                    }
-                    else
-                    {
-                        holiday.IsHoliday = false;
-                    }
-
-                    holiday.InitDate = itemRecord.date;
+                    holiday.InitDate = date;
+                    
+                    holiday.IsHoliday = true;
+                    holiday.HolidayCategory = array[3];
+                    holiday.Description = array[1]+array[4];
                     _db.Holidays.Add(holiday);
                 }
-
             }
+
+            
             _db.SaveChanges();
 
             //Holiday holiday=new Holiday();

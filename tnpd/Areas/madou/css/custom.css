@@ -11,7 +11,7 @@
 
 a {
     text-decoration: none !important;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 h1>span:not(.nocolor):not(.badge),
@@ -20,12 +20,12 @@ h3>span:not(.nocolor):not(.badge),
 h4>span:not(.nocolor):not(.badge),
 h5>span:not(.nocolor):not(.badge),
 h6>span:not(.nocolor):not(.badge) {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .title-block {
     padding: 2px 0 3px 10px;
-    border-left: 7px solid #4ba545;
+    border-left: 7px solid #408C3B;
     margin-bottom: 30px;
 }
 
@@ -36,7 +36,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 .h4title {
-    color: #4ba545;
+    color: #408C3B;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.375em;
     letter-spacing: 1px;
@@ -44,7 +44,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 .h5title {
-    color: #4ba545;
+    color: #408C3B;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.2em;
     letter-spacing: 1px;
@@ -63,7 +63,7 @@ h6>span:not(.nocolor):not(.badge) {
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
-.pr0pl0 {}
+a.gotoTop-sty {     display: block;      width:100%;      height:100%;     color: #fff;     }
 
 .hr01 {
     border-bottom: 1px solid #cecece;
@@ -80,11 +80,11 @@ h6>span:not(.nocolor):not(.badge) {
     float: none;
     max-width: none;
     border-top: 1px solid #cccccc;
-    background-color: #4ba545;
+    background-color: #408C3B;
 }
 
 #header.sticky-style-2 #header-wrap {
-    background-color: #4ba545;
+    background-color: #408C3B;
 }
 
 #primary-menu ul li:hover>a,
@@ -95,7 +95,7 @@ h6>span:not(.nocolor):not(.badge) {
 #primary-menu ul ul li:hover>a {
     background-color: #F9F9F9;
     padding-left: 18px;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .input-group>.input-group-append>.btn {
@@ -128,7 +128,7 @@ h6>span:not(.nocolor):not(.badge) {
 }
 
 ul.tab-nav:not(.tab-nav-lg) li.ui-tabs-active a {
-    background-color: #4ba545;
+    background-color: #408C3B;
 }
 
 .fontch {
@@ -207,7 +207,7 @@ a.tp-tab01 {
     float: left;
 }
 
-.footerbox h3 {
+.footerbox h4 {
     color: #9bf772;
     font-size: 1.125em;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
@@ -215,7 +215,7 @@ a.tp-tab01 {
     padding-bottom: 8px;
 }
 
-.footerbox h3:before {
+.footerbox h4:before {
     font-family: 'lined-icons';
     content: "\e049";
     padding-right: 3px;
@@ -260,12 +260,10 @@ a.tp-tab01 {
     margin: 0;
 }
 
-a.gotoTop-sty {
-    display: block; 
-    width:100%; 
-    height:100%;
-    color: #fff;
-    }
+/*.open::before {
+    content: '展開';    
+
+}*/
 
 .open::before {
     content: url(../images/new/btn01_close.png);
@@ -332,7 +330,7 @@ input.inputsear {
 }
 
 .inputlist a:hover {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .inputlist01 {
@@ -365,12 +363,12 @@ input.inputsear {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
-    border-bottom: 10px solid #4ba545;
+    border-bottom: 10px solid #408C3B;
     margin-bottom: 20px;
 }
 
-.leftbox h3 {
-    background-color: #4ba545;
+.leftbox h2 {
+    background-color: #408C3B;
     margin-bottom: 0px;
     padding: 6px 10px 6px 20px;
     color: #fff;
@@ -426,11 +424,11 @@ input.inputsear {
 }
 
 .leftbox ul li a.active {
-    color: #4ba545 !important;
+    color: #408C3B !important;
 }
 
 .leftbox ul li a:hover {
-    color: #4ba545 !important;
+    color: #408C3B !important;
 }
 
 .pagetitle {
@@ -449,7 +447,7 @@ input.inputsear {
 
 .team-title span {
     display: block;
-    color: #4ba545;
+    color: #408C3B;
     font-weight: 500;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     font-size: 1.2em;
@@ -631,7 +629,7 @@ dl.row {
 }
 
 .ulsitemap a:hover {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .ulsitemap li {
@@ -758,21 +756,21 @@ dl.row {
 .page-link,
 .page-link:hover,
 .page-link:focus {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .page-item.active .page-link,
 .page-link:hover,
 .page-link:focus {
     color: #FFF !important;
-    background-color: #4ba545 !important;
-    border-color: #4ba545 !important;
+    background-color: #408C3B !important;
+    border-color: #408C3B !important;
 }
 
 .pager .current, .pager a:hover, .pager a:focus {
     color: #FFF !important;
-    background-color: #4ba545 !important;
-    border-color: #4ba545 !important;
+    background-color: #408C3B !important;
+    border-color: #408C3B !important;
 }
 
 .mt0mb0 {
@@ -855,7 +853,7 @@ ul.ulteam li span {
     list-style: none;
     font-weight: bold;
     padding-right: 5px;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 table.newtable01 caption {
@@ -880,7 +878,7 @@ ul.about04 li {
 }
 
 ul.about04 li span {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ul.about06a {
@@ -889,7 +887,7 @@ ul.about06a {
 
 ul.about06a li h4 {
     margin-bottom: 0px !important;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ul.about06a li {
@@ -910,7 +908,7 @@ ul.about06 {
 
 ul.about06 li h4 {
     margin-bottom: 0px !important;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ul.about06 li {
@@ -928,7 +926,7 @@ ol.private li {
 }
 
 .privateh4 {
-    color: #4ba545;
+    color: #408C3B;
     font-size: 1em;
 }
 
@@ -998,7 +996,7 @@ ol.private01 li ul li {
 }
 
 .i_title01 {
-    border-bottom: 2px solid #4ba545;
+    border-bottom: 2px solid #408C3B;
 }
 
 .i_title01 h4 {
@@ -1083,7 +1081,7 @@ ol.private01 li ul li {
 }
 
 .i_newbox a:hover {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .i_newbox ul {
@@ -1103,7 +1101,7 @@ ol.private01 li ul li {
 }
 
 .i_newbox ul li span {
-    color: #4ba545;
+    color: #408C3B;
     margin-right: 5px;
     display: inline-block;
 }
@@ -1142,7 +1140,7 @@ ol.private01 li ul li {
 }
 
 .progress_bars .bars_list li .bar .progress {
-    background-color: #4ba545;
+    background-color: #408C3B;
 }
 
 .progress_bars .bars_list {
@@ -1297,7 +1295,7 @@ ol.private01 li ul li {
 
 .demos-filter li a:hover,
 .demos-filter li.activeFilter a {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 .team-content h4 {
@@ -1314,7 +1312,7 @@ ol.private01 li ul li {
     font-size: 1em;
     margin-bottom: 5px;
     margin-top: 10px;
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ul.about03 {
@@ -1619,7 +1617,7 @@ ul.about03 li ol li {
 @media screen and (min-width: 300px) and (max-width: 578px) {
 
     .i_newbox ul li span {
-        color: #4ba545;
+        color: #408C3B;
         margin-right: 5px;
         display: block;
     }
@@ -1664,11 +1662,11 @@ ol.chinese li ul li ol li {
 }
 
 ol.chinese p {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ol.chinese li ul li span {
-    color: #4ba545;
+    color: #408C3B;
 }
 
 ol.chinese li ol {
@@ -1676,7 +1674,7 @@ ol.chinese li ol {
 }
 
 ol.chinese li ol li span {
-    color: #4ba545;
+    color: #408C3B;
     font-weight: bold;
 }
 

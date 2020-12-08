@@ -1,0 +1,500 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-tw">
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Socket to Air COM元件 For ASP 使用說明</title>
+</head>
+
+<body>
+
+<p align="center"><font size="5"><b>HiNet企業簡訊 - COM元件使用說明</b></font><font color="#000080" size="5"><br> 
+</font></p>
+<ul>
+  <li type="square"><font color="#FF0000">系統需求：</font>Windows <br>
+	<br> 
+  </li>
+  <li type="square"><font color="#FF0000">元件註冊方法：</font>(使用前必須先註冊)<br>
+    <br>
+    1. 確認系統為32或64位元並執行下列步驟：<br><br>
+    [32位元] 1. 將32位元<font color="#0000FF">HiAir.dll</font>複製到Windows系統目錄中，如<font color="#0000FF">C:\Windows\System32\ 
+      或 C:\WinNT\System32\ </font>。<br> <br>
+    [32位元] 2. 於Windows開始-&gt;執行的視窗中，輸入指令 <font color="#0000FF">regsvr32  HiAir.dll路徑，
+      如regsvr32  C:\Windows\System32\HiAir.dll</font>。<br><br>
+    [64位元] 1. 將64位元<font color="#0000FF">HiAir.dll</font>複製到Windows系統目錄中，如<font color="#0000FF">C:\Windows\SysWOW64\</font>。<br><br>
+    [64位元] 2. 於<font color="#0000FF">C:\Windows\SysWOW64\</font>目錄中空白處-&gt;按住shift+右鍵-&gt;點選 "在這裡開啟PowerShell視窗"，
+      輸入指令 <font color="#0000FF">regsvr32  HiAir.dll</font>。<br><br>
+    2. 出現註冊成功的畫面，如以下視窗，即代表元件註冊成功。<br> 
+    <br>
+    &nbsp;&nbsp;&nbsp; <img border="0" src="pic.gif" ><br> 
+    <br>
+    3. 元件ProgID為<font color="#0000FF">HiAir.HiNetSMS</font>，即為此元件之Object名稱。<br> 
+    <br>
+  </li>
+  <li type="square"><font color="#FF0000">元件函式說明：</font><br>
+    <br>
+    <table border="1" width="771" cellspacing="0">
+      <tr>
+        <td width="475">
+          <p align="center">函式名稱</td>
+        <td width="286">
+          <p align="center">說明</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;StartCon(ServerIP,ServerPort,UserID,Passwd)</td>
+        <td width="286">&nbsp;建立hiAirV2伺服器連線</td> 
+      </tr>
+      <tr>
+        <td width="475">&nbsp;SendMsg(MobileNum,Message)</td>
+        <td width="286">&nbsp;傳送文字簡訊</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;SendMsg_Reserve(MobileNum,Message,Send_Time)</td>
+        <td width="286">&nbsp;預約傳送文字簡訊</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;SendMsg_Expire(MobileNum,Message,Expire_Time)</td>
+        <td width="286">&nbsp;傳送文字簡訊+重送截止時間</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;SendMsg_Reserve_Expire(MobileNum,Message,Send_Time,Expire_Time)</td>
+        <td width="286">&nbsp;預約傳送文字簡訊+重送截止時間</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;SendMsg_WapPush(MobileNum,WapTitle,WapURL)</td>
+        <td width="286">&nbsp;傳送Wappush(需額外申請)</td>
+      </tr>
+	  <tr>
+        <td width="475">&nbsp;CancelMsg(MessageID)</td>
+        <td width="286">&nbsp;取消預約文字簡訊傳送</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;QueryMsg(MessageID)</td>
+        <td width="286">&nbsp;查詢文字簡訊傳送結果</td>
+      </tr>
+      <tr>
+        <td width="475">&nbsp;QueryMsg_WapPush(MessageID)</td> 
+        <td width="286">&nbsp;查詢Wappush傳送結果</td> 
+      </tr>
+      <tr>
+        <td width="475">&nbsp;Get_Message( )</td> 
+        <td width="286">&nbsp;取得系統回傳的訊息</td> 
+      </tr>
+      <tr>
+        <td width="475">&nbsp;RecvMsg( )</td> 
+        <td width="286">&nbsp;接收手機回傳簡訊(一般用戶不提供)</td> 
+      </tr>
+      <tr>
+        <td width="475">&nbsp;Get_Send_MSISDN( )</td> 
+        <td width="286">&nbsp;取得手機回覆者的門號(一般用戶不提供)</td> 
+      </tr>
+      <tr>
+        <td width="475">&nbsp;EndCon( )</td> 
+        <td width="286">&nbsp;結束Socket To Air伺服器連線</td> 
+      </tr>
+    </table>
+    <p><font color="#800000">函式參數說明：</font></p>
+    <table border="1" width="603" cellspacing="0">
+      <tr>
+        <td width="88">
+          <p align="center">參數名稱</td>
+        <td width="88">
+          <p align="center">參數型態</td>
+        <td width="168">
+          <p align="center">內容</td>
+        <td width="241">
+          <p align="center">說明</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;ServerIP</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;Socket to Air伺服器IP</td> 
+        <td width="241">&nbsp;api.hiair.hinet.net</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;ServerPort</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;Socket to Air伺服器Port</td> 
+        <td width="241">&nbsp;8000</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;UserID</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;登入帳號</td>
+        <td width="241">&nbsp;最長8個字元</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;Passwd</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;登入密碼</td>
+        <td width="241">&nbsp;最長8個字元</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;MobileNum</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;手機號碼</td>
+        <td width="241">&nbsp;國內門號為10個字元</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;Message</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;簡訊內容</td>
+        <td width="241">&nbsp;最長為159個字元</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;Send_Time</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;預約傳送的時間</td>
+        <td width="241">&nbsp;格式:YYMMDDHHMM00(12字元)</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;Expire_Time</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;重送截止的時間</td>
+        <td width="241">&nbsp;格式:0001~1400(4字元)單位:分鐘</td> 
+      </tr>
+      <tr>
+        <td width="88">&nbsp;MessageID</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;系統回傳的訊息ID</td>
+        <td width="241">&nbsp;簡訊傳送時，系統回傳的訊息ID</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;WapMessage</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;WapPush標題</td>
+        <td width="241">&nbsp;ex: HiNetWap網站</td>
+      </tr>
+      <tr>
+        <td width="88">&nbsp;WapURL</td>
+        <td width="88">&nbsp;字串(string)</td>
+        <td width="168">&nbsp;WapPush URL</td>
+        <td width="241">&nbsp;ex: http://hiair.hinet.net?id=12345</td>
+      </tr>
+    </table>
+    <p align="left"><font color="#800000">註1：</font>YYMMDDHHMM00-&gt;年月日時分秒，秒必須為00。<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ex : 021210110200 
+    表示西元2002年12月10日11點02分<font color="#800000"><br> 
+    註2：</font>Expire_Time：簡訊重送的截止時間，預設值是24小時。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Expire_Time=&quot;0030&quot; 
+    表示簡訊如果30分鐘內沒送成功，就不送了。<font color="#800000"><br>
+    　</font></p>
+    <p align="left"><font color="#800000">
+    <br>
+    函式回傳值說明：</font></p>
+    <table border="0" width="598" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="20">1.</td>
+        <td width="578">StartCon(ServerIP,ServerPort,UserID,Passwd)：回傳值型態為int</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578">　
+          <table border="1" width="299" cellspacing="0">
+            <tr>
+              <td width="56" align="center">回傳值</td>
+              <td width="233" align="center">內容</td>
+            </tr>
+            <tr>
+              <td width="56" align="center">0</td>
+              <td width="233">&nbsp;帳號/密碼檢查成功</td>
+            </tr>
+            <tr>
+              <td width="56" align="center">1</td>
+              <td width="233">&nbsp;密碼錯誤</td>
+            </tr>
+            <tr>
+              <td width="56" align="center">2</td>
+              <td width="233">&nbsp;帳號不存在</td>
+            </tr>
+            <tr>
+              <td width="56">
+                <p align="center">3</td>
+              <td width="233">&nbsp;超過准許最大連線數</td>
+            </tr>
+            <tr>
+              <td width="56" align="center">-1</td>
+              <td width="233">&nbsp;Socket 連結失敗</td>
+            </tr>
+            <tr>
+              <td width="56" align="center">-2</td>
+              <td width="233">&nbsp;查server dns -&gt; ip 錯誤</td> 
+            </tr>
+            <tr>
+              <td width="56">
+                <p align="center">-3</td>
+              <td width="233">&nbsp;Socket初始化錯誤</td> 
+            </tr>
+            <tr>
+              <td width="56" align="center">-4</td>
+              <td width="233">&nbsp;Socket 傳送/接收資料錯誤</td> 
+            </tr>
+            <tr>
+              <td width="56">
+                <p align="center">其他值</td>
+              <td width="233">&nbsp;請參考軟體規格書</td>
+            </tr>
+          </table>
+          <p>　</td>
+      </tr>
+      <tr>
+        <td width="20">2.</td>
+        <td width="578">SendMsg(MobileNum,Message)：回傳值型態為int</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578">　
+          <table border="1" width="298" cellspacing="0">
+            <tr>
+              <td width="82" align="center">回傳值</td>
+              <td width="367" align="center">內容</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">0</td>
+              <td width="367">&nbsp;訊息傳送成功</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">2</td> 
+              <td width="367">&nbsp;編碼格式錯誤</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">6</td> 
+              <td width="367">&nbsp;手機號碼格式</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">
+                8</td> 
+              <td width="367">&nbsp;重送截止時間格式錯誤</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">
+                9</td> 
+              <td width="367">&nbsp;預約傳送時間格式錯誤</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">11</td> 
+              <td width="367">&nbsp;系統暫時無法傳送訊息</td>
+            </tr>
+            <tr>
+              <td width="82" align="center">-4</td>  
+              <td width="367">&nbsp;Socket 傳送/接收資料錯誤</td> 
+            </tr>
+            <tr>
+              <td width="63">
+                <p align="center">其他值</td>
+              <td width="367">
+              <p align="left">&nbsp;請參考軟體規格書</td>
+            </tr>
+          </table>
+          <p><font color="#800000">註1：當回傳值=0，傳送成功，此時請用GetMessage取得系統回覆的MessageID，<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以供查詢簡訊傳送結果用。<br>
+			註2：SendMsg_Reserve( ),SendMsg_Expire( ),SendMsg_Reserve_Expire( 
+			)的回傳值<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 內容與SendMsg相同。<br>
+　</font></td>
+      </tr>
+      <tr>
+        <td width="20">3.</td>
+        <td width="578">QueryMsg(MessageID)：回傳值型態為int</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578">　
+          <table border="1" width="298" cellspacing="0">
+            <tr>
+              <td width="57" align="center">回傳值</td>
+              <td width="231" align="center">內容</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">0</td>
+              <td width="231">&nbsp;訊息已送達接收方</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">1</td>
+              <td width="231">&nbsp;手機未開或在受訊範圍外</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">2</td>
+              <td width="231">&nbsp;查詢系統無此MessageID資料</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">3</td>
+              <td width="231">&nbsp;MessageID格式錯誤</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">4</td>
+              <td width="231">&nbsp;已送到簡訊中心，尚未完成查詢</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">5</td>
+              <td width="231">&nbsp;預約時間超過48小時</td>
+            </tr>
+            <tr>
+              <td width="57" align="center">-4</td>
+              <td width="231">&nbsp;Socket 傳送/接收資料錯誤</td> 
+            </tr>
+            <tr>
+              <td width="57" align="center">其他值</td>
+              <td width="231">&nbsp;請參考軟體規格書</td> 
+            </tr>
+          </table>
+          <p>　</td>
+      </tr>
+      <tr>
+        <td width="20">4.</td>
+        <td width="578">GetMessage：回傳值型態為string</td>
+      </tr>
+      <tr>
+        <td width="20">　</td>
+        <td width="578">&nbsp;<br>
+		GetMessage為執行某函式後的回傳值說明，對應資料如下：<br>
+　<table border="1" cellspacing="0" width="455" id="table2">
+          <tr>
+            <td width="88" height="15">
+            <p align="center">對應函式</td>
+            <td width="61" height="15">
+            <p align="center">回傳值</td>
+            <td width="293" height="15">
+            <p align="center">GetMessage的內容</td>
+          </tr>
+          <tr>
+            <td width="88" height="32" align="left" rowspan="2">StartCon(..)</td>
+            <td width="61" height="16" align="center">0</td>
+            <td width="293" height="16">&nbsp;回傳內容連線成功訊息</td>
+          </tr>
+          <tr>
+            <td width="61" height="16" align="center">非0</td>
+            <td width="293" height="16">&nbsp;回傳內容連線失敗訊息說明</td>
+          </tr>
+          <tr>
+            <td width="88" height="32" align="left" rowspan="2">SendMsg(..)</td>
+            <td width="61" height="16" align="center">0</td>
+            <td width="293" height="16">&nbsp;回傳內容為20個字元的MessageID</td>
+          </tr>
+          <tr>
+            <td width="61" height="16" align="center">非0</td>
+            <td width="293" height="16">&nbsp;回傳內容為傳送錯誤訊息說明</td>
+          </tr>
+          <tr>
+            <td width="88" height="32" align="left" rowspan="2">QueryMsg(..)</td>
+            <td width="61" height="16" align="center">0</td>
+            <td width="293" height="16">&nbsp;回傳內容訊息已送達接收方與接收時間</td>
+          </tr>
+			<tr>
+            <td width="61" height="16" align="center">非0</td>
+            <td width="293" height="16">&nbsp;回傳內容為訊息目前狀態說明</td>
+          </tr>
+          <tr>
+            <td width="88" height="32" align="left" rowspan="2">RecvMsg(..)</td>
+            <td width="61" height="16" align="center">0</td>
+            <td width="293" height="16">&nbsp;回傳回覆端回覆的內容訊息</td>
+          </tr>
+			<tr>
+            <td width="61" height="16" align="center">非0</td>
+            <td width="293" height="16">&nbsp;回傳內容為訊息狀態說明</td>
+          </tr>
+        </table>
+        <p><font color="#800000">註：當SendMsg( )成功傳送訊息到Server，系統會回傳MessageID，需用<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; GetMessage取得MessageID<br>
+　</font></td>
+      </tr>
+      <tr>
+        <td width="20">5.</td>
+        <td width="578">RecvMsg : 回傳值型態為int</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578"></td>
+      </tr>
+      <tr>
+        <td width="20">　</td>
+        <td width="578">　<table border="1" cellspacing="0" width="297" id="table1">
+          <tr>
+            <td width="56" height="15">
+            <p align="center">回傳值</td>
+            <td width="228" height="15">
+            <p align="center">內容</td>
+          </tr>
+          <tr>
+            <td width="56" height="16" align="center">0</td>
+            <td width="228" height="16">&nbsp;有手機回傳簡訊</td>
+          </tr>
+          <tr>
+            <td width="56" height="16" align="center">1</td>
+            <td width="228" height="16">&nbsp;系統無手機回傳的簡訊</td>
+          </tr>
+          <tr>
+            <td width="56" height="16" align="center">2</td>
+            <td width="228" height="16">&nbsp;系統錯誤，請重試</td>
+          </tr>
+          <tr>
+              <td width="57" align="center">-4</td>
+              <td width="231">&nbsp;Socket 傳送/接收資料錯誤</td> 
+            </tr>
+          </table>
+        <p><font color="#800000">註：當回傳值=0，表示系統有手機回傳的簡訊，此時請用Get_Message取得<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 手機回覆的內容，用Get_Send_MSISDN取得回覆者的手機號碼。</font><br>
+　</td>
+      </tr>
+      <tr>
+        <td width="20">6.</td>
+        <td width="578">Get_Send_MSISDN：回傳值型態為string</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578"></td>
+      </tr>
+      <tr>
+        <td width="20">　</td>
+        <td width="578"><br>
+        回傳值為手機號碼<br>
+        <br>
+        <font color="#800000">註：當執行RecvMsg取得手機回傳的簡訊時，需用Get_Send_MSISDN取得回傳<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 者的手機號碼</font>。<br>
+　</td>
+      </tr>
+      <tr>
+        <td width="20">7.</td>
+        <td width="578">EndCon()：無回傳值</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578"></td>
+      </tr>
+      <tr>
+        <td width="20">　</td>
+        <td width="578">　</td>
+      </tr>
+      <tr>
+        <td width="20"></td>
+        <td width="578"></td>
+      </tr>
+    </table>
+    <p align="left">　</li>
+  <li type="square"><font color="#FF0000">其他相關說明：</font><br>
+    <br>
+    1. StartCon( )成功建立連線後，才可使用SendMsg( )、QueryMsg( )和RecvMsg，傳送<br>
+&nbsp;&nbsp;&nbsp; 結束後，請記得使用EndCon( )結束連線。<br> 
+    <br>
+  2. SendMsg( )將簡訊傳送到簡訊伺服器，如果成功(回傳值=0)，則系統會回傳一個<br>
+&nbsp;&nbsp;&nbsp; MessageID，請用GetMessage( )取得此MessageID，之後可以根據此MessageID，<br>
+&nbsp;&nbsp;&nbsp; 使用QueryMsg(  
+    )查詢簡訊是否有成功傳送至GSM手機或呼叫器中。如果傳送不成<br>
+&nbsp;&nbsp;&nbsp; 功(回傳值!=0)，可以用GetMessage( )取得系統回覆的訊息說明。<br> 
+    <br>
+    3. 執行RecvMsg( )接收回傳的簡訊，如果成功(回傳值=0)，請用GetMessage( )取得回傳的<br>
+&nbsp;&nbsp;&nbsp; 簡訊內容，用Get_Send_MSISDN( )取得回傳者的手機號碼。<br> 
+    <br>
+  4. 如欲一次傳送多筆簡訊，請於StartCon( )成功建立連結後，多次執行SendMsg( )即可。<br>
+  <br>
+  5. 簡訊伺服器，同一帳號最多可同時建立五個Connection。<br>
+  <br>
+    <br>
+  </li>
+</ul>
+
+</body>
+
+</html>

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace HolidayJSON
 {
+
     public class HolidayJSON
     {
-        public string success { get; set; }
+        
         public result result { get; set; }
     }
     public class result
@@ -18,7 +19,7 @@ namespace HolidayJSON
         public string limit { get; set; }
         public string total { get; set; }
         public fields[] fields { get; set; }
-        public records[] records { get; set; }
+        public records[] results { get; set; }
     }
     public class fields
     {

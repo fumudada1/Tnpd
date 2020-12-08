@@ -28,6 +28,13 @@
     <Modules Title="加強重要節日安全維護" Controller="News" Action="Index" Value="N11" pclass="8" Icon="fa fa-rss" />
     <Modules Title="預防詐騙宣導" Controller="News" Action="Index" Value="N12" pclass="9" Icon="fa fa-rss" />
     <Modules Title="性別主流專區" Controller="News" Action="Index" Value="N13" pclass="10" Icon="fa fa-rss" />
+	<Modules Title="性別主流化實施計畫" Controller="News" Action="Index" Value="N21" pclass="59" Icon="fa fa-rss" />
+	<Modules Title="性別平等機制" Controller="News" Action="Index" Value="N22" pclass="60" Icon="fa fa-rss" />
+	<Modules Title="性別統計分析" Controller="News" Action="Index" Value="N23" pclass="61" Icon="fa fa-rss" />
+	<Modules Title="性別影響評估" Controller="News" Action="Index" Value="N24" pclass="62" Icon="fa fa-rss" />
+	<Modules Title="性別意識培力課程" Controller="News" Action="Index" Value="N25" pclass="63" Icon="fa fa-rss" />
+	<Modules Title="性別平等宣導成果" Controller="News" Action="Index" Value="N26" pclass="64" Icon="fa fa-rss" />
+	<Modules Title="性別平等網站連結" Controller="News" Action="Index" Value="N27" pclass="65" Icon="fa fa-rss" />
     <Modules Title="預防犯罪宣導" Controller="News" Action="Index" Value="N14" pclass="11" Icon="fa fa-rss" />
     <Modules Title="民防事務專區" Controller="News" Action="Index" Value="N15" pclass="12" Icon="fa fa-rss" />
     <Modules Title="婦幼安全宣導" Controller="News" Action="Index" Value="N16" pclass="13" Icon="fa fa-rss" />
@@ -87,7 +94,8 @@
     <Modules Title="人權兩公約宣導" Controller="News" Action="Index" Value="S15" pclass="52" Icon="fa fa-rss" />
     <Modules Title="中央遙控警報系統測試期前宣導" Controller="News" Action="Index" Value="S16" pclass="53" Icon="fa fa-rss" />
     <Modules Title="戶口組宣導專區" Controller="News" Action="Index" Value="S17" pclass="55" Icon="fa fa-rss" />
-
+<Modules Title="戶口組宣導專區" Controller="News" Action="Index" Value="S19" pclass="55" Icon="fa fa-rss" />
+    <Modules Title="防空疏散避難設施地圖" Controller="RefugeStations" Action="Index" Value="S29" Icon="fa fa-rss" />
   </Modules>
 
   <Modules Title="其他專區" Controller="" Action="" Value="O" Icon="fa fa-sitemap">
@@ -179,8 +187,10 @@
     <Modules Title="單位承辦人設定" Controller="TrafficDepartmentdetail" Action="Index"  Value="T14" Icon="fa fa-rss" />
     <Modules Title="違規區域設定" Controller="TrafficRegion" Action="Index"  Value="T15" Icon="fa fa-rss" />
     <Modules Title="違規道路設定" Controller="TrafficRoaddata" Action="Index"  Value="T16" Icon="fa fa-rss" />
+	<Modules Title="案件滿意度調查表" Controller="CaseTraffics" Action="Survey" pclass="1"  Value="T18" Icon="fa fa-rss" />
   </Modules>
   <Modules Title="承辦人作業" Controller="Case" Action="Process"  Value="M4" Icon="fa fa-rss" />
   <Modules Title="交通承辦人作業" Controller="CaseTraffics" Action="Process"  Value="M5" Icon="fa fa-rss" />
   <Modules Title="訊息審核作業" Controller="News" Action="Review"  Value="M6" Icon="fa fa-rss" />
+  
 </menu>

@@ -218,8 +218,10 @@
     <Compile Include="Controllers\NewsLinkController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\PoprocsSubTypeController.cs" />
+    <Compile Include="Controllers\RefugeStationsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SendMailController.cs" />
+    <Compile Include="Controllers\SoapController.cs" />
     <Compile Include="Controllers\StationInfoController.cs" />
     <Compile Include="Controllers\SystemLogsController.cs" />
     <Compile Include="Controllers\TrafficDepartmentdetailController.cs" />
@@ -243,8 +245,10 @@
     </Compile>
     <Compile Include="Helpers\ControlsHelper.cs" />
     <Compile Include="Helpers\DynamicLinqExpressions.cs" />
+    <Compile Include="Models\ActiveDirectory.cs" />
     <Compile Include="Models\CaseMerge.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
+    <Compile Include="Models\GJson.cs" />
     <Compile Include="Models\ModelsAttributeHelper.cs" />
     <Compile Include="Models\Utility.cs" />
     <Compile Include="Models\WebStatistics.cs" />
@@ -1382,6 +1386,12 @@
     <Content Include="Views\CaseFilter\Create.cshtml" />
     <Content Include="Views\CaseFilter\Edit.cshtml" />
     <Content Include="Views\CaseFilter\Delete.cshtml" />
+    <Content Include="Views\CaseTraffics\ProcessBatch.cshtml" />
+    <Content Include="Views\RefugeStations\Index.cshtml" />
+    <Content Include="Views\RefugeStations\Details.cshtml" />
+    <Content Include="Views\RefugeStations\Create.cshtml" />
+    <Content Include="Views\RefugeStations\Edit.cshtml" />
+    <Content Include="Views\RefugeStations\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1410,7 +1420,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>13572</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2225/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

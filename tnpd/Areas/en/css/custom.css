@@ -13,7 +13,7 @@
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
     margin-bottom: 3px;
     font-size: 1.6em;
-    color: #2db3b8;
+    color: #007B7F;
     letter-spacing: 0.1em;
     text-align: left;
 }
@@ -42,7 +42,7 @@
 }
 
 .h5title a:hover {
-    color: #2db3b8;
+    color: #007B7F;
     font-family: 'Noto Sans TC', Microsoft JhengHei, Helvetica, sans-serif;
 }
 
@@ -271,9 +271,9 @@ a.footerbtn {
     /* border: 1px solid #ccc; */
 }
 
-.leftbox h3 {
+.leftbox h2 {
     border-radius: 4px;
-    background-color: #2db3b8;
+    background-color: #007B7F;
     padding: 10px 10px 6px 20px;
     margin-bottom: 10px;
 
@@ -334,12 +334,12 @@ a.footerbtn {
 .leftbox ul li a.active {
     border-radius: 4px;
     /* background-color: #696969; */
-    color: #2db3b8;
+    color: #007B7F;
 }
 
 .leftbox ul li a:hover {
     /* background-color: #696969; */
-    color: #2db3b8;
+    color: #007B7F;
 }
 
 .societybox {
@@ -499,7 +499,7 @@ dl.row {
 }
 
 .ulsitemap a:hover {
-    color: #2db3b8;
+    color: #007B7F;
 }
 
 .ulsitemap li {
@@ -719,7 +719,7 @@ ol.private li {
 
 .title-block {
     padding: 2px 0 3px 10px;
-    border-left: 7px solid #2db3b8;
+    border-left: 7px solid #007B7F;
     margin-bottom: 30px;
 }
 
@@ -1099,4 +1099,9 @@ ul.linksLaws li{
     padding-top: 8px;
 }
 
+@media screen and (-ms-high-contrast: active),(-ms-high-contrast: none) {
+    img {
+        width: 100%;
+    }
+}
 

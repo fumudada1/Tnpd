@@ -1,6 +1,6 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
-        <i class="icon-user"></i> 您好，@User.Identity.Name ! @using (Html.BeginForm("LogOff", "Member", FormMethod.Post, new { id = "logoutForm" })) { @Html.AntiForgeryToken()<a href="javascript:document.getElementById('logoutForm').submit()"><span  class="logout">登出</span></a>}
+        <i class="icon-user"></i> 您好，@User.Identity.Name ! <a href="/Member/LogOff"><span  class="logout">登出</span></a>
     </text>
 } else {
 

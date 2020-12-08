@@ -88,6 +88,7 @@ namespace TnpdModels
 
         //交通檢舉信箱問卷
         public DbSet<TrafficMailCheck> TrafficMailChecks { get; set; }
+        public DbSet<CaseMailCheck> caseMailChecks { get; set; }
 
         //信箱問卷
         public DbSet<Casewq> Casewqs { get; set; }
@@ -108,5 +109,11 @@ namespace TnpdModels
         public DbSet<Holiday> Holidays { get; set; }
 
         public DbSet<WayPoint> WayPoints { get; set; }
+
+        public DbSet<TrafficSMS> trafficSmses { get; set; }
+
+        public DbSet<TrafficSMSCarInfo> trafficSmsCarInfos { get; set; }
+
+        public DbSet<RefugeStation> refugeStations { get; set; }
     }
 }

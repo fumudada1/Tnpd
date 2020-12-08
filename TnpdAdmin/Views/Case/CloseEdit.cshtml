@@ -112,13 +112,13 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Case.Name</td>
-                <td>性別：@Model.Case.Gender</td>
+                <td style="display:none ">性別：@Model.Case.Gender</td>
 
             </tr>
             <tr>
 
                 <td>電話：@Model.Case.TEL</td>
-                <td>職業：@Model.Case.Job</td>
+                <td style="display:none ">職業：@Model.Case.Job</td>
             </tr>
             <tr>
 
@@ -245,13 +245,13 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Case.Name</td>
-                <td>性別：@Model.Case.Gender</td>
+                <td style="display:none ">性別：@Model.Case.Gender</td>
 
             </tr>
             <tr>
 
                 <td>電話：@Model.Case.TEL</td>
-                <td>職業：@Model.Case.Job</td>
+                <td style="display:none ">職業：@Model.Case.Job</td>
             </tr>
             <tr>
 
@@ -297,13 +297,13 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Case.Name</td>
-                <td>性別：@Model.Case.Gender</td>
+                <td style="display:none ">性別：@Model.Case.Gender</td>
 
             </tr>
             <tr>
 
                 <td>電話：@Model.Case.TEL</td>
-                <td>職業：@Model.Case.Job</td>
+                <td style="display:none ">職業：@Model.Case.Job</td>
             </tr>
             <tr>
 
@@ -341,7 +341,7 @@
             <tbody>
             <tr>
                 <td>姓名：@Model.Case.Name</td>
-                <td>性別：@Model.Case.Gender</td>
+                <td style="display:none ">性別：@Model.Case.Gender</td>
 
             </tr>
             <tr>
@@ -562,13 +562,14 @@
            
             $("#btnClose").click(function() {
                 $("#processtype").val("Close");
-                $("#btnClose").attr("disabled", "disabled");
                 $("form").submit();
+                $("#btnClose").attr("disabled", "disabled");
+
             });
             $("#btnGoProcess").click(function() {
                 $("#processtype").val("GoProcess");
-                $("#processtype").attr("disabled", "disabled");
                 $("form").submit();
+                $("#btnGoProcess").attr("disabled", "disabled");
             });
 
 

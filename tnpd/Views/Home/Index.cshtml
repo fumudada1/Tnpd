@@ -110,6 +110,10 @@
                         <img src="/images/logo@2x.png" alt="臺南市政府警察局"></a>
                 </h1>
                 <!-- #logo end -->
+				@if (Session["holiday"] != null)
+                {
+                    <div class="d-none d-md-block fleft"><img src="/images/@Session["holiday"]" alt="節慶"></div>
+                }
                 <ul class="header-extras">
                     <li>
                         <div class="he-text">
@@ -120,7 +124,7 @@
                                 <label for="q" class="nonedisplay">關鍵字搜尋</label>
                                 <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
                                <div class="input-group-append">
-                                    <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                                    <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" alt="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
                                 </div>
                                 </div>
                             </form>
@@ -284,6 +288,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 ">
                                         <div class="input-group ">
+                                            <label for="unitlink1" style="display: none">分局網站</label>
                                             <select class="custom-select" id="unitlink1" name="unitlink1">
                                                 <option value="">分局網站</option>
                                                 <option value="/xinying">新營分局</option>
@@ -334,6 +339,7 @@
                                     </div>
                                     <div class="col-lg-12 ">
                                         <div class="input-group ">
+                                            <label for="unitlink2" style="display: none">直屬隊網站</label>
                                             <select class="custom-select" id="unitlink2" name="unitlink2">
                                                 <option value="">直屬隊網站</option>
                                                 <option value="/cic">刑事警察大隊</option>
@@ -362,6 +368,7 @@
                                     </div>
                                     <div class="col-lg-12 ">
                                         <div class="input-group ">
+                                            <label for="unitlink3" style="display: none">相關專區網站</label>
                                             <select class="custom-select" id="unitlink3" name="unitlink3">
                                                 <option value="">相關專區網站</option>
                                                 <option value="/mvop">警光山莊</option>
@@ -386,11 +393,19 @@
                         <div class="col-lg-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-4 col-6">
-                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box01">
-                                        <div class="fbox-icon fbox-icon01">
-                                            <a href="/Article/d50c22e4-fb47-69cc-e33a-795e2bc87aac" title="E化服務查詢"><i class="icon-line-zoom-in i-alt"></i><span class="sr-only">E化服務查詢</span></a>
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box06">
+                                        <div class="fbox-icon fbox-icon06">
+                                            <a href="/trafficsms?UnID=aa6c7424-6673-a11a-b765-4c15bfc87e9a" title="交通違規簡訊服務"><i class="icon-comments-alt i-alt"></i><span class="sr-only">交通違規簡訊服務</span></a>
                                         </div>
-                                        <div class="h3sty">E化服務查詢</div>
+                                        <div class="h3sty">交通違規簡訊服務</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box03">
+                                        <div class="fbox-icon fbox-icon03">
+                                            <a href="/Directory/f1b7850e-9081-4ee9-0b98-76bbab08d8d6" title="防空避難專區"><i class="icon-home in i-alt"></i><span class="sr-only">防空避難專區</span></a>
+                                        </div>
+                                        <div class="h3sty">防空避難專區</div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-6">
@@ -402,8 +417,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-6">
-                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box03">
-                                        <div class="fbox-icon fbox-icon03">
+                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box01">
+                                        <div class="fbox-icon fbox-icon01">
                                             <a href="/News/05f7e717-4261-3df2-77bd-2de656ac98ae/14" title="表單下載"><i class="icon-cloud-download i-alt"></i><span class="sr-only">表單下載</span></a>
                                         </div>
                                         <div class="h3sty">表單下載</div>
@@ -425,24 +440,17 @@
                                         <div class="h3sty">線上申辦</div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-6">
-                                    <div class="feature-box fbox-center fbox-outline fbox-effect feature-box06">
-                                        <div class="fbox-icon fbox-icon06">
-                                            <a href="/News/86d87683-4948-e9b9-e947-8ccde8fc9db5/58" title="常見問答"><i class="icon-comments-alt i-alt"></i><span class="sr-only">常見問答</span></a>
-                                        </div>
-                                        <div class="h3sty">常見問答</div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-12">
                             <div class="broderbox01">
                                 <div class="testi-image01 col-md-12 text-center ">
                                     
-                                        <img src="/images/new/1.jpg?a=12345" alt="局長 周幼偉" class="image_fade">
+                                        <img src="/images/new/1090717.jpg?a=12345" alt="局長 詹永茂" class="image_fade">
                                 </div>
                                 <div class="testi-content01 col-md-12 text-center">
-                                    <div class="styh4">局長 周幼偉</div>
+                                    <div class="styh4">局長 詹永茂</div>
                                     <div class="testi-meta01">
                                         <a href="/ChiefMailbox/Index/4b0a8176-a08d-60a4-b25f-cbb95e009897" title="局長信箱"><i class="icon-line-mail"></i> 局長信箱</a>
                                     </div>
@@ -781,7 +789,7 @@
                     <div class="col_half">
                         <ul class="crul">
                             <li class="li01"><a href="/Article/b2569d43-40bb-04b5-4e1c-26b6f425e31e" title="隱私權保護政策">隱私權保護政策</a> | <a href="/Article/41fc069c-2222-676b-a6cf-ff552b9836d2" title="網站安全政策">網站安全政策</a> | <a href="/Article/412894e9-5b63-bbd5-29ef-a93a549cb0bb" title="政府網站資料開放宣告">政府網站資料開放宣告</a>| <a href="/Article/5bdf7e5d-97e0-7451-1d90-338d8b57082a" title="資訊安全政策">資訊安全政策</a> </li>
-                            <li>地址：73049 臺南市新營區中正路3號 ( <a href="/Article/dce56c38-82f2-6215-2b4d-8404fc41e25b" title="73049 臺南市新營區中正路3號"><i class="icon-map-marker"></i>位置圖</a> )</li>
+                            <li>地址：730207 臺南市新營區中正路3號 ( <a href="/Article/dce56c38-82f2-6215-2b4d-8404fc41e25b" title="730207 臺南市新營區中正路3號"><i class="icon-map-marker"></i>位置圖</a> )</li>
                             <li>總機：(06)632-2210、(06)632-2140 ( 警局總機只能撥入不能撥出 )</li>
                             <li>臺南市政府警察局 版權所有 © 2018</li>
                             <li class="d-none d-md-block">建議使用IE10.0 以上或Edge、Firefox、Chrome 瀏覽器，最佳瀏覽解析度為1024*768</li>
@@ -790,7 +798,7 @@
                     </div>
                     <div class="col_half col_last tright ">
                         <ul class="crul01 d-none d-md-block">
-                            <li><a href="https://www.handicap-free.nat.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank" class="display-ib">
+                            <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank" class="display-ib">
                                 <img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                             <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank" class="display-ib">
                                 <img src="/images/new/footer002.png" alt="我的E政府"></a></li>

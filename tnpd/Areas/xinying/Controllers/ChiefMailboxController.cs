@@ -143,6 +143,7 @@ namespace tnpd.Areas.xinying.Controllers
                 mailbody = mailbody.Replace("{Email}", mailCase.Email);
                 mailbody = mailbody.Replace("{Subject}", mailCase.Subject);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(mailCase.Content));
+                mailbody = mailbody.Replace("{Files}", "");
 
                 Utility.SystemSendMail(mailCase.Email, "臺南市政府警察局-分局長信箱", mailbody);
 

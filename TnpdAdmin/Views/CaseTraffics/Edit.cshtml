@@ -108,8 +108,13 @@
 
         <tbody>
         <tr>
-            <td>姓名：@Model.Name</td>
-            <td>性別：@Model.Gender</td>
+            <td>姓名：@Model.Name
+                <input type="hidden" id="hidFromID" value="@Model.Pid"/>
+                <input type="hidden" id="hidFromName" value="@Model.Name"/>
+                <br />
+                <span id="checkMessage" style="color: red"></span>
+            </td>
+            <td>@*性別：@Model.Gender*@</td>
 
         </tr>
         <tr>
@@ -322,15 +327,37 @@
 
             $("#btnRestone").click(function () {
                 $("#processtype").val("Restone");
+                
                 $("form").submit();
+                $("#btnRestone").attr("disabled", "disabled");
             });
             $("#btnSendMail").click(function () {
                 $("#processtype").val("SendMail");
                 $("form").submit();
+                $("#btnSendMail").attr("disabled", "disabled");
             });
           
 
+            if ($('#hidFromID').val() != '') {
+                $('#checkMessage').text('檢查身份證字號中....');
+                $.get("/Soap/checkId", { id: $('#hidFromID').val() })
+                    .done(function (data) {
+                        if (data == '查無資料') {
+                            $('#checkMessage').text(data);
+                            console.log(data);
+                        } else {
+                            var checkMessage;
+                            if (data == $('#hidFromName').val()) {
+                                checkMessage = '回傳名字為：' + data + ",比對結果：符合";
+                            } else {
+                                checkMessage = '回傳名字為：' + data + ",比對結果：不符合，請人工確認";
+                            }
+                            console.log(checkMessage);
+                            $('#checkMessage').text(checkMessage);
+                        }
 
+                    });
+            }
 
         });
 

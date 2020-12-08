@@ -1,13 +1,17 @@
 ﻿
 @using MvcPaging
 @using Tnpd.Helpers
+@using TnpdAdmin.Models
 @model MvcPaging.IPagedList<TnpdModels.CaseTrafficPoproc>
 
 @{
     ViewBag.Title = "承辦人作業";
+    List<CaseMerge> caseMerges = ViewBag.caseMerges; 
 }
 
 <h2>承辦人作業</h2>
+
+
 @using (Html.BeginForm())
 {
     <div>
@@ -21,13 +25,19 @@
     
 }
   
-
+@Html.ActionLink("批次處理","ProcessBatch",new {pclass=Request["pclass"] },new {style = "text-decoration: underline"}) <span>(</span> <span id="mCount">@caseMerges.Count()</span> <span>)</span> 
+<br/>
+<br/>
+<input type="button" value="加入批次處理清單"  class="AddList"/>
 <table class="table table-v">
     <tr>
+        <th style="width:60px">
+            <input name="clickAll" id="clickAll" type="checkbox"> 全選
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Case.CaseID)
         </th>
-      
+
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Case.InitDate)
         </th>
@@ -37,23 +47,29 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Case.Subject)
         </th>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Case.Predate)
         </th>
         <th>
-           案件狀態
+            案件狀態
         </th>
-        
+
     </tr>
 <tbody>
 @foreach (var item in Model) {
     <tr>
         <td>
-          
-            @Html.ActionLink(item.Case.CaseID.ToString(), "ProcessEdit", new { id=item.Id,pclass=Request["pclass"]}) 
+
+            <input id="chkItem@(item.Id)" class="chkItem"  type="checkbox" value="@item.Id"> <label style="width: 100px;display: inline" for="chkItem@(item.Id)">選取</label>
+
+              
         </td>
-      
+        <td>
+
+            @Html.ActionLink(item.Case.CaseID.ToString(), "ProcessEdit", new {id = item.Id, pclass = Request["pclass"]})
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Case.InitDate)
         </td>
@@ -70,12 +86,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
-      
+
     </tr>
 }
 </tbody>
 </table>
-
+<input type="button" value="加入批次處理清單"  class="AddList"/><input type="hidden" name="hidMerge" id="hidMerge" value=""/>
 <div class="pager">
     @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
 </div>
@@ -87,7 +103,40 @@
     <script>
         $(document).ready(function() {
             $(".datepicker").datepicker();
+            $("#clickAll").click(function () {
 
+                if ($("#clickAll").prop("checked")) {
+                    $(".chkItem").each(function () {
+                        $(this).prop("checked", true);
+                    });
+                } else {
+                    $(".chkItem").each(function () {
+                        $(this).prop("checked", false);
+                    });
+                }
+            });
+            $(".AddList").click(function () {
+                var mergeText = '';
+                $(".chkItem").each(function () {
+                    var id = $(this).val();
+
+                    if ($(this).is(":checked")) {
+
+                        mergeText = mergeText + id + ',';
+
+                    }
+
+
+                });
+                $("#hidMerge").val(mergeText);
+                console.log($("#hidMerge").val());
+                $.get("/CaseTraffics/AddMerges/", { id: mergeText })
+                    .done(function (data) {
+                        $("#mCount").text(data);
+                        console.log(data);
+                    });
+                alert("已經加入批次處理清單");
+            });
         });
     </script>
 }
