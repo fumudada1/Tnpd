@@ -15,7 +15,7 @@ namespace tnpd.Models
         [Display(Name = "主旨")]
         public string Subject { get; set; }
 
-        [Required(ErrorMessage = "主旨必填")]
+        [Required(ErrorMessage = "內容必填")]
         [Display(Name = "內容")]
         public string Content { get; set; }
 

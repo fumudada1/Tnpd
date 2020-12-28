@@ -173,6 +173,13 @@ namespace SynchronizeAD
                     {
                         member.Name = descriptionName;
                         member.Email = userPrincipalName;
+                        //若有異動單位
+                        if (ParentId != member.UnitId)
+                        {
+                            member.Roles.Clear();
+                            member.Permission = "";
+                        }
+
                         member.UnitId = ParentId;
                     }
                     else

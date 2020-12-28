@@ -247,6 +247,11 @@ namespace Tnpd.Controllers
 
                 db.Newses.Add(news);
                 //news.Create(db,db.Newses); db.Newses.Add(news);
+                SystemLog log = new SystemLog();
+                log.InitDate = DateTime.Now;
+                log.Poster = User.Identity.Name;
+                log.Subject = "新增" + news.Subject;
+                db.SystemLogs.Add(log);
                 db.SaveChanges();
                 return RedirectToAction("Edit", new {id=news.Id, pclass = pclass });
             }
@@ -350,6 +355,12 @@ namespace Tnpd.Controllers
                 }
 
                 db.Entry(newsItem).State = EntityState.Modified;
+                SystemLog log = new SystemLog();
+                log.InitDate = DateTime.Now;
+                log.Poster = User.Identity.Name;
+                log.Subject = "修改" + news.Subject;
+                db.SystemLogs.Add(log);
+                
                 db.SaveChanges();
                 return RedirectToAction("Index", new { Page = -1, pclass = pclass });
             }
@@ -402,7 +413,13 @@ namespace Tnpd.Controllers
 
 
             db.Newses.Remove(news);
+            SystemLog log = new SystemLog();
+            log.InitDate = DateTime.Now;
+            log.Poster = User.Identity.Name;
+            log.Subject = "刪除" + news.Subject;
+            db.SystemLogs.Add(log);
             db.SaveChanges();
+            
 
             return RedirectToAction("Index", new { Page = -1, pclass = Request["pclass"] });
         }

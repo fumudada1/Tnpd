@@ -24,6 +24,15 @@ namespace Tnpd.Filters
                 HttpContext.Current.Response.Redirect(FormsAuthentication.LoginUrl);
 
             }
+
+            if (HttpContext.Current.Session["user"] == null)
+            {
+                FormsAuthentication.SignOut();
+                HttpContext.Current.Session.Abandon();
+                HttpContext.Current.Response.Redirect(FormsAuthentication.LoginUrl);
+
+            }
+
             string controllerName= string.IsNullOrEmpty(Module) ? filterContext.Controller.ControllerContext.RouteData.Values["controller"].ToString() : Module;
             string actionName = string.IsNullOrEmpty(Module) ? filterContext.Controller.ControllerContext.RouteData.Values["action"].ToString() : Module;
 

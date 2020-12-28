@@ -80,7 +80,7 @@ namespace Tnpd.Models
         static public void SetAuthenTicket(string userData, string userId)
         {
             //宣告一個驗證票
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userId, DateTime.Now, DateTime.Now.AddHours(5), false, userData);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userId, DateTime.Now, DateTime.Now.AddMinutes(1), false, userData);
             //加密驗證票
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
             //建立Cookie

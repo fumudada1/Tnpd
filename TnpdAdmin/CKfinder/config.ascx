@@ -174,7 +174,7 @@
 		type.Url = BaseUrl + "files/";
 		type.Dir = BaseDir == "" ? "" : BaseDir + "files/";
 		type.MaxSize = 0;
-		type.AllowedExtensions = new string[] { "pdf", "odf", "ods","odt" };
+		type.AllowedExtensions = new string[] { "pdf", "odf", "ods","odt","mp4","mp3" };
 		type.DeniedExtensions = new string[] { };
 
 		type = ResourceType.Add( "Images" );

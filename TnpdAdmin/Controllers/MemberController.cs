@@ -252,7 +252,7 @@ namespace Tnpd.Controllers
                     HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     
                     //將Cookie寫入回應
-
+                    Session["user"] = member;
                     System.Web.HttpContext.Current.Response.Cookies.Add(authenticationcookie);
 
                     return RedirectToAction("Index", "Home");
