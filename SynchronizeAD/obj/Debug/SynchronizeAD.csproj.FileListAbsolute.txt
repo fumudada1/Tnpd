@@ -1,0 +1,13 @@
+E:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.exe.config
+E:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.exe
+E:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.pdb
+E:\website\Tnpd\SynchronizeAD\bin\Debug\EntityFramework.dll
+E:\website\Tnpd\SynchronizeAD\bin\Debug\TnpdModels.dll
+E:\website\Tnpd\SynchronizeAD\bin\Debug\Newtonsoft.Json.dll
+E:\website\Tnpd\SynchronizeAD\bin\Debug\EntityFramework.xml
+E:\website\Tnpd\SynchronizeAD\bin\Debug\TnpdModels.pdb
+E:\website\Tnpd\SynchronizeAD\bin\Debug\Newtonsoft.Json.xml
+E:\website\Tnpd\SynchronizeAD\bin\Debug\zh-Hant\EntityFramework.resources.dll
+E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.csprojResolveAssemblyReference.cache
+E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.exe
+E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.pdb
