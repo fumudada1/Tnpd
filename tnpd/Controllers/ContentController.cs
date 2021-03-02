@@ -17,6 +17,12 @@ namespace tnpd.Controllers
         public ActionResult Article(string id)
         {
             ViewBag.UnId = id;
+            WebPresentation web = new WebPresentation("tnpd");
+            XmlNode nowNode = web.GetNodeById(id);
+            if (nowNode == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var article = _db.WebArticles.FirstOrDefault(x => x.UnId == id);
             if (article == null)
             {
@@ -33,6 +39,12 @@ namespace tnpd.Controllers
         public ActionResult Detail(string id)
         {
             ViewBag.UnId = id;
+            WebPresentation web = new WebPresentation("tnpd");
+            XmlNode nowNode = web.GetNodeById(id);
+            if (nowNode == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var article = _db.WebArticles.FirstOrDefault(x => x.UnId == id);
             if (article == null)
             {

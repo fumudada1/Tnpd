@@ -176,7 +176,7 @@ namespace Tnpd.Controllers
                         temptr1 = temptr1.Replace("{row}", role.Members.Count.ToString());
                         temptr1 = temptr1.Replace("{Permission}", Permissions);
                         temptr1 = temptr1.Replace("{Unit}", member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject );
-                        temptr1 = temptr1.Replace("{Name}", member.Name);
+                        temptr1 = temptr1.Replace("{Name}", member.Name +"(" + member.Account + ")");
                         sb.Append(temptr1);
                     }
                     else
@@ -184,7 +184,7 @@ namespace Tnpd.Controllers
                         string temptr2 = rowtr2;
                         temptr2 = temptr2.Replace("{RowNum}", j.ToString());
                         temptr2 = temptr2.Replace("{Unit}", member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject);
-                        temptr2 = temptr2.Replace("{Name}", member.Name);
+                        temptr2 = temptr2.Replace("{Name}", member.Name + "(" + member.Account + ")");
                         sb.Append(temptr2);
 
                     }

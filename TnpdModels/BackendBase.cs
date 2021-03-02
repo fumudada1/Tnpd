@@ -64,7 +64,7 @@ namespace TnpdModels
                 var member = db.Members.FirstOrDefault(x => x.Account == HttpContext.Current.User.Identity.Name);
 
 
-            this.Poster = member.Name;
+            this.Poster = member.Name + "(" + member.Account + ")";
             this.initOrg = string.Format("{0} {1}", member.MyUnit.ParentUnit.Subject, member.MyUnit.Subject);       
 
 

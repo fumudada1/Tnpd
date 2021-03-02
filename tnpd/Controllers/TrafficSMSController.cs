@@ -113,6 +113,7 @@ namespace tnpd.Controllers
             {
                
                 trafficSmsCarInfo.InitDate=DateTime.Now;
+                //trafficSmsCarInfo.checkStatus = BooleanType.否;
                 _db.trafficSmsCarInfos.Add(trafficSmsCarInfo);
                 _db.SaveChanges();
                 ViewBag.isSuccess = true;

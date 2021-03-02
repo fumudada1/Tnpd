@@ -228,6 +228,7 @@
     <Compile Include="Controllers\TrafficdisdataController.cs" />
     <Compile Include="Controllers\TrafficRegionController.cs" />
     <Compile Include="Controllers\TrafficRoaddataController.cs" />
+    <Compile Include="Controllers\TrafficSMSController.cs" />
     <Compile Include="Controllers\TrafficViolationsClassController.cs" />
     <Compile Include="Controllers\TrafficViolationsRejectclassController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\CaseMerge.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
     <Compile Include="Models\GJson.cs" />
+    <Compile Include="Models\Hiair2Net.cs" />
     <Compile Include="Models\ModelsAttributeHelper.cs" />
     <Compile Include="Models\Utility.cs" />
     <Compile Include="Models\WebStatistics.cs" />
@@ -1392,6 +1394,12 @@
     <Content Include="Views\RefugeStations\Create.cshtml" />
     <Content Include="Views\RefugeStations\Edit.cshtml" />
     <Content Include="Views\RefugeStations\Delete.cshtml" />
+    <Content Include="Views\Member\LoginAD.cshtml" />
+    <Content Include="Views\TrafficSMS\Index.cshtml" />
+    <Content Include="Views\TrafficSMS\Details.cshtml" />
+    <Content Include="Views\TrafficSMS\Create.cshtml" />
+    <Content Include="Views\TrafficSMS\Edit.cshtml" />
+    <Content Include="Views\TrafficSMS\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1418,7 +1426,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>13572</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

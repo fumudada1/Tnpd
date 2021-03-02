@@ -23,7 +23,25 @@
     var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
     var news1Uid = web.GetIdByTitle("最新消息");
     var news2Uid = web.GetIdByTitle("活動訊息");
-   
+
+    int month = DateTime.Now.Month;
+    string bannerImageName = "season01";
+    if (month == 3 || month == 4 || month == 5)
+    {
+        bannerImageName = "season01";
+    }
+    if (month == 6 || month == 7 || month == 8)
+    {
+        bannerImageName = "season02";
+    }
+    if (month == 9 || month == 10 || month == 11)
+    {
+        bannerImageName = "season03";
+    }
+    if (month == 1 || month == 2 || month == 12)
+    {
+        bannerImageName = "season04";
+    }
 
 }
 <!DOCTYPE html>
@@ -140,7 +158,7 @@
 ============================================= -->
 <section id="content">
 <div class="content-wrap pt0pb0">
-<div class="content-wrap bg001">
+<div class="content-wrap bg001" style="background-image: url(/images/@(bannerImageName).png);background-repeat:repeat-x; background-position: bottom;">
     <div class="container clearfix">
         <section id="slider" class="slider-element revoslider-wrap clearfix">
             <div id="rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#fff;padding:0px;margin-top:0px;margin-bottom:0px;">

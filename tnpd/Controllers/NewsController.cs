@@ -173,10 +173,10 @@ namespace tnpd.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (Session["PerView"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["PerView"] == null)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             news.Views = news.Views + 1;
             news.Update(_db, _db.Newses);

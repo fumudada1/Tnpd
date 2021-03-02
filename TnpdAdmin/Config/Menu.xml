@@ -189,6 +189,7 @@
     <Modules Title="違規道路設定" Controller="TrafficRoaddata" Action="Index"  Value="T16" Icon="fa fa-rss" />
 	<Modules Title="案件滿意度調查表" Controller="CaseTraffics" Action="Survey" pclass="1"  Value="T18" Icon="fa fa-rss" />
   </Modules>
+  <Modules Title="交通違規簡訊審核" Controller="TrafficSMS" Action="Index"  Value="M7" Icon="fa fa-rss" />
   <Modules Title="承辦人作業" Controller="Case" Action="Process"  Value="M4" Icon="fa fa-rss" />
   <Modules Title="交通承辦人作業" Controller="CaseTraffics" Action="Process"  Value="M5" Icon="fa fa-rss" />
   <Modules Title="訊息審核作業" Controller="News" Action="Review"  Value="M6" Icon="fa fa-rss" />

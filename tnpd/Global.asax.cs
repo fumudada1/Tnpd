@@ -96,6 +96,7 @@ namespace tnpd
             {
                 try
                 {
+                    //System.IO.File.WriteAllText(@"C:\WebSite\tnpd\tnpd\upfiles\log.txt", "file write");
                     Response.Redirect("/Error/SizeError");
                 }
                 catch (Exception ex)

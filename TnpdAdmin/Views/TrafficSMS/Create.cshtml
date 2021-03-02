@@ -1,0 +1,129 @@
+﻿@using Tnpd.Models
+@model TnpdModels.TrafficSMSCarInfo
+
+@{
+    ViewBag.Title = "交通違規簡訊審核新增";
+}
+
+<h2>交通違規簡訊審核新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>TrafficSMSCarInfo</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarNO)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CarNO,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfo>.GetDisplayName("CarNO") })
+            @Html.ValidationMessageFor(model => model.CarNO)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarType)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CarType, new SelectList(Enum.GetValues(typeof(TnpdModels.CarType))))
+            @Html.ValidationMessageFor(model => model.CarType)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarOwner)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CarOwner,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfo>.GetDisplayName("CarOwner") })
+            @Html.ValidationMessageFor(model => model.CarOwner)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Pid)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Pid,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfo>.GetDisplayName("Pid") })
+            @Html.ValidationMessageFor(model => model.Pid)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarAllow)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CarAllow, new SelectList(Enum.GetValues(typeof(TnpdModels.CarAllow))))
+            @Html.ValidationMessageFor(model => model.CarAllow)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.checkStatus)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.checkStatus, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.checkStatus)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TrafficSMSId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TrafficSMSId")
+            @Html.ValidationMessageFor(model => model.TrafficSMSId)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.initOrg)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.initOrg,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfo>.GetDisplayName("initOrg") })
+            @Html.ValidationMessageFor(model => model.initOrg)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpdateOrg)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.UpdateOrg,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfo>.GetDisplayName("UpdateOrg") })
+            @Html.ValidationMessageFor(model => model.UpdateOrg)
+       
+            
+        </div>
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

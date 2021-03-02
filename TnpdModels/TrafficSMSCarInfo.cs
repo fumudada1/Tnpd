@@ -20,6 +20,7 @@ namespace TnpdModels
         [Display(Name = "車號")]
         public string CarNO { get; set; }
 
+        [Display(Name = "車子類型")]
         public CarType CarType { get; set; }
 
         [Required(ErrorMessage = "{0}必填")]
@@ -32,14 +33,14 @@ namespace TnpdModels
         [MaxLength(10)]
         public string Pid { get; set; }
 
-        [Display(Name = "同意")]
+        [Display(Name = "同意狀況")]
         public CarAllow CarAllow { get; set; }
 
-        [Display(Name = "審核狀態")]
+        [Display(Name = "審核是否通過")]
         public BooleanType checkStatus { get; set; }
 
         //ForeignKey
-        [Display(Name = "類別")]
+        [Display(Name = "註冊人")]
         public int? TrafficSMSId { get; set; }
 
         [ForeignKey("TrafficSMSId")]

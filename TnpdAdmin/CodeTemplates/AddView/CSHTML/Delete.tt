@@ -20,7 +20,7 @@ MvcTextTemplateHost mvcHost = MvcTemplateHost;
 string functionTitle="";
      XmlDocument xmlDoc = new XmlDocument();
     
-     xmlDoc.Load("E:\\website\\tnpd\\TnpdAdmin\\Config\\Menu.xml");
+     xmlDoc.Load("F:\\website\\tnpd\\TnpdAdmin\\Config\\Menu.xml");
      XmlNodeList nodeList = xmlDoc.GetElementsByTagName("Modules");
     
      foreach (XmlNode xmlnode in nodeList)

@@ -168,7 +168,7 @@ namespace tnpd.Controllers
                 mailbody = mailbody.Replace("{Content}", Txt2Html(mailCase.Content));
 
                 Utility.SystemSendMail(mailCase.Email, "臺南市政府警察局-網路報案", mailbody);
-                Utility.SystemSendMail("net110@mail.tainan.gov.tw", "臺南市政府警察局-網路報案", mailbody);
+                Utility.SystemSendMail("net110@mail.tainan.gov.tw,net110@tnpd.gov.tw", "臺南市政府警察局-網路報案", mailbody);
 
                 return RedirectToAction("CreateSuccess", new { unid = id, id = mailCase.CaseGuid });
             }

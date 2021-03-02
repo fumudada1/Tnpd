@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.DirectoryServices;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using MvcPaging;
@@ -255,6 +257,35 @@ namespace Tnpd.Controllers
                     Session["user"] = member;
                     System.Web.HttpContext.Current.Response.Cookies.Add(authenticationcookie);
 
+                    try
+                    {
+                        SqlConnection connection = new SqlConnection(WebConfigurationManager
+                            .ConnectionStrings["TnpdConnection"].ConnectionString);
+                        SqlCommand command = new SqlCommand("INSERT INTO SystemLogs  (Subject, Poster, InitDate) VALUES (@Subject, @Poster, @InitDate)", connection);
+                        command.Parameters.Add("@Subject",
+                            "帳號:" + member.Account + "，姓名:" + member.Name + "於" + DateTime.Now.ToString() + "登入系統成功");
+                        command.Parameters.Add("@Poster", member.Account);
+                        command.Parameters.Add("@InitDate", DateTime.Now);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+//SystemLog log = new SystemLog();
+//                    log.InitDate = DateTime.Now;
+//                    log.Poster = "admin";
+//                    //log.Subject = "帳號:" + member.Account + "，姓名:" + member.CName + "於" + DateTime.Now.ToString() + "登入系統成功";
+//                    log.Subject = "34566";
+//                    db.SystemLogs.Add(log);
+//                    db.SaveChanges();
+
+                    }
+                    catch (Exception e)
+                    {
+
+                        ViewBag.message = "登入失敗!";
+                        return View();
+                    }
+                    
+
                     return RedirectToAction("Index", "Home");
                 }
                 ViewBag.message = "登入失敗!";
@@ -412,9 +443,77 @@ namespace Tnpd.Controllers
 
         }
 
+        [AllowAnonymous]
+        public ActionResult LoginAD()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginAD(string userName, string password)
+        {
+            if (ModelState.IsValid)
+            {
+                
+
+                LoginResult loginResult = ActiveDirectory.Login(userName, password);
+                if(loginResult!=LoginResult.LOGIN_OK)
+                {
+                    switch (loginResult)
+                    {
+                        case LoginResult.LOGIN_USER_ACCOUNT_INACTIVE:
+                            ViewBag.message = "此帳戶已經停用!";
+                            break;
+                        case LoginResult.LOGIN_USER_DOESNT_EXIST :
+                            ViewBag.message = "此帳戶不存在!";
+                            break;
+                        case LoginResult.LOGIN_USER_PASSWORD_INCORRECT:
+                            ViewBag.message = "此帳戶密碼不正確!";
+                            break;
+
+                    }
+                    
+                    return View();
+                }
+
+                if (!IsADUserValid(userName, password, "tncpb.gov"))
+                {
+                    ViewBag.message = "登入失敗!";
+                    return View();
+                }
+
+                Member member = ValidateUser(userName);
+                if (member != null)
+                {
+                    member.Permission = member.Permission + ",M4,M5,M6";
+                    Utility.GetPerssion(member);
+                    string userData = JsonConvert.SerializeObject(member);
+                    //宣告一個驗證票
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, DateTime.Now.AddHours(5), false, userData);
+                    //加密驗證票
+                    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                    //建立Cookie
+                    HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+
+                    //將Cookie寫入回應
+                    Session["user"] = member;
+                    System.Web.HttpContext.Current.Response.Cookies.Add(authenticationcookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                ViewBag.message = "登入失敗!";
+                return View();
+            }
+            ViewBag.message = "登入失敗!";
+            return View();
+
+        }
+
         private bool IsADUserValid(string UserName, string Password, string ADschema)
         {
-            if (UserName == "admin")
+            if (UserName == "madhatter")
             {
                 return true;
             }
@@ -484,7 +583,7 @@ namespace Tnpd.Controllers
         public ActionResult LogOff()
         {
             System.Web.Security.FormsAuthentication.SignOut();
-            return RedirectToAction("LoginAdmin");
+            return RedirectToAction("Login");
         }
 
         //輸出treeView javascript Code 

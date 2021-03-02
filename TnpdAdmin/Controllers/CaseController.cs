@@ -1172,8 +1172,8 @@ namespace TnpdAdmin.Controllers
             {
                 int UnitId = getViewDateInt("SearchByCategories1");
                 //TnpdModels.CaseType searchByCaseType = (TnpdModels.CaseType)Enum.Parse(typeof(TnpdModels.CaseType), CaseType, false);
-                WebSiteName swebsite = _db.WebSiteNames.FirstOrDefault(x => x.UnitId == UnitId);
-                myCases = myCases.Where(w => w.WebSiteId == swebsite.Id);
+                //WebSiteName swebsite = _db.WebSiteNames.FirstOrDefault(x => x.UnitId == UnitId);
+                myCases = myCases.Where(w => w.Poprocs.FirstOrDefault().assignUnit.ParentId == UnitId);
             }
 
             if (hasViewData("SearchBySubject"))
