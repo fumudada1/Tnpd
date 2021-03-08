@@ -59,7 +59,7 @@ namespace Tnpd.Controllers
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id!=1)
             {
                 newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
-                newses = newses.Where(w => w.NewsCatalogs.Count(x => x.WebSiteId == webSite.Id) > 0 || w.MemberId==member.Id);
+                newses = newses.Where(w => w.OwnWebSiteId==webSite.Id|| w.MemberId==member.Id);
                 //newses = newses.Where(w => w.OwnWebSiteId==member.MyUnit.ParentId);
             }
 
@@ -163,14 +163,14 @@ namespace Tnpd.Controllers
             }
 
             var newsCatalogs = db.NewsCatalogs.Where(x => x.WebCategoryId == pclass).AsQueryable();
-            //if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
-            //{
-            //    newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id || x.WebSiteId==1);
-            //}
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
             {
-                newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
+                newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id || x.WebSiteId == 1);
             }
+            //if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
+            //{
+            //    newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
+            //}
             var newsCatalogs1 = newsCatalogs.OrderBy(x => x.WebSiteId).ToList();
 
             ViewBag.newsCatalogs = newsCatalogs1;

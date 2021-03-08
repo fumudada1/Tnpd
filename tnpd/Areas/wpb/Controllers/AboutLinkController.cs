@@ -17,8 +17,9 @@ namespace tnpd.Areas.wpb.Controllers
         //
         // GET: /About/
 
-        public ActionResult Index(int? page, FormCollection fc)
+        public ActionResult Index(Guid id, int? page, FormCollection fc)
         {
+            ViewBag.UnId = id.ToString();
             string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
 
             int currentPageIndex = 0;

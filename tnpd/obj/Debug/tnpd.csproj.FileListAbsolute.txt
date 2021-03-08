@@ -145,4 +145,3 @@ F:\website\Tnpd\tnpd\obj\Debug\Interop.SpeechLib.dll
 F:\website\Tnpd\tnpd\obj\Debug\tnpd.csproj.ResolveComReference.cache
 F:\website\Tnpd\tnpd\obj\Debug\tnpd.dll
 F:\website\Tnpd\tnpd\obj\Debug\tnpd.pdb
-F:\website\Tnpd\tnpd\obj\Debug\tnpd.csprojResolveAssemblyReference.cache
