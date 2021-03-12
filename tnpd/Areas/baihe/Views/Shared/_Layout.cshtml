@@ -73,10 +73,10 @@
             <a href="/@areaName/" class="standard-logo" data-dark-logo="/Areas/@areaName/images/logo-dark.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo.png" alt="@(site.Subject)_臺南市政府警察局"></a>
             <a href="/@areaName/" class="retina-logo" data-dark-logo="/Areas/@areaName/images/logo-dark@2x.png" title="@(site.Subject)_臺南市政府警察局"><img src="/Areas/@areaName/images/logo@2x.png" alt="@(site.Subject)_臺南市政府警察局"></a>
         </h1><!-- #logo end -->
-        @if (Session["holiday"] != null)
-        {
-            <div class="d-none d-md-block fleft"><img src="/images/@Session["holiday"]" alt="節慶"></div>
-        }
+		@if (Session["holiday"] != null)
+                {
+                    <div class="d-none d-md-block fleft"><img src="/images/@Session["holiday"]" alt="節慶"></div>
+                }
         <div class="row justify-content-end no-gutters">
             <div class="col-lg-auto col-md-12">
                 <div class="top-advert-1">
@@ -120,7 +120,7 @@
                             <label for="q" class="nonedisplay">關鍵字搜尋</label>
                             <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
                             <div class="input-group-append">
-                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" alt="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i><span class="sr-only">搜尋</span></button>
                             </div>
                     </div>
                 </div>

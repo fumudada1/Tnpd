@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common.CommandTrees;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace Tnpd.Controllers
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id!=1)
             {
                 newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
-                newses = newses.Where(w => w.OwnWebSiteId==webSite.Id|| w.MemberId==member.Id);
+                newses = newses.Where(w => w.OwnWebSiteId==webSite.Id||w.initOrg.Contains(webSite.Subject));
                 //newses = newses.Where(w => w.OwnWebSiteId==member.MyUnit.ParentId);
             }
 
@@ -184,7 +185,7 @@ namespace Tnpd.Controllers
             News news = new News()
             {
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddYears(1)
+                EndDate = DateTime.Now.AddMonths(6)
             };
 
 
@@ -236,7 +237,7 @@ namespace Tnpd.Controllers
                 news.Poster = member.Name;
                 news.initOrg = member.MyUnit.ParentUnit.Subject + " " + member.MyUnit.Subject;
                 news.WebCategoryId = pclass;
-                news.OwnWebSiteId = member.MyUnit.ParentId.Value;
+                news.OwnWebSiteId = webSite.Id;
                 news.MemberId = member.Id;
                 List<NewsCatalog> catalogs = db.NewsCatalogs.Where(x => newsCatalogID.Contains(x.Id)).ToList();
                 foreach (var catalog in catalogs)

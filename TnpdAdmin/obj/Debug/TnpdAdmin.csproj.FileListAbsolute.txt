@@ -141,4 +141,3 @@ F:\website\Tnpd\TnpdAdmin\bin\zh-Hant\Microsoft.Web.WebPages.OAuth.resources.dll
 F:\website\Tnpd\TnpdAdmin\bin\zh-Hant\WebMatrix.WebData.resources.dll
 F:\website\Tnpd\TnpdAdmin\obj\Debug\TnpdAdmin.dll
 F:\website\Tnpd\TnpdAdmin\obj\Debug\TnpdAdmin.pdb
-F:\website\Tnpd\TnpdAdmin\obj\Debug\TnpdAdmin.csprojResolveAssemblyReference.cache

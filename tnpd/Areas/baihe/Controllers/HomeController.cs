@@ -24,6 +24,12 @@ namespace tnpd.Areas.baihe.Controllers
             //活動訊息
             var newse2 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 39 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
                 .OrderByDescending(p => p.StartDate).Take(6);
+            //破案報導
+            var newse4 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 3 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
+                .OrderByDescending(p => p.StartDate).Take(6);
+            //好人好事
+            var newse5 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 6 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
+                .OrderByDescending(p => p.StartDate).Take(6);
             ////活動相簿
             //var newse3 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 7 && y.WebSite.SiteCode == areaName) > 0)
             //    .OrderByDescending(p => p.StartDate).Take(4);
@@ -37,6 +43,8 @@ namespace tnpd.Areas.baihe.Controllers
 
             ViewBag.newse1 = newse1.ToList();
             ViewBag.newse2 = newse2.ToList();
+            ViewBag.newse4 = newse4.ToList();
+            ViewBag.newse5 = newse5.ToList();
             //ViewBag.newse3 = newse3.ToList();
 
             ViewBag.banners = banners.ToList();

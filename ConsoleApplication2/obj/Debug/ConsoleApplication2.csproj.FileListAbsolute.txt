@@ -1,6 +1,0 @@
-F:\website\Tnpd\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe.config
-F:\website\Tnpd\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe
-F:\website\Tnpd\ConsoleApplication2\bin\Debug\ConsoleApplication2.pdb
-F:\website\Tnpd\ConsoleApplication2\obj\Debug\ConsoleApplication2.exe
-F:\website\Tnpd\ConsoleApplication2\obj\Debug\ConsoleApplication2.pdb
-F:\website\Tnpd\ConsoleApplication2\obj\Debug\ConsoleApplication2.csprojResolveAssemblyReference.cache

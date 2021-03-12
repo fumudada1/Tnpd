@@ -13,7 +13,10 @@
     List<News> newse2 = ViewBag.newse2;
     //List<News> newse3 = ViewBag.newse3;
     List<BigBanner> banners = ViewBag.banners;
-
+    
+    List<News> newse4 = ViewBag.newse4;
+    List<News> newse5 = ViewBag.newse5;
+    
     List<HomeAd> homeAds = ViewBag.homeAds;
     IQueryable<HomeLink> homeLinks = ViewBag.homeLinks;
     List<HomeTheme> homeThemes = ViewBag.homeThemes;
@@ -21,8 +24,26 @@
 
     var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
     var news1Uid = web.GetIdByTitle("最新消息");
-    var news2Uid = web.GetIdByTitle("活動訊息");
    
+    var news3Uid = web.GetIdByTitle("好人好事");
+   int month = DateTime.Now.Month;
+    string bannerImageName = "season01";
+    if (month == 3 || month == 4 || month == 5)
+    {
+        bannerImageName = "season01";
+    }
+    if (month == 6 || month == 7 || month == 8)
+    {
+        bannerImageName = "season02";
+    }
+    if (month == 9 || month == 10 || month == 11)
+    {
+        bannerImageName = "season03";
+    }
+    if (month == 1 || month == 2 || month == 12)
+    {
+        bannerImageName = "season04";
+    }
 
 }
 <!DOCTYPE html>
@@ -75,6 +96,10 @@
                                                                                                                           src="/Areas/@areaName/images/logo@2x.png" alt="@(site.Subject)_臺南市政府警察局"></a>
         </h1>
         <!-- #logo end -->
+		@if (Session["holiday"] != null)
+                {
+                    <div class="d-none d-md-block fleft"><img src="/images/@Session["holiday"]" alt="節慶"></div>
+                }
         <div class="row justify-content-end no-gutters">
             <div class="col-lg-auto col-md-12">
                 <div class="top-advert-1">
@@ -119,7 +144,7 @@
                             <label for="q" class="nonedisplay">關鍵字搜尋</label>
                             <input id="cx" name="cx" type="hidden" value="011981164940829324463:uhxyg-yjrho"/>
                             <div class="input-group-append">
-                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i></button>
+                                <button class="btn btninput" type="button" title="送出搜尋(另開視窗)" alt="送出搜尋(另開視窗)" onclick="javascript: document.getElementById('cse-search-box').submit();"><i class="icon-line-search"></i><span class="sr-only">搜尋</span></button>
                             </div>
                     </div>
                 </div>
@@ -136,7 +161,7 @@
 ============================================= -->
 <section id="content">
 <div class="content-wrap pt0pb0" >
-<div class="content-wrap bg001">
+<div class="content-wrap bg001" style="background-image: url(/images/@(bannerImageName).png);background-repeat:repeat-x; background-position: bottom;">
     <div class="container clearfix">
         <section id="slider" class="slider-element revoslider-wrap clearfix">
             <div id="rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#fff;padding:0px;margin-top:0px;margin-bottom:0px;">
@@ -258,8 +283,10 @@
             <div class="col-lg-6 col-sm-12 col60 ">
                 <div class="tabs tabs-bordered clearfix" id="tab-2">
                     <ul class="tab-nav clearfix" id="tabNewHeader">
+                        
                         <li><a href="#tabs-news-1">最新消息</a></li>
-                        <li><a href="#tabs-news-2">活動訊息</a></li>
+                       
+                        <li><a href="#tabs-news-2">好人好事</a></li>
                     </ul>
                     <div class="tab-container">
                         <noscript>
@@ -312,23 +339,25 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <noscript>
                             <ul class="tab-nav-noscript">
-                                <li><a href="#" title="活動訊息">活動訊息</a></li>
+                                <li><a href="#" title="好人好事">好人好事</a></li>
                             </ul>
                         </noscript>
                         <div id='tabs-news-2' class="tab-content clearfix">
                             @{
-                            var fistRow2 = newse2.FirstOrDefault();
+                            var fistRow3 = newse5.FirstOrDefault();
                             }
-                            @if (fistRow2 != null)
+                            @if (fistRow3 != null)
                         {
-                            var row = fistRow2.NewsImagses.FirstOrDefault();
+                            var row = fistRow3.NewsImagses.FirstOrDefault();
                                 <div class="i_newbox">
-                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 39, unid = news2Uid, area = areaName })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h3>
+                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow3.Id, sClass = 6, unid = news3Uid, area = areaName })))" title="@fistRow3.Subject">@fistRow3.Subject</a></h3>
                                     <div class="row">
                                         <div class="col-md-4 pr0 sm_mb20">
-                                            @if (fistRow2.NewsImagses.Count > 0)
+                                            @if (fistRow3.NewsImagses.Count > 0)
                                         {
                                                 <img src="@row.UpFile" alt="@row.Subject">
                                         }
@@ -338,25 +367,25 @@
                                         }
                                         </div>
                                         <div class="col-md-8">
-                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 50)
+                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow3.Article), 50)
                                         </div>
                                     </div>
                                 </div>
-                            newse2.Remove(fistRow2);
+                            newse5.Remove(fistRow3);
                         }
 
                             <div class="i_newbox">
                                 <ul>
-                                    @foreach (News news in newse2)
+                                    @foreach (News news in newse5)
                                     {
-                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 39, unid = news2Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 6, unid = news3Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
                                         </a></li>        
                                                            
                                     }
 
                                 </ul>
                                 <div class="newmore">
-                                    <a title="更多活動訊息" class="more" href="/@areaName/News/Index/@news2Uid?sClass=39">MORE</a>
+                                    <a title="更多好人好事" class="more" href="/@areaName/News/Index/@news3Uid?sClass=6">MORE</a>
                                 </div>
                             </div>
                         </div>
