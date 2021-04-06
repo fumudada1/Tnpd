@@ -104,6 +104,14 @@ namespace TnpdModels
         未通過 = 3
     }
 
-
+    public enum SMSStatus
+    {
+        [Description("待審核")]
+        待審核 = 2,
+        [Description("已通過")]
+        已通過 = 0,
+        [Description("未通過")]
+        未通過 = 1
+    }
 
 }

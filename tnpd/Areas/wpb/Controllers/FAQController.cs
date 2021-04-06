@@ -38,23 +38,18 @@ namespace tnpd.Areas.wpb.Controllers
 
             WebPresentation web = new WebPresentation(areaName, id.ToString());
             string title = ViewBag.Subject ?? web.GetTitle();
-            NewsCatalog newsCatalog = _db.NewsCatalogs.FirstOrDefault(x => x.WebSite.SiteCode == areaName && title.Contains(x.Subject));
-
-
-
-            var newses = newsCatalog.Newses.OrderByDescending(p => p.InitDate).ToList();
-            
-            //newses = newses.Where(w => w.StartDate <= DateTime.Now && w.EndDate >= yesterDay && w.IsConfirm == BooleanType.是);
-
-
-            //ViewBag.CategoryId = new SelectList(_db.NewsCatalogs.Where(x=>x.WebSiteId==1 && x.WebCategoryId==sClass).OrderBy(p => p.ListNum), "Id", "Subject");
+            var newses = _db.Newses.Where(x => x.WebCategoryId==58 && x.NewsCatalogs.Count(y => y.WebSite.SiteCode == areaName) > 0).OrderByDescending(p => p.StartDate).AsQueryable();
+            DateTime yesterDay = DateTime.Now.AddDays(-1);
+            newses = newses.Where(w => w.StartDate <= DateTime.Now && w.EndDate >= yesterDay && w.IsConfirm == BooleanType.是);
             ViewBag.CategoryId = 58;
 
             var CategoryCount = _db.NewsCatalogs.Count(x => x.WebCategoryId == 58 && x.WebSite.SiteCode == areaName);
             ViewBag.CategoryCount = CategoryCount;
 
             //ViewBag.Subject = getViewDateStr("SearchBySubject");
-            return View(newses.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+            return View(newses.OrderByDescending(p => p.StartDate).ToPagedList(currentPageIndex, DefaultPageSize));
+            //ViewBag.Subject = getViewDateStr("SearchBySubject");
+           
 
         }
 

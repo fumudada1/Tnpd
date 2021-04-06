@@ -17,7 +17,7 @@
 <div>
                  車子類型: @Html.DropDownList("SearchByCarType", new SelectList(Enum.GetValues(typeof(TnpdModels.CarType))),"請選擇")
                      @Html.DisplayNameFor(model => model.FirstOrDefault().CarAllow): @Html.DropDownList("SearchByCarAllow", new SelectList(Enum.GetValues(typeof(TnpdModels.CarAllow))),"請選擇")
-                     @Html.DisplayNameFor(model => model.FirstOrDefault().checkStatus): @Html.DropDownList("SearchBycheckStatus", new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))),"請選擇")
+                     @Html.DisplayNameFor(model => model.FirstOrDefault().checkStatus): @Html.DropDownList("SearchBycheckStatus", new SelectList(Enum.GetValues(typeof(TnpdModels.SMSStatus))),"請選擇")
                  
                  <br/>發布日期:<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/>
     </div>

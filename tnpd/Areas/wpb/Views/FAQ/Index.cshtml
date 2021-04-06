@@ -22,7 +22,12 @@
             @foreach (var item in @Model)
             {
                 <tr>
-                    <td class="none title01">@item.NewsCatalogs.FirstOrDefault().Subject</td>
+                    <td class="none title01">
+                        @foreach (var c in item.NewsCatalogs)
+                        {
+                            <p>@c.Subject</p>
+                        }
+                    </td>
                     <td class="none"><a href="@Url.Action("Details", "FAQ", new RouteValueDictionary(new {id = item.Id, sClass = ViewBag.CategoryId, unid = ViewBag.UnId,area=areaName}))" title="@item.Subject">@item.Subject</a></td>
                     <td data-th="發佈單位">@item.initOrg</td>
                     <td data-th="發布日期">@UIUtility.Date2RocFormat(item.StartDate)</td>

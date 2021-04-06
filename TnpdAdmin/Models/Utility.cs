@@ -157,7 +157,7 @@ namespace Tnpd.Models
         /// <returns>取得TreeView 的Script</returns>
         public static string GetMenu(string permission, string fileName = "~/Config/Menu.xml")
         {
-           
+
             permission = permission ?? "";
             System.Xml.XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(HttpContext.Current.Server.MapPath(fileName));
@@ -199,12 +199,12 @@ namespace Tnpd.Models
             if (rootnode != null)
                 foreach (XmlNode cnode in rootnode.ChildNodes)
                 {
-                    
+
                     if (cnode.HasChildNodes)
                     {
-                        
+
                         GetPermissionScript(cnode, permission);
-                       
+
                     }
                     else
                     {
@@ -213,10 +213,10 @@ namespace Tnpd.Models
                             _memuResultBuilder.Append("<p class=MsoNormal><span lang=EN-US>" + cnode.Attributes["Title"].Value + "</span></p>\n");
                         }
 
-                        
+
                     }
 
-                    
+
 
                 }
             return _memuResultBuilder.ToString().TrimEnd(',');
@@ -240,7 +240,7 @@ namespace Tnpd.Models
                         _memuResultBuilder.Append(("<p class=MsoNormal><span lang=EN-US>" + cnode.Attributes["Title"].Value + "</span></p>\n"));
                     }
 
-                    
+
                 }
 
 
@@ -415,7 +415,7 @@ namespace Tnpd.Models
                                        urlHelper.Action(node.Attributes["Action"].Value, node.Attributes["Controller"].Value) +
                                        "\" data-target-page=\"page-dashboard\">\n");
             }
-          
+
             _strMenuBuilder.Append("<i class=\"" + node.Attributes["Icon"].Value + "\"></i>\n");
             _strMenuBuilder.Append(" <span>" + node.Attributes["Title"].Value + "</span>\n");
             _strMenuBuilder.Append(" </a>\n");
@@ -1347,6 +1347,47 @@ namespace Tnpd.Models
         }
         #endregion
 
+        #region "判斷是否包含font-size px pt"
+        /// <summary>
+        /// 判斷是否為數字
+        /// </summary>
+        /// <param name="inputData">輸入字串</param>
+        /// <returns>bool</returns>
+        public static bool IsFontSizePxpt(string inputData)
+        {
+            inputData = inputData.Replace(" ", "");
+            return System.Text.RegularExpressions.Regex.IsMatch(inputData, @"font-size:(\d+(\.\d+)?)p.");
+        }
+        #endregion
+
+        //
+
+        #region "是否包含中文"
+        public static bool isChinese(string strChinese)
+        {
+            bool bresult = true;
+            int dRange = 0;
+            int dstringmax = Convert.ToInt32("9fff", 16);
+            int dstringmin = Convert.ToInt32("4e00", 16);
+            for (int i = 0; i < strChinese.Length; i++)
+            {
+                dRange = Convert.ToInt32(Convert.ToChar(strChinese.Substring(i, 1)));
+                if (dRange >= dstringmin && dRange < dstringmax)
+                {
+                    bresult = true;
+                    break;
+                }
+                else
+                {
+                    bresult = false;
+                }
+            }
+
+            return bresult;
+        }
+
+
+        #endregion
 
 
         #region "發信"

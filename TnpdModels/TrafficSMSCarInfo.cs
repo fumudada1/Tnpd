@@ -37,7 +37,7 @@ namespace TnpdModels
         public CarAllow CarAllow { get; set; }
 
         [Display(Name = "審核是否通過")]
-        public BooleanType checkStatus { get; set; }
+        public SMSStatus checkStatus { get; set; }
 
         //ForeignKey
         [Display(Name = "註冊人")]

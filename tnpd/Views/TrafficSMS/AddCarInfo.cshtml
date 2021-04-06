@@ -96,6 +96,7 @@
         <th class="w-15">車主/公司名稱</th>
         <th class="w-15">身分證字號</th>
         <th class="w-10">身分</th>
+        <th class="w-10">是否通過審核</th>
         <th class="w-10">功能</th>
     </tr>
     </thead>
@@ -106,11 +107,19 @@
             
         <tr>
             
-             <td data-th="車牌號碼" class="none title01">@item.CarNO</td>
+             <td data-th="車牌號碼" class="none title01">@item.CarNO.Substring(0,2) <span>***</span>@item.Pid.Substring(item.Pid.Length-2,2)</td>
             <td  data-th="車子類型" class="none">@item.CarType</td>
-            <td data-th="車主/公司名稱">@item.CarOwner</td>
+            <td data-th="車主/公司名稱">@item.CarOwner.Substring(0,1)
+                @for (int i = 1; i <= item.CarOwner.Length - 1;i++)
+                {
+                    <span>○</span>
+                }
+                
+
+            </td>
             <td data-th="身分證字號">@item.Pid.Substring(0,2) <span>******</span> @item.Pid.Substring(item.Pid.Length-2,2)</td>
             <td data-th="身分">@item.CarAllow</td>
+            <td data-th="審核結果">@item.checkStatus</td>
             <td data-th="功能">
                 @using (Html.BeginForm("Delete",null))
                 {

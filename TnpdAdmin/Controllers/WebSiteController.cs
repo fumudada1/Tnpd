@@ -159,6 +159,14 @@ namespace Tnpd.Controllers
 
             }
             var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == webNode.WebSiteName);
+            if (webSite.Subject.Contains("英文版"))
+            {
+                if (isChinese(webNode.Article))
+                {
+                    return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
+                }
+            }
+
             System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
 
             XmlDocument XmlDoc = new XmlDocument();
@@ -325,6 +333,13 @@ namespace Tnpd.Controllers
                 return new ContentResult { Content = "Parameters Error" };
             }
             var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == webNode.WebSiteName);
+            if (webSite.Subject.Contains("英文版"))
+            {
+                if (isChinese(webNode.Article))
+                {
+                    return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
+                }
+            }
             System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
 
 

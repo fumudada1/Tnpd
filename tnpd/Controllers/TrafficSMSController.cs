@@ -66,9 +66,17 @@ namespace tnpd.Controllers
                     return View(smsView);
                 }
 
+                
+
                 if (trafficSms.CheckCode != smsView.SMSCode)
                 {
                     ViewBag.Message = "驗證碼錯誤!";
+                    return View(smsView);
+                }
+
+                if (trafficSms.InitDate.Value.AddMinutes(5) < DateTime.Now)
+                {
+                    ViewBag.Message = "驗證碼過期!";
                     return View(smsView);
                 }
 
@@ -85,6 +93,10 @@ namespace tnpd.Controllers
         }
         public ActionResult AddCarInfo(string id)
         {
+            if (Session["TrafficSMSGUID"] == null)
+            {
+                return RedirectToAction("Index","Home");
+            }
             TrafficSMS trafficSms = _db.trafficSmses.FirstOrDefault(x => x.CaseGuid == id);
             if (trafficSms == null)
             {
@@ -99,6 +111,10 @@ namespace tnpd.Controllers
         [HttpPost]
         public ActionResult AddCarInfo(string id,TrafficSMSCarInfo trafficSmsCarInfo)
         {
+            if (Session["TrafficSMSGUID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             TrafficSMS trafficSms = _db.trafficSmses.FirstOrDefault(x => x.CaseGuid == id);
             var count = _db.trafficSmsCarInfos.Count(x => x.CarNO == trafficSmsCarInfo.CarNO);
             if (count > 0)
@@ -113,7 +129,7 @@ namespace tnpd.Controllers
             {
                
                 trafficSmsCarInfo.InitDate=DateTime.Now;
-                //trafficSmsCarInfo.checkStatus = BooleanType.否;
+                trafficSmsCarInfo.checkStatus = SMSStatus.待審核;
                 _db.trafficSmsCarInfos.Add(trafficSmsCarInfo);
                 _db.SaveChanges();
                 ViewBag.isSuccess = true;

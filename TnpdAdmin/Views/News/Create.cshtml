@@ -12,7 +12,7 @@
 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @ViewBag.Message
+    <span style="color: red"> @ViewBag.Message</span>
     <fieldset>
         <legend>@ViewBag.Title</legend>
 

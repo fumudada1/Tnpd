@@ -75,7 +75,7 @@
 
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.checkStatus, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.DropDownListFor(model => model.checkStatus, new SelectList(Enum.GetValues(typeof(TnpdModels.SMSStatus))))
             @Html.ValidationMessageFor(model => model.checkStatus)
        
             

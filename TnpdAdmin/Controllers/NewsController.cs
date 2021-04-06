@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using DotNetOpenAuth.Messaging;
 using Tnpd.Filters;
 using Tnpd.Helpers.DyLinq;
+using Tnpd.Models;
 using TnpdModels;
 
 
@@ -52,7 +53,7 @@ namespace Tnpd.Controllers
             var newses = db.Newses.OrderByDescending(x => x.InitDate).AsQueryable();
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) )
             {
-                newses = newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == pclass) > 0);
+                newses = newses.Where(x => x.WebCategoryId ==pclass);
             }
 
             
@@ -80,7 +81,7 @@ namespace Tnpd.Controllers
             if (hasViewData("SearchBySubject"))
             {
                 string searchByTitle = getViewDateStr("SearchBySubject");
-                newses = newses.Where(w => w.Subject.Contains(searchByTitle));
+                newses = newses.Where(w => w.Subject.Contains(searchByTitle) ||  w.Article.Contains(searchByTitle) );
             }
 
             int siteID = 1;
@@ -209,9 +210,21 @@ namespace Tnpd.Controllers
                 webSite = db.WebSiteNames.FirstOrDefault(x => x.UnitId == member.UnitId && x.Language == LanguageType.中文版);
             }
 
-            
+            bool vaild = true;
+            if (string.IsNullOrEmpty(news.Article))
+            {
+                ViewBag.Message = "內容不可為空";
+                vaild = false;
+            }
 
-            if (ModelState.IsValid && !string.IsNullOrEmpty(news.Article))
+            if (Utility.IsFontSizePxpt(news.Article))
+            {
+                ViewBag.Message = "請切到原始碼模式，檢查是否包含font-size 標籤，若有不可採用PX或PT單位";
+                vaild = false;
+            }
+
+
+            if (ModelState.IsValid && vaild)
             {
 
 
@@ -237,7 +250,7 @@ namespace Tnpd.Controllers
                 news.Poster = member.Name;
                 news.initOrg = member.MyUnit.ParentUnit.Subject + " " + member.MyUnit.Subject;
                 news.WebCategoryId = pclass;
-                news.OwnWebSiteId = webSite.Id;
+                news.OwnWebSiteId = member.MyUnit.ParentId.Value;
                 news.MemberId = member.Id;
                 List<NewsCatalog> catalogs = db.NewsCatalogs.Where(x => newsCatalogID.Contains(x.Id)).ToList();
                 foreach (var catalog in catalogs)
@@ -256,10 +269,8 @@ namespace Tnpd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", new {id=news.Id, pclass = pclass });
             }
-            if (string.IsNullOrEmpty(news.Article))
-            {
-                ViewBag.Message = "內容不可為空";
-            }
+           
+
 
             var newsCatalog = db.NewsCatalogs.Where(x => x.WebCategoryId == pclass).AsQueryable();
             if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
@@ -328,8 +339,22 @@ namespace Tnpd.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(News news, int pclass, int[] newsCatalogID)
         {
+            Member member =
+                db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
             ModelState.Remove("newsCatalog");
-            if (ModelState.IsValid )
+            bool vaild = true;
+            if (string.IsNullOrEmpty(news.Article))
+            {
+               TempData["Message"]= "內容不可為空";
+                vaild = false;
+            }
+
+            if (Utility.IsFontSizePxpt(news.Article))
+            {
+                TempData["Message"] = "請切到原始碼模式，檢查是否包含font-size 標籤，若有不可採用PX或PT單位";
+                vaild = false;
+            }
+            if (ModelState.IsValid && vaild)
             {
                 //取得資料庫裏面原來的值
                 var newsItem = db.Newses.Find(news.Id);
@@ -341,8 +366,7 @@ namespace Tnpd.Controllers
                 //放入新的值
                 newsItem.NewsCatalogs.Clear();
 
-                Member member =
-                    db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+               
 
 
                 //db.Entry(news).State = EntityState.Modified;
@@ -366,7 +390,9 @@ namespace Tnpd.Controllers
                 return RedirectToAction("Index", new { Page = -1, pclass = pclass });
             }
 
-            return View(news);
+
+
+            return RedirectToAction("Edit", new { id = news.Id, pclass = pclass });
         }
 
         //
@@ -577,6 +603,91 @@ namespace Tnpd.Controllers
             System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
 
             return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "動態發布統計.xls");
+
+        }
+
+        public ActionResult ReportByUnits()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ReportByUnits(string SearchByStartDate, string SearchByEndDate)
+        {
+
+
+            string tempSql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReportByUnits.sql"), System.Text.Encoding.UTF8);
+
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                tempSql = tempSql.Replace("2019/1/1", startDate.ToString("yyyy/MM/dd"));
+                tempSql = tempSql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
+            }
+            else
+            {
+                return View();
+            }
+
+            var units = db.Units.Where(x => x.ParentId == null).ToList();
+            StringBuilder sqlBuilder = new StringBuilder(tempSql);
+            StringBuilder sqlUnionBuilder = new StringBuilder("select * from #union1 ");
+
+            for (int i = 1; i <= units.Count - 1;i++) {
+                string ttsql = tempSql;
+                ttsql = ttsql.Replace("OwnWebSiteId = 1", "OwnWebSiteId = " + units[i].Id.ToString());
+                ttsql = ttsql.Replace("局本部", units[i].Subject.ToString());
+                ttsql = ttsql.Replace("#union1", "#union" + (i+1));
+                sqlBuilder.Append(ttsql);
+                sqlUnionBuilder.Append(" union all \n select * from #union" +(i+1) +"\n");
+            }
+
+            sqlBuilder.Append(sqlUnionBuilder);
+
+            string runSql = sqlBuilder.ToString();
+
+
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReportUnits.xls"), System.Text.Encoding.UTF8);
+            string temptr = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReportUnits.txt"), System.Text.Encoding.UTF8);
+            tempBody = tempBody.Replace("2019/1/1", SearchByStartDate);
+            tempBody = tempBody.Replace("2019/3/1", SearchByEndDate);
+
+
+            SqlConnection conn = new SqlConnection(GetConnectionStringByName("TnpdConnection"));
+            SqlCommand command = new SqlCommand();
+            command.Connection = conn;
+            command.CommandText = runSql;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+
+
+
+
+            tempBody = tempBody.Replace("{initDate}", SearchByStartDate + "~" + SearchByEndDate);
+
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataRow row in dt.Rows)
+            {
+                string strTr = temptr;
+                strTr = strTr.Replace("{Unit}", row["Subject"].ToString());
+                strTr = strTr.Replace("{CatalogName}", row["CatalogName"].ToString());
+                
+
+                strTr = strTr.Replace("{Total}", row["Total"].ToString());
+
+                sb.AppendLine(strTr);
+            }
+            tempBody = tempBody.Replace("{bodytr}", sb.ToString());
+
+            string fileName = "NewsReportUnitsTemp.xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "單位動態發布統計.xls");
 
         }
 

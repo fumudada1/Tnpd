@@ -122,7 +122,7 @@
                     <div class="editor-field">
                         @Html.TextAreaFor(model => model.Article, new { @class = "ckeditor" })
                         @Html.ValidationMessageFor(model => model.Article)
-
+                        <span style="color: red">@TempData["Message"]</span>
                     </div>
                     <div class="editor-label">
                         <label> 發布站台設定</label>

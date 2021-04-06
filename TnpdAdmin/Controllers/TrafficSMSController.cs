@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -52,8 +53,8 @@ namespace TnpdAdmin.Controllers
  
             if (hasViewData("SearchBycheckStatus")) 
             { 
-            string checkStatus = getViewDateStr("SearchBycheckStatus");             
-             TnpdModels.BooleanType searchBycheckStatus= (TnpdModels.BooleanType)Enum.Parse(typeof(TnpdModels.BooleanType), checkStatus, false); 
+            string checkStatus = getViewDateStr("SearchBycheckStatus");
+            TnpdModels.SMSStatus searchBycheckStatus = (TnpdModels.SMSStatus)Enum.Parse(typeof(TnpdModels.SMSStatus), checkStatus, false); 
              
                 trafficsmscarinfos = trafficsmscarinfos.Where(w => w.checkStatus == searchBycheckStatus); 
             } 
@@ -62,6 +63,13 @@ namespace TnpdAdmin.Controllers
             { 
             int searchByTrafficSMSId = getViewDateInt("SearchByTrafficSMSId");             
                 trafficsmscarinfos = trafficsmscarinfos.Where(w => w.TrafficSMSId == searchByTrafficSMSId); 
+            }
+
+            if (hasViewData("SearchByStartDate") && hasViewData("SearchByEndDate"))
+            {
+                DateTime startDate = Convert.ToDateTime(getViewDateStr("SearchByStartDate"));
+                DateTime endDate = Convert.ToDateTime(getViewDateStr("SearchByEndDate")).AddDays(1);
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
             }
             //總件數
             ViewBag.Total = trafficsmscarinfos.Count();
@@ -137,19 +145,63 @@ namespace TnpdAdmin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
          
-        public ActionResult Edit(TrafficSMSCarInfo trafficsmscarinfo)
+        public ActionResult Edit(TrafficSMSCarInfo trafficsmscarinfo,string mobile)
         {
             if (ModelState.IsValid)
             {
 
                //_db.Entry(trafficsmscarinfo).State = EntityState.Modified;
                 trafficsmscarinfo.Update();
+                if (trafficsmscarinfo.checkStatus ==SMSStatus.待審核)
+                {
+                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務已經審查通過!");
+                }
+
+               
+
                 return RedirectToAction("Index",new{Page=-1});
             }
             ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name", trafficsmscarinfo.TrafficSMSId);
             return View(trafficsmscarinfo);
         }
 
+        private static string SendHinetSMS(string mobile, string message)
+        {
+            string UserID = ConfigurationManager.AppSettings["SMSAccount"].ToString();
+            string Passwd = ConfigurationManager.AppSettings["SMSPassword"].ToString();
+
+            HiNet.Hiair2Net hiair = new HiNet.Hiair2Net();
+            //連線驗證帳密並回傳狀態碼
+            int retCode = hiair.StartCon("202.39.54.130", 8000, UserID, Passwd);
+            //取得文字描述
+            String retContent = hiair.Get_Message();
+
+            if (retCode == 0)
+            {
+
+                //發送文字簡訊並回傳狀態碼
+                retCode = hiair.SendMsg(mobile, message);
+                //取得messageID或文字描述
+                retContent = hiair.Get_Message();
+                if (retCode == 0)
+                {
+                    return "發送成功!";
+                }
+                hiair.EndCon();
+                return retContent;
+                //Console.WriteLine(retCode + " : " + retContent);
+
+            }
+            else
+            {
+                hiair.EndCon();
+                return retCode + " : " + retContent;
+                //登入失敗
+                // Console.WriteLine(retCode + " : " + retContent);
+            }
+
+
+        }
         //
         // GET: /TrafficSMS/Delete/5
 

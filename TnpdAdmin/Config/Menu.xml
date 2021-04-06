@@ -41,6 +41,7 @@
     <Modules Title="交通安全宣導" Controller="News" Action="Index" Value="N17" pclass="4" Icon="fa fa-rss" />
     <Modules Title="BULLETIN BOARD" Controller="News" Action="Index" Value="N18" pclass="51" Icon="fa fa-rss" />
     <Modules Title="動態發布統計" Controller="News" Action="Report" Value="N20" pclass="0" Icon="fa fa-rss" />
+    <Modules Title="單位動態發布統計" Controller="News" Action="ReportByUnits" Value="N29" pclass="0" Icon="fa fa-rss" />
   </Modules>
 
   <Modules Title="公用程式區" Controller="" Action="" Value="U" Icon="fa fa-sitemap">

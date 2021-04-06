@@ -224,6 +224,7 @@
     <Compile Include="Controllers\SoapController.cs" />
     <Compile Include="Controllers\StationInfoController.cs" />
     <Compile Include="Controllers\SystemLogsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TrafficDepartmentdetailController.cs" />
     <Compile Include="Controllers\TrafficdisdataController.cs" />
     <Compile Include="Controllers\TrafficRegionController.cs" />
@@ -1400,6 +1401,8 @@
     <Content Include="Views\TrafficSMS\Create.cshtml" />
     <Content Include="Views\TrafficSMS\Edit.cshtml" />
     <Content Include="Views\TrafficSMS\Delete.cshtml" />
+    <Content Include="Views\News\ReportByUnits.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
