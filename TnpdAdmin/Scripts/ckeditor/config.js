@@ -32,4 +32,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
 		{ name: 'about', items: [ 'About' ] }
 	];
+	
+	config.format_tags = 'h2;h3;h4;h5;h6;pre;address;div';
 };

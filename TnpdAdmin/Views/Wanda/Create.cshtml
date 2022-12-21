@@ -58,7 +58,16 @@
        
             
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contacts) (姓氏、職稱、自動電話)
 
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Contacts,new { placeholder=ModelsAttributeHelper<TnpdModels.Wanda>.GetDisplayName("Contacts") })
+            @Html.ValidationMessageFor(model => model.Contacts)
+       
+            
+        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Article)
 

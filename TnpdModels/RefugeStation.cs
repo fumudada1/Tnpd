@@ -54,9 +54,6 @@ namespace TnpdModels
         [Display(Name = "twd97y座標")]
         public string Twd97Y { get; set; }
 
-  
-
-
 
     }
 }

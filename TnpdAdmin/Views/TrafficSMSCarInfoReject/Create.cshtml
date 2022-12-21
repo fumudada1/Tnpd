@@ -1,0 +1,44 @@
+﻿@using Tnpd.Models
+@model TnpdModels.TrafficSMSCarInfoReject
+
+@{
+    ViewBag.Title = "不通過原因編輯新增";
+}
+
+<h2>不通過原因編輯新增</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>TrafficSMSCarInfoReject</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficSMSCarInfoReject>.GetDisplayName("Subject") })
+            @Html.ValidationMessageFor(model => model.Subject)
+       
+            
+        </div>
+
+             @Html.Hidden("ListNum","0")
+       
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

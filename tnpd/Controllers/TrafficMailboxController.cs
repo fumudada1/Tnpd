@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using tnpd.Models;
 using TnpdModels;
 
@@ -35,11 +37,31 @@ namespace tnpd.Controllers
             caseTraffic.violation_time2 = DateTime.Now.Minute.ToString();
 
 
-
+            //ViewBag.TrafficFrontEndViolationItems = new SelectList(_db.TrafficFrontEndViolationItems.Where(x => x.IsEnable == BooleanType.是).OrderBy(p => p.ListNum), "Subject", "Subject");
 
             ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
 
             return View(caseTraffic);
+        }
+
+        public ActionResult GetViolationItems(int id)
+        {
+            List<TrafficViolationItem> trafficViolationItems;
+            if (id == 0)
+            {
+                trafficViolationItems = _db.TrafficViolationItems
+                    .Where(x => x.TrafficViolationType == TrafficViolationType.平面道路 && x.IsEnable==BooleanType.是).OrderBy(x=>x.ListNum).ToList();
+            }
+            else
+            {
+                trafficViolationItems = _db.TrafficViolationItems
+                    .Where(x => x.TrafficViolationType == TrafficViolationType.快速道路 && x.IsEnable == BooleanType.是).OrderBy(x => x.ListNum).ToList();
+            }
+
+            var jsonContent = JsonConvert.SerializeObject(trafficViolationItems, Formatting.Indented);
+
+            return new ContentResult { Content = jsonContent, ContentType = "application/json" };
+
         }
 
         // POST: /Mailbox/Create
@@ -49,13 +71,13 @@ namespace tnpd.Controllers
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() :DateTime.Now.Millisecond.ToString() ;
             string filesName = "";
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
                 ViewBag.UnId = id.ToString();
-
+                Session["CheckCode"] = null;
                 ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
                 return View(trafficView);
             }
@@ -69,7 +91,7 @@ namespace tnpd.Controllers
             //    return View(trafficView);
             //}
             DateTime Odate = trafficView.violation_date;
-            if (DateTime.Today.AddDays(-8) > Odate)
+            if (DateTime.Today.AddDays(-7) > Odate)
             {
                 ModelState.AddModelError("CheckCode", "已逾七日之檢舉。");
                 ViewBag.UnId = id.ToString();
@@ -79,18 +101,18 @@ namespace tnpd.Controllers
             }
 
             DateTime duDateTime = DateTime.Now.AddMinutes(-30);
-            TrafficMailCheck mailCheck = _db.TrafficMailChecks.FirstOrDefault(x => x.Email == trafficView.Email && x.ConfirmDate >= duDateTime);
-            if (mailCheck == null)
-            {
-                ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
-                ViewBag.UnId = id.ToString();
+            //TrafficMailCheck mailCheck = _db.TrafficMailChecks.FirstOrDefault(x => x.Email == trafficView.Email && x.ConfirmDate >= duDateTime);
+            //if (mailCheck == null)
+            //{
+            //    ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+            //    ViewBag.UnId = id.ToString();
 
-                ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
-                return View(trafficView);
-            }
+            //    ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+            //    return View(trafficView);
+            //}
 
 
-
+            CaseTrafficView caseTraffic = new CaseTrafficView();
             if (ModelState.IsValid)
             {
                 string trafficFilesPath = ConfigurationManager.AppSettings["TrafficFiles"];
@@ -134,15 +156,22 @@ namespace tnpd.Controllers
                 traffic.violation_place = trafficView.violation_place;
                 traffic.violation_time = trafficView.violation_time1 + ":" + trafficView.violation_time2;
                 traffic.Gender = trafficView.Gender;
-
+               
                 if (Upfile1 != null)
                 {
+                    bool checkExtension = CheckExtension(Upfile1);
+                   
+                    
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+                        
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
 
-                    //if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1)
-                    //{
-                    //    ViewBag.Message = "檔案型態錯誤!";
-
-                    //}
+                    }
                     filesName += Upfile1.FileName + "<br/>";
                     traffic.Upfile1 =   Utility.SaveTraffFile(Upfile1);
 
@@ -153,11 +182,19 @@ namespace tnpd.Controllers
                 if (Upfile2 != null)
                 {
 
-                    //if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1)
-                    //{
-                    //    ViewBag.Message = "檔案型態錯誤!";
+                    bool checkExtension = CheckExtension(Upfile2);
 
-                    //}
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile2.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
+
+                    }
                     filesName += Upfile2.FileName + "<br/>";
                     traffic.Upfile2 =  Utility.SaveTraffFile(Upfile2);
 
@@ -167,11 +204,18 @@ namespace tnpd.Controllers
                 if (Upfile3 != null)
                 {
 
-                    //if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1)
-                    //{
-                    //    ViewBag.Message = "檔案型態錯誤!";
+                    bool checkExtension = CheckExtension(Upfile3);
 
-                    //}
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile3.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
+                    }
                     filesName += Upfile3.FileName + "<br/>";
                     traffic.Upfile3 =   Utility.SaveTraffFile(Upfile3);
 
@@ -179,7 +223,18 @@ namespace tnpd.Controllers
 
                 if (Upfile4 != null)
                 {
+                    bool checkExtension = CheckExtension(Upfile4);
 
+
+                    //所有都不是
+                    if ((checkExtension == false) ||(Upfile4.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile4.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
+                    }
 
                     filesName += Upfile4.FileName + "<br/>";
                     traffic.Upfile4 =   Utility.SaveTraffFile(Upfile4);
@@ -190,7 +245,18 @@ namespace tnpd.Controllers
 
                 if (Upfile5 != null)
                 {
+                    bool checkExtension = CheckExtension(Upfile5);
 
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile5.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile5.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
+                    }
 
                     filesName += Upfile5.FileName + "<br/>";
                     traffic.Upfile5 =   Utility.SaveTraffFile(Upfile5);
@@ -201,11 +267,18 @@ namespace tnpd.Controllers
                 if (Upfile6 != null)
                 {
 
-                    //if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1)
-                    //{
-                    //    ViewBag.Message = "檔案型態錯誤!";
+                    bool checkExtension = CheckExtension(Upfile6);
 
-                    //}
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile6.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile6.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 ))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(caseTraffic);
+                    }
                     filesName += Upfile6.FileName + "<br/>";
                     traffic.Upfile6 =   Utility.SaveTraffFile(Upfile6);
 
@@ -237,7 +310,7 @@ namespace tnpd.Controllers
 
                 //save file
                 
-                _db.SaveChanges();
+                //_db.SaveChanges();
 
                 if (disTrafficdisdata != null)
                 {
@@ -275,6 +348,8 @@ namespace tnpd.Controllers
                 mailbody = mailbody.Replace("{Predate}", traffic.Predate.ToString("yyyy/MM/dd"));
                 mailbody = mailbody.Replace("{Address}", traffic.Address);
                 mailbody = mailbody.Replace("{Email}", traffic.Email);
+                mailbody = mailbody.Replace("{violation_date}", traffic.violation_date.ToString("yyyy/MM/dd" + " "+ traffic.violation_time));
+                mailbody = mailbody.Replace("{violation_place}", traffic.violation_place_area + traffic.violation_place_road +traffic.violation_place);
                 mailbody = mailbody.Replace("{Subject}", "【車號：" + traffic.violation_carno + "】" + traffic.Subject);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(traffic.Content));
                 mailbody = mailbody.Replace("{Files}", filesName);
@@ -289,9 +364,23 @@ namespace tnpd.Controllers
 
             //ViewBag.CategoryId = new SelectList(_db.MailboxCatalog.OrderBy(p => p.ListNum), "Id", "Title", mailbox.CategoryId);
             ViewBag.UnId = id.ToString();
-            CaseTrafficView caseTraffic = new CaseTrafficView();
+           
             ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
             return View(caseTraffic);
+        }
+
+        private bool CheckExtension(HttpPostedFileBase upfile)
+        {
+            string exstring = "avi,mp4,wmv,mov,3gp,jpeg,jpg,png,bmp";
+
+            string extension = upfile.FileName.Split('.')[upfile.FileName.Split('.').Length - 1].ToLower();
+            if (exstring.IndexOf(extension) > -1)
+            {
+                return true;
+            }
+
+            return false;
+
         }
 
         #region checkID
@@ -356,6 +445,19 @@ namespace tnpd.Controllers
             {
                 return Content("Email 不可空白");
             }
+
+            if (id.IndexOf("@vusra.com") > -1)
+            {
+                return Content("");
+            }
+            DateTime date = DateTime.Now.AddMinutes(-3);
+
+            var caseMailCheck = _db.TrafficMailChecks.Where(x => x.Email == id && x.InitDate > date).OrderByDescending(x => x.Id).FirstOrDefault();
+            if (caseMailCheck != null)
+            {
+                return Content("認證郵件已送出，請檢查信箱垃圾信件，或稍後再試");
+            }
+
             if (Utility.IsValidEmail(id))
             {
                 TrafficMailCheck mailCheck = new TrafficMailCheck
@@ -400,6 +502,47 @@ namespace tnpd.Controllers
             ViewBag.message = "驗證成功，請回原頁面輸入資料";
             return View();
         }
+
+        public ActionResult SendTnpdMail(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return Content("Email 不可空白");
+            }
+
+            if (id.IndexOf("@vusra.com") > -1)
+            {
+                return Content("");
+            }
+            
+
+            if (Utility.IsValidEmail(id))
+            {
+                
+                string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
+
+                string mailBody = "親愛的市民朋友，您好，這是臺南市政府警察局-交通違規檢舉系統Email認證信件。<br/>";
+                mailBody += "本郵件是由系統自動寄出，請勿直接回覆此郵件。";
+
+                //Utility.SendGmailMail("topidea.justin@gmail.com", id, "交通違規檢舉系統Email認證", mailBody, "xuqoqvdvvsbwyrbl");
+                MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", id);
+                mailMessage.Subject = "tnpdTesttest";
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+                // SMTP Server
+                SmtpClient mailSender = new SmtpClient("172.16.1.68");
+                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
+                mailSender.Credentials = basicAuthenticationInfo;
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
+                
+                
+                return Content("認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+            }
+            return Content("Email 格式錯誤");
+        }
+
+
 
     }
 }

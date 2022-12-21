@@ -35,9 +35,9 @@ namespace tnpd.Areas.jiali.Controllers
 
 
 
-            var aboutLinks = _db.AboutLinks.Where(x => x.Catalog.WebSite.SiteCode==areaName).OrderByDescending(p => p.InitDate).AsQueryable();
+            var aboutLinks = _db.AboutLinks.Where(x => x.Catalog.WebSite.SiteCode == areaName && x.Status == BooleanType.是).AsQueryable();
 
-            return View(aboutLinks.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+            return View(aboutLinks.OrderBy(p => p.ListNum).ToPagedList(currentPageIndex, DefaultPageSize));
         }
 
     }

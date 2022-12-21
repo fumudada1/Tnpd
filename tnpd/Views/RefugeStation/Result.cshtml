@@ -1,0 +1,260 @@
+﻿@model TnpdModels.RefugeStation
+@{
+    ViewBag.Title = "防空疏散避難設施地點路線規劃";
+}
+<div class="row">
+   @* <div style="color: red">
+<h4 class="h4title" style="color: red">特別提醒</h4>
+
+    <ul class="ultxt">
+        <li>本專區是為了讓市民能於平時熟悉各種防空避難位置，而非代表隨時可進人避難。由於防空疏散避難設施多位於大樓地下室，平時受憲法賦予個人財產權之保障，未經所有權人同意，請勿擅自進入查看。
+        </li>
+        <li>只有於防空演習、戰爭發生或將發生時由國防部發布管制疏散之命令後，才能開放進入避難。
+        </li>
+
+    </ul>
+    </div>*@
+    
+
+    <div class="col-12">
+        <p class="mb-2">目的：@Model.Subject<br/>地址：@Model.Address<br/>
+<span style="color: red" id="message"></span>
+        </p>
+
+
+       
+  
+    </div>
+</div>
+<div class="container l-white news-content">
+   
+
+<div class="col-xs-12" id="right-panel">
+        <p>Total Distance: <span id="total"></span></p>
+    </div>
+    <div class="col-xs-12" id="map" style="height:800px"></div>
+    
+    <div class="text-center" style="clear: both; padding-top: 30px;">
+       
+        <input type="button" value="回上一步" class="btn btn-primary" onclick="history.back()"/>
+        
+
+
+    </div>
+</div>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #right-panel .adp-placemark td {
+        padding: 5px;
+        background: #008DD8;
+        color: #fff;
+    }
+
+    #map {
+        height: 100%;
+        float: left;
+        width: 63%;
+        height: 100%;
+    }
+
+    #right-panel {
+        float: right;
+        width: 34%;
+        height: 100%;
+    }
+    @@media (max-width:768px){
+        #right-panel,#map{
+            width: 100%;
+        }
+    }
+
+    #right-panel {
+        font-family: 'Roboto', 'sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #right-panel select, #right-panel input {
+        font-size: 15px;
+    }
+
+    #right-panel select {
+        width: 100%;
+    }
+
+    #right-panel i {
+        font-size: 12px;
+    }
+
+    .panel {
+        height: 100%;
+        overflow: auto;
+    }
+</style>
+
+<script>
+   
+    function geoFindMe() {
+        var output = document.getElementById("message");
+
+        if (!navigator.geolocation) {
+            output.innerHTML = "<p>您的瀏覽器不支援取得你目前座標功能</p>";
+            return;
+        }
+
+        function success(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+            output.innerHTML = '<p>請注意!請盡量使用行動裝置使用此功能，若使用家用網路或企業網路，定位功能隨著您使用的網路設備有所誤差<br/>，可拖曳地圖中的A標示，微調你目前的所在位置(A標示代表你的位置，B標示代表目的地)</p>';
+            initMap(position);
+        };
+
+        function error() {
+            output.innerHTML = "無法取得目前所在座標，請檢查瀏覽器是否開啟定位功能。";
+        };
+
+        output.innerHTML = "<p>載入中…</p>";
+
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+        
+
+    function initMap(position) {
+        //alert("1111");
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: { lat: position.coords.latitude, lng: position.coords.longitude }
+        });
+
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+            draggable: true,
+            map: map,
+            panel: document.getElementById('right-panel')
+        });
+
+        directionsDisplay.addListener('directions_changed', function () {
+            computeTotalDistance(directionsDisplay.getDirections());
+        });
+
+        var first;
+        var last;
+        var waypts = [];
+        //alert(first + "\n" + last);
+
+        first = { address: '我的位置', lat: position.coords.latitude.toString(), lng: position.coords.longitude.toString() };
+        //alert(first.address);
+
+
+        last = { address: '@Model.Address', lat: '@Model.Twd97X', lng: '@Model.Twd97Y' };
+        //alert(last.address);
+
+
+
+        //alert(first + "\n" + last);
+        displayRoute(first, last, directionsService,
+            directionsDisplay, waypts);
+    }
+
+
+
+    function displayRoute(first, last, service, display, waypoints) {
+        var origin;
+        if (first.lat.length > 0 && first.lng.length > 0) {
+            origin = new google.maps.LatLng(first.lat, first.lng);
+        } 
+
+        var destination;
+        //if (last.address) {
+        //    destination = new google.maps.LatLng(last.lat, last.lng);
+        //} else {
+            destination = last.address;
+        //}
+        destination = new google.maps.LatLng(last.lat, last.lng);
+
+        var waypts = [];
+        var checkboxArray = waypoints;
+        for (var i = 0; i < checkboxArray.length; i++) {
+            if (checkboxArray[i].lat.length > 0 && checkboxArray[i].lng.length > 0) {
+                waypts.push({
+                    location: new google.maps.LatLng(checkboxArray[i].lat, checkboxArray[i].lng),
+                    stopover: true
+                });
+            } else {
+                waypts.push({
+                    location: checkboxArray[i].address,
+                    stopover: true
+                });
+            }
+        }
+
+        //alert(origin);
+        //alert(destination);
+
+        service.route({
+            origin: origin,
+            destination: destination,
+            //waypoints: [{ location: '806高雄市前鎮區復興四路' }, { location: '苓洲國小' }],
+
+            waypoints: waypts,
+
+            //travelMode: google.maps.TravelMode.DRIVING,
+            //travelMode: google.maps.TravelMode.TRANSIT,
+            //travelMode: google.maps.TravelMode.WALKING,
+            travelMode: google.maps.TravelMode['DRIVING'],
+            avoidTolls: true
+        }, function (response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                display.setDirections(response);
+            } else {
+                //alert('Could not display directions due to: ' + status);
+                // alert an error message when the route could nog be calculated.
+                if (status == 'ZERO_RESULTS') {
+                    console.log('找不到始發地和目的地之間的路線');
+                } else if (status == 'UNKNOWN_ERROR') {
+                    console.log('由於服務器錯誤，無法處理路線請求。 如果您再試一次，請求可能會成功。');
+                } else if (status == 'REQUEST_DENIED') {
+                    console.log('此網頁不允許使用導航服務。');
+                } else if (status == 'OVER_QUERY_LIMIT') {
+                    console.log('網頁在太短的時間內超過了請求限制。');
+                } else if (status == 'NOT_FOUND') {
+                    console.log('無法對起點、目的地或航路點中的至少一個進行地理編碼。');
+                } else if (status == 'INVALID_REQUEST') {
+                    console.log('提供的 DirectionsRequest 無效');
+                } else {
+                    console.log("There was an unknown error in your request. Requeststatus: \n" + status);
+                }
+            }
+        });
+    }
+
+    function computeTotalDistance(result) {
+        var total = 0;
+        var myroute = result.routes[0];
+        for (var i = 0; i < myroute.legs.length; i++) {
+            total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000;
+        document.getElementById('total').innerHTML = total + ' km';
+    }
+</script>
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBHNgGDd59BQqpVBV6Hza24iIgfZTEwjZA&signed_in=true&callback=geoFindMe&region=TW" async defer></script>
+
+
+
+
+
+
+
+
+        
+
+   

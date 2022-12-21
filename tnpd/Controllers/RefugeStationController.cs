@@ -26,11 +26,27 @@ namespace tnpd.Controllers
             return View();
         }
 
+        public ActionResult Result(int id)
+        {
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList();
+            stations = stations.Where(x => x.Twd97Y != "").ToList();
+
+            RefugeStation refugeStation = stations.FirstOrDefault(x=>x.Id==id);
+
+            if (refugeStation == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(refugeStation);
+
+        }
+
         public ActionResult GetOrgs()
         {
-            var units = _db.Units.Where(x=>x.Subject.Contains("分局") && x.ParentId==null).OrderBy(x=>x.ListNum).Select(x => new
+            var units = _db.Units.Where(x => x.Subject.Contains("分局") && x.ParentId == null).OrderBy(x => x.ListNum).Select(x => new
             {
-                id=x.Subject.Substring(3,x.Subject.Length-3),
+                id = x.Subject.Substring(3, x.Subject.Length - 3),
                 subject = x.Subject.Substring(3, x.Subject.Length - 3),
             });
             return Json(units, JsonRequestBehavior.AllowGet);
@@ -38,7 +54,9 @@ namespace tnpd.Controllers
 
         public ActionResult GetTowns()
         {
-            var precincts = _db.refugeStations.Select(x => new
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+            stations = stations.Where(x => x.Twd97Y != "").ToList();
+            var precincts = stations.Select(x => new
             {
                 id = x.DIstrict,
                 subject = x.DIstrict
@@ -48,21 +66,26 @@ namespace tnpd.Controllers
 
         public ActionResult GetVillage(string id)
         {
-            var precincts = _db.refugeStations.Where(x=>x.DIstrict==id).Select(x => new
-            {
-                id = x.Village,
-                subject = x.Village
-            }).Distinct().OrderBy(x => x.subject); ;
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+            stations = stations.Where(x => x.Twd97Y != "").ToList();
+            var precincts = stations.Where(x => x.DIstrict == id).Select(x => new
+        {
+            id = x.Village,
+            subject = x.Village
+        }).Distinct().OrderBy(x => x.subject); ;
             return Json(precincts, JsonRequestBehavior.AllowGet);
-           
+
         }
 
         public ActionResult GetPointByVillage(string id, string district)
         {
-            var stations = _db.refugeStations.Where(x => x.Village == id && x.DIstrict == district && x.Twd97Y != "").ToList();
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+
+            stations = stations.Where(x => x.Village == id && x.DIstrict == district && x.Twd97Y != "").ToList();
 
             var newstations = stations.Select(x => new
             {
+                id = x.Id,
                 subject = x.Subject,
                 address = x.Address,
                 Number = x.Number,
@@ -80,10 +103,13 @@ namespace tnpd.Controllers
 
         public ActionResult GetPointByDistrict(string id)
         {
-            var stations = _db.refugeStations.Where(x =>  x.DIstrict == id && x.Twd97Y != "").ToList();
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+
+            stations = stations.Where(x => x.DIstrict == id && x.Twd97Y != "").ToList();
 
             var newstations = stations.Select(x => new
             {
+                id = x.Id,
                 subject = x.Subject,
                 address = x.Address,
                 Number = x.Number,
@@ -102,17 +128,20 @@ namespace tnpd.Controllers
         public ActionResult GetPointByPrecinct(string id)
         {
 
-            var stations = _db.refugeStations.Where(x => x.Precinct == id && x.Twd97Y !="").OrderBy(x=>x.Id).ToList();
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+            stations = stations.Where(x => x.Precinct == id && x.Twd97Y != "").OrderBy(x => x.Id).ToList();
+
 
             var newstations = stations.Select(x => new
             {
+                id = x.Id,
                 subject = x.Subject,
                 address = x.Address,
                 Number = x.Number,
                 x.Precinct,
                 x.DIstrict,
                 x.Village,
-                lat =x.Twd97X ,
+                lat = x.Twd97X,
                 lng = x.Twd97Y
 
             });
@@ -134,13 +163,15 @@ namespace tnpd.Controllers
                 double lng = Convert.ToDouble(geometry.location.lng);
                 int dis = 3000;
                 var coord = new GeoCoordinate(lat, lng);
-                var stations = _db.refugeStations.Where(x=> x.Twd97Y !="").ToList();
-                
+                var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+                stations = stations.Where(x => x.Twd97Y != "").ToList();
+
                 var jsonitem = stations.Where(x => !string.IsNullOrEmpty(x.Twd97X) && !string.IsNullOrEmpty(x.Twd97Y)
                                                && double.Parse(x.Twd97X) <= 90 && double.Parse(x.Twd97X) >= -90
                                                && double.Parse(x.Twd97Y) <= 180 && double.Parse(x.Twd97Y) >= -180).Select(
                         c => new
                         {
+                            id = c.Id,
                             subject = c.Subject,
                             address = c.Address,
                             Number = c.Number,
@@ -172,17 +203,19 @@ namespace tnpd.Controllers
 
         public ActionResult GetPointByPosition(double lat, double lng)
         {
-        
-         
+
+
             int dis = 3000;
             var coord = new GeoCoordinate(lat, lng);
-            var stations = _db.refugeStations.Where(x => x.Twd97Y != "").ToList();
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+            stations = stations.Where(x => x.Twd97Y != "").ToList();
 
             var jsonitem = stations.Where(x => !string.IsNullOrEmpty(x.Twd97X) && !string.IsNullOrEmpty(x.Twd97Y)
                                            && double.Parse(x.Twd97X) <= 90 && double.Parse(x.Twd97X) >= -90
                                            && double.Parse(x.Twd97Y) <= 180 && double.Parse(x.Twd97Y) >= -180).Select(
                     c => new
                     {
+                        id = c.Id,
                         subject = c.Subject,
                         address = c.Address,
                         Number = c.Number,
@@ -204,6 +237,7 @@ namespace tnpd.Controllers
 
                 var jsonitem1 = stations.Select(x => new
                 {
+                    id = x.Id,
                     subject = x.Subject,
                     address = x.Address,
                     Number = x.Number,
@@ -214,16 +248,16 @@ namespace tnpd.Controllers
                     lng = x.Twd97Y
 
                 });
-                 jsonContent = JsonConvert.SerializeObject(jsonitem1, Formatting.Indented);
+                jsonContent = JsonConvert.SerializeObject(jsonitem1, Formatting.Indented);
             }
             else
             {
-                 jsonContent = JsonConvert.SerializeObject(jsonitem, Formatting.Indented);
+                jsonContent = JsonConvert.SerializeObject(jsonitem, Formatting.Indented);
             }
 
 
             return new ContentResult { Content = jsonContent, ContentType = "application/json" };
-           
+
 
 
 
@@ -235,13 +269,15 @@ namespace tnpd.Controllers
 
             int dis = 3000;
             var coord = new GeoCoordinate(lat, lng);
-            var stations = _db.refugeStations.Where(x => x.Twd97Y != "").ToList();
+            var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
+            stations = stations.Where(x => x.Twd97Y != "").ToList();
 
             var jsonitem = stations.Where(x => !string.IsNullOrEmpty(x.Twd97X) && !string.IsNullOrEmpty(x.Twd97Y)
                                            && double.Parse(x.Twd97X) <= 90 && double.Parse(x.Twd97X) >= -90
                                            && double.Parse(x.Twd97Y) <= 180 && double.Parse(x.Twd97Y) >= -180).Select(
                     c => new
                     {
+                        id = c.Id,
                         subject = c.Subject,
                         address = c.Address,
                         Number = c.Number,
@@ -260,7 +296,7 @@ namespace tnpd.Controllers
 
 
 
-            return new ContentResult { Content = jsonitem.ToString()};
+            return new ContentResult { Content = jsonitem.ToString() };
 
 
 

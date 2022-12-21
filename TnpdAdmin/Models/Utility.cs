@@ -1355,8 +1355,17 @@ namespace Tnpd.Models
         /// <returns>bool</returns>
         public static bool IsFontSizePxpt(string inputData)
         {
-            inputData = inputData.Replace(" ", "");
-            return System.Text.RegularExpressions.Regex.IsMatch(inputData, @"font-size:(\d+(\.\d+)?)p.");
+            if (!string.IsNullOrEmpty(inputData))
+            {
+                inputData = inputData.Replace(" ", "");
+                return System.Text.RegularExpressions.Regex.IsMatch(inputData, @"font-size:(\d+(\.\d+)?)p.");
+            }
+            else
+            {
+                return false;
+            }
+
+
         }
         #endregion
 
@@ -1417,35 +1426,44 @@ namespace Tnpd.Models
 
         public static void SystemSendMail(string toAddress, string subject, string mailBody)
         {
-            //MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
+            
+
+            //MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
             //mailMessage.Subject = subject;
             //mailMessage.IsBodyHtml = true;
             //mailMessage.Body = mailBody;
             //// SMTP Server
-            //SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
-            //System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
+            //SmtpClient mailSender = new SmtpClient("mail.tnpd.gov.tw");
+            //System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
             //mailSender.Credentials = basicAuthenticationInfo;
             //mailSender.Send(mailMessage);
             //mailMessage.Dispose();
-
-            MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
-            mailMessage.Subject = subject;
-            mailMessage.IsBodyHtml = true;
-            mailMessage.Body = mailBody;
-            // SMTP Server
-            SmtpClient mailSender = new SmtpClient("mail.tnpd.gov.tw");
-            System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
-            mailSender.Credentials = basicAuthenticationInfo;
-            mailSender.Send(mailMessage);
-            mailMessage.Dispose();
             try
             {
-
+                MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+                // SMTP Server
+                SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
+                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
+                mailSender.Credentials = basicAuthenticationInfo;
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
 
             }
             catch
             {
-                return;
+                MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom1"], toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+                // SMTP Server
+                SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer1"]);
+                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
+                mailSender.Credentials = basicAuthenticationInfo;
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
             }
         }
 

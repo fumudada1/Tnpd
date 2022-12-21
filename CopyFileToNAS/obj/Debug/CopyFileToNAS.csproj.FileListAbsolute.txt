@@ -1,0 +1,13 @@
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\CopyFileToNAS.exe.config
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\CopyFileToNAS.exe
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\CopyFileToNAS.pdb
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\EntityFramework.dll
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\TnpdModels.dll
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\Newtonsoft.Json.dll
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\EntityFramework.xml
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\Newtonsoft.Json.xml
+F:\website\Tnpd\CopyFileToNAS\bin\Debug\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\CopyFileToNAS\obj\Debug\CopyFileToNAS.exe
+F:\website\Tnpd\CopyFileToNAS\obj\Debug\CopyFileToNAS.pdb
+F:\website\Tnpd\CopyFileToNAS\obj\Debug\CopyFileToNAS.csprojResolveAssemblyReference.cache

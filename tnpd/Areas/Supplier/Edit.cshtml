@@ -1,0 +1,217 @@
+﻿@using System.Web.UI.WebControls
+@model ModelLibrary.Models.Supplier
+<head>
+    <link href="~/Content/all.css" rel="stylesheet" />
+</head>
+
+<h2 class="offset-1 col-11 mb-5 indexTitle">編輯廠商資訊</h2>
+
+@using (Html.BeginForm("Edit", "Supplier", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-12 " }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CoSeal)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Password)
+    @Html.HiddenFor(model => model.PasswordSalt)
+    @Html.HiddenFor(model => model.Memo)
+    @Html.HiddenFor(model => model.InitDate)
+    @Html.HiddenFor(model => model.PasswordDate)
+
+    <div class="col-12  justify-content-center text-left">
+        <p class="text-danger col-11 offset-1 mb-0 alertText pl-3 ">* 為必填欄位</p>
+
+        @*廠商名稱、分區*@
+        <div class="col-12 mb-4 mt-2 row">
+
+            <div class="col-1   d-flex justify-content-end  ">
+                <span class="editFormTitle align-self-center"><i class="fas fa-user-alt"></i></span>
+            </div>
+            <div class="col-11 py-2 formBox  ">
+
+                <div class="row ">
+                    <div class="col-2 align-self-center  forEditFormLabel">
+                        @Html.LabelFor(model => model.Subject, new { @class = "editFormLabel" })
+                        <span class="text-danger ml-1">*</span>
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Subject, null, new { @class = "formAlert " })
+
+                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    </div>
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.Zone, new { @class = "editFormLabel letterSpace" })
+                        <span class="text-danger ml-1">*</span>
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Zone, null, new { @class = "formAlert " })
+
+                        @Html.EnumDropDownListFor(model => model.Zone, "請選擇", new { @class = "form-control " })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*帳號、密碼*@
+        <div class="col-12 my-4 row">
+
+            <div class="col-1   d-flex justify-content-end  ">
+                <span class="editFormTitle align-self-center"><i class="fas fa-key"></i></span>
+            </div>
+            <div class="col-11 py-2 formBox">
+
+                <div class="row">
+                    <div class="col-2 align-self-start  forEditFormLabel">
+                        @Html.LabelFor(model => model.Account, new { @class = "editFormLabel letterSpace" })
+                        <span class="text-danger ml-1">*</span>
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Account, null, new { @class = "formAlert " })
+
+                        @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    </div>
+                    <div class="col-2 align-self-start  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.Password, new { @class = "editFormLabel letterSpace" })
+                        <span class="text-danger ml-1">*</span>
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "formAlert " })
+                        @Html.Editor("newPassword", new { htmlAttributes = new { @class = "  form-control", type = "password" } })
+                        <p class="pwdAlert circle ">
+                            若密碼無需修改請留空
+                        </p>
+                        <p class="pwdAlert circle ">
+                            若要修改密碼，需包含英文大、小寫、數字、特殊符號，長度至少12碼，至多30碼
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*合約起訖*@
+        <div class="col-12 my-4 row">
+
+            <div class="col-1   d-flex justify-content-end  ">
+                <span class="editFormTitle align-self-center"><i class="far fa-calendar-alt"></i></span>
+            </div>
+            <div class="col-11 py-2 formBox  ">
+
+                <div class="row ">
+                    <div class="col-2 align-self-center  forEditFormLabel">
+                        @Html.LabelFor(model => model.ContractFrom, new { @class = "editFormLabel" })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.ContractFrom, "", new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.ContractFrom, new { htmlAttributes = new { @class = "  form-control datePicker",autocomplete="off",PlaceHolder="西元年/月/日",@Value = Model.ContractFrom?.ToString("yyyy/MM/dd") } })
+                    </div>
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.ContractDue, new { @class = "editFormLabel " })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.ContractDue, "", new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.ContractDue, new { htmlAttributes = new { @class = "form-control datePicker",autocomplete="off",PlaceHolder="西元年/月/日",@Value = Model.ContractDue?.ToString("yyyy/MM/dd")} })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*聯絡資訊*@
+        <div class="col-12 my-4 row">
+
+            <div class="col-1   d-flex justify-content-end  ">
+                <span class="editFormTitle align-self-center"><i class="fas fa-comments"></i></span>
+            </div>
+            <div class="col-11 py-2 formBox  ">
+
+                <div class="row mb-2">
+                    <div class="col-2 align-self-center  forEditFormLabel">
+                        @Html.LabelFor(model => model.Owner, new { @class = "editFormLabel" })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Owner, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.TEL, new { @class = "editFormLabel " })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.TEL, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.TEL, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.TaxNumber, new { @class = "editFormLabel" })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.TaxNumber, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.TaxNumber, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.Fax, new { @class = "editFormLabel" })
+                    </div>
+                    <div class="col-4">
+                        @Html.ValidationMessageFor(model => model.Fax, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.Email, new { @class = "editFormLabel " })
+                    </div>
+                    <div class="col-10">
+                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-2 align-self-center  forEditFormLabel  ">
+                        @Html.LabelFor(model => model.Address, new { @class = "editFormLabel letterSpace" })
+                    </div>
+                    <div class="col-10">
+                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "formAlert " })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "  form-control" } })
+                    </div>
+                 
+                </div>
+            </div>
+
+        </div>
+        @*公司章*@
+        <div class="col-12 my-4 row">
+
+            <div class="col-1  d-flex justify-content-end  ">
+                <span class="editFormTitle align-self-center"><i class="fas fa-stamp"></i></span>
+            </div>
+            <div class="col-11 py-2 formBox ">
+
+                <div class="row">
+                    <div class="col-2 align-self-start  forEditFormLabel">
+                        @Html.LabelFor(model => model.CoSeal, new { @class = "editFormLabel " })
+                    </div>
+                    <div class="col-4 formContent ">
+                    須由廠商自行上傳
+                    </div>
+                       
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="row forBtn  justify-content-center">
+        <div class="col-1"></div>
+        <input type="submit" value="儲存" class="submitBtn btn col-4 mr-3 letterSpace" />
+        @Html.ActionLink("取消", "Detail", new{id=Model.Id}, new { @class = "clearBtn letterSpace btn col-2" })
+    </div>
+
+
+}
+

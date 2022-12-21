@@ -1,5 +1,11 @@
-﻿<div class="row">
-    <div class="col-12">
+﻿@model tnpd.Models.Wandaform
+<div class="row">
+    @using (Html.BeginForm("Index", "Wandaform", new { @class = "form form-vaild form-aligned trailer" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @ViewBag.Message
+        <div class="col-12">
 
         <p>
             有 <span class="text-danger">*</span> 號請務必填寫
@@ -9,97 +15,105 @@
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="Name"><span class="text-danger">*</span>
                     姓名：</label>
-                <input type="text" class="form-control" id="Name" placeholder="請輸入姓名">
+                <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
+                <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group col-md-6">
-                <label class="col-form-label" for="Tel"><span class="text-danger">*</span>
+                <label class="col-form-label" for="TEL"><span class="text-danger">*</span>
                     電話：</label>
-                <input type="text" class="form-control" id="Tel" placeholder="請輸入電話">
+                
+                <input id="TEL" class="form-control" name="TEL" placeholder="請輸入聯絡電話" type="text" value="@Model.TEL"  data-val="true" data-val-required="電話必填" />
+                <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-form-label" for="Email"><span class="text-danger">*</span>
                 E-Mail：</label>
-            <input type="email" class="form-control" id="Email" placeholder="請輸入E-Mail">
+              
+            <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
         </div>
 
-        <div class="form-group">
-            <label class="col-form-label" for="Address">
-                地址：</label>
-            <div class="form-row ">
-               
-                <div class="form-group col-10 mb-0">
-                    <input type="email" class="form-control" id="Address" placeholder="請輸入地址">
+            <div class="form-group">
+                <label class="col-form-label" for="Address">
+                    地址：</label>
+                <div class="form-row ">
+                   
+                    <input id="Address" class="form-control" name="Address" placeholder="請輸入地址" placeholder="現居地址" type="text" value="@Model.Address"   data-val="true" data-val-required="現居地址必填" />
+                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+
                 </div>
             </div>
-        </div>
 
-        <div class="form-row">
+        <div class="form-row" style="display: none">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="Area">
                     區別：</label>
-                <select id="Area" class="form-control">
-                    <option selected>請選擇區別</option>
+                <select id="OArea" name="OArea" class="form-control">
+                    
                     <option value="東區">東區</option>
                 </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="oAddress">
-                路段或地點：</label>
-            <input type="text" class="form-control" id="oAddress" placeholder="請輸入路段或地點">
+            <label class="col-form-label" for="Oplace">
+                通報路段或地點：</label>
+            <input type="text" class="form-control" id="Oplace" name="Oplace" placeholder="請輸入路段或地點"   data-val="true" data-val-required="路段或地點必填">
+            <span class="field-validation-valid" data-valmsg-for="Oplace" data-valmsg-replace="true"></span>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" style="display: none">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="inputState"><span class="text-danger">*</span>
                     通報原因：</label>
-                <select id="inputState" class="form-control">
-                    <option selected>請選擇</option>
+                <select id="Subject" name="Subject" class="form-control"   data-val="true" data-val-required="通報原因必填">
+                   
                     <option value="強盜">強盜</option>
                     <option value="易發生危害之犯罪熱點(其他)">易發生危害之犯罪熱點(其他)</option>
                 </select>
+                <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-form-label" for="Content"><span class="text-danger">*</span>
-                通報內容：</label>
-            <textarea class="form-control" id="Content" rows="3"
-                                            placeholder="請輸入通報內容"></textarea>
-        </div>
+            <div class="form-group">
+                <label class="col-form-label" for="Content">通報原因：</label>
+                <textarea class="form-control"   data-val="true" data-val-required="通報內容必填" name="Content" rows="3">@Model.Content</textarea>
+                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
 
-        <div class="form-row  mt-4">
+            </div>
+
+            <div class="form-row  mt-4">
                 <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
                     驗證碼：</label>
 
                 <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
                     <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
                    
                 </div>
                 <div class="form-group col-md-3">
                     <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
                    
-                     @Html.ValidationMessage("CheckCode")              
+                    @Html.ValidationMessage("CheckCode")              
                 </div>
 
             </div>
 
-            <div class="hrline"></div>
-            <input type="hidden" name="id" value="@ViewBag.UnId"/>
-            <div class="form-row justify-content-center">
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-info">送出</button>
-                </div>
-                <div class="col-auto">
-                    <button type="reset" class="btn btn-secondary">清除</button>
-                </div>
+        <div class="hrline"></div>
+        <input type="hidden" name="id" value="@ViewBag.UnId"/>
+        <div class="form-row justify-content-center">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-info">送出</button>
             </div>
+            <div class="col-auto">
+                <button type="reset" class="btn btn-secondary">清除</button>
+            </div>
+        </div>
 
     </div>
+}
 </div>
 
 <script type="text/javascript">

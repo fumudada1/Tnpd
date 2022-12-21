@@ -1,0 +1,397 @@
+﻿@using ModelLibrary.Models
+@model IEnumerable<ModelLibrary.Models.Member>
+
+@{
+
+
+    var members = new List<Member>();
+    var thisRole = new Role();
+    if (ViewBag.thisRole != null)
+    {
+        thisRole = (Role)ViewBag.thisRole;
+    }
+    if (ViewBag.RoleMembers != null)
+    {
+        members = (List<Member>)ViewBag.RoleMembers;
+    }
+}
+<h2 class="offset-2 col-10   mb-5 indexTitle">權限管理<span class="ml-4">@thisRole.Subject</span>@Html.ActionLink("重新選擇角色權限", "index", "Role", new { @class = "clearBtn btn" })</h2>
+
+
+<div class="row col-12 justify-content-center">
+
+    <div class="col-5">
+
+        <div class="contentTitle mb-3">尚無該角色權限者</div>
+        <div class="row  mb-3">
+            <div class="col-6">
+                <div class="row">
+
+                    <span class="col-4 spanSearch ">
+                        分局
+                    </span>
+                    <div class="col p-0">
+                        @Html.DropDownList("parentUnitId", null, "請選擇", htmlAttributes: new { @class = "form-control", id = "parentUnitId", required = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 ">
+                <div class="row">
+
+                    <span class="col-4 spanSearch">
+                        派出所
+                    </span>
+                    <div class="col p-0">
+                        @Html.DropDownList("UnitId", null, "請選擇", htmlAttributes: new { @class = "form-control", id = "unitId", required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-auto  maxHeight tableShadow">
+            <table class="table text-center table-hover leftTable ">
+                <thead>
+                    <tr class="fixedThead">
+                        <th>
+                            請勾選
+                        </th>
+                        <th>
+                            分局
+                        </th>
+                        <th>
+                            派出所
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="leftTbody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="radio" name="Id" class="leftId" id=@item.Id value=@item.Id />
+                            </td>
+                            <td>
+                                <label for=@item.Id>
+                                    @Html.DisplayFor(modelItem => item.MyUnit.ParentUnit.Subject)
+                                </label>
+                            </td>
+                            <td>
+                                <label for=@item.Id>
+                                    @Html.DisplayFor(modelItem => item.MyUnit.Subject)
+                                </label>
+                            </td>
+                            <td>
+                                <label for=@item.Id>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </label>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-1 py-5 mt-5 mx-3">
+        @if (thisRole.Id == 2)
+        {
+            using (Html.BeginForm("AddZoneRole", "Role", FormMethod.Post, new { @class = "row", id = "addZoneForm" }))
+            {
+                <input type="hidden" id="leftId" name="id" />
+                <input type="hidden" id="zone" name="zone" />
+                <input type="hidden" name="unitId" class="unitId" />
+                <input type="hidden" name="roleId" value=@thisRole.Id />
+                <button type="button" data-zone="0" class=" btn  mb-3 w-100  arrowBtn add">
+                    <img class="mx-auto d-block" src="~/img/right-arrow.png" />
+                    <span class="d-block">加入保固內管理者</span>
+                </button>
+                <button type="button" data-zone="1" class=" btn  mb-3 w-100  arrowBtn add">
+                    <img class="mx-auto d-block" src="~/img/right-arrow.png" />
+                    <span class="d-block">加入第一區管理者</span>
+                </button>
+                <button type="button" data-zone="2" class=" btn  mb-3 w-100  arrowBtn add">
+                    <img class="mx-auto d-block" src="~/img/right-arrow.png" />
+                    <span class="d-block">加入第二區管理者</span>
+                </button>
+            }
+
+        }
+        else
+        {
+            using (Html.BeginForm("AddRole", "Role", FormMethod.Post, new { @class = "row", id = "addForm" }))
+            {
+                <input type="hidden" id="leftId" name="id" />
+                <input type="hidden" name="unitId" class="unitId" />
+                <input type="hidden" name="roleId" value=@thisRole.Id />
+                <button id="addBtn" type="button" class=" btn  mb-5 w-100  arrowBtn">
+                    <img class="mx-auto d-block" src="~/img/right-arrow.png" />
+                    <span class="d-block">加入權限</span>
+                </button>
+            }
+
+        }
+        @using (Html.BeginForm("RemoveRole", "Role", FormMethod.Post, new { @class = "row", id = "removeForm" }))
+        {
+            <input type="hidden" id="rightId" name="id" />
+            <input type="hidden" name="unitId" class="unitId" />
+            <input type="hidden" name="roleId" value=@thisRole.Id />
+            <button id="removeBtn" type="button" class=" btn arrowBtn  w-100 ">
+                <img class="mx-auto d-block" src="~/img/left-arrow.png" /><span class="d-block">移除權限</span>
+            </button>
+        }
+    </div>
+    <div class="col-5">
+        <div class="contentTitle mb-5">
+            所有@(thisRole.Subject)
+        </div>
+        <div class="overflow-auto  maxHeight mt-5 tableShadow">
+            <table class="table text-center table-hover rightTable  ">
+                <tr class="fixedThead">
+                    <th>
+                        請勾選
+                    </th>
+                    <th>
+                        分局
+                    </th>
+                    <th style="width: 20%">
+                        派出所
+                    </th>
+                    <th style="width: 20%">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        權限角色
+                    </th>
+                </tr>
+
+                @foreach (var item in members)
+                {
+                    <tr>
+                        <td>
+                            <input type="radio" name="Id" class="rightId" id=@item.Id value=@item.Id />
+                        </td>
+                        <td>
+                            <label for=@item.Id>
+                                @Html.DisplayFor(modelItem => item.MyUnit.ParentUnit.Subject)
+                            </label>
+                        </td>
+                        <td>
+                            <label for=@item.Id>
+                                @Html.DisplayFor(modelItem => item.MyUnit.Subject)
+                            </label>
+                        </td>
+                        <td>
+                            <label for=@item.Id>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </label>
+                        </td>
+                        <td>
+                            <label for=@item.Id>
+                                @if (thisRole.Id == 2)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Roles.FirstOrDefault().Subject)
+                                    <br>
+                                    @:(@Html.DisplayFor(modelItem => item.Zone))
+
+                                }
+                                else
+                                {
+
+                                    @Html.DisplayFor(modelItem => item.Roles.FirstOrDefault().Subject)
+                                }
+                            </label>
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+  
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/jquery.tmpl.min.js"></script>
+    
+
+    <script>
+        $(function () {
+            $('.container').addClass('maxWidth');
+        });
+    </script>
+
+    @*提示是否重複設定權限*@
+    <script>
+        $(function () {
+            var roleRepeatAlert = '@TempData["RoleRepeatAlert"]';
+                if (roleRepeatAlert!='') {
+                    swal({
+                        title: "該使用者已被設定權限",
+                        text: roleRepeatAlert,
+                        icon: "warning"
+                    });
+
+                }
+        });
+    </script>
+
+    @*移除權限*@
+    <script>
+        $(function () {
+            $('#removeBtn').click(function () {
+
+                var id = $('.rightId:checked').val();
+                $('#rightId').val(id);
+                var unitId = $('#unitId').val();
+                $('.unitId').val(unitId);
+
+                if (id == null) {
+                    swal({
+                        title: "請先選擇右側欲移除權限者",
+                        text: "",
+                        icon: "warning"
+                    });
+
+                } else {
+                    $('#removeForm').submit();
+                }
+
+            });
+
+
+
+        });
+    </script>
+    @*加入權限*@
+    <script>
+        $(function () {
+            $('#addBtn').click(function () {
+
+                var id = $('.leftId:checked').val();
+                $('#leftId').val(id);
+                var unitId = $('#unitId').val();
+                $('.unitId').val(unitId);
+                if (id == null) {
+                    swal({
+                        title: "請先選擇左側欲加入權限者",
+                        text: "",
+                        icon: "warning"
+                    });
+
+                }
+                else {
+                    $('#addForm').submit();
+                }
+
+            });
+
+
+        });
+    </script>
+    @*加入分區權限*@
+    <script>
+        $(function () {
+
+
+            $('.add').click(function () {
+                var zone = $(this).data("zone");
+                var id = $('.leftId:checked').val();
+                $('#leftId').val(id);
+                var unitId = $('#unitId').val();
+                $('.unitId').val(unitId);
+                $('#zone').val(zone);
+                if (id == null) {
+                    swal({
+                        title: "請先選擇左側欲加入權限者",
+                        text: "",
+                        icon: "warning"
+                    });
+
+                }
+                else {
+                    $('#addZoneForm').submit();
+                }
+
+            });
+        });
+    </script>
+    @*AJAX選單位*@
+    <script>
+        $(document).ready(function () {
+            $('#parentUnitId').change(function () {
+                var itemId = $(this).val();
+                getUnits(itemId);
+            });
+
+            function getUnits(id) {
+                var sJson = JSON.stringify
+                    ({
+                        Id: id
+                    });
+                $.ajax({
+                    method: 'post',
+                    url: '/Role/GetUnit',
+                    data: sJson,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (response) {
+
+                        $("#unitId").children().remove();
+                        $('<option></option>').text('請選擇').val('0').appendTo('#unitId');
+                        $.each(response, function (i, item) {
+                            $('<option></option>').text(item.Subject).val(item.Id).appendTo('#unitId');
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+    @*選完單位之後組左邊表格*@
+    <script>
+        $(document).ready(function () {
+            $('#unitId').change(function () {
+                var itemId = $(this).val();
+                var roleId = @thisRole.Id;
+                getUnRoleMembers(itemId, roleId);
+            });
+
+            function getUnRoleMembers(unitId,roleId) {
+                var sJson = JSON.stringify
+                ({
+                    unitId: unitId,
+                    roleId: roleId
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/role/GetUnRoleMembers',
+                    data: sJson,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (response) {
+                        $("#leftTbody").children().remove();
+                        $.each(response, function (i, item) {
+
+                            $('<tr></tr>').prop("id", "tr" + i).appendTo("#leftTbody");
+                            $('<td></td>').append($('<input/>').prop("type", "radio").prop("name","Id").prop("class","leftId").prop("id",item.Id).val(item.Id)).appendTo("#tr" + i);
+                            $('<td></td>').append($('<label></label>').prop("for",item.Id).text(item.ParentUnit)).appendTo("#tr" + i);
+                            $('<td></td>').append($('<label></label>').prop("for",item.Id).text(item.Unit)).appendTo("#tr" + i);
+                            $('<td></td>').append($('<label></label>').prop("for",item.Id).text(item.Name)).appendTo("#tr" + i);
+
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+}

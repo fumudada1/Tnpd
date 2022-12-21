@@ -1,0 +1,8 @@
+delete [dbo].FolderFileLogs
+DBCC CHECKIDENT(FolderFileLogs, RESEED, 0)
+
+delete [dbo].[FolderFiles]
+DBCC CHECKIDENT([FolderFiles], RESEED, 0)
+
+delete [dbo].[Folders]
+DBCC CHECKIDENT([Folders], RESEED, 0)

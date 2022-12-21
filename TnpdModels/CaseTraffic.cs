@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 
 namespace TnpdModels
 {
@@ -47,6 +50,7 @@ namespace TnpdModels
         public string Pid { get; set; }
 
         [Display(Name = "性別")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public GenderType Gender { get; set; }
 
         [Required(ErrorMessage = "{0}必填")]
@@ -137,6 +141,17 @@ namespace TnpdModels
         [Display(Name = "是否單位改派")]
         public BooleanType? IsUnitAssign { get; set; }
 
+        [Display(Name = "檔案存放單位")]
+        [MaxLength(100)]
+        public string UnitFile { get; set; }
+
+        [Display(Name = "是否傳送至交大委外伺服器")]
+        public bool IsSend { get; set; }
+
+        [NotMapped]
+        [Display(Name = "身份證字號回傳名稱")]
+        [MaxLength(20)]
+        public string CheckName { get; set; }
 
         [Display(Name = "處理")]
         public virtual ICollection<CaseTrafficPoproc> Poprocs { get; set; }

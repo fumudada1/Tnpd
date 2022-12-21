@@ -2,6 +2,19 @@
     ViewBag.Title = "防空疏散避難設施地圖";
 }
 <div class="row">
+    <div style="color: red">
+<h4 class="h4title" style="color: red">特別提醒</h4>
+
+    <ul class="ultxt">
+        <li>本專區是為了讓市民能於平時熟悉各種防空避難位置，而非代表隨時可進人避難。由於防空疏散避難設施多位於大樓地下室，平時受憲法賦予個人財產權之保障，未經所有權人同意，請勿擅自進入查看。
+        </li>
+        <li>只有於防空演習、戰爭發生或將發生時由國防部發布管制疏散之命令後，才能開放進入避難。
+        </li>
+
+    </ul>
+    </div>
+    
+
     <div class="col-12">
         <p class="mb-2">當您選擇行政區位置或選取轄區分局，本系統將提供您行政區內防空疏散避難設施地圖資訊。</p>
 
@@ -19,28 +32,28 @@
             <label class="col-form-label" for="towns">依照地區搜尋：</label>
             <div class="form-group col-auto">
                 <select name="towns" id="district" class="form-control"></select>
-                
+
             </div>
             <div class="form-group col-auto">
                 <select name="towns" id="village" class="form-control"></select>
-                
+
             </div>
-           
+
             <div class="form-group col-auto">
 
                 <input type="button" class="btn btn-secondary" value="搜尋" id="townsSend">
             </div>
         </div>
 
-       
+
         <p class="mb-2">
             您也可輸入精確地址，或地標(例如:奇美博物館)，本系統將提供距離您輸入位置3公里內之防空疏散避難設施地圖資訊。
         </p>
-        
+
         <div class="form-row mt-2">
-            <label class="col-form-label" for="keywordText" >請輸入地址或地標：</label>
+            <label class="col-form-label" for="keywordText">請輸入地址或地標：</label>
             <div class="form-group col-auto">
-                <input type="text" id="keywordText" class="form-control" placeholder="請輸入地址或地標">                    
+                <input type="text" id="keywordText" class="form-control" placeholder="請輸入地址或地標">
             </div>
             <div class="form-group col-auto">
                 <input type="button" class="btn btn-secondary" value="搜尋" id="keywordSend">
@@ -62,6 +75,7 @@
             <th class="w-15">地址</th>
             <th class="w-10">可容納人數</th>
             <th class="w-10">管轄分局</th>
+            <th class="w-10">路線規劃</th>
         </tr>
         </thead>
         <tbody id="rTbody">
@@ -130,9 +144,7 @@
             .then(position => successCallback(position))
             .catch(error => errorCallback(error));
 
-        gettingPosition()
-            .then(position => successCallback(position))
-            .catch(error => errorCallback(error))
+        
         function GetOrgs() {
             var xhr = new XMLHttpRequest();
             xhr.open('get', _url + 'RefugeStation/GetOrgs');
@@ -207,7 +219,7 @@
                 var _targetUrl = _url +
                     'RefugeStation/GetPointByAddress?address=' +
                     escape(document.querySelector('#keywordText').value);
-                console.log(_targetUrl);
+                //console.log(_targetUrl);
                 showMap(_targetUrl)
             });
         district.addEventListener('change',
@@ -227,7 +239,7 @@
                 var currentInfoWindow = '';
                 var data = JSON.parse(xhr.response);
                 console.log('here!!' + target);
-                console.log(xhr.response);
+                console.log(data);
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 9,
                     center: { lat: 22.6048695, lng: 120.299119 }
@@ -240,7 +252,8 @@
                         '<p style="font-weight:bold">' + data[i].subject + '</p>' +
                             '<span>所屬分局：' + data[i].Precinct + '</span></br>' +
                             '<span>地址：' + data[i].address + '</span></br>' +
-                            '<span>收容人數：' + data[i].Number + '</span></br>'
+                            '<span>收容人數：' + data[i].Number + '</span></br>' +
+                            '<a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a>'
                     ;
 
                     var str = {};
@@ -254,7 +267,7 @@
                     var marker = new google.maps.Marker(str);
                     loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
 
-                    infowindow(marker, content)
+                    infowindow(marker, content);
                     bounds.extend(loc);
                     var cTr = ' <tr class="rTr">' +
                         '<td data-th="區別">' + data[i].DIstrict + '</td>' +
@@ -263,6 +276,7 @@
                         '<td data-th="地址">' + data[i].address + '</td>' +
                         '<td data-th="可容納人數">' + data[i].Number + '</td>' +
                         '<td data-th="管轄分局">' + data[i].Precinct + '</td>' +
+                        '<td data-th="路線規劃"><a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a></td>' +
                         '</tr>';
                     cTrall = cTrall + cTr;
 

@@ -27,8 +27,8 @@ namespace tnpd.Areas.yongkang.Controllers
             ////活動相簿
             //var newse3 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 7 && y.WebSite.SiteCode == areaName) > 0)
             //    .OrderByDescending(p => p.StartDate).Take(4);
-            //破案報導
-            var newse4 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 3 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
+            //其他宣導
+            var newse4 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 23 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
                 .OrderByDescending(p => p.StartDate).Take(6);
             //好人好事
             var newse5 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 6 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
@@ -62,7 +62,7 @@ namespace tnpd.Areas.yongkang.Controllers
             DateTime yesterDay = DateTime.Now.AddDays(-1);
             string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
             var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSite.SiteCode == areaName && ((x.StartDate <= DateTime.Now && x.EndDate >= yesterDay) || (x.EndDate == null))).OrderBy(x => x.ListNum).ToList();
-
+            ViewBag.Title = "相關連結";
             return View(homeLinks);
         }
 

@@ -11,3 +11,16 @@ E:\website\tnpd\SendTrafficSMS\bin\Debug\Newtonsoft.Json.dll
 E:\website\tnpd\SendTrafficSMS\bin\Debug\TnpdModels.pdb
 E:\website\tnpd\SendTrafficSMS\bin\Debug\Newtonsoft.Json.xml
 E:\website\tnpd\SendTrafficSMS\obj\Debug\SendTrafficSMS.csprojResolveAssemblyReference.cache
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\SendTrafficSMS.exe.config
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\SendTrafficSMS.exe
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\SendTrafficSMS.pdb
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\EntityFramework.dll
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\TnpdModels.dll
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\Newtonsoft.Json.dll
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\EntityFramework.xml
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\Newtonsoft.Json.xml
+F:\website\Tnpd\SendTrafficSMS\bin\Debug\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\SendTrafficSMS\obj\Debug\SendTrafficSMS.exe
+F:\website\Tnpd\SendTrafficSMS\obj\Debug\SendTrafficSMS.pdb
+F:\website\Tnpd\SendTrafficSMS\obj\Debug\SendTrafficSMS.csprojResolveAssemblyReference.cache

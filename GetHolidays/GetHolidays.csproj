@@ -56,7 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="111年中華民國政府行政機關辦公日曆表.csv" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="政府行政機關辦公日曆表.csv" />
   </ItemGroup>

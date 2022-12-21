@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺南市政府警察局 監視錄影報修系統</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/css/SystemStyle.css?n=11" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker3.standalone.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="hero-anime">
+
+    <div class="navigation-wrap bg-light start-header start-style no-print">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-md navbar-light">
+
+                        <a class="navbar-brand d-flex row" href="/Home/Index">
+                            <img src="~/img/警察徽章.png " />
+                            <h3 class="m-0">臺南市政府警察局<br>監視錄影報修系統</h3>
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto py-4 py-md-0">
+                                @*<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 active">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                        </div>
+                                    </li>*@
+
+                                @Html.Raw(ViewBag.Menu)
+                                @*<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        @Html.ActionLink("案件查詢", "ClearOrderSearch", "Order", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        @Html.ActionLink("案件管理", "ClearCaseSearch", "Order", null, new { @class = "nav-link" })
+                                    </li>
+
+                                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        @Html.ActionLink("機組管理", "Index", "Monitor", null, new { @class = "nav-link" })
+
+                                    </li>
+                                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        @Html.ActionLink("零件管理", "Index", "QuoteSort", null, new { @class = "nav-link" })
+
+                                    </li>
+                                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/img/user-alt-solid.svg" />
+                                            @ViewBag.Name
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            @Html.ActionLink("廠商資訊維護", "Details", "Suppliers", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("更變密碼", "ChangePassword", "Suppliers", null, new { @class = "dropdown-item" })
+                                            @Html.ActionLink("登出", "LogOut", "Login", null, new { @class = "dropdown-item" })
+
+                                        </div>
+                                    </li>*@
+                            </ul>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="container-fluid">
+
+        </div>*@
+    <div class="section full-height">
+        <div class="absolute-center">
+            <div class="section">
+                <div class="container">
+                    <div class="row mb-5">
+                        @RenderBody()
+                    </div>
+                    @RenderSection("Page", false)
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+
+
+    <script>
+
+        (function ($) {
+            "use strict";
+
+            $(function () {
+                var header = $(".start-style");
+                $(window).scroll(function () {
+                    var scroll = $(window).scrollTop();
+
+                    if (scroll >= 10) {
+                        header.removeClass('start-style').addClass("scroll-on");
+                    } else {
+                        header.removeClass("scroll-on").addClass('start-style');
+                    }
+                });
+            });
+
+            //Animation
+
+            $(document).ready(function () {
+                $('body.hero-anime').removeClass('hero-anime');
+            });
+
+            //Menu On Hover
+
+            $('body').on('mouseenter mouseleave', '.nav-item', function (e) {
+                if ($(window).width() > 750) {
+                    var _d = $(e.target).closest('.nav-item'); _d.addClass('show');
+                    setTimeout(function () {
+                        _d[_d.is(':hover') ? 'addClass' : 'removeClass']('show');
+                    }, 1);
+                }
+            });
+
+
+
+        })(jQuery);
+
+    </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.zh-TW.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+    @*datepicker*@
+    <script type="text/javascript">
+        $('.datePicker').datepicker({
+            format: "yyyy/mm/dd",
+            clearBtn: true,
+            todayBtn: "linked",
+            language: "zh-TW",
+            autoclose: true,
+            todayHighlight: true,
+            orientation: "bottom auto"
+        });
+    </script>
+    @*預防重複送出表單*@
+    <script>
+        $("form").on("submit", function (e) {
+            var self = $(this);
+            if (!self[0].checkValidity() || self.data("submitted")) {
+                e.preventDefault();
+                return;
+            }
+            self.data("submitted", true);
+        });
+    </script>
+</body>
+
+
+
+
+
+</html>

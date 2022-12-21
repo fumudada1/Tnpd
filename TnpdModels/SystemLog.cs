@@ -15,7 +15,7 @@ namespace TnpdModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "行為")]
-        [MaxLength(500)]
+        [MaxLength(1000)]
         [Display(Name = "行為")]
         public string Subject { get; set; }
 

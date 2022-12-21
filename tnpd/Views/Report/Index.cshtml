@@ -1,7 +1,7 @@
 ﻿@model tnpd.Models.ReportView
 
 <div class="row">
-@using (Html.BeginForm("Index", "Report", new {@class = "form form-vaild form-aligned trailer"}))
+@using (Html.BeginForm("Index", "Report",  FormMethod.Post,new { @class = "form form-vaild form-aligned trailer", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -218,17 +218,34 @@
 
     </div>
 
-    <div class="form-group">
-        <label class="col-form-label" for="Content"><span class="text-danger">*</span> 案情摘要：</label>
-        <textarea class="form-control"  data-val="true" data-val-required="案情摘要必填"  name="Content" rows="3">@Model.Content</textarea>
-        <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
-    </div>
+        <div class="form-group">
+            <label class="col-form-label" for="Content"><span class="text-danger">*</span> 案情摘要：</label>
+            <textarea class="form-control"  data-val="true" data-val-required="案情摘要必填"  name="Content" rows="3">@Model.Content</textarea>
+            <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" for="Upfile1">
+                <span class="text-danger">*</span>
+                檔案上傳：</label>
+            <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+            <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file"   data-val="true" data-val-required="至少第一個檔案必須上傳" >
+            <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
+            <input name="Upfile3" class="form-control" id="Upfile3" type="file">
+            
+        </div>
+
+        <div class="form-group" style="word-break: break-all;">
+            <span class="text-danger">【檔案上傳限制】</span><br>
+            1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+            2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
+
+        </div>
     <div class="form-row  mt-4">
         <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
             驗證碼：</label>
 
         <div class="form-group col-auto">
-            <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
             <div id="newMessageDIV" style="display:none"></div>
             <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
                    

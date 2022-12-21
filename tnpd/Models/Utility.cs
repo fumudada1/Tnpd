@@ -1060,7 +1060,10 @@ namespace tnpd.Models
 
         public static void SystemSendMail(string toAddress, string subject, string mailBody)
         {
-            
+            if (toAddress.IndexOf("@vusra.com") > -1)
+            {
+                return ;
+            }
 
             //MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
             //mailMessage.Subject = subject;

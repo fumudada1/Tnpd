@@ -1,159 +1,348 @@
 ﻿@model tnpd.Models.ChiefView
+@{
+    DateTime today = DateTime.Today;
+}
 <div class="row">
-    @using (Html.BeginForm("Create", "ChiefMailbox", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        @ViewBag.Message
-        <div class="col-12">
-            <p>
-                親愛的民眾您好：<br>
-                感謝您使用本局的信箱，透過信箱可以讓我們知道您的需求及問題在哪裡， 以便為您做更多的服務，真正達到落實"便民"的目標。<br>
-                (有 <span class="text-danger">*</span> 號請務必填寫)
-            </p>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+      @Html.ValidationMessage("Message")
+    <div class="col-12">
 
-            <div class="hrline"></div>
+    <h4 class="h4title">一、注意事項：</h4>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label" for="Name"><span class="text-danger">*</span>
-                        姓名：</label>
-                    <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
-                    <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+    <ul class="ultxt">
+        <li>有 * 號為必填欄位，請務必填寫
+        </li>
+        <li>上傳檔案請注意勿超過規範之大小(60MB)
+        </li>
+    </ul>
 
-                </div>
-                <div class="form-group col-md-6" style="display: none">
-                    <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
-                        性別：</label>
-                    <div class="form-group">
-                        <select  class="form-control"  id="Gender" name="Gender"><option>男</option>
-                            <option>女</option>
-                        </select>
-                      
+    <h4 class="h4title">二、填寫步驟說明：</h4>
 
-                    </div>
-                </div>
+    <ul class="ultxt">
+        <li>填寫「檢舉人資料」
+        </li>
+        <li>寄送認證郵件並完成認證郵件的接收與點選認證
+        </li>
+        <li>接續完成「檢舉內容」資料並按「送出」鈕以完成交通違規檢舉案件立案程序
+        </li>
+    </ul>
+
+    <h4 class="h4title">「檢舉人資料」</h4>
+
+    <div class="hrline"></div>
+    (有 <span class="text-danger">*</span> 號請務必填寫)
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Name">
+                <span class="text-danger">*</span>
+                姓名：</label>
+            <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name"/>
+            <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group col-auto">
+            <label class="col-form-label" for="Gender" style="display: none">
+                <span class="text-danger">*</span>
+                性別：</label>
+                <select class="form-control" id="Gender" name="Gender" style="display: none">
+                    <option>男</option>
+                    <option>女</option>
+                </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="TEL">
+                <span class="text-danger">*</span>
+                電話：
+            </label>
+
+            <input id="TEL" class="form-control" data-val="true" data-val-required="電話必填" name="TEL" placeholder="請輸入聯絡電話" type="text" value="@Model.TEL"/>
+            <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Job" style="display: none">
+                職業：</label>
+            <input class="form-control" id="Job" name="Job" placeholder="請輸入職業" type="text" value="@Model.Job" style="display: none"/>
+            <span class="field-validation-valid" data-valmsg-for="Job" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="Pid">
+            <span class="text-danger">*</span>
+            身分證字號或居留證號：（請在上傳檔案檢附居留證影本）</label>
+        <div class="form-row ">
+            <input class="form-control" data-val="true" data-val-required="身分證字號必填"  id="Pid" name="Pid" placeholder="身分證字號" type="text" value="@Model.Pid" />
+            @Html.ValidationMessage("Pid")
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="Address">
+            <span class="text-danger">*</span>
+            地址：</label>
+            <input id="Address" class="form-control"  data-val="true" data-val-required="地址必填"  name="Address" placeholder="請輸入地址" placeholder="現居地址" type="text" value="@Model.Address"/>
+            <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label" for="Email">
+            <span class="text-danger">*</span>
+            E-Mail：</label>
+
+        <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email"/>
+        <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
+        <span style="color: red" id="mailMessage"></span>
+    </div>
+
+    <h4 class="h4title">寄送認證郵件注意事項：</h4>
+
+    <ul class="ultxt">
+        <li>填寫e-mail → 點選「寄送認證郵件」鈕→
+            出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
+        </li>
+        <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
+        </li>
+        <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
+        </li>
+    </ul>
+
+    <h4 class="h4title">「檢舉內容」</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Subject">
+                <span class="text-danger">*</span>
+                主題：</label>
+            <input id="Subject" class="form-control" data-val="true" data-val-required="主旨必填" name="Subject" placeholder="請輸入主旨" type="text" value="@Model.Subject"/>
+            <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
+
+        </div>
+    </div>
+
+    <div class="form-group mb-0">
+        <label class="col-form-label" for="violation_place_area">
+            <span class="text-danger">*</span>
+            違規地點：</label>
+        <div class="form-row">
+            <div class="form-group col-auto">
+                @Html.DropDownList("violation_place_area", (IEnumerable<SelectListItem>)ViewBag.Regions,"請選擇", new {@class="form-control"}) 
+                @Html.ValidationMessageFor(model => model.violation_place_area)
+       
             </div>
+            <div class="form-group col-auto">
+                <select class="form-control input-validation-error" data-val="true"  data-val-required="違規路段必填" id="violation_place_road" name="violation_place_road" aria-required="true" aria-describedby="violation_place_area-error">
+                    <option value="">請選擇</option>
 
-            <div class="form-group">
-                <label class="col-form-label" for="Email"><span class="text-danger">*</span>
-                    E-Mail：</label>
-              
-                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
-                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-
-            </div>
-            <div class="form-group">
-                <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
-                <span style="color: red" id="mailMessage"></span>
-            </div>
-
-            <h4 class="h4title">寄送認證郵件注意事項：</h4>
-
-            <ul class="ultxt">
-                <li>填寫e-mail → 點選「寄送認證郵件」鈕→
-                    出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
-                </li>
-                <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
-                </li>
-                <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
-                </li>
-            </ul>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label" for="TEL">
-                        電話：</label>
+                </select>
+                <input type="hidden" id="hviolation_place_road" value="@Model.violation_place_road"/>
                 
-                    <input id="TEL" class="form-control" name="TEL" placeholder="請輸入聯絡電話" type="text" value="@Model.TEL" />
-                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
-
-                </div>
-                <div class="form-group col-md-6" style="display: none">
-                    <label class="col-form-label" for="Job">
-                        職業：</label>
-                    <input class="form-control"  id="Job" name="Job" placeholder="請輸入職業" type="text" value="@Model.Job" />
-                    <span class="field-validation-valid" data-valmsg-for="Job" data-valmsg-replace="true"></span>
-
-                </div>
+                <span class="field-validation-valid" data-valmsg-for="violation_place_road" data-valmsg-replace="true"></span>
             </div>
+            <div class="form-group col-md-8">
 
-            <div class="form-group">
-                <label class="col-form-label" for="Address">
-                    地址：</label>
-                <div class="form-row ">
-                   
-                    <input id="Address" class="form-control" name="Address" placeholder="請輸入地址" placeholder="現居地址" type="text" value="@Model.Address" />
-                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-
-                </div>
+                <input id="violation_place" data-val="true" data-val-required="違規地址必填" class="form-control" name="violation_place" placeholder="請輸入違規地址"  type="text" value="@Model.violation_place"/>
+                <span class="field-validation-valid" data-valmsg-for="violation_place" data-valmsg-replace="true"></span>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="col-form-label" for="Subject"><span class="text-danger">*</span>
-                    主題：</label>
-                <input id="Subject" class="form-control" data-val="true" data-val-required="主旨必填" name="Subject" placeholder="請輸入主旨" type="text" value="@Model.Subject"  />
-                <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
-
-               
-            </div>
-
-            <div class="form-group">
-                <label class="col-form-label" for="Content">內容：</label>
-                <textarea class="form-control"   data-val="true" data-val-required="必填" name="Content" id="Content" rows="3">@Model.Content</textarea>
-                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+    <div class="form-group mb-0">
+        <label class="col-form-label" for="violation_dateYear">
+            <span class="text-danger">*</span>
+            違規時間：</label>
+        <div class="form-row">
+            <div class="form-group col-auto">
+                <select id="violation_date" name="violation_date" class="form-control">
+                    @for (int i = 0; i <= 6; i++)
+                    {
+                        DateTime date = today.AddDays(i*-1);
+                        if (Model.violation_date == date)
+                        {
+                            <option selected="selected">@date.ToString("yyyy/MM/dd")</option>
+                        }
+                        else
+                        {
+                            <option>@date.ToString("yyyy/MM/dd")</option>
+                        }
+                       
+                    }
+                </select>
 
             </div>
-            <div class="form-group">
+           
+
+            <div class="form-group col-auto">
+                <select id="violation_time1" name="violation_time1" class="form-control">
+                    @for (int i = 0; i <= 23; i++)
+                    {
+                        <option>@i.ToString()</option>
+                        
+                    }
+                </select>
+                <input type="hidden" id="hviolation_time1" value="@Model.violation_time1"/>
+
+            </div>
+            <div class="form-group col-auto align-self-center">
+                時
+            </div>
+            <div class="form-group col-auto">
+                <select id="violation_time2" name="violation_time2" class="form-control">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        <option>@i.ToString()</option>
+                      
+                    }
+                </select>
+                <input type="hidden" id="hviolation_time2" value="@Model.violation_time2"/>
+            </div>
+            <div class="form-group col-auto align-self-center">
+                分
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-0">
+        <label class="col-form-label" for="violation_carno1">
+            <span class="text-danger">*</span>
+            違規車號：若舉發內容為汽車或機車，請輸入車牌號碼，例：AAA-0000。</label>
+        <div class="form-row">
+            <div class="form-group  col-md-3 col-5">
+                <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno1" name="violation_carno1" placeholder="例：AAA" value="@Model.violation_carno1">
+                <span class="field-validation-valid" data-valmsg-for="violation_carno1" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group col-auto align-self-center">
+                -
+            </div>
+            <div class="form-group col-md-3 col-5">
+                <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno2" name="violation_carno2" placeholder="例：0000"  value="@Model.violation_carno2">
+                <span class="field-validation-valid" data-valmsg-for="violation_carno2" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group mb-0">
+            <label class="col-form-label" for="itemno">
+                <span class="text-danger">*</span>
+                違規事項：</label>
+            <div class="form-group col-auto">
+                <select id="itemno" class="form-control" name="itemno">
+                  
+   
+                    <option value="闖紅燈(紅燈右轉)">闖紅燈(紅燈右轉)</option>
+   	
+                    <option value="未戴安全帽">未戴安全帽</option>
+   	
+                    <option value="紅燈越線">紅燈越線</option>
+   	
+                    <option value="未依規定使用方向燈">未依規定使用方向燈</option>
+   	
+                    <option value="轉彎車占用直行車道或直行車占用轉彎車道">轉彎車占用直行車道或直行車占用轉彎車道</option>
+   	
+                    <option value="跨越雙黃線行駛或跨越雙白線行駛">跨越雙黃線行駛或跨越雙白線行駛</option>
+   	
+                    <option value="占用機車停等區">占用機車停等區</option>
+   	
+                    <option value="違規迴轉">違規迴轉</option>
+   	
+                    <option value="逆向行駛">逆向行駛</option>
+   	
+                    <option value="未依規定二段式左轉">未依規定二段式左轉</option>
+   	
+                    <option value="違規超車">違規超車</option>
+   	
+                    <option value="危險駕駛">危險駕駛</option>
+   	
+                    <option value="增減設備">增減設備</option>
+   	
+                    <option value="任意駛出路面邊線(行駛路肩)">任意駛出路面邊線(行駛路肩)</option>
+   	
+                    <option value="違規停車">違規停車</option>
+   	
+                    <option value="跨越槽化線行駛">跨越槽化線行駛</option>
+   	
+                    <option value="未依規定使用燈光">未依規定使用燈光</option>
+   	
+                    <option value="未保持安全間隔距離">未保持安全間隔距離</option>
+   	
+                    <option value="其他">其他</option>
+                </select>
+                <input type="hidden" id="hitemno" value="@Model.itemno"/>
+                <span class="field-validation-valid" data-valmsg-for="itemno" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+     
+        <label class="col-form-label" for="Content">內容：</label>
+        <textarea class="form-control"   data-val="true" data-val-required="必填" name="Content" rows="3">@Model.Content</textarea>
+        <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
         <label class="col-form-label" for="Upfile1">
-            
+            <span class="text-danger">*</span>
             檔案上傳：</label>
-        <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file">
+			 <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+        <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file"   data-val="true" data-val-required="至少第一個檔案必須上傳" >
         <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
         <input name="Upfile3" class="form-control" id="Upfile3" type="file">
-       
+        <input name="Upfile4" class="form-control mb-2" id="Upfile4" type="file" />
+        <input name="Upfile5" class="form-control mb-2" id="Upfile5" type="file" />
+        <input name="Upfile6" class="form-control" id="Upfile6" type="file" />
     </div>
 
     <div class="form-group" style="word-break: break-all;">
         <span class="text-danger">【檔案上傳限制】</span><br>
-        1. 3個檔案加總請勿超過50MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
-        2. 僅支援圖片以及Word、PDF檔案，例如：（ *.jpeg, *.jpg, *.png, *.gif, *.bmp,*.doc, *.docx,*.pdf）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
+        1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+        2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
 
     </div>
-            <div class="form-row  mt-4">
-                <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
-                    驗證碼：</label>
 
-                <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
-                    <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
-                   
-                </div>
-                <div class="form-group col-md-3">
-                    <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
-                    <div id="newMessageDIV" style="display:none"></div>
-                     @Html.ValidationMessage("CheckCode")              
-                </div>
+    <div class="form-row  mt-4">
+        <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+            驗證碼：</label>
 
-            </div>
-
-            <div class="hrline"></div>
-            <input type="hidden" name="id" value="@ViewBag.UnId"/>
-            <div class="form-row justify-content-center">
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-info">送出</button>
-                </div>
-                <div class="col-auto">
-                    <button type="reset" class="btn btn-secondary">清除</button>
-                </div>
-            </div>
+        <div class="form-group col-auto">
+            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+			<div id="newMessageDIV" style="display:none"></div>
+            <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"/></a>
 
         </div>
+        <div class="form-group col-md-3">
+            <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text"/> <span style="color: blue">(英文字母不分大小寫;點擊圖片可更換驗證碼)</span> <noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
 
+            @Html.ValidationMessage("CheckCode")
+           
+        </div>
 
-    }
+    </div>
 
+    <div class="hrline"></div>
+    <input type="hidden" name="id" value="@ViewBag.UnId"/>
+    <div class="form-row justify-content-center">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-info">送出</button>
+        </div>
+        <div class="col-auto">
+            <button type="reset" class="btn btn-secondary">清除</button>
+        </div>
+    </div>
+  
+    </div>
+}
 </div>
+
 <script type="text/javascript">
     function PlayCode() {
         var name = ReadCookie("CheckCode");
@@ -168,14 +357,6 @@
         }
     }
 
-    $("#sendmail").click(function () {
-        var email = $('#Email').val();
-        $("#mailMessage").text('發送信件' + $('#Email').val());
-        $.get("/ChiefMailbox/SendVerifyMail/", { id: $('#Email').val() })
-            .done(function (data) {
-                $("#mailMessage").text(data);
-            });
-    });
 
     function fleshVerify() {
 
@@ -207,6 +388,103 @@
             }
         }
     }
+
+    $("#violation_place_area").on('change', function () {
+        var id = this.value;
+        if (id == "") {
+            $('#violation_place_road').children().remove();
+            $('#violation_place_road').append($("<option></option>")
+                .text('請選擇'));
+        } else {
+            $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+                .done(function (json) {
+                    data = json;
+
+                    $('#violation_place_road').children().remove();
+                    $.each(json,
+                        function (i, item) {
+                            $('#violation_place_road').append($("<option></option>").attr("value", item.id)
+                                .text(item.subject));
+                            console.log(item);
+
+                        });
+                });
+        }
+       
+    });
+    $("#sendmail").click(function () {
+        var email = $('#Email').val();
+        $("#mailMessage").text('發送信件' + $('#Email').val());
+        $.get("/TrafficMailbox/SendVerifyMail/", { id: $('#Email').val() })
+            .done(function (data) {
+                $("#mailMessage").text(data);
+            });
+    });
+    $(document).ready(function() {
+        var id = $('#violation_place_area').val();
+        $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+            .done(function (json) {
+                data = json;
+
+                $('#violation_place_road').children().remove();
+                $.each(json,
+                    function (i, item) {
+                        if (item.id == $('#hviolation_place_road').val()) {
+                            $('#violation_place_road').append($("<option selected></option>").attr("value", item.id)
+                                .text(item.subject));
+                        } else {
+                              $('#violation_place_road').append($("<option></option>").attr("value", item.id)
+                            .text(item.subject));
+                        }
+                      
+                       
+
+                    });
+            });
+       
+        $('#violation_dateYear').children().each(function () {
+           
+            if ($(this).val() == $("#hviolation_dateYear").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateMonth').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateMonth").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateday').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateday").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_time1').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_time1").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_time2').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_time2").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#itemno').children().each(function () {
+
+            if ($(this).val() == $("#hitemno").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+    });
 </script>
 <style>
     .field-validation-error {

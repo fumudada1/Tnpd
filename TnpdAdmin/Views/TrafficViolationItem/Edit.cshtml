@@ -1,0 +1,69 @@
+﻿
+@using Tnpd.Models
+@model TnpdModels.TrafficViolationItem
+
+@{
+    ViewBag.Title = "編輯前台違規事項設定";
+}
+
+<h2>編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TrafficViolationItem</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.TrafficViolationItem>.GetDisplayName("Subject") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.ListNum)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsEnable)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IsEnable, new SelectList(Enum.GetValues(typeof(TnpdModels.BooleanType))))
+            @Html.ValidationMessageFor(model => model.IsEnable)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TrafficViolationType)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TrafficViolationType, new SelectList(Enum.GetValues(typeof(TnpdModels.TrafficViolationType))))
+            @Html.ValidationMessageFor(model => model.TrafficViolationType)
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.initOrg) 
+        @Html.HiddenFor(model => model.UpdateOrg)
+        @Html.HiddenFor(model => model.Poster)
+
+        
+
+            @Html.HiddenFor(model => model.InitDate)
+        
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

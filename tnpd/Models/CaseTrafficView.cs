@@ -11,11 +11,11 @@ namespace tnpd.Models
     public class CaseTrafficView
     {
         [Required(ErrorMessage = "主旨必填")]
-        [MaxLength(200)]
+        [MaxLength(30)]
         [Display(Name = "主旨")]
         public string Subject { get; set; }
 
-        [Required(ErrorMessage = "內容必填")]
+       
         [Display(Name = "內容")]
         public string Content { get; set; }
 

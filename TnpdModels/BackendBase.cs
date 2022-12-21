@@ -67,10 +67,6 @@ namespace TnpdModels
             this.Poster = member.Name + "(" + member.Account + ")";
             this.initOrg = string.Format("{0} {1}", member.MyUnit.ParentUnit.Subject, member.MyUnit.Subject);       
 
-
-
-
-
             }
             
 

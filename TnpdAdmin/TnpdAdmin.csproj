@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,9 +49,10 @@
       <HintPath>bin\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.12.0.0\lib\net11\Microsoft.Office.Interop.Word.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MvcPaging, Version=2.1.2.28, Culture=neutral, processorArchitecture=MSIL">
@@ -63,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.DirectoryServices" />
@@ -73,14 +76,9 @@
     </Reference>
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -139,6 +137,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="TnpdModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TnpdModels\bin\Debug\TnpdModels.dll</HintPath>
@@ -196,6 +195,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AboutLinkCatalogController.cs" />
     <Compile Include="Controllers\AboutLinkController.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\BigBannerController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CaseFilterController.cs" />
@@ -224,18 +224,22 @@
     <Compile Include="Controllers\SoapController.cs" />
     <Compile Include="Controllers\StationInfoController.cs" />
     <Compile Include="Controllers\SystemLogsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TrafficAPIController.cs" />
     <Compile Include="Controllers\TrafficDepartmentdetailController.cs" />
     <Compile Include="Controllers\TrafficdisdataController.cs" />
+    <Compile Include="Controllers\TrafficFrontEndViolationItemController.cs" />
     <Compile Include="Controllers\TrafficRegionController.cs" />
     <Compile Include="Controllers\TrafficRoaddataController.cs" />
+    <Compile Include="Controllers\TrafficSMSCarInfoRejectController.cs" />
     <Compile Include="Controllers\TrafficSMSController.cs" />
+    <Compile Include="Controllers\TrafficViolationItemController.cs" />
     <Compile Include="Controllers\TrafficViolationsClassController.cs" />
     <Compile Include="Controllers\TrafficViolationsRejectclassController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Controllers\WandaController.cs" />
+    <Compile Include="Controllers\WebAPIController.cs" />
     <Compile Include="Controllers\WebSiteBannerController.cs" />
     <Compile Include="Controllers\WebSiteController.cs" />
     <Compile Include="Controllers\_BaseController.cs" />
@@ -1402,7 +1406,22 @@
     <Content Include="Views\TrafficSMS\Edit.cshtml" />
     <Content Include="Views\TrafficSMS\Delete.cshtml" />
     <Content Include="Views\News\ReportByUnits.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\TrafficSMSCarInfoReject\Index.cshtml" />
+    <Content Include="Views\TrafficSMSCarInfoReject\Details.cshtml" />
+    <Content Include="Views\TrafficSMSCarInfoReject\Create.cshtml" />
+    <Content Include="Views\TrafficSMSCarInfoReject\Edit.cshtml" />
+    <Content Include="Views\TrafficSMSCarInfoReject\Delete.cshtml" />
+    <Content Include="Views\TrafficFrontEndViolationItem\Index.cshtml" />
+    <Content Include="Views\TrafficFrontEndViolationItem\Details.cshtml" />
+    <Content Include="Views\TrafficFrontEndViolationItem\Create.cshtml" />
+    <Content Include="Views\TrafficFrontEndViolationItem\Edit.cshtml" />
+    <Content Include="Views\TrafficFrontEndViolationItem\Delete.cshtml" />
+    <Content Include="Views\TrafficViolationItem\Index.cshtml" />
+    <Content Include="Views\TrafficViolationItem\Details.cshtml" />
+    <Content Include="Views\TrafficViolationItem\Create.cshtml" />
+    <Content Include="Views\TrafficViolationItem\Edit.cshtml" />
+    <Content Include="Views\TrafficViolationItem\Delete.cshtml" />
+    <Content Include="Views\CaseTraffics\Report4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

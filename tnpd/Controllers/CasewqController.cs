@@ -47,7 +47,7 @@ namespace tnpd.Controllers
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : DateTime.Now.Millisecond.ToString();
             if (checkCode.ToLower() != sCheckCode)
             {
                 ViewBag.guid = id;

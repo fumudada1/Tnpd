@@ -1230,6 +1230,9 @@ namespace TnpdAdmin.Controllers
                     mailbody = mailbody.Replace("{InitDate}", myPoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
                     mailbody = mailbody.Replace("{CaseType}", "交通檢舉信箱");
                     mailbody = mailbody.Replace("{EndDateTime}", myPoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
+
+                    mailbody = mailbody.Replace("{Subject}", "【車號：" + myPoproc.Case.violation_carno + "】" + myPoproc.Case.Subject);
+                    mailbody = mailbody.Replace("{Content}", myPoproc.Case.Content);
                     string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
                     if (Sendfile == 1)
                     {
@@ -1244,6 +1247,7 @@ namespace TnpdAdmin.Controllers
                     Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
                 }
 
+               
 
             }
             else if (processtype == "GoProcess") //退回承辦
@@ -1264,7 +1268,7 @@ namespace TnpdAdmin.Controllers
 
             }
             _db.SaveChanges();
-
+            return RedirectToAction("Close");
             return View(myPoproc);
         }
 
@@ -1496,7 +1500,14 @@ namespace TnpdAdmin.Controllers
                 string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
                 mailbody = mailbody.Replace("{CaseID}", mycase.CaseID);
                 mailbody = mailbody.Replace("{InitDate}", mycase.InitDate.Value.ToString("yyyy/MM/dd"));
-                mailbody = mailbody.Replace("{CaseType}", "");
+               
+
+               
+                mailbody = mailbody.Replace("{CaseType}", "交通檢舉信箱");
+               
+
+                mailbody = mailbody.Replace("{Subject}", "【車號：" + mycase.violation_carno + "】" + mycase.Subject);
+                mailbody = mailbody.Replace("{Content}", mycase.Content);
                 if (mycase.Poprocs.Count > 0)
                 {
                     if (mycase.Poprocs.FirstOrDefault().Status == CaseProcessStatus.結案)
@@ -1786,7 +1797,7 @@ namespace TnpdAdmin.Controllers
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
-
+            List<Holiday> Holidays = _db.Holidays.ToList();
 
 
             if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
@@ -1846,13 +1857,20 @@ namespace TnpdAdmin.Controllers
                     strTr = strTr.Replace("{EndDateTime}", casePoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
                     timespan = new TimeSpan(casePoproc.EndDateTime.Value.Ticks -
                                                   casePoproc.Case.InitDate.Value.Ticks).TotalDays;
-                    strTr = strTr.Replace("{due}", Math.Round(timespan, 2).ToString());
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= casePoproc.EndDateTime.Value)
+                        .Select(x => x.InitDate).Distinct().Count();
+
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2)-holidayCount).ToString());
                 }
                 else
                 {
                     strTr = strTr.Replace("{EndDateTime}", "");
                     timespan = new TimeSpan(DateTime.Now.Ticks - casePoproc.Case.InitDate.Value.Ticks).TotalDays;
-                    strTr = strTr.Replace("{due}", Math.Round(timespan, 2).ToString());
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= DateTime.Today).Select(x => x.InitDate).Distinct()
+                        .Count();
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2)-holidayCount).ToString());
                 }
 
 
@@ -1921,10 +1939,10 @@ namespace TnpdAdmin.Controllers
 
                 strTr = strTr.Replace("{violation_date}", casePoproc.Case.violation_date.ToString("yyyy/MM/dd"));
                 strTr = strTr.Replace("{violation_time}", casePoproc.Case.violation_time);
-                strTr = strTr.Replace("{violation_place}", casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place);
+                strTr = strTr.Replace("{violation_place}", (casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place).Replace("<","(").Replace(">",")"));
                 strTr = strTr.Replace("{violation_carno}", casePoproc.Case.violation_carno);
                 strTr = strTr.Replace("{itemno}", casePoproc.Case.itemno);
-                strTr = strTr.Replace("{Content}", casePoproc.Case.Content);
+                strTr = strTr.Replace("{Content}", casePoproc.Case.Content.Replace("<","(").Replace(">",")"));
 
 
                 if (casePoproc.EndDateTime.HasValue)
@@ -2060,6 +2078,83 @@ namespace TnpdAdmin.Controllers
 
         }
 
+
+        public ActionResult Report4()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Report4(string SearchByStartDate, string SearchByEndDate)
+        {
+
+
+            string tempSql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.sql"), System.Text.Encoding.UTF8);
+
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                tempSql = tempSql.Replace("2019/1/1", startDate.ToString("yyyy/MM/dd"));
+                tempSql = tempSql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
+            }
+            else
+            {
+                return View();
+            }
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.xls"), System.Text.Encoding.UTF8);
+            string temptr = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.txt"), System.Text.Encoding.UTF8);
+            tempBody = tempBody.Replace("2019/1/1", SearchByStartDate);
+            tempBody = tempBody.Replace("2019/3/1", SearchByEndDate);
+
+
+            SqlConnection conn = new SqlConnection(GetConnectionStringByName("TnpdConnection"));
+            SqlCommand command = new SqlCommand();
+            command.Connection = conn;
+            command.CommandText = tempSql;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            tempBody = tempBody.Replace("{initDate}", SearchByStartDate + "~" + SearchByEndDate);
+
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataRow row in dt.Rows)
+            {
+                string strTr = temptr;
+                strTr = strTr.Replace("{檢舉違規行為態樣}", row["檢舉違規行為態樣"].ToString());
+                strTr = strTr.Replace("{受理件數}", row["受理件數"].ToString());
+                
+
+                sb.AppendLine(strTr);
+            }
+            tempBody = tempBody.Replace("{bodytr}", sb.ToString());
+
+            string fileName = "Report4.xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "受理民眾檢舉違規項目表.xls");
+
+        }
+
+        static string GetConnectionStringByName(string name)
+        {
+            // Assume failure.
+            string returnValue = null;
+
+            // Look for the name in the connectionStrings section.
+            ConnectionStringSettings settings =
+                ConfigurationManager.ConnectionStrings[name];
+
+            // If found, return the connection string.
+            if (settings != null)
+                returnValue = settings.ConnectionString;
+
+            return returnValue;
+        }
+        
         protected override void Dispose(bool disposing)
         {
             _db.Dispose();

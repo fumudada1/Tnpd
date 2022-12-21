@@ -456,6 +456,7 @@
     <Compile Include="Areas\yujing\yujingAreaRegistration.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AboutLinkController.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\AreaSearchController.cs" />
     <Compile Include="Controllers\CaptchaController.cs" />
     <Compile Include="Controllers\CasewqController.cs" />
@@ -471,6 +472,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\RefugeStationController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ResponsesController.cs" />
     <Compile Include="Controllers\SendMailController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\StationInfoController.cs" />
@@ -498,6 +500,7 @@
     <Compile Include="Models\MyHttpModule.cs" />
     <Compile Include="Models\NewsSearchView.cs" />
     <Compile Include="Models\NodeLink.cs" />
+    <Compile Include="Models\ResponseViews.cs" />
     <Compile Include="Models\RSSCollections.cs" />
     <Compile Include="Models\TowAwayjson.cs" />
     <Compile Include="Models\TrafficSMSView.cs" />
@@ -1327,6 +1330,8 @@
     <Content Include="Views\TrafficSMS\Create.cshtml" />
     <Content Include="Views\TrafficSMS\AddCarInfo.cshtml" />
     <Content Include="Views\RefugeStation\Index.cshtml" />
+    <Content Include="Views\Responses\Index.cshtml" />
+    <Content Include="Views\Responses\CreateSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

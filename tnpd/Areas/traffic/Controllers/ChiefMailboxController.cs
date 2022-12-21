@@ -37,11 +37,11 @@ namespace tnpd.Areas.traffic.Controllers
         // POST: /Mailbox/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Guid id, ChiefView chief, string checkCode)
+        public ActionResult Create(Guid id, ChiefView chief, string checkCode, HttpPostedFileBase Upfile1, HttpPostedFileBase Upfile2, HttpPostedFileBase Upfile3)
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() :DateTime.Now.Millisecond.ToString() ;
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
@@ -57,11 +57,13 @@ namespace tnpd.Areas.traffic.Controllers
 
                 return View(chief);
             }
+            string filesName = "";
             if (ModelState.IsValid)
             {
                 string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
                 var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
                 Case mailCase = new Case();
+
                 mailCase.Subject = chief.Subject;
                 mailCase.Content = chief.Content;
 
@@ -80,6 +82,70 @@ namespace tnpd.Areas.traffic.Controllers
                 mailCase.ODate = DateTime.Today;
                 mailCase.IP = Request.UserHostAddress;
                 mailCase.InitDate = DateTime.Now;
+
+                if (Upfile1 != null)
+                {
+                    bool checkExtension = CheckExtension(Upfile1);
+
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        return View(chief);
+
+                    }
+                    filesName += Upfile1.FileName + "<br/>";
+                    mailCase.Upfile1 = Utility.SaveTraffFile(Upfile1);
+
+
+                }
+                System.Threading.Thread.Sleep(300);
+
+                if (Upfile2 != null)
+                {
+                    bool checkExtension = CheckExtension(Upfile2);
+
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile2.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+
+                        return View(chief);
+
+                    }
+                    filesName += Upfile2.FileName + "<br/>";
+                    mailCase.Upfile2 = Utility.SaveTraffFile(Upfile2);
+
+                }
+                System.Threading.Thread.Sleep(300);
+
+                if (Upfile3 != null)
+                {
+                    bool checkExtension = CheckExtension(Upfile3);
+
+
+                    //所有都不是
+                    if ((checkExtension == false) || (Upfile3.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1))
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+
+                        return View(chief);
+
+                    }
+
+                    filesName += Upfile3.FileName + "<br/>";
+                    mailCase.Upfile3 = Utility.SaveTraffFile(Upfile3);
+
+                }
+
                 List<CaseFilters> caseFilterses = _db.CaseFilterses.ToList();
                 CaseFilters filterItem = null;
                 foreach (var filterse in caseFilterses)
@@ -127,7 +193,7 @@ namespace tnpd.Areas.traffic.Controllers
                     poproc.CaseType = mailCase.CaseType;
                     poproc.CaseTime = mailCase.InitDate.Value;
 
-                    poproc.Status =CaseProcessStatus.結案;
+                    poproc.Status = CaseProcessStatus.結案;
                     poproc.AssignDateTime = DateTime.Now;
                     poproc.AssignMemo = filterItem.PoprocsSubType.Article;
                     poproc.AssignMemo = poproc.AssignMemo.Replace("{Name}", mailCase.Name);
@@ -152,8 +218,8 @@ namespace tnpd.Areas.traffic.Controllers
                 mailbody = mailbody.Replace("{Email}", mailCase.Email);
                 mailbody = mailbody.Replace("{Subject}", mailCase.Subject);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(mailCase.Content));
-                mailbody = mailbody.Replace("{Files}", "");
-
+                //mailbody = mailbody.Replace("{Files}", "");
+                mailbody = mailbody.Replace("{Files}", filesName);
                 Utility.SystemSendMail(mailCase.Email, "臺南市政府警察局-大隊隊長信箱", mailbody);
 
                 return RedirectToAction("CreateSuccess", new { unid = id, id = mailCase.CaseGuid });
@@ -162,6 +228,20 @@ namespace tnpd.Areas.traffic.Controllers
             //ViewBag.CategoryId = new SelectList(_db.MailboxCatalog.OrderBy(p => p.ListNum), "Id", "Title", mailbox.CategoryId);
             return View(chief);
         }
+        private bool CheckExtension(HttpPostedFileBase upfile)
+        {
+            string exstring = "doc,docx,pdf,jpeg,jpg,png,gif,bmp,zip,rar";
+
+            string extension = upfile.FileName.Split('.')[upfile.FileName.Split('.').Length - 1].ToLower();
+            if (exstring.IndexOf(extension) > -1)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
         public string Date2CrocFormat(DateTime dat)
         {
             return "民國" + (dat.Year - 1911).ToString() + "年" + dat.Month.ToString() + "月" + dat.Day.ToString() + "日";

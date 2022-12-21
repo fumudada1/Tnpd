@@ -21,7 +21,7 @@
 
     var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
     var news1Uid = web.GetIdByTitle("最新消息");
-    var news2Uid = web.GetIdByTitle("活動訊息");
+    
     int month = DateTime.Now.Month;
     string bannerImageName = "season01";
     if (month == 3 || month == 4 || month == 5)
@@ -176,10 +176,12 @@
                                 data-fsmasterspeed="300" data-fsslotamount="4" data-saveperformance="off"
                                 data-title="@banner.Subject" data-param1=""
                                 data-description="">
-                                <img src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"
-                                     data-lazyload="/upfiles/images/M@(banner.UpImage)" data-bgposition="center center"
-                                     data-bgfit="cover" data-.bgrepeat="no-repeat" class="rev-slidebg"
-                                     data-no-retina>
+                                <a href="@banner.URL" title="@(banner.Subject) (另開新視窗)" target="_blank" >
+<img src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"
+     data-lazyload="/upfiles/images/M@(banner.UpImage)" data-bgposition="center center"
+     data-bgfit="cover" data-.bgrepeat="no-repeat" class="rev-slidebg"
+     data-no-retina>
+</a>
                                 <span class="tp-title">@banner.Subject</span>
                             </li>
                             i++;
@@ -208,7 +210,7 @@
             <div class="col-md-2  col-6">
                 <div class="feature-box fbox-center fbox-outline fbox-effect feature-box02">
                     <div class="fbox-icon fbox-icon02">
-                        <a href="/News/429f4276-b1d5-50f2-d997-99cead1afe75/18" title="政府公開資訊(另開視窗)" target="_blank"><i class="icon-line2-globe i-alt"></i><span class="sr-only">政府公開資訊</span></a>
+                        <a href="/@areaName/News/Index/c84d24c4-c2dd-41c0-0291-899fd5d3e09c?sClass=18" title="政府公開資訊(另開視窗)" target="_blank"><i class="icon-line2-globe i-alt"></i><span class="sr-only">政府公開資訊</span></a>
                     </div>
                     <h2>政府公開資訊</h2>
                 </div>
@@ -282,7 +284,7 @@
                 <div class="tabs tabs-bordered clearfix" id="tab-2">
                     <ul class="tab-nav clearfix" id="tabNewHeader">
                         <li><a href="#tabs-news-1">最新消息</a></li>
-                        <li><a href="#tabs-news-2">活動訊息</a></li>
+                        
                     </ul>
                     <div class="tab-container">
                         <noscript>
@@ -293,31 +295,31 @@
                         <div id='tabs-news-1' class="tab-content clearfix">
                             <!---->
                             @{
-                                 var fistRow1 = newse1.FirstOrDefault();
+                                var fistRow1 = newse1.FirstOrDefault();
                             }
                             @if (fistRow1 != null)
-                                            {
-                                                var row = fistRow1.NewsImagses.FirstOrDefault();
+                            {
+                                var row = fistRow1.NewsImagses.FirstOrDefault();
                                 <div class="i_newbox">
                                     <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow1.Id, sClass = 1, unid = news1Uid, area = areaName })))" title="@fistRow1.Subject">@fistRow1.Subject</a></h3>
                                     <div class="row">
                                         <div class="col-md-4 pr0 sm_mb20">
                                             @if (fistRow1.NewsImagses.Count > 0)
-                                                            {
+                                            {
                                                 <img src="@row.UpFile" alt="@row.Subject">
-                                                            }
-                                                            else
-                                                            {
+                                            }
+                                            else
+                                            {
                                                 <img alt="" src="/images/news_prectinct.jpg">
-                                                            }
+                                            }
                                         </div>
                                         <div class="col-md-8">
                                             @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow1.Article), 100)
                                         </div>
                                     </div>
                                 </div>
-                                                            newse1.Remove(fistRow1);
-                                            }
+                                newse1.Remove(fistRow1);
+                            }
 
                             <!---->
                             <div class="i_newbox">
@@ -335,56 +337,9 @@
                                 </div>
                             </div>
                         </div>
-                        <noscript>
-                            <ul class="tab-nav-noscript">
-                                <li><a href="#" title="活動訊息">活動訊息</a></li>
-                            </ul>
-                        </noscript>
-                        <div id='tabs-news-2' class="tab-content clearfix">
-                            @{
-                            var fistRow2 = newse2.FirstOrDefault();
-                            }
-                            @if (fistRow2 != null)
-                        {
-                            var row = fistRow2.NewsImagses.FirstOrDefault();
-                                <div class="i_newbox">
-                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 39, unid = news2Uid, area = areaName })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h3>
-                                    <div class="row">
-                                        <div class="col-md-4 pr0 sm_mb20">
-                                            @if (fistRow2.NewsImagses.Count > 0)
-                                        {
-                                                <img src="@row.UpFile" alt="@row.Subject">
-                                        }
-                                        else
-                                        { 
-                                                <img alt="" src="/images/news_prectinct.jpg">
-                                        }
-                                        </div>
-                                        <div class="col-md-8">
-                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 50)
-                                        </div>
-                                    </div>
-                                </div>
-                            newse2.Remove(fistRow2);
-                        }
-
-                            <div class="i_newbox">
-                                <ul>
-                                    @foreach (News news in newse2)
-                                    {
-                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 39, unid = news2Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
-                                        </a></li>        
-                                                           
-                                    }
-
-                                </ul>
-                                <div class="newmore">
-                                    <a title="更多活動訊息" class="more" href="/@areaName/News/Index/@news2Uid?sClass=39">MORE</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
+                        
+                    </div>
+                </div> 
             </div>
             <div class="col-lg-3 col-sm-12 col15 ">
                 <div class="i_box">
@@ -398,7 +353,7 @@
                             @foreach (HomeLink link in homeLinks.Take(5))
                             {
                               
-                                <li><a title="@link.Subject" href="@link.Url">
+                                <li><a  href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
                                     <img src="@link.UpImage" alt="@link.Subject"></a></li>
                             }
 
@@ -407,9 +362,10 @@
                     <div class="clear"></div>
                 </div> 
             </div>
+            </div>
+            
         </div>
     </div>
-</div>
 </div>
 </section>
 <!-- #content end -->

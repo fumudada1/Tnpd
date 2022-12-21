@@ -30,10 +30,11 @@ namespace tnpd.Controllers
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : DateTime.Now.Millisecond.ToString();
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
+                Session["CheckCode"] = null;
                 return View(chief);
             }
 
@@ -44,7 +45,7 @@ namespace tnpd.Controllers
                 ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
                 ViewBag.UnId = id.ToString();
 
-                
+
                 return View(chief);
             }
             if (ModelState.IsValid)
@@ -60,7 +61,7 @@ namespace tnpd.Controllers
                 mailCase.TEL = chief.TEL;
                 mailCase.Gender = chief.Gender;
                 mailCase.WebSiteId = 1;
- 
+
                 mailCase.Address = chief.Address;
                 mailCase.CaseType = CaseType.檢舉貪瀆信箱;
                 mailCase.Subject = chief.Name;
@@ -117,7 +118,7 @@ namespace tnpd.Controllers
                     poproc.CaseType = mailCase.CaseType;
                     poproc.CaseTime = mailCase.InitDate.Value;
 
-                    poproc.Status =CaseProcessStatus.結案;
+                    poproc.Status = CaseProcessStatus.結案;
                     poproc.AssignDateTime = DateTime.Now;
                     poproc.AssignMemo = filterItem.PoprocsSubType.Article;
                     poproc.AssignMemo = poproc.AssignMemo.Replace("{Name}", mailCase.Name);
@@ -189,6 +190,17 @@ namespace tnpd.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 return Content("Email 不可空白");
+            }
+            if (id.IndexOf("@vusra.com") > -1)
+            {
+                return Content("");
+            }
+            DateTime date = DateTime.Now.AddMinutes(-3);
+
+            var caseMailCheck = _db.caseMailChecks.Where(x => x.Email == id && x.InitDate > date).OrderByDescending(x => x.Id).FirstOrDefault();
+            if (caseMailCheck != null)
+            {
+                return Content("認證郵件已送出，請檢查信箱垃圾信件，或稍後再試");
             }
             if (Utility.IsValidEmail(id))
             {

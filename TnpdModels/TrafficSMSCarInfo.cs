@@ -46,5 +46,15 @@ namespace TnpdModels
         [ForeignKey("TrafficSMSId")]
 
         public virtual TrafficSMS trafficSms { get; set; }
+
+        //ForeignKey
+        [Display(Name = "不通過理由")]
+        public int? TrafficSMSCarInfoRejectId { get; set; }
+
+        [ForeignKey("TrafficSMSCarInfoRejectId")]
+
+        public virtual TrafficSMSCarInfoReject TrafficSmsCarInfoReject { get; set; }
+
+        
     }
 }

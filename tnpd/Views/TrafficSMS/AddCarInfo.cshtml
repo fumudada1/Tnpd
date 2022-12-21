@@ -20,13 +20,25 @@
   
     (有 <span class="text-danger">*</span> 號請務必填寫)
     <div class="form-row" style="width: 800px">
-        <div class="form-group col-md-6">
-            <label class="col-form-label" for="CarNO">
+       
+        @Html.HiddenFor(model=>model.CarNO)
+        <div class="form-group mb-0">
+            <label class="col-form-label" for="violation_carno1">
                 <span class="text-danger">*</span>
-                車牌號碼：</label>
-            <input class="form-control" data-val="true" data-val-required="車牌號碼必填" id="CarNO" name="CarNO" placeholder="車牌號碼" type="text" value="@Model.CarNO"/>
-            <span class="field-validation-valid" data-valmsg-for="CarNO" data-valmsg-replace="true"></span>
-
+                請輸入車牌號碼，例：AAA-0000。</label>
+            <div class="form-row">
+                <div class="form-group  col-md-3 col-5">
+                    <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno1" name="violation_carno1" placeholder="例：AAA" value="@ViewBag.violation_carno1">
+                    <span class="field-validation-valid" data-valmsg-for="violation_carno1" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-auto align-self-center">
+                    -
+                </div>
+                <div class="form-group col-md-3 col-5">
+                    <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno2" name="violation_carno2" placeholder="例：0000"  value="@ViewBag.violation_carno2">
+                    <span class="field-validation-valid" data-valmsg-for="violation_carno2" data-valmsg-replace="true"></span>
+                </div>
+            </div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
@@ -107,7 +119,7 @@
             
         <tr>
             
-             <td data-th="車牌號碼" class="none title01">@item.CarNO.Substring(0,2) <span>***</span>@item.Pid.Substring(item.Pid.Length-2,2)</td>
+             <td data-th="車牌號碼" class="none title01">@item.CarNO.Substring(0,2) <span>***</span>@item.CarNO.Substring(item.CarNO.Length-2,2)</td>
             <td  data-th="車子類型" class="none">@item.CarType</td>
             <td data-th="車主/公司名稱">@item.CarOwner.Substring(0,1)
                 @for (int i = 1; i <= item.CarOwner.Length - 1;i++)
@@ -119,7 +131,14 @@
             </td>
             <td data-th="身分證字號">@item.Pid.Substring(0,2) <span>******</span> @item.Pid.Substring(item.Pid.Length-2,2)</td>
             <td data-th="身分">@item.CarAllow</td>
-            <td data-th="審核結果">@item.checkStatus</td>
+            <td data-th="審核結果">@item.checkStatus
+                @if (item.checkStatus == SMSStatus.未通過 && item.TrafficSMSCarInfoRejectId.HasValue)
+                {
+                    <span>(</span>
+                        @item.TrafficSmsCarInfoReject.Subject
+                    <span>)</span>
+                }
+            </td>
             <td data-th="功能">
                 @using (Html.BeginForm("Delete",null))
                 {

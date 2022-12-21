@@ -1,0 +1,12 @@
+F:\website\Tnpd\FixDataBaseError\bin\Release\FixDataBaseError.exe.config
+F:\website\Tnpd\FixDataBaseError\bin\Release\FixDataBaseError.exe
+F:\website\Tnpd\FixDataBaseError\bin\Release\FixDataBaseError.pdb
+F:\website\Tnpd\FixDataBaseError\bin\Release\EntityFramework.dll
+F:\website\Tnpd\FixDataBaseError\bin\Release\TnpdModels.dll
+F:\website\Tnpd\FixDataBaseError\bin\Release\Newtonsoft.Json.dll
+F:\website\Tnpd\FixDataBaseError\bin\Release\EntityFramework.xml
+F:\website\Tnpd\FixDataBaseError\bin\Release\TnpdModels.pdb
+F:\website\Tnpd\FixDataBaseError\bin\Release\Newtonsoft.Json.xml
+F:\website\Tnpd\FixDataBaseError\bin\Release\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\FixDataBaseError\obj\Release\FixDataBaseError.exe
+F:\website\Tnpd\FixDataBaseError\obj\Release\FixDataBaseError.pdb

@@ -1,0 +1,30 @@
+﻿@model TnpdModels.Case
+
+<div class="row">
+
+    <div style="width: 100%">
+        
+
+  
+
+    <div class="hrline"></div>
+
+        
+        <div class="form-group">報案人姓名 Name： @Model.Name</div>
+        <div class="form-group"> 行動電話 Mobile Number： @Model.TEL</div>
+        <div class="form-group">聯絡電話(住家) Contact Number (Home)：@Model.HomeTEL</div>
+        <div class="form-group">現居地址 Current Address：@Model.PostalCode+Model.Address</div>
+        <div class="form-group"> E-Mail：@Model.Email</div>
+        <div class="form-group">發生日期 Date of Incident：@Model.ODate</div>
+        <div class="form-group"> 發生地點 Location： @Model.Oplace</div>
+        <div class="form-group">災情摘要 Case Summary：</div>
+        <div class="form-group"> @Html.Raw(UIUtility.Txt2Html(Model.Content))  </div>
+       
+
+        </div>
+    </div>
+
+
+
+
+

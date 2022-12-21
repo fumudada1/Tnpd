@@ -1,0 +1,13 @@
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\SendTrafficLoginSMS.exe.config
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\SendTrafficLoginSMS.exe
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\SendTrafficLoginSMS.pdb
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\EntityFramework.dll
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\TnpdModels.dll
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\Newtonsoft.Json.dll
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\EntityFramework.xml
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\Newtonsoft.Json.xml
+F:\website\Tnpd\SendTrafficLoginSMS\bin\Debug\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\SendTrafficLoginSMS\obj\Debug\SendTrafficLoginSMS.csprojResolveAssemblyReference.cache
+F:\website\Tnpd\SendTrafficLoginSMS\obj\Debug\SendTrafficLoginSMS.exe
+F:\website\Tnpd\SendTrafficLoginSMS\obj\Debug\SendTrafficLoginSMS.pdb

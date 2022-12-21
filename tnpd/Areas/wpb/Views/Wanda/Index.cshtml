@@ -10,19 +10,22 @@
         {
             <table class="table table-hover tablestyle rwd-table">
                 <thead>
-                    <tr>
-                        <th>分局(區)</th>
-                        <th>路名</th>
-                      
-                    </tr>
+                <tr>
+                    <th>地點位置</th>
+                    <th>轄區分局</th>
+                    <th>聯繫窗口</th>
+                    <th>備註</th>
+
+                </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in @Model)
                     {
                         <tr>
-                            <td class="none title01">@item.StationInfo.Subject</td>
                             <td class="none"><a href="@Url.Action("Details", "Wanda", new RouteValueDictionary(new {id = item.Id, unid = ViewBag.UnId,area=areaName }))" title="@item.Subject">@item.Subject</a></td>
-                           
+                            <td class="none title01">@item.StationInfo.Subject</td>
+                            <td class="none title01">@item.Contacts.</td>
+                            <td class="none"></td>
                         </tr>
                     }
 

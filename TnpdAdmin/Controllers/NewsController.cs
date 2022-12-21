@@ -51,17 +51,17 @@ namespace Tnpd.Controllers
             int currentPageIndex = getCurrentPage(page, fc);
 
             var newses = db.Newses.OrderByDescending(x => x.InitDate).AsQueryable();
-            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) )
+            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")))
             {
-                newses = newses.Where(x => x.WebCategoryId ==pclass);
+                newses = newses.Where(x => x.WebCategoryId == pclass);
             }
 
-            
+
             var newsCatalogs = db.NewsCatalogs.Where(x => x.WebCategoryId == pclass).AsQueryable();
-            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id!=1)
+            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")) && webSite.Id != 1)
             {
                 newsCatalogs = newsCatalogs.Where(x => x.WebSiteId == webSite.Id);
-                newses = newses.Where(w => w.OwnWebSiteId==webSite.Id||w.initOrg.Contains(webSite.Subject));
+                newses = newses.Where(w => w.OwnWebSiteId == webSite.Id || w.initOrg.Contains(webSite.Subject));
                 //newses = newses.Where(w => w.OwnWebSiteId==member.MyUnit.ParentId);
             }
 
@@ -81,7 +81,7 @@ namespace Tnpd.Controllers
             if (hasViewData("SearchBySubject"))
             {
                 string searchByTitle = getViewDateStr("SearchBySubject");
-                newses = newses.Where(w => w.Subject.Contains(searchByTitle) ||  w.Article.Contains(searchByTitle) );
+                newses = newses.Where(w => w.Subject.Contains(searchByTitle) || w.Article.Contains(searchByTitle));
             }
 
             int siteID = 1;
@@ -224,6 +224,8 @@ namespace Tnpd.Controllers
             }
 
 
+
+
             if (ModelState.IsValid && vaild)
             {
 
@@ -245,9 +247,9 @@ namespace Tnpd.Controllers
                         news.NewsImagses.Add(newsImage);
                 }
 
-                news.IsConfirm=BooleanType.否;
+                news.IsConfirm = BooleanType.否;
                 news.InitDate = DateTime.Now;
-                news.Poster = member.Name;
+                news.Poster = member.Name + "(" + member.Account + ")";
                 news.initOrg = member.MyUnit.ParentUnit.Subject + " " + member.MyUnit.Subject;
                 news.WebCategoryId = pclass;
                 news.OwnWebSiteId = member.MyUnit.ParentId.Value;
@@ -267,9 +269,9 @@ namespace Tnpd.Controllers
                 log.Subject = "新增" + news.Subject;
                 db.SystemLogs.Add(log);
                 db.SaveChanges();
-                return RedirectToAction("Edit", new {id=news.Id, pclass = pclass });
+                return RedirectToAction("Edit", new { id = news.Id, pclass = pclass });
             }
-           
+
 
 
             var newsCatalog = db.NewsCatalogs.Where(x => x.WebCategoryId == pclass).AsQueryable();
@@ -345,7 +347,7 @@ namespace Tnpd.Controllers
             bool vaild = true;
             if (string.IsNullOrEmpty(news.Article))
             {
-               TempData["Message"]= "內容不可為空";
+                TempData["Message"] = "內容不可為空";
                 vaild = false;
             }
 
@@ -366,7 +368,7 @@ namespace Tnpd.Controllers
                 //放入新的值
                 newsItem.NewsCatalogs.Clear();
 
-               
+
 
 
                 //db.Entry(news).State = EntityState.Modified;
@@ -385,7 +387,7 @@ namespace Tnpd.Controllers
                 log.Poster = User.Identity.Name;
                 log.Subject = "修改" + news.Subject;
                 db.SystemLogs.Add(log);
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index", new { Page = -1, pclass = pclass });
             }
@@ -446,7 +448,7 @@ namespace Tnpd.Controllers
             log.Subject = "刪除" + news.Subject;
             db.SystemLogs.Add(log);
             db.SaveChanges();
-            
+
 
             return RedirectToAction("Index", new { Page = -1, pclass = Request["pclass"] });
         }
@@ -457,7 +459,7 @@ namespace Tnpd.Controllers
 
             Member member =
                 db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
-          
+
 
             //記住搜尋條件
             GetCatcheRoutes(page, fc);
@@ -465,7 +467,7 @@ namespace Tnpd.Controllers
             //取得正確的頁面
             int currentPageIndex = getCurrentPage(page, fc);
 
-            var newses = db.Newses.Where(x => x.MemberId==member.Id && x.IsConfirm==BooleanType.否).OrderByDescending(x => x.InitDate).AsQueryable();
+            var newses = db.Newses.Where(x => x.MemberId == member.Id && x.IsConfirm == BooleanType.否).OrderByDescending(x => x.InitDate).AsQueryable();
 
 
 
@@ -477,7 +479,7 @@ namespace Tnpd.Controllers
         }
 
 
-        public ActionResult ReviewEdit( int id = 0)
+        public ActionResult ReviewEdit(int id = 0)
         {
 
             News news = db.Newses.Find(id);
@@ -502,24 +504,24 @@ namespace Tnpd.Controllers
             }
 
 
-         
-            
 
-           
-         
+
+
+
+
             return View(news);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult ReviewEdit(int memberId,int Id=0)
+        public ActionResult ReviewEdit(int memberId, int Id = 0)
         {
             Member member =
                 db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
             News newsItem = db.Newses.Find(Id);
-            
+
             newsItem.IsConfirm = BooleanType.是;
             newsItem.MemberId = member.Id;
             newsItem.AssignDateTime = DateTime.Now;
@@ -622,7 +624,7 @@ namespace Tnpd.Controllers
             if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
             {
                 DateTime startDate = Convert.ToDateTime(SearchByStartDate);
-                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate);
                 tempSql = tempSql.Replace("2019/1/1", startDate.ToString("yyyy/MM/dd"));
                 tempSql = tempSql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
             }
@@ -635,13 +637,14 @@ namespace Tnpd.Controllers
             StringBuilder sqlBuilder = new StringBuilder(tempSql);
             StringBuilder sqlUnionBuilder = new StringBuilder("select * from #union1 ");
 
-            for (int i = 1; i <= units.Count - 1;i++) {
+            for (int i = 1; i <= units.Count - 1; i++)
+            {
                 string ttsql = tempSql;
                 ttsql = ttsql.Replace("OwnWebSiteId = 1", "OwnWebSiteId = " + units[i].Id.ToString());
                 ttsql = ttsql.Replace("局本部", units[i].Subject.ToString());
-                ttsql = ttsql.Replace("#union1", "#union" + (i+1));
+                ttsql = ttsql.Replace("#union1", "#union" + (i + 1));
                 sqlBuilder.Append(ttsql);
-                sqlUnionBuilder.Append(" union all \n select * from #union" +(i+1) +"\n");
+                sqlUnionBuilder.Append(" union all \n select * from #union" + (i + 1) + "\n");
             }
 
             sqlBuilder.Append(sqlUnionBuilder);
@@ -676,7 +679,7 @@ namespace Tnpd.Controllers
                 string strTr = temptr;
                 strTr = strTr.Replace("{Unit}", row["Subject"].ToString());
                 strTr = strTr.Replace("{CatalogName}", row["CatalogName"].ToString());
-                
+
 
                 strTr = strTr.Replace("{Total}", row["Total"].ToString());
 

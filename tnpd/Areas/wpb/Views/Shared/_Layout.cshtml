@@ -19,7 +19,7 @@
     else
     {
         web = new WebPresentation(areaName, unid);
-        title = ViewBag.Subject ?? web.GetTitle();
+        title = (ViewBag.Subject ?? web.GetTitle()) ?? ViewBag.Title;
         theme = ViewBag.Theme ?? web.GetTheme();
         cake = ViewBag.Cake ?? web.GetCake();
         service = ViewBag.Service ?? web.GetService();

@@ -83,19 +83,22 @@ namespace Tnpd.Controllers
                 return new ContentResult { Content = "Parameters Error" };
             }
 
-            var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == id);
-            //if (webSite.Subject.Contains("英文版"))
-            //{
-            //    if (isChinese(webDoc))
-            //    {
-            //        return new ContentResult { Content = "Parameters Error" };
-            //    }
-            //}
 
+            var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == id);
+
+            if (webSite.Subject.Contains("英文版"))
+            {
+                if (webDoc.IndexOf("About Us") == -1 && webDoc.IndexOf("Introduction") == -1)
+                {
+                    System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + "UpdateWebDocJson" + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
+                    return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
+                }
+            }
             System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
 
             XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(webDoc);
             webSite.XmlDoc = xmlDoc.OuterXml;
+            
             webSite.Update(db,db.WebSiteNames);
 
             return new ContentResult { Content = "Success" };
@@ -158,11 +161,13 @@ namespace Tnpd.Controllers
                 return new ContentResult { Content = "請先建立分類檢索群組" };
 
             }
+            
             var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == webNode.WebSiteName);
             if (webSite.Subject.Contains("英文版"))
             {
-                if (isChinese(webNode.Article))
+                if (webSite.XmlDoc.IndexOf("About Us") == -1 && webSite.XmlDoc.IndexOf("Introduction") == -1)
                 {
+                    System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + "AddWebNodeError" + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
                     return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
                 }
             }
@@ -299,6 +304,15 @@ namespace Tnpd.Controllers
             }
             nowXmlNode.AppendChild(NewXmlNode);
 
+
+            if (webSite.Subject.Contains("英文版"))
+            {
+                if (webSite.XmlDoc.IndexOf("About Us") == -1 && webSite.XmlDoc.IndexOf("Introduction") == -1)
+                {
+                    System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + "AddWebNodeError" + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
+                    return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
+                }
+            }
             //存到資料庫
             webSite.XmlDoc = XmlDoc.OuterXml;
             webSite.Update(db,db.WebSiteNames);
@@ -335,8 +349,10 @@ namespace Tnpd.Controllers
             var webSite = db.WebSiteNames.FirstOrDefault(x => x.SiteCode == webNode.WebSiteName);
             if (webSite.Subject.Contains("英文版"))
             {
-                if (isChinese(webNode.Article))
+                
+                if (webSite.XmlDoc.IndexOf("About Us") == -1 && webSite.XmlDoc.IndexOf("Introduction") == -1)
                 {
+                    System.IO.File.WriteAllText(Server.MapPath("/WebSiteHistory/") + webSite.SiteCode + "UpdateWebNodeError" + DateTime.Now.ToString("yyyy-MM-dd-hhmmsss"), webSite.XmlDoc, System.Text.Encoding.Default);
                     return new ContentResult { Content = "請關閉瀏覽器重新登入!" };
                 }
             }

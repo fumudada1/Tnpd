@@ -1,5 +1,7 @@
 ﻿
 @using MvcPaging
+@using Tnpd.Helpers
+@using TnpdModels
 @model MvcPaging.IPagedList<TnpdModels.TrafficSMSCarInfo>
 
 @{
@@ -18,7 +20,7 @@
                  車子類型: @Html.DropDownList("SearchByCarType", new SelectList(Enum.GetValues(typeof(TnpdModels.CarType))),"請選擇")
                      @Html.DisplayNameFor(model => model.FirstOrDefault().CarAllow): @Html.DropDownList("SearchByCarAllow", new SelectList(Enum.GetValues(typeof(TnpdModels.CarAllow))),"請選擇")
                      @Html.DisplayNameFor(model => model.FirstOrDefault().checkStatus): @Html.DropDownList("SearchBycheckStatus", new SelectList(Enum.GetValues(typeof(TnpdModels.SMSStatus))),"請選擇")
-                 
+                 <br/> 關鍵字:@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) (車號、車主/公司名稱、身分證字號)
                  <br/>發布日期:<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker"/> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker"/>
     </div>
  <div>
@@ -77,6 +79,10 @@
         </td>
         <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.checkStatus)
+           @if (item.checkStatus== SMSStatus.未通過 && item.TrafficSMSCarInfoRejectId.HasValue)
+           {
+               <span>(@item.TrafficSmsCarInfoReject.Subject)</span>
+           }
         </td>
         <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.trafficSms.Name)

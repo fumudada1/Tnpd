@@ -1,0 +1,434 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using ModelLibrary.Models
+@model ModelLibrary.Models.RepairOrder
+
+<p class="reviewTitle h3 mx-auto mt-3 mb-5">案件審核</p>
+
+<h2 class="col-12 orderTitle">
+    維修單<span>@(Model.Id.ToString("00000000"))</span>
+    @Html.ActionLink("案件歷程", "TimeLine", "Order", new { id = Model.Id }, new { target = "_blank" })
+    @Html.ActionLink("機組詳細資訊", "Detail", "Monitor", new { id = Model.MonitorId }, new { target = "_blank", @class = "d-print-none" })
+    @Html.ActionLink("機組維修紀錄", "GetMyOrder", "Order", new { id = Model.MonitorId }, new { target = "_blank", @class = "d-print-none" })
+</h2>
+<div class="d-flex col-12 justify-content-end ">
+    <span class="titleStatusText">目前案件狀態：</span>
+    <span class="titleStatus">@(Model.Status)</span>
+</div>
+<div>
+
+    <div class="col-12 row mx-auto  py-3 text-left">
+
+        @*<h5 class="formTitle col-12 mt-1">案件日期</h5>*@
+        <div class="col-12 mt-2">
+            <div class="row">
+                <div class="col-2 ">
+                    @if (Model.SubmitDate != null)
+                    {
+                        <div class="status statusFull">已報修</div>
+                    }
+                    else
+                    {
+                        <div class="status">已報修</div>
+                    }
+                </div>
+                <div class="col-2">
+                    @if (Model.SubmitApproveDate != null)
+                    {
+                        <div class="status statusFull">准報修</div>
+                    }
+                    else
+                    {
+                        <div class="status">准報修</div>
+                    }
+                </div>
+                <div class="col-2">
+                    @if (Model.QuoteDate != null)
+                    {
+                        <div class="status statusFull">已檢測</div>
+                    }
+                    else
+                    {
+                        <div class="status">已檢測</div>
+                    }
+                </div>
+                <div class="col-2">
+                    @if (Model.RepairApproveDate != null)
+                    {
+                        <div class="status statusFull">准修</div>
+                    }
+                    else
+                    {
+                        <div class="status">准修</div>
+                    }
+                </div>
+                <div class="col-2">
+                    @if (Model.CompleteDate != null)
+                    {
+                        <div class="status statusFull">已完修</div>
+                    }
+                    else
+                    {
+                        <div class="status">已完修</div>
+                    }
+                </div>
+                <div class="col-2">
+                    @if (Model.PendingTaskDate != null && (Model.Status == StatusType.准確驗 || Model.Status == StatusType.結案))
+                    {
+                        <div class="status statusFull">准確驗</div>
+                    }
+                    else
+                    {
+                        <div class="status">准確驗</div>
+                    }
+                </div>
+            </div>
+
+            <hr class="timeline">
+
+            <div class="row">
+                <div class="col-2">
+                    @*<div class="status">已報修</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.SubmitDate)</div>*@
+                    <div class="date">@UIHelper.StatusDate(Model.SubmitDate)</div>
+                </div>
+                <div class="col-2">
+                    @*<div class="status">准報修</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.SubmitApproveDate)</div>*@
+                    <div class="date">@UIHelper.StatusDate(Model.SubmitApproveDate)</div>
+
+                </div>
+                <div class="col-2">
+                    @*<div class="status">已檢測</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.QuoteDate)</div>*@
+                    <div class="date">@UIHelper.StatusDate(Model.QuoteDate)</div>
+
+                </div>
+                <div class="col-2">
+                    @*<div class="status">准修</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.RepairApproveDate)</div>*@
+                    <div class="date">@UIHelper.StatusDate(Model.RepairApproveDate)</div>
+                </div>
+                <div class="col-2">
+                    @*<div class="status">已完修</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.CompleteDate)</div>*@
+                    <div class="date">@UIHelper.StatusDate(Model.CompleteDate)</div>
+
+                </div>
+                <div class="col-2">
+                    @*<div class="status">准確驗</div>*@
+                    @*<div class="date">@Html.DisplayFor(model => model.PendingTaskDate)</div>*@
+                    @if (Model.Status == StatusType.准確驗 || Model.Status == StatusType.結案)
+                    {
+                        <div class="date">@UIHelper.StatusDate(Model.PendingTaskDate)</div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <h5 class="formTitle col-12 mt-5 ">報修資訊@(UIHelper.ShowSubmitImage(Model.SubmitImage))</h5>
+        <div class="col-12 py-2 orderBox">
+            <div class="row mb-2">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.LabelFor(model => model.MyMonitor.MonitorNumber, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.MonitorNumber)
+                </div>
+                <div class="col-2 forDetailFormLabel align-self-start">
+                    @Html.LabelFor(model => model.MyMonitor.LicensePlateCamera, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.LicensePlateCamera)
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.Label("管轄單位", new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.MyUnit.ParentUnit.Subject)
+                    @Html.DisplayFor(model => model.MyMonitor.MyUnit.Subject)
+                </div>
+
+                <div class="col-2 forDetailFormLabel align-self-start ">
+                    @Html.LabelFor(model => model.MyMonitor.PanoViewCamera, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.PanoViewCamera)
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.Label("報修人員", new { @class = "detailFormLabel" })
+
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.MySubmitMember.Name) /
+                    @Html.DisplayFor(model => model.SubmitMemberTEL)
+
+                </div>
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.LabelFor(model => model.RepairAmount, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-4 formContent">
+                    @Html.DisplayFor(model => model.RepairAmount)
+                </div>
+
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.LabelFor(model => model.MyMonitor.HostPosition, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-10 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.HostPosition)
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.LabelFor(model => model.MyMonitor.MonitorPosition, new { @class = "detailFormLabel" })
+                </div>
+                <div class="col-10 formContent">
+                    @Html.DisplayFor(model => model.MyMonitor.MonitorPosition)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 forDetailFormLabel align-self-start  ">
+                    @Html.LabelFor(model => model.ReasonSubject, new { @class = "detailFormLabel" })
+
+                </div>
+                <div class="col-10 formContent">
+                    @Html.DisplayFor(model => model.ReasonSubject)
+
+                </div>
+
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.SubmitApproveMemo))
+            {
+                <div class="row mt-2">
+                    <div class="col-2 forDetailFormLabel align-self-start  font-weight-500 ">
+                        @Html.LabelFor(model => model.SubmitApproveMemo, new { @class = "detailFormLabel" })
+                    </div>
+                    <div class="col-10 formContent  font-weight-500" style="color: #585858; ">
+                        @Html.DisplayFor(model => model.SubmitApproveMemo)
+
+                    </div>
+                </div>
+            }
+          
+        </div>
+
+    </div>
+
+
+</div>
+@using (Html.BeginForm("SubmitReview", "Review", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row col-9 mx-auto justify-content-end my-5" }))
+
+{
+
+    @Html.Hidden("id")
+    <input type="button" value="核准" id="approveBtn" class=" submitBtn letterSpace btn col-4 mr-2" data-title="案件核准" data-toggle="modal" data-target="#confirmModal" />
+    <input type="button" value="退件" id="declineBtn" class=" clearBtn letterSpace btn col-2 mr-2" data-title="案件退回" data-toggle="modal" data-target="#confirmModal" />
+    <input type="button" value="結案" id="taskCloseBtn" class=" clearBtn letterSpace btn col-2 mr-2" data-title="案件結案" data-toggle="modal" data-target="#confirmModal" />
+    @Html.ActionLink("取消", "Index", "Home", null, new { @class = "clearBtn letterSpace  btn col-2" })
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+                <div class="modal-header border-0 ">
+                    <h5 class="modal-title modalHeader mx-auto" id="exampleModalLongTitle">請確定</h5>
+                    <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body px-4 colorGray">
+                    <span class="reason">
+                        錯誤，請聯絡資訊人員確認
+                    </span>
+                </div>
+                <div class="modal-footer border-0 px-3">
+                    <input type="submit" value="錯誤" name="result" class=" modalSubmitBtn letterSpace btn " />
+
+                    <button type="button" class="btn  modalClearBtn letterSpace" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+@section scripts
+{
+    @*gallery*@
+    <script>
+        $(function () {
+            // Multiple images preview in browser
+            imagesPreview = function (input, placeToInsertImagePreview) {
+
+                if (input.files) {
+                    var filesAmount = input.files.length;
+
+                    for (i = 0; i < filesAmount; i++) {
+                        //用來讀取file資料的FileReader
+                        var reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result)
+                                .appendTo(placeToInsertImagePreview);
+
+                        }
+                        //有選取file時，使用fileReader讀取file資料
+                        //readAsDataURL可以將讀取到的file資料轉成
+                        //data:......的URL型式，在讀取完後觸發load
+                        //事件，URL存在FileReader.result中
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+
+
+            //$('.modalImageBox').on('change',
+            //    '.modalImageInput',
+            //    function () {
+            //        var gallery = $(this).parent().find('.modalImage');
+            //        //把預覽圖片先清空
+            //        gallery.empty();
+            //        imagesPreview(this, gallery);
+            //        $('<input />').prop("type", "button").prop("value", "x").prop("class", "pictureRemove btn ")
+            //            .appendTo(gallery);
+            //        if ($(this).val() == '') {
+            //            gallery.empty();
+            //        }
+            //    });
+
+
+            //$('.modalImageBox').on('click',
+            //    '.pictureRemove',
+            //    function () {
+            //        $(this).parent().parent().find('.modalImageInput').val('');
+            //        $(this).parent().empty();
+            //    });
+        });
+    </script>
+
+    @*Modal狀態*@
+    <script>
+
+
+
+        $('#confirmModal').on('show.bs.modal',
+            function (event) {
+                var btn = $(event.relatedTarget);
+                var modal = $(this);
+                var title = btn.data('title');
+                modal.find('.modal-title').text(title);
+                modal.find('.modalSubmitBtn').val(btn.val());
+
+                if (btn.val() == '核准') {
+                    modal.find('.modal-body').empty();
+                    $('<p></p>').text('是否確定要核准?').appendTo('.modal-body');
+                    $('<span></span>').text('備註(非必填，上限50字)').appendTo('.modal-body');
+                    $('<textarea />').prop("row", "3")
+                        .prop("class", "mt-1 form-control")
+                        .prop("maxlength", "50")
+                        .prop("name", "memo")
+                        .appendTo('.modal-body');
+                }
+                if (btn.val() == '退件') {
+
+                    modal.find('.modal-body').empty();
+                    $('<span></span>').text('請輸入退件原因(必填，上限50字)').appendTo('.modal-body');
+                    $('<textarea />').prop("row", "3")
+                        .prop("class", "mt-1 form-control")
+                        .prop("maxlength", "50")
+                        .prop("name", "memo")
+                        .prop("required", "required")
+                        .appendTo('.modal-body');
+                    $('<span></span>').prop("class", "mt-3 d-block").text('請檢附退件圖片').appendTo('.modal-body');
+                    $('<div></div>').prop("class", "row modalImageBox").appendTo('.modal-body');
+                    $('<input />').prop("type", "file")
+                        .prop("class", "btn btn-light col-8 modalImageInput")
+                        .prop("name", "image")
+                        .appendTo('.modalImageBox');
+                    $('<div></div>').prop("class", "col-3 pr-0 modalImage d-flex justify-content-end").appendTo('.modalImageBox');
+
+
+                    $('.modalImageBox').on('change',
+                        '.modalImageInput',
+                        function () {
+                            var gallery = $(this).parent().find('.modalImage');
+                            //把預覽圖片先清空
+                            gallery.empty();
+                            imagesPreview(this, gallery);
+                            $('<input />').prop("type", "button").prop("value", "x").prop("class", "pictureRemove btn ")
+                                .appendTo(gallery);
+                            if ($(this).val() == '') {
+                                gallery.empty();
+                            }
+                        });
+
+
+                    $('.modalImageBox').on('click',
+                        '.pictureRemove',
+                        function () {
+                            $(this).parent().parent().find('.modalImageInput').val('');
+                            $(this).parent().empty();
+                        });
+
+
+                }
+                if (btn.val() == '結案') {
+                    modal.find('.modal-body').empty();
+                    $('<span></span>').text('請輸入結案原因(必填，上限50字)').appendTo('.modal-body');
+                    $('<textarea />').prop("row", "3")
+                        .prop("class", "mt-1 form-control")
+                        .prop("maxlength", "50")
+                        .prop("name", "memo")
+                        .prop("required", "required")
+                        .appendTo('.modal-body');
+
+                }
+
+
+            });
+
+    </script>
+
+
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    @*未填原因的alert*@
+    <script>
+        $(function() {
+            var alert = '@TempData["Alert"]';
+            if (alert == 'true') {
+                swal({
+                    title: "請填寫原因",
+                    text: "",
+                    icon: "warning"
+                });
+            }
+        });
+    </script>
+    @*圖片格式錯誤的alert*@
+    <script>
+        $(function() {
+            var alert = '@TempData["ImageAlert"]';
+            if (alert == 'true') {
+                swal({
+                    title: "檔案型態錯誤，請重新上傳圖片",
+                    text: "",
+                    icon: "warning"
+                });
+            }
+        });
+    </script>
+}

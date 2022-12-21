@@ -11,3 +11,16 @@ E:\website\tnpd\WayPoint\bin\Debug\Newtonsoft.Json.dll
 E:\website\tnpd\WayPoint\bin\Debug\TnpdModels.dll
 E:\website\tnpd\WayPoint\bin\Debug\Newtonsoft.Json.xml
 E:\website\tnpd\WayPoint\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\WayPoint\bin\Debug\WayPoint.exe.config
+F:\website\Tnpd\WayPoint\bin\Debug\WayPoint.exe
+F:\website\Tnpd\WayPoint\bin\Debug\WayPoint.pdb
+F:\website\Tnpd\WayPoint\bin\Debug\EntityFramework.dll
+F:\website\Tnpd\WayPoint\bin\Debug\Newtonsoft.Json.dll
+F:\website\Tnpd\WayPoint\bin\Debug\TnpdModels.dll
+F:\website\Tnpd\WayPoint\bin\Debug\EntityFramework.xml
+F:\website\Tnpd\WayPoint\bin\Debug\Newtonsoft.Json.xml
+F:\website\Tnpd\WayPoint\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\WayPoint\bin\Debug\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\WayPoint\obj\Debug\WayPoint.csprojResolveAssemblyReference.cache
+F:\website\Tnpd\WayPoint\obj\Debug\WayPoint.exe
+F:\website\Tnpd\WayPoint\obj\Debug\WayPoint.pdb

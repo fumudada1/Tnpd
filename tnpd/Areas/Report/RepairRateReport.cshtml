@@ -1,0 +1,252 @@
+﻿<head>
+    <link href="~/Content/Chart.css" rel="stylesheet" />
+</head>
+
+@{
+    var suppliers = (string[])ViewBag.suppliers;
+}
+
+
+
+<h1 class="indexTitle col-11 offset-1 ">
+    故障率統計
+</h1>
+
+<div class="col-9 offset-3">
+    @*<h6 class="pl-2 ">請選擇統計年度(西元年)</h6>*@
+    <div class="row mb-3">
+        <div class="col-md-2 forLabel">
+            @Html.Label("year", "年度", new { @class = "Label letterSpace" })
+        </div>
+        <div class="col-md-3">
+            <input type="number" class="form-control" name="year" min="2020" id="year" value="@DateTime.Now.Year" />
+        </div>
+        <input type="button" id="updateBtn" value="更新圖表" class="btn searchBtn col-4 " />
+    </div>
+    <p class="pwdAlert circle pl-3 ">數據為已結案之案件(不包含強制結案及尚未結案之案件)</p>
+    <p class="pwdAlert circle pl-3 ">故障率 = 該廠商曾故障的機組數量 / 該廠商總機組數量</p>
+    <p class="pwdAlert circle pl-3 ">若無進行篩選則顯示今年度資料</p>
+
+</div>
+
+
+
+
+<div class="col-10 mt-4 mx-auto">
+    <canvas id="myChart"></canvas>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/Chart.bundle.js"></script>
+
+    @*統計報表*@
+    <script>
+        var suppliers = new Array();
+        @foreach (var supplier in suppliers)
+    {
+        @:suppliers.push('@supplier');
+    }
+
+
+        var labels = new Array();
+        var i;
+        for (i = 1; i < 13; i++) {
+            labels.push(i);
+        }
+        var barChartData = {
+            labels: labels,
+            datasets: [],
+           
+        };
+       
+        var bgColor = new Array();
+        bgColor[0] = 'rgba(253, 126, 20, 0.3)';
+        bgColor[1] = 'rgba(0, 123, 255, 0.3)';
+        bgColor[2] = 'rgba(10, 157, 51, 0.3)';
+        bgColor[3] = 'rgba(255, 192, 108, 0.3)';
+        bgColor[4] = 'rgba(255, 111, 108, 0.3)';
+        bgColor[5] = 'rgba(113, 108,255, 0.3)';
+        bgColor[6] = 'rgba(140, 94, 33, 0.3)';
+
+        var borderColor = new Array();
+        borderColor[0] = 'rgba(253, 126, 20, 0.6)';
+        borderColor[1] = 'rgba(0, 123, 255, 0.6)';
+        borderColor[2] = 'rgba(10, 157, 51, 0.6)';
+        borderColor[3] = 'rgba(255, 192, 108, 0.6)';
+        borderColor[4] = 'rgba(255, 111, 108, 0.6)';
+        borderColor[5] = 'rgba(113, 108,255, 0.6)';
+        borderColor[6] = 'rgba(140, 94, 33, 0.6)';
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        window.myBar = new Chart(ctx,
+            {
+                type: 'line',
+                data: barChartData,
+                options: {
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            // This more specific font property overrides the global property
+                            fontColor: 'black',
+                            fontSize: 20,
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '故障率統計 ( X軸:月份 / Y軸:故障率 )',
+                        fontSize: 20,
+                    },
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    fontSize: 16,
+                                    beginAtZero: true,
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                }
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                ticks: {
+                                    fontSize: 20,
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: "月份"
+                                }
+                            }
+                        ]
+                    },
+
+                }
+            });
+
+
+        //取得報表
+        function getReports() {
+
+
+            $.ajax({
+                method: 'post',
+                url: '/Report/RepairRate',
+                data: null,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                success: function (response) {
+
+                    $.each(suppliers,
+                        function (index, supplier) {
+                            var list = new Array();
+                            var dataSet = {
+                                label: supplier,
+                                backgroundColor: bgColor[index],
+                                borderColor: borderColor[index],
+                                borderWidth: 1,
+                                data: list,
+                                fill: false
+                            };
+                        $.each(response,
+                            function (index, item) {
+                                
+                            if (item.Supplier == supplier) {
+
+                                $.each(labels,
+                                    function(monthIndex, month) {
+
+                                        if (month == item.Month) {
+                                            list[monthIndex] = item.Rate;
+                                        }else {
+                                            list[monthIndex] = 0;
+                                        }
+                                    });
+                            }
+                        });
+                            barChartData.datasets.push(dataSet);
+                            window.myBar.update();
+
+                    });
+
+                }
+            });
+        }
+        //更新報表
+        function updateReports(year) {
+
+            var sJson = JSON.stringify
+            ({
+                year: year
+            });
+            $.ajax({
+                method: 'post',
+                url: '/Report/RepairRate',
+                data: sJson,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                success: function (response) {
+
+                    $.each(suppliers,
+                        function (index, supplier) {
+                            var list = new Array();
+                            var dataSet = {
+                                label: supplier,
+                                backgroundColor: bgColor[index],
+                                borderColor: borderColor[index],
+                                borderWidth: 1,
+                                data: list,
+                                fill: false
+                            };
+                            $.each(response,
+                                function (index, item) {
+                                
+                                    if (item.Supplier == supplier) {
+
+                                        $.each(labels,
+                                            function(monthIndex, month) {
+
+                                                if (month == item.Month) {
+                                                    list[monthIndex] = item.Rate;
+                                                }else {
+                                                    list[monthIndex] = 0;
+                                                }
+                                            });
+                                    }
+                                });
+                            barChartData.datasets[index]=dataSet;
+                            window.myBar.update();
+
+                        });
+                }
+            });
+        }
+
+
+        getReports();
+
+
+        $(function () {
+            $('#updateBtn').click(function () {
+                var selectedValue = $('#year').val();
+                updateReports(selectedValue);
+            });
+        });
+
+    </script>
+
+
+}
+

@@ -23,43 +23,43 @@ namespace tnpd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Guid id, ReportView reportView, string checkCode)
+        public ActionResult Index(Guid id, ReportView reportView, string checkCode, HttpPostedFileBase Upfile1, HttpPostedFileBase Upfile2, HttpPostedFileBase Upfile3)
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : DateTime.Now.Millisecond.ToString();
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
                 return View(reportView);
             }
-            
-            bool ischeckROCDate= checkROCDate(reportView.ODate);
+
+            bool ischeckROCDate = checkROCDate(reportView.ODate);
             if (ischeckROCDate == false)
             {
                 ModelState.AddModelError("CheckDate", "發生日期格式錯誤!!");
                 return View(reportView);
             }
             DateTime duDateTime = DateTime.Now.AddMinutes(-30);
-            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == reportView.Email && x.ConfirmDate >= duDateTime);
-            if (mailCheck == null)
-            {
-                ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
-                ViewBag.UnId = id.ToString();
+            //CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == reportView.Email && x.ConfirmDate >= duDateTime);
+            //if (mailCheck == null)
+            //{
+            //    ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+            //    ViewBag.UnId = id.ToString();
 
-                
-                return View(reportView);
-            }
 
+            //    return View(reportView);
+            //}
+            string filesName = "";
             if (ModelState.IsValid)
             {
                 Case mailCase = new Case();
-                mailCase.Subject =reportView.Oplace ; //記得改
+                mailCase.Subject = reportView.Oplace; //記得改
                 mailCase.Content = reportView.Content;
 
                 mailCase.CaseGuid = Guid.NewGuid().ToString();
                 mailCase.Email = reportView.Email;
-               
+
                 mailCase.Name = reportView.Name;
                 mailCase.TEL = reportView.TEL;
                 mailCase.Gender = reportView.Gender;
@@ -84,6 +84,60 @@ namespace tnpd.Controllers
                 mailCase.Oplace = reportView.Oplace;
                 mailCase.IP = Request.UserHostAddress;
                 mailCase.InitDate = DateTime.Now;
+
+                if (Upfile1 != null)
+                {
+
+                    if (Upfile1.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile1.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1)
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(reportView);
+
+                    }
+                    filesName +="https://webmgt.tnpd.gov.tw/TrafficFiles/"+ Upfile1.FileName + "<br/>";
+                    mailCase.Upfile1 = Utility.SaveTraffFile(Upfile1);
+
+
+                }
+                System.Threading.Thread.Sleep(300);
+
+                if (Upfile2 != null)
+                {
+
+                    if (Upfile2.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile2.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1)
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(reportView);
+
+                    }
+                    filesName +="https://webmgt.tnpd.gov.tw/TrafficFiles/"+ Upfile2.FileName + "<br/>";
+                    mailCase.Upfile2 = Utility.SaveTraffFile(Upfile2);
+
+                }
+                System.Threading.Thread.Sleep(300);
+
+                if (Upfile3 != null)
+                {
+
+                    if (Upfile3.ContentType.IndexOf("image", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("video", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("rar", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("zip", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("word", System.StringComparison.Ordinal) == -1 && Upfile3.ContentType.IndexOf("pdf", System.StringComparison.Ordinal) == -1)
+                    {
+                        ViewBag.Message = "檔案型態錯誤!";
+                        ViewBag.UnId = id.ToString();
+
+                        ViewBag.Regions = new SelectList(_db.TrafficRegions.OrderBy(p => p.InitDate), "Id", "Subject");
+                        return View(reportView);
+
+                    }
+                    filesName +="https://webmgt.tnpd.gov.tw/TrafficFiles/"+ Upfile3.FileName + "<br/>";
+                    mailCase.Upfile3 = Utility.SaveTraffFile(Upfile3);
+
+                }
 
                 List<CaseFilters> caseFilterses = _db.CaseFilterses.ToList();
                 CaseFilters filterItem = null;
@@ -132,7 +186,7 @@ namespace tnpd.Controllers
                     poproc.CaseType = mailCase.CaseType;
                     poproc.CaseTime = mailCase.InitDate.Value;
 
-                    poproc.Status =CaseProcessStatus.結案;
+                    poproc.Status = CaseProcessStatus.結案;
                     poproc.AssignDateTime = DateTime.Now;
                     poproc.AssignMemo = filterItem.PoprocsSubType.Article;
                     poproc.AssignMemo = poproc.AssignMemo.Replace("{Name}", mailCase.Name);
@@ -166,9 +220,10 @@ namespace tnpd.Controllers
                 mailbody = mailbody.Replace("{ODate}", mailCase.ODate.Value.ToString("yyyy-MM-dd") + " " + mailCase.STime);
                 mailbody = mailbody.Replace("{Oplace}", mailCase.Oplace);
                 mailbody = mailbody.Replace("{Content}", Txt2Html(mailCase.Content));
+                mailbody = mailbody.Replace("{Files}", filesName);
 
                 Utility.SystemSendMail(mailCase.Email, "臺南市政府警察局-網路報案", mailbody);
-                Utility.SystemSendMail("net110@mail.tainan.gov.tw,net110@tnpd.gov.tw", "臺南市政府警察局-網路報案", mailbody);
+                Utility.SystemSendMail("net110@mail.tainan.gov.tw,net110@tnpd.gov.tw", "網路報案-" + mailCase.Name +"案件", mailbody);
 
                 return RedirectToAction("CreateSuccess", new { unid = id, id = mailCase.CaseGuid });
             }
@@ -200,7 +255,7 @@ namespace tnpd.Controllers
                 return false;
             }
 
-            string strDate = (Convert.ToInt16(tempStrings[0]) + 1911) + "-" + tempStrings[1] +"-"+ tempStrings[2];
+            string strDate = (Convert.ToInt16(tempStrings[0]) + 1911) + "-" + tempStrings[1] + "-" + tempStrings[2];
             if (!Utility.IsDate(strDate))
             {
                 return false;
@@ -212,8 +267,8 @@ namespace tnpd.Controllers
         private DateTime GetUNCDate(string reportViewODate)
         {
             string[] tempStrings = reportViewODate.Split('-');
-            
-            string strDate = (Convert.ToInt16(tempStrings[0]) + 1911) + "-" + tempStrings[1] +"-"+ tempStrings[2];
+
+            string strDate = (Convert.ToInt16(tempStrings[0]) + 1911) + "-" + tempStrings[1] + "-" + tempStrings[2];
 
             return Convert.ToDateTime(strDate);
 
@@ -264,6 +319,10 @@ namespace tnpd.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 return Content("Email 不可空白");
+            }
+            if (id.IndexOf("@vusra.com") > -1)
+            {
+                return Content("");
             }
             if (Utility.IsValidEmail(id))
             {

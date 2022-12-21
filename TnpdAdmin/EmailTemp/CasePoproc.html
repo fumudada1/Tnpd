@@ -3,7 +3,14 @@
 <table border="1" cellpadding="2" cellspacing="1">
 <tbody>
 <tr>  
-<td>收件編號</td>  <td>{CaseID}</td>  <td>收件日期</td>  <td>{InitDate}</td></tr><tr>  <td>案件來源</td>  <td>{CaseType}</td>  <td>完成日期</td>  <td>{EndDateTime}</td></tr><tr>  <td colspan="4">回覆內容：<p>
+<td>收件編號</td>  <td>{CaseID}</td>  <td>收件日期</td>  <td>{InitDate}</td></tr><tr>  <td>案件來源</td>  <td>{CaseType}</td>  <td>完成日期</td>  <td>{EndDateTime}</td></tr>
+<tr>  <td colspan="4">舉發主題：
+{Subject}
+        </td> </tr>
+<tr>  <td colspan="4">舉發內容：<p>
+{Content}
+        </p></td> </tr>
+<tr>  <td colspan="4">回覆內容：<p>
 {AssignMemo}
         </p></td> </tr> </tbody></table>
 <font color="blue">此信件為系統自動發出，請勿直接回覆，感謝您的配合。謝謝！</font>

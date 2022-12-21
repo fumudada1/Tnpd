@@ -35,6 +35,8 @@ namespace TnpdAdmin.Controllers
             int currentPageIndex = getCurrentPage(page, fc);
 
             var cases = _db.Cases.Include(c => c.WebSite).OrderByDescending(p => p.InitDate).AsQueryable();
+            DateTime today=DateTime.Today;
+            var todayCase = _db.Cases.Include(c => c.WebSite).Where(x => x.Predate == today).AsQueryable();
 
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
@@ -49,22 +51,32 @@ namespace TnpdAdmin.Controllers
                     if (member.MyUnit.Id == 29)
                     {
                         cases = cases.Where(w => (w.CaseType == CaseType.參觀本局暨所屬機關 && w.WebSiteId == webSite.Id) || w.CaseType == CaseType.首長信箱);
+                        todayCase = todayCase.Where(w => (w.CaseType == CaseType.參觀本局暨所屬機關 && w.WebSiteId == webSite.Id) || w.CaseType == CaseType.首長信箱);
                     }
                     else
                     {
-                        cases = cases.Where(w => (w.CaseType == CaseType.分局長與大隊隊長信箱 || w.CaseType == CaseType.參觀本局暨所屬機關) && w.WebSiteId == webSite.Id && (w.IsUnitAssign == BooleanType.否 || w.IsUnitAssign == null));
+                        cases = cases.Where(w => (w.CaseType == CaseType.分局長與大隊隊長信箱 || w.CaseType == CaseType.參觀本局暨所屬機關) && w.WebSiteId == webSite.Id );
+                        todayCase = todayCase.Where(w => (w.CaseType == CaseType.分局長與大隊隊長信箱 || w.CaseType == CaseType.參觀本局暨所屬機關) && w.WebSiteId == webSite.Id);
+
                     }
 
                     break;
                 case 2:
                     cases = cases.Where(w => w.CaseType == CaseType.檢舉貪瀆信箱);
+                    todayCase = todayCase.Where(w => w.CaseType == CaseType.檢舉貪瀆信箱);
 
                     break;
                 case 3:
                     cases = cases.Where(w => w.CaseType == CaseType.網路報案);
+                    todayCase = todayCase.Where(w => w.CaseType == CaseType.網路報案);
                     break;
                 case 4:
                     cases = cases.Where(w => w.CaseType == CaseType.婦幼安全警示地點);
+                    todayCase = todayCase.Where(w => w.CaseType == CaseType.婦幼安全警示地點);
+                    break;
+                case 5:
+                    cases = cases.Where(w => w.CaseType == CaseType.重大災害通報專區);
+                    todayCase = todayCase.Where(w => w.CaseType == CaseType.重大災害通報專區);
                     break;
 
             }
@@ -73,6 +85,7 @@ namespace TnpdAdmin.Controllers
             cases = cases.Where(w => w.Poprocs.Count(x => x.Status != CaseProcessStatus.未分派) == 0);
             cases = cases.Where(w => w.ParentId == null);
 
+            ViewBag.todayCase = todayCase.ToList();
 
             //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
             return View(cases.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
@@ -1194,6 +1207,7 @@ namespace TnpdAdmin.Controllers
                 TnpdModels.CaseProcessStatus searchByStatus = (TnpdModels.CaseProcessStatus)Enum.Parse(typeof(TnpdModels.CaseProcessStatus), Status, false);
 
                 myCases = myCases.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+
             }
 
             if (hasViewData("SearchByCaseType"))
@@ -1201,7 +1215,7 @@ namespace TnpdAdmin.Controllers
                 string CaseType = getViewDateStr("SearchByCaseType");
                 TnpdModels.CaseType SearchByCaseType = (TnpdModels.CaseType)Enum.Parse(typeof(TnpdModels.CaseType), CaseType, false);
 
-                myCases = myCases.Where(w => w.Poprocs.Count(x => x.CaseType == SearchByCaseType) > 0);
+                myCases = myCases.Where(w => w.CaseType == SearchByCaseType);
             }
 
 
@@ -1323,7 +1337,7 @@ namespace TnpdAdmin.Controllers
                 string CaseType = getViewDateStr("SearchByCaseType");
                 TnpdModels.CaseType SearchByCaseType = (TnpdModels.CaseType)Enum.Parse(typeof(TnpdModels.CaseType), CaseType, false);
 
-                myCases = myCases.Where(w => w.Poprocs.Count(x => x.CaseType == SearchByCaseType) > 0);
+                myCases = myCases.Where(w => w.CaseType == SearchByCaseType);
             }
 
 
@@ -2086,6 +2100,7 @@ namespace TnpdAdmin.Controllers
 
 
             var casePoprocs = _db.CasePoprocs.Include(c => c.Case).AsQueryable();
+            List<Holiday> Holidays = _db.Holidays.ToList();
 
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
@@ -2121,6 +2136,7 @@ namespace TnpdAdmin.Controllers
                 DateTime startDate = Convert.ToDateTime(SearchByStartDate);
                 DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
                 casePoprocs = casePoprocs.Where(w => w.Case.InitDate >= startDate && w.Case.InitDate <= endDate);
+                
             }
             else
             {
@@ -2162,13 +2178,21 @@ namespace TnpdAdmin.Controllers
                     strTr = strTr.Replace("{EndDateTime}", casePoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
                     timespan = new TimeSpan(casePoproc.EndDateTime.Value.Ticks -
                                             casePoproc.Case.InitDate.Value.Ticks).TotalDays;
-                    strTr = strTr.Replace("{due}", Math.Round(timespan, 2).ToString());
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= casePoproc.EndDateTime.Value)
+                        .Select(x=>x.InitDate).Distinct().Count();
+                   // var fday = (Math.Round(timespan, 2) - holidayCount);
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2) - holidayCount).ToString());
+                    
                 }
                 else
                 {
                     strTr = strTr.Replace("{EndDateTime}", "");
                     timespan = new TimeSpan(DateTime.Now.Ticks - casePoproc.Case.InitDate.Value.Ticks).TotalDays;
-                    strTr = strTr.Replace("{due}", Math.Round(timespan, 2).ToString());
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= DateTime.Today).Select(x=>x.InitDate).Distinct()
+                        .Count();
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2)-holidayCount).ToString());
                 }
 
 

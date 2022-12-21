@@ -60,6 +60,7 @@ namespace tnpd.Controllers
             var CategoryCount = _db.NewsCatalogs.Count(x => x.WebCategoryId == sClass && x.WebSiteId == 1);
             ViewBag.CategoryCount = CategoryCount;
 
+            ViewBag.Title = "動態消息";
             //ViewBag.Subject = getViewDateStr("SearchBySubject");
             return View(newses.OrderByDescending(p => p.StartDate).ToPagedList(currentPageIndex, DefaultPageSize));
 
@@ -86,7 +87,7 @@ namespace tnpd.Controllers
 
 
 
-
+            ViewBag.Title = "動態消息";
             var jsonContent = JsonConvert.SerializeObject(newsList, Formatting.Indented);
 
             return new ContentResult { Content = jsonContent, ContentType = "application/json" };

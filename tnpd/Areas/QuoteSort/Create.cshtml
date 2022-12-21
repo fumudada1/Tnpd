@@ -1,0 +1,135 @@
+﻿@model ModelLibrary.Models.QuoteSort
+
+<h2 class="offset-2 col-10 mb-5 indexTitle">新增零件</h2>
+@using (Html.BeginForm("Create", "QuoteSort", FormMethod.Post, new { @class = "text-left col-8 mx-auto", @id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+    <p class="alertText text-left">* 為必填項目</p>
+    <div class="row mb-4 col-12">
+        <div class="col-2 align-self-center forEditFormLabel">
+            @Html.Label("零件項目", htmlAttributes: new { @class = " editFormLabel" })
+            <span class="text-danger ml-1">*</span>
+        </div>
+        <div class="col-10">
+            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "formAlert" })
+            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control  ", required = "required" } })
+        </div>
+    </div>
+    <div class="row mb-4 col-12">
+        <div class="col-2 align-self-center forEditFormLabel">
+            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label editFormLabel" })
+            <span class="text-danger ml-1">*</span>
+        </div>
+        <div class="col-10">
+            @Html.ValidationMessageFor(model => model.Year, "", new { @class = "formAlert" })
+            @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control   ", required = "required", min = @DateTime.Now.Year, @Value = @DateTime.Now.Year } })
+        </div>
+    </div>
+    <div class="row mb-4 col-12">
+        <div class="col-2 align-self-center forEditFormLabel">
+            @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "editFormLabel" })
+            <span class="text-danger ml-1">*</span>
+        </div>
+        <div class="col-10">
+            @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "formAlert " })
+            @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control   unitPrice", required = "required", min = "0", @Value = "0" } })
+        </div>
+    </div>
+    <div class="row mb-4 col-12">
+        <div class="col-2 align-self-center forEditFormLabel">
+            @Html.LabelFor(model => model.EstimatedAmount, htmlAttributes: new { @class = "control-label editFormLabel" })
+            <span class="text-danger ml-1">*</span>
+        </div>
+        <div class="col-10">
+            @Html.ValidationMessageFor(model => model.EstimatedAmount, "", new { @class = "formAlert" })
+            @Html.EditorFor(model => model.EstimatedAmount, new { htmlAttributes = new { type = "number", @class = "form-control   amount", required = "required", min = "0", @Value = "0" } })
+        </div>
+    </div>
+    <div class="row mb-4 col-12">
+        <div class="col-2 align-self-center forEditFormLabel">
+            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label editFormLabel" })
+        </div>
+        <div class="col-10">
+            @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "formAlert" })
+            @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control   totalPrice border-0", required = "required", @readonly = "readonly", @Value = "0" } })
+        </div>
+    </div>
+
+
+
+
+    <div class="row my-5 col-12 justify-content-end">
+
+        <input type="submit" id="submitBtn" value="確認新增" class=" submitBtn btn col-5 mr-2 " />
+
+        @Html.ActionLink("取消", "Index", "QuoteSort", new { @class = "btn clearBtn letterSpace col-3 mr-3" })
+
+    </div>
+
+}
+
+
+
+@section scripts
+{
+    @*報價單項加總*@
+    <script>
+        $(function () {
+            $('#submitForm').on('change',
+                '.amount',
+                function () {
+                    var quoteSortForm = $(this).parent().parent().parent();
+                    var unitPrice = quoteSortForm.find('.unitPrice').val();
+                    var amount = $(this).val();
+                    var totalPrice = quoteSortForm.find('.totalPrice');
+                    function sumAll() {
+                        var sum = 0;
+
+                        unitPrice = parseFloat(unitPrice) || 0;
+                        amount = parseInt(amount) || 0;
+                        sum = amount * unitPrice;
+                        totalPrice.empty();
+                        totalPrice.prop("value", sum);
+                    };
+
+                    sumAll();
+
+                });
+
+            $('#submitForm').on('change',
+                '.unitPrice',
+                function () {
+                    var quoteSortForm = $(this).parent().parent().parent();
+                    var unitPrice = $(this).val();
+                    var amount = quoteSortForm.find('.amount').val();
+                    var totalPrice = quoteSortForm.find('.totalPrice');
+                    function sumAll() {
+                        var sum = 0;
+
+                        unitPrice = parseFloat(unitPrice) || 0;
+                        amount = parseInt(amount) || 0;
+                        sum = amount * unitPrice;
+                        totalPrice.empty();
+                        totalPrice.prop("value", sum);
+                    };
+
+                    sumAll();
+
+                });
+
+
+        });
+
+    </script>
+
+    @*送出後按鈕禁止重複點擊*@
+    @*<script>
+        $(function () {
+            $('#submitBtn').click(function () {
+                $(this).prop('disabled', 'disabled');
+                $('#submitForm').submit();
+            });
+        });
+    </script>*@
+
+}

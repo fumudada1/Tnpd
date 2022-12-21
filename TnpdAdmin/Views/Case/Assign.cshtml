@@ -2,6 +2,7 @@
 @using MvcPaging
 @using Tnpd.Helpers
 @using TnpdAdmin.Models
+@using TnpdModels
 @model MvcPaging.IPagedList<TnpdModels.Case>
 
 @{
@@ -16,8 +17,73 @@
     {
         caseMerges = (List<CaseMerge>)Session["CaseMerge"];
     }
+    List<Case> todayCases = ViewBag.todayCase;
 }
+<h2>本日到期案件</h2>
+<table class="table table-v">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CaseType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subject)
+        </th>
 
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Predate)
+        </th>
+        <th>
+            案件狀態
+        </th>
+
+    </tr>
+<tbody>
+@foreach (var item in todayCases) {
+    <tr>
+       
+        <td>
+
+            @Html.ActionLink(item.CaseID.ToString(), "AssignEdit", new {id = item.Id, pclass = Request["pclass"]})
+        </td>
+        <td>
+            @item.CaseType
+            
+        </td>
+        <td>
+            @item.InitDate.Value.ToString("yyyy/MM/dd")
+            
+        </td>
+        <td>
+            @item.Name
+           
+        </td>
+
+        <td>
+            @item.Subject
+            
+        </td>
+        <td>
+            @item.Predate.ToString("yyyy/MM/dd")
+           
+        </td>
+        <td>
+            未分派
+        </td>
+
+    </tr>
+}
+</tbody>
+</table>
 <h2>派案作業</h2>
 <img src="/Images/list.png" style="width: 20px"/>
 @Html.ActionLink("開啟併案清單","MergeList",new {pclass=Request["pclass"] },new {style = "text-decoration: underline"}) <span>(</span> <span id="mCount">@caseMerges.Count()</span> <span>)</span> 
@@ -95,7 +161,7 @@
 }
 </tbody>
 </table>
-<div style="align-content: right">
+<div style="align-content:center">
     
     <input type="button" value="加入併案清單" id="btnMerge"/><input type="hidden" name="hidMerge" id="hidMerge" value=""/>
 </div>

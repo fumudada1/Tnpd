@@ -48,11 +48,12 @@ namespace tnpd.Controllers
         {
            
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : DateTime.Now.Millisecond.ToString();
             string filesName = "";
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
+                Session["CheckCode"] = null;
 
                 return View(smsView);
             }
@@ -60,7 +61,7 @@ namespace tnpd.Controllers
             if (ModelState.IsValid)
             {
                 TrafficSMS trafficSms = _db.trafficSmses.FirstOrDefault(x => x.Mobile == smsView.Mobile);
-                if (trafficSms == null)
+                if (trafficSms == null )
                 {
                     ViewBag.Message = "驗證碼錯誤!";
                     return View(smsView);
@@ -68,17 +69,17 @@ namespace tnpd.Controllers
 
                 
 
-                if (trafficSms.CheckCode != smsView.SMSCode)
-                {
-                    ViewBag.Message = "驗證碼錯誤!";
-                    return View(smsView);
-                }
+                //if (trafficSms.CheckCode != smsView.SMSCode)
+                //{
+                //    ViewBag.Message = "驗證碼錯誤!";
+                //    return View(smsView);
+                //}
 
-                if (trafficSms.InitDate.Value.AddMinutes(5) < DateTime.Now)
-                {
-                    ViewBag.Message = "驗證碼過期!";
-                    return View(smsView);
-                }
+                //if (trafficSms.InitDate.Value.AddMinutes(5) < DateTime.Now)
+                //{
+                //    ViewBag.Message = "驗證碼過期!";
+                //    return View(smsView);
+                //}
 
                 trafficSms.Name = smsView.Name;
                 trafficSms.IsAction = BooleanType.是;
@@ -109,8 +110,14 @@ namespace tnpd.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCarInfo(string id,TrafficSMSCarInfo trafficSmsCarInfo)
+        public ActionResult AddCarInfo(string id, TrafficSMSCarInfo trafficSmsCarInfo, string violation_carno1, string violation_carno2)
         {
+            if (string.IsNullOrEmpty(violation_carno1) || string.IsNullOrEmpty(violation_carno1))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            trafficSmsCarInfo.CarNO = violation_carno1 + "-" + violation_carno2;
             if (Session["TrafficSMSGUID"] == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -125,6 +132,7 @@ namespace tnpd.Controllers
 
             trafficSmsCarInfo.TrafficSMSId = trafficSms.Id;
              ModelState.Remove("id");
+             ModelState.Remove("CarNO");
              if (ModelState.IsValid)
             {
                
@@ -172,10 +180,10 @@ namespace tnpd.Controllers
             TrafficSMS sms = _db.trafficSmses.FirstOrDefault(x => x.Mobile == mobile);
             if (sms != null)
             {
-                //if (sms.InitDate.Value.AddMinutes(3) >= DateTime.Now)
-                //{
-                //    return Content("請等待接收簡訊，若超過3分鐘沒收到再次發送!");
-                //}
+                if (sms.InitDate.Value.AddMinutes(3) >= DateTime.Now)
+                {
+                    return Content("請等待接收簡訊，若超過3分鐘沒收到再次發送!");
+                }
 
                 sms.CheckCode = CheckCode;
                 sms.InitDate = DateTime.Now;

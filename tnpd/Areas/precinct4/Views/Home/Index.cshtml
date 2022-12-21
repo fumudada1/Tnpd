@@ -179,10 +179,11 @@ List<News> newse4 = ViewBag.newse4;
                                 data-fsmasterspeed="300" data-fsslotamount="4" data-saveperformance="off"
                                 data-title="@banner.Subject" data-param1=""
                                 data-description="">
+                                <a href="@banner.URL" title="@(banner.Subject) (另開新視窗)" target="_blank" >
                                 <img src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"
                                      data-lazyload="/upfiles/images/M@(banner.UpImage)" data-bgposition="center center"
                                      data-bgfit="cover" data-.bgrepeat="no-repeat" class="rev-slidebg"
-                                     data-no-retina>
+                                     data-no-retina></a>
                                 <span class="tp-title">@banner.Subject</span>
                             </li>
                             i++;

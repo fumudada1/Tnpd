@@ -13,7 +13,7 @@ using TnpdModels;
 
 namespace TnpdAdmin.Controllers
 {
-	[PermissionFilters]
+    [PermissionFilters]
     [Authorize]
     public class TrafficSMSController : _BaseController
     {
@@ -21,48 +21,55 @@ namespace TnpdAdmin.Controllers
         private const int DefaultPageSize = 15;
         //
 
-        
 
 
-        public ActionResult Index(int? page, FormCollection fc )
+
+        public ActionResult Index(int? page, FormCollection fc)
         {
-			//記住搜尋條件
+            //記住搜尋條件
             GetCatcheRoutes(page, fc);
 
             //取得正確的頁面
             int currentPageIndex = getCurrentPage(page, fc);
-            
 
-            var trafficsmscarinfos = _db.trafficSmsCarInfos.Include(t => t.trafficSms).OrderByDescending(p => p.checkStatus).ThenByDescending(x=>x.InitDate).AsQueryable();
-            ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p=>p.InitDate), "Id", "Name");
-            if (hasViewData("SearchByCarType")) 
-            { 
-            string CarType = getViewDateStr("SearchByCarType");             
-             TnpdModels.CarType searchByCarType= (TnpdModels.CarType)Enum.Parse(typeof(TnpdModels.CarType), CarType, false); 
-             
-                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.CarType == searchByCarType); 
-            } 
- 
-            if (hasViewData("SearchByCarAllow")) 
-            { 
-            string CarAllow = getViewDateStr("SearchByCarAllow");             
-             TnpdModels.CarAllow searchByCarAllow= (TnpdModels.CarAllow)Enum.Parse(typeof(TnpdModels.CarAllow), CarAllow, false); 
-             
-                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.CarAllow == searchByCarAllow); 
-            } 
- 
-            if (hasViewData("SearchBycheckStatus")) 
-            { 
-            string checkStatus = getViewDateStr("SearchBycheckStatus");
-            TnpdModels.SMSStatus searchBycheckStatus = (TnpdModels.SMSStatus)Enum.Parse(typeof(TnpdModels.SMSStatus), checkStatus, false); 
-             
-                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.checkStatus == searchBycheckStatus); 
-            } 
- 
-            if (hasViewData("SearchByTrafficSMSId")) 
-            { 
-            int searchByTrafficSMSId = getViewDateInt("SearchByTrafficSMSId");             
-                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.TrafficSMSId == searchByTrafficSMSId); 
+
+            var trafficsmscarinfos = _db.trafficSmsCarInfos.Include(t => t.trafficSms).OrderByDescending(p => p.checkStatus).ThenByDescending(x => x.InitDate).AsQueryable();
+            ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name");
+
+
+            if (hasViewData("SearchByCarType"))
+            {
+                string CarType = getViewDateStr("SearchByCarType");
+                TnpdModels.CarType searchByCarType = (TnpdModels.CarType)Enum.Parse(typeof(TnpdModels.CarType), CarType, false);
+
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.CarType == searchByCarType);
+            }
+            if (hasViewData("SearchBySubject"))
+            {
+                string searchBySubject = getViewDateStr("SearchBySubject");
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.CarNO.Contains(searchBySubject) || w.Pid.Contains(searchBySubject) || w.CarOwner.Contains(searchBySubject));
+            }
+
+            if (hasViewData("SearchByCarAllow"))
+            {
+                string CarAllow = getViewDateStr("SearchByCarAllow");
+                TnpdModels.CarAllow searchByCarAllow = (TnpdModels.CarAllow)Enum.Parse(typeof(TnpdModels.CarAllow), CarAllow, false);
+
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.CarAllow == searchByCarAllow);
+            }
+
+            if (hasViewData("SearchBycheckStatus"))
+            {
+                string checkStatus = getViewDateStr("SearchBycheckStatus");
+                TnpdModels.SMSStatus searchBycheckStatus = (TnpdModels.SMSStatus)Enum.Parse(typeof(TnpdModels.SMSStatus), checkStatus, false);
+
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.checkStatus == searchBycheckStatus);
+            }
+
+            if (hasViewData("SearchByTrafficSMSId"))
+            {
+                int searchByTrafficSMSId = getViewDateInt("SearchByTrafficSMSId");
+                trafficsmscarinfos = trafficsmscarinfos.Where(w => w.TrafficSMSId == searchByTrafficSMSId);
             }
 
             if (hasViewData("SearchByStartDate") && hasViewData("SearchByEndDate"))
@@ -80,7 +87,7 @@ namespace TnpdAdmin.Controllers
 
 
 
-        
+
 
         //
         // GET: /TrafficSMS/Details/5
@@ -91,7 +98,7 @@ namespace TnpdAdmin.Controllers
             if (trafficsmscarinfo == null)
             {
                 //return HttpNotFound();
-				 return View();
+                return View();
             }
             return View(trafficsmscarinfo);
         }
@@ -101,7 +108,7 @@ namespace TnpdAdmin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p=>p.InitDate), "Id", "Name");
+            ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name");
             return View();
         }
 
@@ -110,14 +117,14 @@ namespace TnpdAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public ActionResult Create(TrafficSMSCarInfo trafficsmscarinfo )
+
+        public ActionResult Create(TrafficSMSCarInfo trafficsmscarinfo)
         {
             if (ModelState.IsValid)
             {
 
                 _db.trafficSmsCarInfos.Add(trafficsmscarinfo);
-                trafficsmscarinfo.Create(_db,_db.trafficSmsCarInfos);
+                trafficsmscarinfo.Create(_db, _db.trafficSmsCarInfos);
                 return RedirectToAction("Index");
             }
 
@@ -136,6 +143,7 @@ namespace TnpdAdmin.Controllers
                 return HttpNotFound();
             }
             ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name", trafficsmscarinfo.TrafficSMSId);
+            ViewBag.TrafficSMSCarInfoRejectId = new SelectList(_db.TrafficSmsCarInfoRejects.OrderBy(p => p.ListNum), "Id", "Subject", trafficsmscarinfo.TrafficSMSCarInfoRejectId);
             return View(trafficsmscarinfo);
         }
 
@@ -144,22 +152,29 @@ namespace TnpdAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-         
-        public ActionResult Edit(TrafficSMSCarInfo trafficsmscarinfo,string mobile)
+
+        public ActionResult Edit(TrafficSMSCarInfo trafficsmscarinfo, string mobile)
         {
             if (ModelState.IsValid)
             {
 
-               //_db.Entry(trafficsmscarinfo).State = EntityState.Modified;
-                trafficsmscarinfo.Update();
-                if (trafficsmscarinfo.checkStatus ==SMSStatus.待審核)
+                //_db.Entry(trafficsmscarinfo).State = EntityState.Modified;
+                if (trafficsmscarinfo.checkStatus != SMSStatus.未通過)
                 {
-                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務已經審查通過!");
+                    trafficsmscarinfo.TrafficSMSCarInfoRejectId = null;
+                }
+                trafficsmscarinfo.Update();
+                if (trafficsmscarinfo.checkStatus == SMSStatus.已通過)
+                {
+                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "已經審查通過!");
+                }
+                if (trafficsmscarinfo.checkStatus == SMSStatus.未通過)
+                {
+                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "未審查通過!");
                 }
 
-               
 
-                return RedirectToAction("Index",new{Page=-1});
+                return RedirectToAction("Index", new { Page = -1 });
             }
             ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name", trafficsmscarinfo.TrafficSMSId);
             return View(trafficsmscarinfo);

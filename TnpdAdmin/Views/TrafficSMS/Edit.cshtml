@@ -103,7 +103,7 @@
         <div class="editor-field">
             @Html.DropDownListFor(model => model.checkStatus, new SelectList(Enum.GetValues(typeof(TnpdModels.SMSStatus))))
             @Html.ValidationMessageFor(model => model.checkStatus)
-            
+            @Html.DropDownList("TrafficSMSCarInfoRejectId")
            
         </div>
         <p>
@@ -116,5 +116,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            console.log($(this).val());
+            if ($("#checkStatus").val() == "未通過") {
+                $("#TrafficSMSCarInfoRejectId").show();
+            } else {
+                $("#TrafficSMSCarInfoRejectId").hide();
+            };
 
+            $("#checkStatus").change(function() {
+                
+                if ($(this).val() == "未通過") {
+                    $("#TrafficSMSCarInfoRejectId").show();
+                } else {
+                    $("#TrafficSMSCarInfoRejectId").hide();
+                }
+            });
+        });
+    </script>
+    <style>
+        #TrafficSMSCarInfoRejectId {
+            display: none;
+        }
+    </style>
 }

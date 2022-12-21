@@ -28,7 +28,7 @@ namespace Tnpd.Controllers
                 db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
             int unitID = member.MyUnit.ParentUnit.Id;
 
-            return View(db.Roles.Where(x=>x.UnitId==unitID).ToList());
+            return View(db.Roles.Where(x => x.UnitId == unitID).ToList());
         }
 
         //
@@ -72,6 +72,7 @@ namespace Tnpd.Controllers
             if (ModelState.IsValid)
             {
                 string aa = Request["MemberListSelect"];
+                StringBuilder sb = new StringBuilder();
                 if (!string.IsNullOrEmpty(aa))
                 {
 
@@ -80,10 +81,21 @@ namespace Tnpd.Controllers
 
                     foreach (var member in members)
                     {
+                        
                         role.Members.Add(member);
+                        sb.Append(member.MyUnit.ParentUnit + member.MyUnit.Subject +" " +  member.CName + "、");
                     }
                 }
+
+               
+                
                 role.Create(db, db.Roles);
+                SystemLog log = new SystemLog();
+                log.Subject =   role.Subject + "加入者為:" + sb.ToString() ;
+                log.InitDate = DateTime.Now;
+                log.Poster = User.Identity.Name;
+                db.SystemLogs.Add(log);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -129,30 +141,38 @@ namespace Tnpd.Controllers
                 //套用新的值
                 db.Entry(roleItem).CurrentValues.SetValues(role);
 
-
+                StringBuilder sb = new StringBuilder();
                 //放入新的值
                 roleItem.Members.Clear();
                 if (!string.IsNullOrEmpty(MemberListSelect))
                 {
                     string[] strArray = MemberListSelect.Split(',');
                     var memberLists = db.Members.ToList().Where(c => strArray.Contains(c.Id.ToString()));
-                    foreach (var m in memberLists)
+                    foreach (var member in memberLists)
                     {
-                        roleItem.Members.Add(m);
+                        roleItem.Members.Add(member);
+                        sb.Append(member.MyUnit.ParentUnit.Subject + member.MyUnit.Subject + " " + member.Name + "、");
+
                     }
                 }
                 db.Entry(roleItem).State = EntityState.Modified;
+               
+                SystemLog log = new SystemLog();
+                log.Subject = role.Subject + "加入者為:" + sb.ToString();
+                log.InitDate = DateTime.Now;
+                log.Poster = User.Identity.Name;
+                db.SystemLogs.Add(log);
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Edit");
         }
 
-        
+
         public ActionResult Report()
         {
-            List<Role> roles = db.Roles.Include(x=>x.Members).ToList();
+            List<Role> roles = db.Roles.Include(x => x.Members).ToList();
+            List<Member> members = db.Members.Where(x => x.Permission != "" || x.Permission != null).ToList();
             string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Permission1.xls"), System.Text.Encoding.UTF8);
             string rowtr1 = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Permission1.txt"), System.Text.Encoding.UTF8);
             string rowtr2 = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Permission2.txt"), System.Text.Encoding.UTF8);
@@ -161,13 +181,13 @@ namespace Tnpd.Controllers
             foreach (Role role in roles)
             {
                 int i = 1;
-               
-                
+
+
                 string Permissions = Utility.GetPermissionString(role.Permission);
-              
-                foreach (Member member in role.Members.OrderByDescending(x=>x.Id))
+
+                foreach (Member member in role.Members.OrderByDescending(x => x.Id))
                 {
-                   
+
                     if (i == 1)
                     {
                         string temptr1 = rowtr1;
@@ -175,8 +195,8 @@ namespace Tnpd.Controllers
                         temptr1 = temptr1.Replace("{Role}", role.Subject);
                         temptr1 = temptr1.Replace("{row}", role.Members.Count.ToString());
                         temptr1 = temptr1.Replace("{Permission}", Permissions);
-                        temptr1 = temptr1.Replace("{Unit}", member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject );
-                        temptr1 = temptr1.Replace("{Name}", member.Name +"(" + member.Account + ")");
+                        temptr1 = temptr1.Replace("{Unit}", member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject);
+                        temptr1 = temptr1.Replace("{Name}", member.Name + "(" + member.Account + ")");
                         sb.Append(temptr1);
                     }
                     else
@@ -193,20 +213,47 @@ namespace Tnpd.Controllers
                     j++;
                 }
 
-               
+
+
+
+            }
+
+            foreach (Member member in members)
+            {
+
+
+
+                string Permissions = Utility.GetPermissionString(member.Permission);
+
+                if (!string.IsNullOrEmpty(Permissions.Trim()))
+                {
+                    string temptr1 = rowtr1;
+                    temptr1 = temptr1.Replace("{RowNum}", "");
+                    temptr1 = temptr1.Replace("{Role}", "");
+                    temptr1 = temptr1.Replace("{row}", "");
+                    temptr1 = temptr1.Replace("{Permission}", Permissions);
+                    temptr1 = temptr1.Replace("{Unit}", member.MyUnit.ParentUnit.Subject + "-" + member.MyUnit.Subject);
+                    temptr1 = temptr1.Replace("{Name}", member.Name + "(" + member.Account + ")");
+                    sb.Append(temptr1);
+                }
+
+
+
+
+
 
 
             }
 
             tempBody = tempBody.Replace("{PermissionBody}", sb.ToString());
-            string fileName =   "Permission" +DateTime.Now.ToString("yyyyMMddhhmmsss") +".xls";
+            string fileName = "Permission" + DateTime.Now.ToString("yyyyMMddhhmmsss") + ".xls";
             System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
 
             return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "權限一覽表.xls");
 
         }
 
-        
+
 
 
         //

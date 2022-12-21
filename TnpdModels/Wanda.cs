@@ -27,12 +27,17 @@ namespace TnpdModels
         [ForeignKey("StationInfoId")]
         public virtual StationInfo StationInfo { get; set; }
 
-        [Required(ErrorMessage = "起點必填")]
+        
+        [MaxLength(200)]
+        [Display(Name = "聯繫窗口")]
+        public string Contacts { get; set; }
+
+        [Required(ErrorMessage = "{0}必填")]
         [MaxLength(200)]
         [Display(Name = "起點")]
         public string beginning { get; set; }
 
-        [Required(ErrorMessage = "終點必填")]
+        [Required(ErrorMessage = "{0}必填")]
         [MaxLength(200)]
         [Display(Name = "終點")]
         public string destination { get; set; }

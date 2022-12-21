@@ -43,7 +43,7 @@ namespace tnpd.Controllers
 
             var homeAds = _db.HomeAds.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId == 1).OrderBy(x => x.ListNum);
 
-            var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType==2 && x.WebSiteNameId == 1 && ( x.EndDate==null )).OrderBy(x => x.ListNum);
+            var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType==2 && x.WebSiteNameId == 1  && (x.EndDate == null || (x.StartDate<=DateTime.Now && x.EndDate>=DateTime.Now))).OrderBy(x => x.ListNum).ToList();
             var homeThemes = _db.HomeThemes.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId == 1).OrderBy(x => x.ListNum);
             var banners = _db.BigBanners.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId==1).OrderBy(x => x.ListNum);
 
@@ -65,7 +65,7 @@ namespace tnpd.Controllers
 
         public ActionResult HomeLink()
         {
-            var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSiteNameId == 1 && (x.EndDate == null)).OrderBy(x => x.ListNum).ToList();
+            var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSiteNameId == 1 && (x.EndDate == null || (x.StartDate<=DateTime.Now && x.EndDate>=DateTime.Now))).OrderBy(x => x.ListNum).ToList();
 
             return View(homeLinks);
         }

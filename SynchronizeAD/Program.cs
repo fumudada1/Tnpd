@@ -17,28 +17,18 @@ namespace SynchronizeAD
         static List<Member> members = _db.Members.ToList();
         static void Main(string[] args)
         {
-            XmlDocument xd = new System.Xml.XmlDocument();
-            xd.Load(@"C:\WebSite\tnpd\SynchronizeAD\TNPD.config");
+            //XmlDocument xd = new System.Xml.XmlDocument();
+            //xd.Load(@"C:\WebSite\tnpd\SynchronizeAD\TNPD.config");
 
             int PortalID;
             int UserID = -1;
             int timeOut = 0;
             string ADschema = null;
-            string Domain = null;
-            string adm, pwd, domainOU, title;
-            foreach (XmlNode xn in xd.DocumentElement.SelectNodes("//Domain"))
-            {
-                PortalID = Convert.ToInt16(xn.Attributes["PortalID"].Value);
-                adm = xn["LogonID"].InnerText;
-                pwd = xn["Password"].InnerText;
-                Domain = xn["Name"].InnerText;
-                domainOU = xn["OU"].InnerText; 
-                title = xn.Attributes["Title"].Value;
-
-                ADschema = GetLDAPPath(Domain, domainOU);
-                // System.Collections.ArrayList Users = GetEntryUsers(adm, pwd, Domain, timeOut, domainOU);
-                System.Collections.ArrayList nodeList = GetAll(adm, pwd, Domain, timeOut, domainOU);
-            }
+            string Domain = "10.128.0.21";
+            string adm = "Maintain\\worldwideweb", pwd = "730@tnpd3edc", domainOU="", title="";
+            ADschema = GetLDAPPath(Domain, domainOU);
+            // System.Collections.ArrayList Users = GetEntryUsers(adm, pwd, Domain, timeOut, domainOU);
+            System.Collections.ArrayList nodeList = GetAll(adm, pwd, Domain, timeOut, domainOU);
             //Console.ReadKey();
         }
 
@@ -79,13 +69,15 @@ namespace SynchronizeAD
             DirectoryEntry ADentry;
             string strPath = GetLDAPPath(ADschema, OU);
             ADentry = new DirectoryEntry("LDAP://10.128.0.21/OU=everyone,DC=tncpb,DC=gov", UserName, PassWord);
+            
             DirectorySearcher Searcher = new DirectorySearcher(ADentry);
             Searcher.Filter = ("(objectClass=*)");  // Search all.
 
             // The first item in the results is always the domain. Therefore, we just get that and retrieve its children.
             foreach (DirectoryEntry entry in Searcher.FindOne().GetDirectoryEntry().Children)
             {
-                
+
+
                 if (entry.Name.IndexOf("Tainan City Police Department") > 0)
                 {
                     var unit = Units.FirstOrDefault(x => x.Alias == "Tainan City Police Department");
@@ -97,6 +89,12 @@ namespace SynchronizeAD
                 {
 
                     VisitNode(entry, 1);
+
+                }
+                if (entry.Name.IndexOf("停用帳號") > 0)
+                {
+
+                    VisitStopNode(entry, 1);
 
                 }
             }
@@ -149,7 +147,17 @@ namespace SynchronizeAD
                         unit.ParentId = ParentId;
                         _db.Units.Add(unit);
                     }
-                    _db.SaveChanges();
+
+                    try
+                    {
+                        _db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(unit.Subject + "單位儲存發生錯誤，請檢查AD帳號資料!!");
+                        Console.ReadKey();
+                    }
+                    
                     VisitNode(childEntry1, unit.Id);
                     
 
@@ -191,6 +199,108 @@ namespace SynchronizeAD
                         member.UnitId = ParentId;
                         _db.Members.Add(member);
                     }
+
+                    try
+                    {
+                        _db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(member.Account + "帳號儲存發生錯誤，請檢查AD帳號資料!!");
+                        Console.ReadKey();
+                        
+                    }
+                    
+                }
+            }
+        }
+
+        public static void VisitStopNode(DirectoryEntry ParentEntry, int ParentId)
+        {
+            foreach (DirectoryEntry childEntry1 in ParentEntry.Children)
+            {
+                string objectClass = GetPropertyValue(childEntry1, "objectClass");
+                string description = GetPropertyValue(childEntry1, "description");
+                string name = GetPropertyValue(childEntry1, "name");
+                string direkSearchGuide = GetPropertyValue(childEntry1, "direkSearchGuide");
+                //Console.WriteLine(objectClass);
+                //if (direkSearchGuide == "30828")
+                //{
+                //    Console.WriteLine(name + "," + description + "," + objectClass + "," +
+                //                      direkSearchGuide);
+                //    Console.WriteLine("pid=" + ParentId);
+                //    //Console.ReadKey();
+                //}
+
+                //if (objectClass == "organizationalUnit")
+                //{
+
+                //    Console.WriteLine(name + "," + description + "," + objectClass + "," +
+                //                      direkSearchGuide);
+                //    Unit unit = Units.FirstOrDefault(x => x.Alias == name);
+
+                //    if (unit != null)
+                //    {
+                //        unit.Subject = description;
+                //        unit.Alias = name;
+                //        if (IsNumber(direkSearchGuide))
+                //        {
+                //            unit.ListNum = Convert.ToInt16(direkSearchGuide);
+                //        }
+                //        //Console.WriteLine(name + "," + description + "," + objectClass + "," +
+                //        //                  direkSearchGuide);
+                //    }
+                //    else
+                //    {
+                //        unit = new Unit();
+                //        unit.Subject = description;
+                //        unit.Alias = name;
+                //        if (IsNumber(direkSearchGuide))
+                //        {
+                //            unit.ListNum = Convert.ToInt16(direkSearchGuide);
+                //        }
+                //        unit.ParentId = ParentId;
+                //        _db.Units.Add(unit);
+                //    }
+                //    _db.SaveChanges();
+                //    VisitNode(childEntry1, unit.Id);
+
+
+                //}
+
+                if (objectClass == "user")
+                {
+
+                    string displayName = GetPropertyValue(childEntry1, "displayName");
+                    string descriptionName = GetPropertyValue(childEntry1, "description");
+                    string userPrincipalName = GetPropertyValue(childEntry1, "userPrincipalName");
+                    string sAMAccountName = GetPropertyValue(childEntry1, "sAMAccountName");
+
+                    if (string.IsNullOrEmpty(descriptionName))
+                    {
+                        descriptionName = displayName;
+                    }
+                    //Console.WriteLine(descriptionName);
+                    Member member = members.FirstOrDefault(x => x.Account == sAMAccountName);
+                    if (member != null)
+                    {
+                        member.Name = descriptionName;
+                        member.Email = userPrincipalName;
+                        //若有異動單位
+                        member.Roles.Clear();
+                        member.Permission = "";
+
+                        member.UnitId = 512;
+                    }
+                    //else
+                    //{
+                    //    member = new Member();
+                    //    member.Account = sAMAccountName;
+                    //    member.Name = descriptionName;
+                    //    member.Email = userPrincipalName;
+                    //    member.UnitId = ParentId;
+                    //    _db.Members.Add(member);
+                    //}
                     _db.SaveChanges();
                 }
             }

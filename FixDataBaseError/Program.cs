@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace FixDataBaseError
             //To get tg ssdfshe location the assembly normally resides on disk or the install directory
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string recodePath = path + "record.txt";
+            string chiefRecodePath = path + "chiefRecord.txt";
             string logPath = path + "log.txt";
-            int rid = 486821;
+            int rid = 486821, cid = 30809;
+
             MyMap myMap = new MyMap();
             if (!System.IO.Directory.Exists("p:\\"))
             {
-              
+
                 myMap.Connection();
             }
 
@@ -38,13 +41,23 @@ namespace FixDataBaseError
             {
                 rid = Convert.ToInt32(System.IO.File.ReadAllText(recodePath));
             }
+            if (!System.IO.File.Exists(chiefRecodePath))
+            {
+                System.IO.File.WriteAllText(chiefRecodePath, cid.ToString());
+            }
+            else
+            {
+                cid = Convert.ToInt32(System.IO.File.ReadAllText(chiefRecodePath));
+            }
 
-            string trafficFilesPath = @"C:\website\Tnpd\tnpd\TrafficFiles\";
+            string trafficFilesPath = ConfigurationManager.AppSettings["path"].ToString();
             var list = _db.CaseTraffics.Where(x => x.Id > rid).OrderBy(x => x.Id).ToList();
+            var clist = _db.Cases.Where(x => x.Id > cid).OrderBy(x => x.Id).ToList();
             foreach (CaseTraffic caseTraffic in list)
             {
                 rid = caseTraffic.Id;
                 string savePath = @"p:\" + caseTraffic.assignUnit.Subject + "\\" + caseTraffic.InitDate.Value.ToString("yyyy-MM") + "\\" + caseTraffic.CaseID + "\\";
+
                 if (!System.IO.Directory.Exists(savePath))
                 {
                     System.IO.Directory.CreateDirectory(savePath);
@@ -60,8 +73,14 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
-                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine(e.ToString());
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString()+ "\n" +e.ToString());
+                            System.IO.File.AppendAllText(logPath,"案件序號:" + caseTraffic.Id.ToString()+ "\n"+ e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile1 + "to " + savePath + caseTraffic.Upfile1 + '\n');
+                        }
+
                     }
                 }
 
@@ -74,8 +93,12 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
-                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString());
+                            System.IO.File.AppendAllText(logPath, "案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile2 + "to " + savePath + caseTraffic.Upfile2 + '\n');
+                        }
                     }
 
                 }
@@ -88,9 +111,12 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
-                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
-
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString());
+                            System.IO.File.AppendAllText(logPath, "案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile3 + "to " + savePath + caseTraffic.Upfile3 + '\n');
+                        }
                     }
 
                 }
@@ -104,10 +130,14 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
-                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
-                    }
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString());
+                            System.IO.File.AppendAllText(logPath, "案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile4 + "to " + savePath + caseTraffic.Upfile4 + '\n');
 
+                        }
+                    }
                 }
                 if (!string.IsNullOrEmpty(caseTraffic.Upfile5))
                 {
@@ -118,8 +148,12 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
-                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString());
+                            System.IO.File.AppendAllText(logPath, "案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile5 + "to " + savePath + caseTraffic.Upfile5 + '\n');
+                        }
                     }
 
                 }
@@ -133,19 +167,86 @@ namespace FixDataBaseError
                     }
                     catch (Exception e)
                     {
+                        if (e.ToString().IndexOf("已經存在") == -1)
+                        {
+                            Console.WriteLine("案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString());
+                            System.IO.File.AppendAllText(logPath, "案件序號:" + caseTraffic.Id.ToString() + "\n" + e.ToString() + '\n');
+                            System.IO.File.AppendAllText(logPath, "copy " + caseTraffic.Upfile6 + "to " + savePath + caseTraffic.Upfile6 + '\n');
+                        }
+                    }
+
+                }
+
+                caseTraffic.UnitFile = caseTraffic.assignUnit.Subject;
+                _db.SaveChanges();
+
+                System.IO.File.WriteAllText(recodePath, rid.ToString());
+            }
+
+            foreach (Case itemCase in clist)
+            {
+                cid = itemCase.Id;
+                string savePath = @"p:\ChiefMailbox\" + itemCase.InitDate.Value.ToString("yyyy-MM") + "\\" + itemCase.CaseID + "\\";
+                if (!System.IO.Directory.Exists(savePath))
+                {
+                    System.IO.Directory.CreateDirectory(savePath);
+                }
+
+
+                if (!string.IsNullOrEmpty(itemCase.Upfile1))
+                {
+                    try
+                    {
+                        System.IO.File.Copy(trafficFilesPath + itemCase.Upfile1, savePath + itemCase.Upfile1);
+                        Console.WriteLine("copy " + itemCase.Upfile1 + "to " + savePath + itemCase.Upfile1);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(itemCase.Upfile2))
+                {
+                    try
+                    {
+                        System.IO.File.Copy(trafficFilesPath + itemCase.Upfile2, savePath + itemCase.Upfile2);
+                        Console.WriteLine("copy " + itemCase.Upfile2 + "to " + savePath + itemCase.Upfile2);
+                    }
+                    catch (Exception e)
+                    {
                         Console.WriteLine(e.ToString());
                         System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
                     }
 
                 }
+                if (!string.IsNullOrEmpty(itemCase.Upfile3))
+                {
+                    try
+                    {
+                        System.IO.File.Copy(trafficFilesPath + itemCase.Upfile3, savePath + itemCase.Upfile3);
+                        Console.WriteLine("copy " + itemCase.Upfile3 + "to " + savePath + itemCase.Upfile3);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                        System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
 
+                    }
 
-
+                }
+                System.IO.File.WriteAllText(chiefRecodePath, cid.ToString());
             }
-            System.IO.File.WriteAllText(recodePath, rid.ToString());
+
+
+
+
+
+
             myMap.DisConnection();
 
-           
+
 
 
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -235,7 +236,7 @@ namespace Tnpd.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!IsADUserValid(userName, password, "tncpb.gov"))
+                if (!IsADUserValid(userName, password, ConfigurationManager.AppSettings["LdapUrl"]))
                 {
                     ViewBag.message = "登入失敗!";
                     return View();
@@ -257,8 +258,8 @@ namespace Tnpd.Controllers
                     Session["user"] = member;
                     System.Web.HttpContext.Current.Response.Cookies.Add(authenticationcookie);
 
-                    try
-                    {
+                    //try
+                    //{
                         SqlConnection connection = new SqlConnection(WebConfigurationManager
                             .ConnectionStrings["TnpdConnection"].ConnectionString);
                         SqlCommand command = new SqlCommand("INSERT INTO SystemLogs  (Subject, Poster, InitDate) VALUES (@Subject, @Poster, @InitDate)", connection);
@@ -277,13 +278,13 @@ namespace Tnpd.Controllers
 //                    db.SystemLogs.Add(log);
 //                    db.SaveChanges();
 
-                    }
-                    catch (Exception e)
-                    {
+                    //}
+                    //catch (Exception e)
+                    //{
 
-                        ViewBag.message = "登入失敗!";
-                        return View();
-                    }
+                    //    ViewBag.message = "登入失敗!";
+                    //    return View();
+                    //}
                     
 
                     return RedirectToAction("Index", "Home");

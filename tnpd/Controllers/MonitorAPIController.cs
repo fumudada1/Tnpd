@@ -17,7 +17,7 @@ namespace tnpd.Controllers
 
         public ActionResult Index()
         {
-            string Json3 = GetJsonContent("http://p-cctv.tnpd.gov.tw/api/getMonitor");
+            string Json3 = GetJsonContent("http://t-cctv.tnpd.gov.tw/api/getMonitor");
 
 
             return Content(Json3, "Application/json");

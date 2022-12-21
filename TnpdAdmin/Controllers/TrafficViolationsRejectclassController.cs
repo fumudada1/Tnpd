@@ -17,7 +17,7 @@ namespace TnpdAdmin.Controllers
     public class TrafficViolationsRejectclassController : _BaseController
     {
         private BackendContext _db = new BackendContext();
-        private const int DefaultPageSize = 15;
+        private const int DefaultPageSize = 150;
         //
 
         

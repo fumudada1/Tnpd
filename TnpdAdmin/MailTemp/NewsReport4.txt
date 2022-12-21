@@ -1,0 +1,5 @@
+<tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl28 style='height:16.5pt;border-top:none'>{檢舉違規行為態樣}</td>
+  <td class=xl28 style='border-top:none;border-left:none'>{受理件數}</td>
+ 
+ </tr>

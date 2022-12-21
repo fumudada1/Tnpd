@@ -16,21 +16,26 @@ namespace GetHolidays
         static BackendContext _db = new BackendContext();
         static void Main(string[] args)
         {
-            string content = System.IO.File.ReadAllText(@"E:\website\Tnpd\GetHolidays\政府行政機關辦公日曆表.csv").Replace("\"","");
+            string content = System.IO.File.ReadAllText(@"F:\website\Tnpd\GetHolidays\111年中華民國政府行政機關辦公日曆表.csv");
             foreach (var day in content.Split('\n'))
             {
+                
                 string[] array = day.Split(',');
-                DateTime date = Convert.ToDateTime(array[0]);
-                if ((date.Year == 2021 || date.Year == 2020) && array[2] == "是")
+                if (array[2] == "2")
                 {
+                    array[0] = array[0].Insert(6, "/");
+                    array[0] = array[0].Insert(4, "/");
+                    DateTime date = Convert.ToDateTime(array[0]);
                     Holiday holiday = new Holiday();
                     holiday.InitDate = date;
-                    
+
                     holiday.IsHoliday = true;
                     holiday.HolidayCategory = array[3];
-                    holiday.Description = array[1]+array[4];
+                    holiday.Description = array[3] ;
                     _db.Holidays.Add(holiday);
                 }
+
+                
             }
 
             

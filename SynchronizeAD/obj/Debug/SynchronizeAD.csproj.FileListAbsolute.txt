@@ -11,3 +11,16 @@ E:\website\Tnpd\SynchronizeAD\bin\Debug\zh-Hant\EntityFramework.resources.dll
 E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.csprojResolveAssemblyReference.cache
 E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.exe
 E:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.pdb
+F:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.exe.config
+F:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.exe
+F:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.pdb
+F:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.exe
+F:\website\Tnpd\SynchronizeAD\bin\Debug\SynchronizeAD.pdb
+F:\website\Tnpd\SynchronizeAD\bin\Debug\EntityFramework.dll
+F:\website\Tnpd\SynchronizeAD\bin\Debug\TnpdModels.dll
+F:\website\Tnpd\SynchronizeAD\bin\Debug\Newtonsoft.Json.dll
+F:\website\Tnpd\SynchronizeAD\bin\Debug\EntityFramework.xml
+F:\website\Tnpd\SynchronizeAD\bin\Debug\TnpdModels.pdb
+F:\website\Tnpd\SynchronizeAD\bin\Debug\Newtonsoft.Json.xml
+F:\website\Tnpd\SynchronizeAD\bin\Debug\zh-Hant\EntityFramework.resources.dll
+F:\website\Tnpd\SynchronizeAD\obj\Debug\SynchronizeAD.csprojResolveAssemblyReference.cache

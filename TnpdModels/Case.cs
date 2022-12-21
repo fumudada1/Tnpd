@@ -212,5 +212,13 @@ namespace TnpdModels
         [Display(Name = "附件3")]
         public string Upfile3 { get; set; }
 
+        [MaxLength(200)]
+        [Display(Name = "附件4")]
+        public string Upfile4 { get; set; }
+
+        [MaxLength(200)]
+        [Display(Name = "附件5")]
+        public string Upfile5 { get; set; }
+
     }
 }

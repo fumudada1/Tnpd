@@ -18,7 +18,7 @@ namespace SendTrafficSMS
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string recodePath = path + "record.txt";
             string logPath = path + "log.txt";
-            int rid = 486817;
+            int rid = 1052879;
 
             if (!System.IO.File.Exists(recodePath))
             {
@@ -28,28 +28,31 @@ namespace SendTrafficSMS
             {
                 rid = Convert.ToInt32(System.IO.File.ReadAllText(recodePath));
             }
-            List<CaseTraffic> caseTraffics = _db.CaseTraffics.Where(x => x.Id > rid).OrderBy(x => x.Id).ToList();
+            List<CaseTraffic> caseTraffics = _db.CaseTraffics.Where(x => x.Id > rid && x.Id != 1052890).OrderBy(x => x.Id).ToList();
+            //List<CaseTraffic> caseTraffics = _db.CaseTraffics.Where(x => x.Id == rid).OrderBy(x => x.Id).ToList();
             List<TrafficSMSCarInfo> carInfos = _db.trafficSmsCarInfos.ToList();
 
             foreach (CaseTraffic caseTraffic in caseTraffics)
             {
+                rid = caseTraffic.Id;
+                TrafficSMSCarInfo info = carInfos.FirstOrDefault(x => x.CarNO == caseTraffic.violation_carno);
                 try
                 {
-                    rid = caseTraffic.Id;
-                    TrafficSMSCarInfo info = carInfos.FirstOrDefault(x => x.CarNO == caseTraffic.violation_carno);
+                    
                     if (info != null)
                     {
                         DateTime vDateTime = caseTraffic.violation_date;
                         //string Message = "台端申請臺南市政府警察局交通違規簡訊服務，於" + caseTraffic.InitDate.Value.ToString("yyyy/MM/dd") + "車號：" + caseTraffic.violation_carno + "，遭民眾由本局交通違規檢舉系統檢舉!";
                         string Message = "臺南市政府警察局通知：" + caseTraffic.violation_carno + "於" + vDateTime.Day + "日在" + caseTraffic.violation_place_area + "違規遭檢舉。是否舉發，以本局送達之違規通知單為主。敬請遵守交通規則，以維行車安全。";
                         SendHinetSMS(info.trafficSms.Mobile, Message);
-                        Console.WriteLine(info.trafficSms.Mobile +"已發送");
-                        System.IO.File.AppendAllText(logPath, info.trafficSms.Mobile + "已發送" + '\n');
+                        Console.WriteLine(info.trafficSms.Mobile + " " + caseTraffic.violation_carno +"已發送");
+                        System.IO.File.AppendAllText(logPath, info.trafficSms.Mobile + " " + caseTraffic.violation_carno + "已發送 " + DateTime.Now.ToString() + '\n');
                     }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
+                    System.IO.File.AppendAllText(logPath, info.trafficSms.Mobile + " " + caseTraffic.violation_carno + "已發送錯誤,時間:" + DateTime.Now.ToString() + '\n');
                     System.IO.File.AppendAllText(logPath, e.ToString() + '\n');
                 }
 

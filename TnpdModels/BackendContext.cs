@@ -114,6 +114,12 @@ namespace TnpdModels
 
         public DbSet<TrafficSMSCarInfo> trafficSmsCarInfos { get; set; }
 
+        public DbSet<TrafficSMSCarInfoReject> TrafficSmsCarInfoRejects { get; set; }
+
         public DbSet<RefugeStation> refugeStations { get; set; }
+
+        public DbSet<TrafficFrontEndViolationItem> TrafficFrontEndViolationItems { get; set; }
+
+        public DbSet<TrafficViolationItem> TrafficViolationItems { get; set; }
     }
 }

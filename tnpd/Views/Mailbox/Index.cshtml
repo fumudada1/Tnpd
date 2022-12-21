@@ -39,7 +39,8 @@
                     驗證碼：</label>
 
                 <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <div id="newMessageDIV" style="display:none"></div>
                     <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
                    
                 </div>
@@ -185,9 +186,10 @@
 
 <script type="text/javascript">
     function PlayCode() {
+       
         var name = ReadCookie("CheckCode");
         var url2 = "/wav/" + name + ".wav";
-
+        
         if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
             //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
             $('#newMessageDIV').html("<embed src='" + url2 + "'/>");

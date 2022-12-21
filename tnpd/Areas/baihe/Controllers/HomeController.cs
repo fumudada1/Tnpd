@@ -61,7 +61,7 @@ namespace tnpd.Areas.baihe.Controllers
             DateTime yesterDay = DateTime.Now.AddDays(-1);
             string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
             var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSite.SiteCode == areaName && ((x.StartDate <= DateTime.Now && x.EndDate >= yesterDay) || (x.EndDate == null))).OrderBy(x => x.ListNum).ToList();
-
+            ViewBag.Title = "相關連結";
             return View(homeLinks);
         }
 

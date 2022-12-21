@@ -23,7 +23,7 @@ List<News> newse4 = ViewBag.newse4;
 
     var site = _db.WebSiteNames.FirstOrDefault(x => x.SiteCode == areaName);
     var news1Uid = web.GetIdByTitle("最新消息");
-    var news2Uid = web.GetIdByTitle("破案報導");
+    var news2Uid = web.GetIdByTitle("其他宣導");
     var news3Uid = web.GetIdByTitle("好人好事");
    
 
@@ -285,8 +285,8 @@ int month = DateTime.Now.Month;
                     <ul class="tab-nav clearfix" id="tabNewHeader">
                        
                         <li><a href="#tabs-news-1">最新消息</a></li>
-                        <li><a href="#tabs-news-2">破案報導</a></li>
-                        <li><a href="#tabs-news-3">好人好事</a></li>
+                        <li><a href="#tabs-news-2">好人好事</a></li>
+                        <li><a href="#tabs-news-3">其他宣導</a></li>
                     </ul>
                     <div class="tab-container">
                         <noscript>
@@ -297,31 +297,31 @@ int month = DateTime.Now.Month;
                         <div id='tabs-news-1' class="tab-content clearfix">
                             <!---->
                             @{
-                                 var fistRow1 = newse1.FirstOrDefault();
+                                var fistRow1 = newse1.FirstOrDefault();
                             }
                             @if (fistRow1 != null)
-                                            {
-                                                var row = fistRow1.NewsImagses.FirstOrDefault();
+                            {
+                                var row = fistRow1.NewsImagses.FirstOrDefault();
                                 <div class="i_newbox">
                                     <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow1.Id, sClass = 1, unid = news1Uid, area = areaName })))" title="@fistRow1.Subject">@fistRow1.Subject</a></h3>
                                     <div class="row">
                                         <div class="col-md-4 pr0 sm_mb20">
                                             @if (fistRow1.NewsImagses.Count > 0)
-                                                            {
+                                            {
                                                 <img src="@row.UpFile" alt="@row.Subject">
-                                                            }
-                                                            else
-                                                            {
+                                            }
+                                            else
+                                            {
                                                 <img alt="" src="/images/news_prectinct.jpg">
-                                                            }
+                                            }
                                         </div>
                                         <div class="col-md-8">
                                             @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow1.Article), 100)
                                         </div>
                                     </div>
                                 </div>
-                                                            newse1.Remove(fistRow1);
-                                            }
+                                newse1.Remove(fistRow1);
+                            }
 
                             <!---->
                             <div class="i_newbox">
@@ -339,60 +339,12 @@ int month = DateTime.Now.Month;
                                 </div>
                             </div>
                         </div>
-                        <noscript>
-                            <ul class="tab-nav-noscript">
-                                <li><a href="#" title="破案報導">破案報導</a></li>
-                            </ul>
-                        </noscript>
-                        <div id='tabs-news-2' class="tab-content clearfix">
-                            @{
-                                                var fistRow2 = newse4.FirstOrDefault();
-                            }
-                            @if (fistRow2 != null)
-                                            {
-                                                var row = fistRow2.NewsImagses.FirstOrDefault();
-                                <div class="i_newbox">
-                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 3, unid = news2Uid, area = areaName })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h3>
-                                    <div class="row">
-                                        <div class="col-md-4 pr0 sm_mb20">
-                                            @if (fistRow2.NewsImagses.Count > 0)
-                                                            {
-                                                <img src="@row.UpFile" alt="@row.Subject">
-                                                            }
-                                                            else
-                                                            { 
-                                                <img alt="" src="/images/news_prectinct.jpg">
-                                                            }
-                                        </div>
-                                        <div class="col-md-8">
-                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 50)
-                                        </div>
-                                    </div>
-                                </div>
-                                                newse4.Remove(fistRow2);
-                                            }
-
-                            <div class="i_newbox">
-                                <ul>
-                                    @foreach (News news in newse4)
-                                                    {
-                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 3, unid = news2Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
-                                        </a></li>        
-                                                           
-                                                    }
-
-                                </ul>
-                                <div class="newmore">
-                                    <a title="更多破案報導" class="more" href="/@areaName/News/Index/@news2Uid?sClass=3">MORE</a>
-                                </div>
-                            </div>
-                        </div>
-                        <noscript>
+                                                <noscript>
                             <ul class="tab-nav-noscript">
                                 <li><a href="#" title="好人好事">好人好事</a></li>
                             </ul>
                         </noscript>
-                        <div id='tabs-news-3' class="tab-content clearfix">
+                        <div id='tabs-news-2' class="tab-content clearfix">
                             @{
                             var fistRow3 = newse5.FirstOrDefault();
                             }
@@ -435,6 +387,56 @@ int month = DateTime.Now.Month;
                                 </div>
                             </div>
                         </div>
+
+                        <noscript>
+                            <ul class="tab-nav-noscript">
+                                <li><a href="#" title="其他宣導">其他宣導</a></li>
+                            </ul>
+                        </noscript>
+                        <div id='tabs-news-3' class="tab-content clearfix">
+                            @{
+                                                var fistRow2 = newse4.FirstOrDefault();
+                            }
+                            @if (fistRow2 != null)
+                                            {
+                                                var row = fistRow2.NewsImagses.FirstOrDefault();
+                                <div class="i_newbox">
+                                    <h3><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = fistRow2.Id, sClass = 23, unid = news2Uid, area = areaName })))" title="@fistRow2.Subject">@fistRow2.Subject</a></h3>
+                                    <div class="row">
+                                        <div class="col-md-4 pr0 sm_mb20">
+                                            @if (fistRow2.NewsImagses.Count > 0)
+                                                            {
+                                                <img src="@row.UpFile" alt="@row.Subject">
+                                                            }
+                                                            else
+                                                            { 
+                                                <img alt="" src="/images/news_prectinct.jpg">
+                                                            }
+                                        </div>
+                                        <div class="col-md-8">
+                                            @UIUtility.LimitWord(UIUtility.RemoveHTML(fistRow2.Article), 50)
+                                        </div>
+                                    </div>
+                                </div>
+                                                newse4.Remove(fistRow2);
+                                            }
+
+                            <div class="i_newbox">
+                                <ul>
+                                    @foreach (News news in newse4)
+                                                    {
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 23, unid = news2Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        </a></li>        
+                                                           
+                                                    }
+
+                                </ul>
+                                <div class="newmore">
+                                    <a title="更多其他宣導" class="more" href="/@areaName/News/Index/@news2Uid?sClass=23">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -1,0 +1,272 @@
+﻿@model tnpd.Models.ResponseViews
+
+<div class="row">
+    @using (Html.BeginForm("Index", "Responses", FormMethod.Post, new { @class = "form form-vaild form-aligned trailer", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <span style="color: red;font-size: larger">@ViewBag.Message</span> 
+
+        <div class="col-12">
+
+            <h4 class="h4title">重大災害通報專區使用須知</h4>
+
+            <ul class="ullink">
+                <li>本專區僅提供通報重大災害使用，勿通報其他案件。</li>
+                <li>本專區為提供民眾多元通報管道，以文字、照片或影像(20MB內)通報災情，如案況緊急，建議先撥打110或119通報，避免耽誤時效。
+                </li>
+                <li>填寫重大災害通報資料時，請您務必留下正確聯絡資料，以方便聯絡及提供救援。
+                </li>
+            </ul>
+
+
+            一. 若有急迫案件請電話直撥110。<br>
+
+            <div class="hrline"></div>
+            (有 <span class="text-danger">*</span> 號請務必填寫)
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="col-form-label" for="Name">
+                        <span class="text-danger">*</span>
+                        報案人姓名 Name：</label>
+                    <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
+                    <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label" for="Name">
+                        <span class="text-danger">*</span>
+                        行動電話 Mobile Number：</label>
+                    <input class="form-control"  data-val="true" data-val-required="行動電話必填"  id="TEL" name="TEL" placeholder="行動電話" type="text" value="@Model.TEL" />
+                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+                </div>
+               
+            </div>
+       
+            <div class="form-group">
+                <label class="col-form-label" for="Email">
+                  
+                    聯絡電話(住家) Contact Number (Home)：</label>
+                <input   data-val="true"   class="form-control"  id="HomeTEL" name="HomeTEL" placeholder="聯絡電話(住家)" type="text" value="@Model.HomeTEL" />
+                <span class="field-validation-valid" data-valmsg-for="HomeTEL" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="PostalCode">
+                   
+                    現居地址 Current Address：</label>
+                <div class="form-row ">
+                    <div class="form-group col-2 mb-0">
+
+                        <input class="form-control"  id="PostalCode" name="PostalCode" placeholder="現居郵遞區號" type="text" value="@Model.PostalCode" />
+                        <span class="field-validation-valid" data-valmsg-for="PostalCode" data-valmsg-replace="true"></span>
+
+                    </div>
+                    <div class="form-group col-10 mb-0">
+                        <label class="col-form-label" for="Address" style="display: none">
+                            <span class="text-danger">*</span>
+                            現居地址：</label>
+                        <input class="form-control"    id="Address" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
+                        <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-form-label" for="Email">
+                   
+                    E-Mail：</label>
+                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤"  name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6 mb-0">
+                    <label class="col-form-label" for="ODate" style="text-transform: none">
+                        <span class="text-danger">*</span>
+                        發生日期 Date of Incident：</label>
+                    <input   class="form-control"  data-val="true" data-val-required=" 發生日期必填" id="ODate" name="ODate" target="" type="date" value="@Model.ODate" />
+                    <span class="field-validation-valid" data-valmsg-for="ODate" data-valmsg-replace="true"></span>
+                    @Html.ValidationMessage("CheckDate")
+
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label class="col-form-label" for="STime1">
+                        <span class="text-danger">*</span>
+                        發生時間 Time of Incident：</label>
+                    <div class="form-row">
+                        <div class="form-group col-auto">
+                            <label class="col-form-label" for="STime1" style="display: none">
+                                <span class="text-danger">*</span>
+                                發生時段：：</label>
+                            <select name="STime1" class="form-control">
+                                @for (int i = 0; i <= 23; i++)
+                                {
+                                    <option>@i.ToString("00")</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-auto align-self-center">時</div>
+                        <div class="form-group col-auto">
+                            <label class="col-form-label" for="STime2" style="display: none">
+                                <span class="text-danger">*</span>
+                                發生時段：：</label>
+                            <select name="STime2" class="form-control">
+                                @for (int i = 0; i <= 59; i++)
+                                {
+                                    <option>@i.ToString("00")</option>
+                                }
+                            </select>
+
+                        </div>
+                        <div class="form-group col-auto align-self-center">分</div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-form-label" for="Oplace">
+                    <span class="text-danger">*</span>
+                    發生地點 Location：</label> <span style="color: blue">(如為他縣市案件，本局將主動轉知該警察局)</span> 
+                <input class="form-control" data-val="true" data-val-required="發生地點必填"  id="Oplace" name="Oplace" placeholder="發生地點" type="text" value="@Model.Oplace" />
+                <span class="field-validation-valid" data-valmsg-for="Oplace" data-valmsg-replace="true"></span>
+               
+
+            </div>
+            
+            <div class="form-group">
+                <label class="col-form-label" for="Content"><span class="text-danger">*</span> 災情摘要 Case Summary：</label><span style="color: blue">(請簡要摘述勿超過 500 個中文字 (1,000 個字元)</span>
+                <textarea class="form-control" data-val="true" data-val-required="案情摘要必填" name="Content" rows="3">@Model.Content</textarea>
+                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+            </div>
+          
+
+            
+            
+            <div class="form-group">
+                <label class="col-form-label" for="Upfile1">
+                    <span class="text-danger">*</span>
+                    檔案上傳：</label>
+                <span style="color: blue">第一個檔案必須上傳</span>
+              
+                <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file" data-val="true" data-val-required="至少第一個檔案必須上傳">
+                <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+                <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
+                <input name="Upfile3" class="form-control mb-2" id="Upfile3" type="file">
+                <input name="Upfile3" class="form-control mb-2" id="Upfile4" type="file">
+                <input name="Upfile3" class="form-control" id="Upfile5" type="file">
+            </div>
+
+            <div class="form-group" style="word-break: break-all;">
+                <span class="text-danger">【檔案上傳限制】</span><br>
+                1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+                2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）。
+
+            </div>
+            
+            <div class="form-row  mt-4">
+                <label class="col-form-label" for="checkCode">
+                    <span class="text-danger">*</span>
+                    驗證碼：</label>
+
+                <div class="form-group col-auto">
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <div id="newMessageDIV" style="display: none"></div>
+                    <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();">
+                        <img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。" /></a>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+
+                    @Html.ValidationMessage("CheckCode")
+                </div>
+
+            </div>
+            <div class="hrline"></div>
+            <input type="hidden" name="id" value="@ViewBag.UnId"/>
+            <div class="form-row justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-info">送出</button>
+                </div>
+                <div class="col-auto">
+                    <button type="reset" class="btn btn-secondary">清除</button>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
+
+<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(".datepicker").datepicker();
+    function PlayCode() {
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+
+    $("#sendmail").click(function () {
+        var email = $('#Email').val();
+        $("#mailMessage").text('發送信件' + $('#Email').val());
+        $.get("/Report/SendVerifyMail/", { id: $('#Email').val() })
+            .done(function (data) {
+                $("#mailMessage").text(data);
+            });
+    });
+</script>
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

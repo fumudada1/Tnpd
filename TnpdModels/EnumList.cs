@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace TnpdModels
 {
     public enum GenderType
     {
+        [EnumMember(Value = "男")]
         男,
+        [EnumMember(Value = "女")]
         女
     }
 
@@ -52,7 +55,8 @@ namespace TnpdModels
        檢舉貪瀆信箱 ,
        網路報案,
        參觀本局暨所屬機關,
-       婦幼安全警示地點
+       婦幼安全警示地點,
+       重大災害通報專區
 
     }
 
@@ -113,5 +117,9 @@ namespace TnpdModels
         [Description("未通過")]
         未通過 = 1
     }
-
+    public enum TrafficViolationType
+    {
+        平面道路,
+        快速道路
+    }
 }

@@ -449,7 +449,7 @@ List<News> newse4 = ViewBag.newse4;
                             @foreach (HomeLink link in homeLinks.Take(5))
                             {
                               
-                                <li><a title="@link.Subject" href="@link.Url">
+                                <li><a  href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
                                     <img src="@link.UpImage" alt="@link.Subject"></a></li>
                             }
 

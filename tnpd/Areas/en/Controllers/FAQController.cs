@@ -22,6 +22,11 @@ namespace tnpd.Areas.en.Controllers
         [MyAuthorize]
         public ActionResult Index(Guid id, int? page, FormCollection fc)
         {
+            if (id.ToString() == "da5ed3f0-bc13-01d6-6838-a168471d8fb3")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
 
             ViewBag.UnId = id.ToString();

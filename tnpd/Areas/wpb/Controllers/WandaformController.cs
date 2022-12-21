@@ -27,7 +27,7 @@ namespace tnpd.Areas.wpb.Controllers
         {
             ViewBag.UnId = id.ToString();
             //驗證碼確認
-            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : "000";
+            string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() : DateTime.Now.Millisecond.ToString();
             if (checkCode.ToLower() != sCheckCode)
             {
                 ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
@@ -37,7 +37,7 @@ namespace tnpd.Areas.wpb.Controllers
             if (ModelState.IsValid)
             {
                 Case mailCase = new Case();
-                mailCase.Subject = wandaform.Oplace; //記得改
+                mailCase.Subject = wandaform.Subject; //記得改
                 mailCase.Content = wandaform.Content;
 
                 mailCase.CaseGuid = Guid.NewGuid().ToString();
@@ -57,6 +57,7 @@ namespace tnpd.Areas.wpb.Controllers
                 mailCase.Predate = holiday.GetWorkDay(DateTime.Today, 7);
                 mailCase.OArea = wandaform.OArea;
                 mailCase.Oplace = wandaform.Oplace;
+                mailCase.ODate = DateTime.Today;
                 mailCase.IP = Request.UserHostAddress;
                 mailCase.InitDate = DateTime.Now;
 
@@ -99,26 +100,7 @@ namespace tnpd.Areas.wpb.Controllers
                 }
 
                 _db.Cases.Add(mailCase);
-                if (mailCase.IsAutoClose == BooleanType.是)
-                {
-                    CasePoproc poproc = new CasePoproc();
-                    poproc.CaseId = mailCase.Id;
-
-                    poproc.CaseType = mailCase.CaseType;
-                    poproc.CaseTime = mailCase.InitDate.Value;
-
-                    poproc.Status =CaseProcessStatus.結案;
-                    poproc.AssignDateTime = DateTime.Now;
-                    poproc.AssignMemo = filterItem.PoprocsSubType.Article;
-                    poproc.AssignMemo = poproc.AssignMemo.Replace("{Name}", mailCase.Name);
-                    poproc.AssignMemo = poproc.AssignMemo.Replace("{InitDate}", Date2CrocFormat(DateTime.Now));
-                    poproc.AssignMemo = poproc.AssignMemo.Replace("{subject}", mailCase.Subject);
-
-                    poproc.process = "process";
-                    poproc.PoprocsType = 3;
-                    poproc.PoprocsSubType = filterItem.PoprocsSubType.Id;
-                    _db.CasePoprocs.Add(poproc);
-                }
+                
                 _db.SaveChanges();
 
 

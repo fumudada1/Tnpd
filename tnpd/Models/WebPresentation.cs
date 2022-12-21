@@ -123,7 +123,7 @@ namespace tnpd.Models
         public string GetIdByTitle(string title)
         {
 
-            XmlNode node = _xmlDoc.SelectSingleNode("//siteMapNode[@title='" + title + "']");
+            XmlNode node = _xmlDoc.SelectSingleNode("//siteMapNode[@title='" + title.Replace("'", "&apos;") + "']");
             return node.Attributes["UnID"].Value;
 
         }
@@ -591,7 +591,7 @@ namespace tnpd.Models
         /// <returns></returns>
         public XmlNode GetNodeById(string ID)
         {
-            XmlNode node = _xmlDoc.SelectSingleNode("//siteMapNode[@UnID='" + ID + "']");
+            XmlNode node = _xmlDoc.SelectSingleNode("//siteMapNode[@UnID='" + ID.Replace("'", "&apos;") + "']");
             return node;
         }
         /// <summary>

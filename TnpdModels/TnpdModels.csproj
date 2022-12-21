@@ -42,6 +42,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -75,37 +76,33 @@
     <Compile Include="HomeTheme.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="MetaIndex.cs" />
-    <Compile Include="Migrations\202004210216192_init.cs" />
-    <Compile Include="Migrations\202004210216192_init.Designer.cs">
-      <DependentUpon>202004210216192_init.cs</DependentUpon>
+    <Compile Include="Migrations\202202221413281_init.cs" />
+    <Compile Include="Migrations\202202221413281_init.Designer.cs">
+      <DependentUpon>202202221413281_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004210220546_BigBinnerLink.cs" />
-    <Compile Include="Migrations\202004210220546_BigBinnerLink.Designer.cs">
-      <DependentUpon>202004210220546_BigBinnerLink.cs</DependentUpon>
+    <Compile Include="Migrations\202202221415537_AddTrafficUnitFile.cs" />
+    <Compile Include="Migrations\202202221415537_AddTrafficUnitFile.Designer.cs">
+      <DependentUpon>202202221415537_AddTrafficUnitFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004210251301_addCaseFiles.cs" />
-    <Compile Include="Migrations\202004210251301_addCaseFiles.Designer.cs">
-      <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
+    <Compile Include="Migrations\202202230816105_addContacts.cs" />
+    <Compile Include="Migrations\202202230816105_addContacts.Designer.cs">
+      <DependentUpon>202202230816105_addContacts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007150831418_addCaseIsConfirm.cs" />
-    <Compile Include="Migrations\202007150831418_addCaseIsConfirm.Designer.cs">
-      <DependentUpon>202007150831418_addCaseIsConfirm.cs</DependentUpon>
+    <Compile Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.cs" />
+    <Compile Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.Designer.cs">
+      <DependentUpon>202203220948121_addTrafficFrontEndViolationItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008231030042_TrafficSMS.cs" />
-    <Compile Include="Migrations\202008231030042_TrafficSMS.Designer.cs">
-      <DependentUpon>202008231030042_TrafficSMS.cs</DependentUpon>
+    <Compile Include="Migrations\202204070909000_addTrafficViolationItem.cs" />
+    <Compile Include="Migrations\202204070909000_addTrafficViolationItem.Designer.cs">
+      <DependentUpon>202204070909000_addTrafficViolationItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008231229241_addSMSGuid.cs" />
-    <Compile Include="Migrations\202008231229241_addSMSGuid.Designer.cs">
-      <DependentUpon>202008231229241_addSMSGuid.cs</DependentUpon>
+    <Compile Include="Migrations\202206100827276_addTrafficIsSendCheckname.cs" />
+    <Compile Include="Migrations\202206100827276_addTrafficIsSendCheckname.Designer.cs">
+      <DependentUpon>202206100827276_addTrafficIsSendCheckname.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008231246016_addsmsRequired.cs" />
-    <Compile Include="Migrations\202008231246016_addsmsRequired.Designer.cs">
-      <DependentUpon>202008231246016_addsmsRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011040905586_addRefugeStation.cs" />
-    <Compile Include="Migrations\202011040905586_addRefugeStation.Designer.cs">
-      <DependentUpon>202011040905586_addRefugeStation.cs</DependentUpon>
+    <Compile Include="Migrations\202211081005428_addCaseFile.cs" />
+    <Compile Include="Migrations\202211081005428_addCaseFile.Designer.cs">
+      <DependentUpon>202211081005428_addCaseFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsAttributeHelper.cs" />
@@ -137,11 +134,14 @@
     <Compile Include="Town.cs" />
     <Compile Include="TrafficDepartmentdetail.cs" />
     <Compile Include="Trafficdisdata.cs" />
+    <Compile Include="TrafficFrontEndViolationItem.cs" />
     <Compile Include="TrafficMailCheck.cs" />
     <Compile Include="TrafficRegion.cs" />
     <Compile Include="TrafficRoaddata.cs" />
     <Compile Include="TrafficSMS.cs" />
     <Compile Include="TrafficSMSCarInfo.cs" />
+    <Compile Include="TrafficSMSCarInfoReject.cs" />
+    <Compile Include="TrafficViolationItem.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Village.cs" />
     <Compile Include="TrafficViolationsClass.cs" />
@@ -164,29 +164,26 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004210216192_init.resx">
-      <DependentUpon>202004210216192_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202221413281_init.resx">
+      <DependentUpon>202202221413281_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004210220546_BigBinnerLink.resx">
-      <DependentUpon>202004210220546_BigBinnerLink.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202221415537_AddTrafficUnitFile.resx">
+      <DependentUpon>202202221415537_AddTrafficUnitFile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004210251301_addCaseFiles.resx">
-      <DependentUpon>202004210251301_addCaseFiles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202230816105_addContacts.resx">
+      <DependentUpon>202202230816105_addContacts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007150831418_addCaseIsConfirm.resx">
-      <DependentUpon>202007150831418_addCaseIsConfirm.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.resx">
+      <DependentUpon>202203220948121_addTrafficFrontEndViolationItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008231030042_TrafficSMS.resx">
-      <DependentUpon>202008231030042_TrafficSMS.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204070909000_addTrafficViolationItem.resx">
+      <DependentUpon>202204070909000_addTrafficViolationItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008231229241_addSMSGuid.resx">
-      <DependentUpon>202008231229241_addSMSGuid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202206100827276_addTrafficIsSendCheckname.resx">
+      <DependentUpon>202206100827276_addTrafficIsSendCheckname.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008231246016_addsmsRequired.resx">
-      <DependentUpon>202008231246016_addsmsRequired.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011040905586_addRefugeStation.resx">
-      <DependentUpon>202011040905586_addRefugeStation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202211081005428_addCaseFile.resx">
+      <DependentUpon>202211081005428_addCaseFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

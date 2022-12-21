@@ -104,13 +104,28 @@
                 <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
 
             </div>
+            <div class="form-group">
+                <label class="col-form-label" for="Upfile1">
+                    <span class="text-danger">*</span>
+                    檔案上傳：</label>
+                <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+                <input id="Upfile1" class="form-control mb-2" data-val="true" data-val-required="至少第一個檔案必須上傳" name="Upfile1" type="file">
+                <input id="Upfile2" class="form-control mb-2" name="Upfile2" type="file">
+                <input id="Upfile3" class="form-control" name="Upfile3" type="file">
+            </div>
 
+            <div class="form-group" style="word-break: break-all;">
+                <span class="text-danger">【檔案上傳限制】</span><br>
+                1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+                2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
+
+            </div>
             <div class="form-row  mt-4">
                 <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
                     驗證碼：</label>
 
                 <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
                     <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
                    
                 </div>

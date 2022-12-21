@@ -329,7 +329,7 @@ List<News> newse4 = ViewBag.newse4;
                                     @foreach (News news in newse1)
                                     {
                                        
-                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 1, unid = news1Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 1, unid = news1Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject
                                         </a></li>                   
                                     }
 
@@ -377,7 +377,7 @@ List<News> newse4 = ViewBag.newse4;
                                 <ul>
                                     @foreach (News news in newse5)
                                     {
-                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 6, unid = news3Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.InitDate)</span>@news.Subject
+                                        <li><a href="@(Url.Action("Details", "News", new RouteValueDictionary(new { id = news.Id, sClass = 6, unid = news3Uid, area = areaName })))"><span><i class="icon-angle-right"></i>@UIUtility.Date2RocFormat(news.StartDate)</span>@news.Subject
                                         </a></li>        
                                                            
                                     }
@@ -403,7 +403,7 @@ List<News> newse4 = ViewBag.newse4;
                             @foreach (HomeLink link in homeLinks.Take(5))
                             {
                               
-                                <li><a title="@link.Subject" href="@link.Url">
+                                <li><a  href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
                                     <img src="@link.UpImage" alt="@link.Subject"></a></li>
                             }
 

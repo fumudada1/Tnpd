@@ -1,0 +1,182 @@
+﻿@model IEnumerable<ModelLibrary.Models.QuoteSort>
+
+@{
+    var index = 1;
+}
+
+<div class="col-12">
+
+    <div class="d-flex justify-content-center">
+        <div class="col-2  d-flex justify-content-md-center">
+            <h1 class=" verticalTitle mt-2">零件管理</h1>
+        </div>
+        @using (@Html.BeginForm("Index", "QuoteSort", FormMethod.Post, new { @class = "col-9" }))
+        {
+
+            <div class="col-12 row mt-3">
+
+                <div class="row col">
+
+                    <div class="col-md-3 forLabel mb-2 text-right">
+                        @Html.Label("keyWord", "零件項目", new { @class = "Label" })
+                    </div>
+                    <div class="col-md-9 mb-2">
+                        @Html.TextBox("keyWord", null, new { placeholder = "請輸入零件關鍵字", @class = "form-control col-md" })
+                    </div>
+                </div>
+                <div class="row col ">
+
+                    <div class="col-md-3 forLabel mb-2 text-right">
+                        @Html.Label("year", "年度", new { @class = "Label" })
+                    </div>
+                    <div class="col-md-9 mb-2">
+                        @Html.TextBox("year", @DateTime.Now.Year, new { type = "number", min = "2020", @class = "form-control col-md" })
+                    </div>
+                </div>
+
+                <div class="col-md-12 row justify-content-md-center">
+                    <div class="col-2"></div>
+                    <input type="submit" name="submit" value="搜尋" class="btn searchBtn col-4 m-2 letterSpace" />
+                    @Html.ActionLink("清除查詢", "ClearSearch", "QuoteSort", null, new { @class = "btn clearBtn col-2 m-2" })
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="row justify-content-end">
+        @Html.ActionLink("新增零件", "Create", null, new { @class = "my-4 col-2 createBtn btn" })
+    </div>
+
+    <table class="table text-center table-hover quoteSortTable">
+        <tr>
+            <th>
+                @Html.DisplayName("項次")
+            </th>
+            <th class="text-left">
+                @Html.DisplayName("零件項目")
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>操作</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@index.ToString("00")</td>
+                <td class="text-left">
+                    @Html.HiddenFor(modelitem => item.Id, new { @class = "quoteSortId" })
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstimatedAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { id = item.Id }, new { @class = "btn editBtn " })
+                    <!-- Button trigger modal -->
+                    <button type="button" class="remove_field btn" data-toggle="modal" data-target="#DeleteModal">
+                        刪除
+                    </button>
+                </td>
+            </tr>
+            index++;
+        }
+
+    </table>
+</div>
+<!-- 刪除的Modal -->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title modalHeader mx-auto" id="exampleModalLongTitle">請確認</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body h5 text-center" >
+                <input type="hidden" id="deleteId" />
+                刪除後則無法用此項目進行報價，是否確定刪除?
+            </div>
+            <div class="modal-footer border-0">
+                @*@Html.ActionLink("確定刪除", "Delete", new { id = 151 }, new { @class = "remove_field btn" })*@
+                <button type="button" class="remove_field btn confirmDelete  btn-lg" data-dismiss="modal">確認刪除</button>
+                <button type="button" class="btn detailBtn btn-lg" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+<script src="~/Scripts/sweetalert.min.js"></script>
+    @*刪除零件*@
+    <script>
+        $('#DeleteModal').on('show.bs.modal',
+            function (event) {
+
+                var btn = $(event.relatedTarget);
+                var id = btn.closest('tr').find('.quoteSortId').val();
+                $('#deleteId').val(id);
+
+            });
+
+        $('.confirmDelete').click(
+            function () {
+                var sJson = JSON.stringify
+                    ({
+                        Id: $('#deleteId').val()
+                    });
+
+                $.ajax({
+                    type: 'post',
+                    url: '/QuoteSort/Delete',
+                    data: sJson,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (response) {
+                        if (response.result == true) {
+                            swal({
+                                title: "您已成功刪除!",
+                                text: "",
+                                icon: "success"
+                            }).then(function () {
+                                window.location.replace(location.href);
+                            });
+
+
+                        } else {
+                            swal({
+                                title: "此零件已被使用，故無法刪除!",
+                                text: "",
+                                icon: "error"
+                            }).then(function () {
+                                window.location.replace(location.href);
+                            });
+                        }
+                    }
+                });
+            });
+    </script>
+
+}

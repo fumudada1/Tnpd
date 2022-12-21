@@ -68,7 +68,7 @@
             驗證碼：</label>
 
         <div class="form-group col-auto">
-            <img id="imgVerify" src="~/Captcha/CaptchaImage" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
 			<div id="newMessageDIV" style="display:none"></div>
             <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"/></a>
 
@@ -144,7 +144,7 @@
     }
 
     var smsTimer;
-    var t = 180;
+    var t = 10;
     function showTime() {
         t -= 1;
         document.getElementById('smstime').innerHTML = "請留意手機簡訊，若一直沒有收到可在" + t + "秒後可再傳送一次。";
@@ -154,6 +154,7 @@
             $("#sendSms").prop('disabled', false);
           
         } else {
+            
             smsTimer = setTimeout("showTime()", 1000);
         }
 
@@ -172,6 +173,7 @@
 
         }
         $("#sendSms").prop('disabled', true);
+        t = 10;
         showTime();
         $("#smsMessage").text('發送簡訊至' + Mobile+'中，請稍後!');
         SendSMS(Mobile);
@@ -181,6 +183,7 @@
     function SendSMS(Mobile) {
         $.post("/TrafficSMS/SendCheckCode", { mobile: Mobile })
             .done(function (data) {
+                console.log(data);
                 if (data != '已經發送，請留意簡訊訊息!') {
                     $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送");
                     SendSMS(Mobile);

@@ -29,7 +29,7 @@ namespace tnpd.Areas.wpb.Controllers
 
             var wandas = _db.Wandas.Where(x => x.Status == BooleanType.是).OrderByDescending(p => p.InitDate).AsQueryable();
 
-
+            ViewBag.Title = "各區近半年婦幼安全警示地點";
             return View(wandas.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
         }
         public ActionResult Details(string unid, int id = 0)
@@ -42,7 +42,7 @@ namespace tnpd.Areas.wpb.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
+            ViewBag.Title = "各區近半年婦幼安全警示地點";
 
             return View(wanda);
         }

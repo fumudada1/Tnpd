@@ -1,0 +1,1 @@
+select itemno as 檢舉違規行為態樣,count(*) as 受理件數 from [dbo].[CaseTraffics]  WHERE (InitDate >= '2019/1/1' and InitDate<='2019/3/1')  group by itemno
