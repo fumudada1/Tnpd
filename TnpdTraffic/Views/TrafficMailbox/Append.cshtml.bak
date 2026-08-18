@@ -1,0 +1,477 @@
+﻿@model TnpdModels.CaseTrafficAppend
+@{
+    DateTime today = DateTime.Today;
+
+}
+@if (Model == null || Model.deadline.AddDays(1) < DateTime.Now|| Model.Append_date.HasValue)
+{
+    <div class="row">
+        <div class="col-12">
+
+            <h4 class="h4title">@ViewBag.Message</h4>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @ViewBag.Message
+            @Html.ValidationMessage("Message")
+            <div class="col-12">
+
+                <h4 class="h4title">資料補正說明：</h4>
+            <div class="hrline"></div>
+            <div class="text-info">
+                @Html.Raw(UIUtility.Txt2Html(Model.memo))  
+            </div>
+                <br/>
+                @if (Model.Append.Contains("violation_carno") || Model.Append.Contains("violation_place") || Model.Append.Contains("violation_date")
+                     || Model.Append.Contains("itemno") || Model.Append.Contains("Upfile"))
+                {
+
+                    <h4 class="h4title">「補正內容」</h4>
+
+                    <div class="hrline"></div>
+                    <div>(有 <span class="text-danger">*</span> 號請務必填寫)</div> 
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label" for="Subject">
+                                <span class="text-danger">*</span>
+                                主題：</label>
+                            <span>@Model.Case.Subject</span>
+
+                        </div>
+                    </div>
+                    if (Model.Append.Contains("violation_carno"))
+                    {
+                    <div class="form-group mb-0">
+                        <label class="col-form-label" for="violation_carno1">
+                            <span class="text-danger">*</span>
+                            違規車號：若舉發內容為汽車或機車，請輸入車牌號碼，例：AAA-0000。</label>
+                        <div class="form-row">
+                            <div class="form-group  col-md-3 col-5">
+                                <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno" name="violation_carno" placeholder="例：AAA-0000" value="@Model.violation_carno">
+                                <span class="field-validation-valid" data-valmsg-for="violation_carno1" data-valmsg-replace="true"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    }
+                    if (Model.Append.Contains("violation_place"))
+                    {
+                    <div class="form-group mb-0">
+                        <label class="col-form-label" for="violation_place_area">
+                            <span class="text-danger">*</span>
+                            違規地點：</label>
+                        <div class="form-row">
+                            <div class="form-group col-auto">
+                                @Html.DropDownList("violation_place_area", (IEnumerable<SelectListItem>)ViewBag.Regions, "請選擇", new { @class = "form-control" })
+                                <span class="field-validation-valid" data-valmsg-for="violation_place_area" data-valmsg-replace="true"></span>
+
+                            </div>
+                            <div class="form-group col-auto">
+                                <select class="form-control input-validation-error" data-val="true" data-val-required="違規路段必填" id="violation_place_road" name="violation_place_roadID" aria-required="true" aria-describedby="violation_place_area-error">
+                                    <option value="">請選擇</option>
+
+                                </select>
+                                <input type="hidden" id="hviolation_place_roadId" value="@Model.violation_place_road"/>
+
+                                <span class="field-validation-valid" data-valmsg-for="violation_place_road" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+
+                                <input id="violation_place" data-val="true" data-val-required="違規地址必填" class="form-control" name="violation_place" placeholder="請輸入違規地址"  type="text" value="@Model.violation_place"/>
+                                <span class="field-validation-valid" data-valmsg-for="violation_place" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <span style="color: blue; font-weight: bold; display: none" id="areaMessage">若您於違規地點找尋不到欲檢舉之路名，該路段可能屬於台南科學園區，為內政部警政署保安警察第二總隊管轄之路段，請點選網址<a href target="_blank"></a>https://2spc.npa.gov.tw/ch/mailbox/mailchief/mailchief?module=mailchief&id=7462 進行檢舉，或郵寄至台南市新市區南科三路6號(保安警察第二總隊第一大隊第二中隊南科分隊) 收，如有問題請撥打專線電話06-5051405。</span>
+                        <span style="color: red"><strong>違規地點請詳實填寫路口名稱、地址或GPS定位，若為快速道路請註明行向及公里數以利查證(地點不符或未填寫詳盡致無法判讀者，將不予舉發)</strong></span><br>
+                    </div>
+                    }
+                    if (Model.Append.Contains("violation_date"))
+                    {
+                    <div class="form-group mb-0">
+                        <label class="col-form-label" for="violation_dateYear">
+                            <span class="text-danger">*</span>
+                            違規時間：</label>
+                        <div class="form-row">
+                            <div class="form-group col-auto">
+                                <select id="violation_date" name="violation_date" class="form-control input-validation-error" data-val="true" data-val-required="違規日期必填">
+                                    <option value="">請選擇</option>
+                                    @for (int i = 0; i <= 14; i++)
+                                    {
+                                        DateTime date = today.AddDays(i * -1);
+                                        if (Model.violation_date == date)
+                                        {
+                                        <option selected="selected">@date.ToString("yyyy/MM/dd")</option>
+                                        }
+                                        else
+                                        {
+                                        <option>@date.ToString("yyyy/MM/dd")</option>
+                                        }
+
+                                    }
+                                </select>
+                                <span class="field-validation-valid" data-valmsg-for="violation_date" data-valmsg-replace="true"></span>
+                            </div>
+
+
+                            <div class="form-group col-auto">
+                                <select id="violation_time1" name="violation_time1" class="form-control input-validation-error" data-val="true" data-val-required="違規小時必填">
+                                    <option value="">請選擇</option>
+                                    @for (int i = 0; i <= 23; i++)
+                                    {
+                                        <option>@i.ToString()</option>
+                        
+                                    }
+                                </select>
+
+                                <span class="field-validation-valid" data-valmsg-for="violation_time1" data-valmsg-replace="true"></span>
+
+                            </div>
+                            <div class="form-group col-auto align-self-center">
+                                時
+                            </div>
+                            <div class="form-group col-auto">
+                                <select id="violation_time2" name="violation_time2" class="form-control input-validation-error" data-val="true" data-val-required="違規分鐘必填">
+                                    <option value="">請選擇</option>
+                                    @for (int i = 0; i <= 59; i++)
+                                    {
+                                        <option>@i.ToString()</option>
+                      
+                                    }
+                                </select>
+
+                                <span class="field-validation-valid" data-valmsg-for="violation_time2" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group col-auto align-self-center">
+                                分
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    if (Model.Append.Contains("itemno"))
+                    {
+                        <input type="hidden" id="caseAddress" value="@Model.Case.Address"/>
+                    <div class="form-row">
+                        <div class="form-group mb-0">
+                            <label class="col-form-label" for="itemno">
+                                <span class="text-danger">*</span>
+                                違規事項：</label>
+                            <div class="form-group col-auto">
+
+                                <select id="itemno" class="form-control" name="itemno" data-val="true" data-val-required="違規項目必填" aria-required="true" aria-describedby="violation_place_area-error">
+                                    <option value="">請先選擇上方違規地點</option>
+                                </select>
+                                <input type="hidden" id="hitemno" value="@Model.itemno"/>
+                                <span class="field-validation-valid" data-valmsg-for="itemno" data-valmsg-replace="true"></span>
+                                <br />
+                                <span style="color: red"><strong>1.請先點選「違規地點」，再點選「違規事項」。</strong><br>
+                                    2.自111年4月30日起，民眾可檢舉的交通違規項目為46項，如經審查檢舉項目或違規事實不符合法條內容，將依規定不予舉發；其他交通違規請撥打110報案專線，由轄區派出所員警到場處理。
+                            
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    if (Model.Append.Contains("Upfile"))
+                    {
+                        <div class="form-group">
+                            <label class="col-form-label" for="Upfile1">
+                                <span class="text-danger">*</span>
+                                檔案上傳：</label>
+                            <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+                            <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file" data-val="true" data-val-required="至少第一個檔案必須上傳">
+                            <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
+                            <input name="Upfile3" class="form-control" id="Upfile3" type="file">
+                            <input name="Upfile4" class="form-control mb-2" id="Upfile4" type="file" />
+                            <input name="Upfile5" class="form-control mb-2" id="Upfile5" type="file" />
+                            <input name="Upfile6" class="form-control" id="Upfile6" type="file" />
+                        </div>
+
+                        <div class="form-group" style="word-break: break-all;">
+                            <span class="text-danger">【檔案上傳限制】</span><br>
+                            1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+                            2. 僅支援圖片及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.bmp）再上傳。<br>
+                            <span style="color: red">3. 自111年6月1日起，檔案上傳不支援*.gif, *.zip, *.rar。</span>
+                        </div>
+
+                    }
+                    <div class="form-row  mt-4">
+                        <label class="col-form-label" for="checkCode">
+                            <span class="text-danger">*</span>
+                            驗證碼：</label>
+
+                        <div class="form-group col-auto">
+                            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+                            <div id="newMessageDIV" style="display: none"></div>
+                            <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();">
+                                <img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。" /></a>
+
+                        </div>
+                        <div class="form-group col-md-3">
+                            <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text" />
+                            <span style="color: blue">(英文字母不分大小寫;點擊圖片可更換驗證碼)</span>
+                            <noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+
+                            @Html.ValidationMessage("CheckCode")
+
+                        </div>
+
+                    </div>
+
+                    <div class="hrline"></div>
+                    <input type="hidden" name="UnId" value="@ViewBag.UnId"/>
+                    <input type="hidden" name="Id" value="@Model.Id"/>
+                    @Html.HiddenFor(x=>x.CaseTrafficAppendGuid)
+                    @Html.HiddenFor(x=>x.CaseID)
+                    @Html.HiddenFor(x=>x.Append)
+                    @Html.HiddenFor(x=>x.InitDate)
+                    @Html.HiddenFor(x=>x.deadline)
+                    @Html.HiddenFor(x=>x.memo)
+                    @Html.HiddenFor(x=>x.MyCaseId)
+                   
+
+
+
+                    <div class="form-row justify-content-center">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-info">送出</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="reset" class="btn btn-secondary">清除</button>
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+            </div>      
+        }
+
+    </div>
+}
+
+<script type="text/javascript">
+    function PlayCode() {
+
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+
+    $("#violation_place_area").on('change', function () {
+        var id = this.value;
+        var itemText = $('#violation_place_area').find('option:selected').text();
+        
+        console.log(itemText);
+        if (id == "") {
+            $('#violation_place_road').children().remove();
+            $('#violation_place_road').append($("<option selected></option>").attr("value", "")
+                                            .text("請選擇"));
+        } else {
+
+            $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+                .done(function (json) {
+                    data = json;
+
+                    $('#violation_place_road').children().remove();
+                    $('#violation_place_road').append($("<option selected></option>").attr("value", "")
+                                            .text("請選擇"));
+                    $.each(json,
+                        function (i, item) {
+                            $('#violation_place_road').append($("<option></option>").attr("value", item.id)
+                                .text(item.subject));
+                            //console.log(item);
+
+                        });
+                });
+            var typeid = 0;
+			
+            if (itemText.indexOf('快速公路') > -1) {
+                typeid = 1;
+            }
+            $.getJSON("/TrafficMailbox/GetViolationItems", { id: typeid })
+                .done(function (json) {
+                    data = json;
+                    console.log(data);
+                    $('#itemno').children().remove();
+                    $('#itemno').append($("<option selected></option>").attr("value", "")
+                                            .text("請選擇"));
+                    $.each(json,
+                        function (i, item) {
+                            $('#itemno').append($("<option></option>").attr("value", item.Subject)
+                                .text(item.Subject));
+                            //console.log(item);
+
+                        });
+                });
+        }
+
+    });
+    $("#sendmail").click(function () {
+        var email = $('#Email').val();
+        $("#mailMessage").text('發送信件' + $('#Email').val());
+        $.get("/TrafficMailbox/SendVerifyMail/", { id: $('#Email').val() })
+            .done(function (data) {
+                $("#mailMessage").text(data);
+            });
+    });
+    $(document).ready(function () {
+        var id = $('#violation_place_area').val();
+        $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+            .done(function (json) {
+                data = json;
+
+                $('#violation_place_road').children().remove();
+                $.each(json,
+                    function (i, item) {
+                        if (item.id == $('#hviolation_place_road').val()) {
+                            $('#violation_place_road').append($("<option selected></option>").attr("value", item.id)
+                                .text(item.subject));
+                        } else {
+                            $('#violation_place_road').append($("<option></option>").attr("value", item.id)
+                          .text(item.subject));
+                        }
+
+
+
+                    });
+            });
+        var itemText = $('#violation_place_area').find('option:selected').text();
+        
+        if (itemText == '') {
+            itemText = $('#caseAddress').val();
+        }
+        
+        var typeid = "";
+        if (itemText.indexOf('快速公路') > -1) {
+            typeid = "1";
+        } else if (itemText.indexOf('區') > -1) {
+            typeid = "0";
+        }
+       
+        if (typeid != "") {
+            $.getJSON("/TrafficMailbox/GetViolationItems", { id: typeid })
+                        .done(function (json) {
+                            data = json;
+                            console.log(data);
+                            $('#itemno').children().remove();
+
+                            $.each(json,
+                                function (i, item) {
+                                    if (item.Subject == $('#hitemno').val()) {
+                                        $('#itemno').append($("<option selected></option>").attr("value", item.Subject)
+                                            .text(item.Subject));
+                                    } else {
+                                        $('#itemno').append($("<option></option>").attr("value", item.Subject)
+                                            .text(item.Subject));
+                                    }
+                                    //console.log(item);
+
+                                });
+                        });
+        }
+
+
+        $('#violation_dateYear').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateYear").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateMonth').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateMonth").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateday').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateday").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        //$('#violation_time1').children().each(function () {
+
+        //    if ($(this).val() == $("#hviolation_time1").val()) {
+        //        $(this).prop("selected", true);
+        //    }
+        //});
+
+        //$('#violation_time2').children().each(function () {
+
+        //    if ($(this).val() == $("#hviolation_time2").val()) {
+        //        $(this).prop("selected", true);
+        //    }
+        //});
+
+        $('#itemno').children().each(function () {
+            console.log($(this).val());
+            console.log($("#hitemno").val());
+            if ($(this).val() == $("#hitemno").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+    });
+</script>
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

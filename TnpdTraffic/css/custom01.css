@@ -1,0 +1,167 @@
+.team-content h4 {
+    font-family: "微軟正黑體";
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+
+.team-content ul {
+    margin-bottom: 15px;
+}
+
+.team-content ul li {
+    padding: 1px 0px;
+}
+
+ol.about05 {
+    padding-left: 20px;
+}
+
+ol.about05 li {
+    padding: 5px 0;
+}
+
+ul.about06 {
+    padding-left: 20px;
+}
+
+ul.about06 li h4 {
+    margin-bottom: 0px !important;
+    color: #00a8ae;
+}
+
+ul.about06 li {
+    list-style: none;
+    padding: 6px 0;
+}
+
+ol.olchinese {
+    padding-left: 40px;
+}
+
+ol.olchinese li {
+    list-style: cjk-ideographic;
+    padding: 6px 0;
+}
+
+ol.olchinese li ol {
+    padding-left: 25px;
+}
+
+ol.olchinese li ol li {
+    list-style: decimal;
+    padding: 2px 0;
+}
+
+ul.office {
+    padding-left: 15px;
+    margin-bottom: 5px;
+}
+
+ul.office li {
+    list-style: none;
+    padding: 3px 0;
+}
+
+ul.office li i {
+    width: 17px;
+}
+
+p.office {
+    padding-left: 30px;
+}
+
+ul.office li span {
+    color: #05a78e;
+}
+
+ul.ulteam {
+    padding-left: 25px;
+}
+
+ul.ulteam li {
+    list-style: none;
+    padding: 5px 0px;
+}
+
+ul.ulteam li span {
+    list-style: none;
+    font-weight: bold;
+    padding-right: 5px;
+    color: #05a78e;
+}
+
+ol.private {
+    padding-left: 20px;
+    margin-bottom: 1px;
+}
+
+ol.private li {
+    padding: 5px 0;
+}
+
+.title-block {
+    padding: 2px 0 3px 10px;
+    border-left: 7px solid #2db3b8;
+    margin-bottom: 30px;
+}
+
+.privateh4 {
+    color: #1ABC9C;
+    font-size: 1em;
+}
+
+ol.private01 {
+    padding-left: 20px;
+}
+
+ol.private01 li {
+    padding: 15px 0;
+    border-bottom: 1px dotted #ccc;
+}
+
+ol.private01 li ul {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+ol.private01 li ul li {
+    padding: 5px 0;
+    border-bottom: none;
+    list-style: disc;
+}
+
+/***table****/
+table.newtable01 caption {
+    color: #2570bd;
+    caption-side: top;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+table.newtable01 th {
+    color: #fff;
+    background-color: #2570bd;
+}
+
+.team-title {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.team-image img {
+    transition: 0.5s;
+}
+
+.team-image a:hover img {
+    opacity: 0.6;
+    transition: 0.5s;
+
+}
+
+@media screen and (min-width: 300px) and (max-width: 578px) {
+    ul.ulteam li span {
+        display: block;
+    }
+
+}

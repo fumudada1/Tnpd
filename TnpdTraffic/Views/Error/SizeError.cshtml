@@ -1,0 +1,18 @@
+﻿@using TnpdTraffic.Models
+@using TnpdModels
+
+@{
+    ViewBag.Title = "上傳檔案太大";
+ 
+    WebPresentation web = new WebPresentation("tnpd");
+}
+<div class="row">
+    
+    <div class="form-group" style="word-break: break-all;">
+        <span class="text-danger">【檔案上傳限制】</span><br>
+                1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+                2. 僅支援圖片及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.bmp）再上傳。<br>
+                <span style="color: red">3. 自111年6月1日起，檔案上傳不支援*.gif, *.zip, *.rar。</span>
+    </div>
+    <a href="/TrafficMailbox/Create?checkRead=agree&id=92929b01-cf5e-99d6-2539-bee668350a6d">回首長交通檢舉信箱</a>
+</div>

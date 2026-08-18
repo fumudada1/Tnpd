@@ -1,0 +1,803 @@
+﻿@model TnpdTraffic.Models.CaseTrafficView
+@{
+    DateTime today = DateTime.Today;
+}
+<div class="row">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+       <div style="color: red">
+            @ViewBag.Message
+        </div>
+        @Html.ValidationMessage("Message")
+        <div class="col-12">
+
+            <h4 class="h4title">一、注意事項：</h4>
+
+            <ul class="ultxt">
+                <li>有 * 號為必填欄位，請務必填寫
+                </li>
+                <li>上傳檔案請注意勿超過規範之大小(60MB)
+                </li>
+            </ul>
+
+            <h4 class="h4title">二、填寫步驟說明：</h4>
+
+            <ul class="ultxt">
+                <li>填寫「檢舉人資料」
+                </li>
+                <li>寄送認證郵件並完成認證郵件的接收與點選認證
+                </li>
+                <li>接續完成「檢舉內容」資料並按「送出」鈕以完成交通違規檢舉案件立案程序
+                </li>
+            </ul>
+
+            <h4 class="h4title">「檢舉人資料」</h4>
+
+            <div class="hrline"></div>
+            (有 <span class="text-danger">*</span> 號請務必填寫)
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="Name">
+                <span class="text-danger">*</span>
+                身分證姓名：</label>
+            <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name"/>
+            <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group col-auto">
+            <label class="col-form-label" for="Gender" style="display: none">
+                <span class="text-danger">*</span>
+                性別：</label>
+            <select class="form-control" id="Gender" name="Gender" style="display: none">
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
+    </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="TEL">
+                        <span class="text-danger">*</span>
+                        電話：
+                    </label>
+
+                    <input id="TEL" class="form-control" data-val="true" data-val-required="電話必填" name="TEL" placeholder="請輸入聯絡電話" type="text" value="@Model.TEL"/>
+                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label" for="Job" style="display: none">
+                        職業：</label>
+                    <input class="form-control" id="Job" name="Job" placeholder="請輸入職業" type="text" value="@Model.Job" style="display: none"/>
+                    <span class="field-validation-valid" data-valmsg-for="Job" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="Pid">
+                    <span class="text-danger">*</span>
+                    身分證字號或居留證號：（請再上傳檔案檢附居留證影本）</label>
+                <div class="form-row ">
+                    <input class="form-control" data-val="true" data-val-required="身分證字號必填"  id="Pid" name="Pid" placeholder="身分證字號" type="text" value="@Model.Pid" />
+                    @Html.ValidationMessage("Pid")
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="Address">
+                    <span class="text-danger">*</span>
+                    地址：</label>
+                <input id="Address" class="form-control"  data-val="true" data-val-required="地址必填"  name="Address" placeholder="請輸入地址" placeholder="現居地址" type="text" value="@Model.Address"/>
+                <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label" for="Email">
+                    <span class="text-danger">*</span>
+                    E-Mail：</label>
+
+                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email"/>
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br />
+                <span style="color: red" id="mailMessage"></span>
+            </div>
+
+            <h4 class="h4title">寄送認證郵件注意事項：</h4>
+
+            <ul class="ultxt">
+                <li>填寫e-mail → 點選「寄送認證郵件」鈕→
+            出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
+                </li>
+                <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
+                </li>
+                <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
+                </li>
+            </ul>
+
+            <h4 class="h4title">「檢舉內容」</h4>
+
+            <div class="form-row">
+                <div class="form-group col-md-0">
+                    <label class="col-form-label" for="Subject">
+                        <span class="text-danger">*</span>
+                        主題：(本欄位提供民眾敘述檢舉違規過程及事實行為，範圍字數:200字以內)</label>
+                    <input maxlength="200" id="Subject" class="form-control" data-val="true" data-val-required="主旨必填" name="Subject" placeholder="請輸入主旨" type="text" value="@Model.Subject"/>
+                    <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+
+            <div class="form-group mb-0">
+                <label class="col-form-label" for="violation_place_area">
+                    <span class="text-danger">*</span>
+                    違規地點：</label>
+                <div class="form-row">
+                    <div class="form-group col-auto">
+                        @Html.DropDownList("violation_place_area", (IEnumerable<SelectListItem>)ViewBag.Regions, "請選擇", new { @class = "form-control" })
+                        <span class="field-validation-valid" data-valmsg-for="violation_place_area" data-valmsg-replace="true"></span>
+
+                    </div>
+                    <div class="form-group col-auto">
+                        <!-- 新的可搜尋下拉選單 -->
+                        <div class="searchable-dropdown">
+                            <input 
+                                type="text" 
+                                id="violation_place_road_search" 
+                                class="form-control"
+                                placeholder="請選擇或輸入道路名稱..." 
+                                autocomplete="off"
+                                readonly
+                                data-val="true" 
+                                data-val-required="違規路段必填"
+                            >
+                            <span class="dropdown-arrow">▼</span>
+                            <div class="dropdown-list" id="roadDropdownList"></div>
+                        </div>
+                        
+                        <!-- 保留原始的隱藏select以維持表單提交邏輯 -->
+                        <select style="display: none;" class="form-control input-validation-error" data-val="true" data-val-required="違規路段必填" id="violation_place_road" name="violation_place_road" aria-required="true" aria-describedby="violation_place_area-error">
+                            <option value="">請選擇</option>
+                        </select>
+                        <input type="hidden" id="hviolation_place_road" value="@Model.violation_place_road"/>
+
+                        <span class="field-validation-valid" data-valmsg-for="violation_place_road" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group col-md-8">
+
+                        <input id="violation_place" data-val="true" data-val-required="違規地址必填" class="form-control" name="violation_place" placeholder="請輸入違規地址"  type="text" value="@Model.violation_place"/>
+                        <span class="field-validation-valid" data-valmsg-for="violation_place" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+				<span style="color: blue;font-weight:bolder;display: none" id="areaMessage">若您於違規地點找尋不到欲檢舉之路名，該路段可能屬於台南科學園區，為內政部警政署保安警察第二總隊管轄之路段，請點選網址<a href="https://www.2spc.npa.gov.tw/ch/mailbox/mailtraffic/mailtraffic?module=mailtraffic&id=18551#" target="_blank"> https://www.2spc.npa.gov.tw/ch/mailbox/mailtraffic/mailtraffic?module=mailtraffic&id=18551# </a> 進行檢舉，或郵寄至台南市新市區南科三路6號(保安警察第二總隊第一大隊第二中隊南科分隊) 收，如有問題請撥打專線電話06-5051405。</span>
+				<br/>
+				<span style="color: red"><strong>違規地點請詳實填寫完整地址或交岔路口名稱，如無上述明確地點，則檢附路名並提供GPS定位。若為快速公路請註明公里數以利查證(地點不符或未填寫詳盡，將不予舉發)</strong><br>
+            </div>
+
+            <div class="form-group mb-0">
+                <label class="col-form-label" for="violation_dateYear">
+                    <span class="text-danger">*</span>
+                    違規時間：</label>
+                <div class="form-row">
+                    <div class="form-group col-auto">
+                        <select id="violation_date" name="violation_date" class="form-control input-validation-error" data-val="true" data-val-required="違規日期必填">
+						<option value="">請選擇</option>
+                            @for (int i = 0; i <= 6; i++)
+                            {
+                                DateTime date = today.AddDays(i * -1);
+                                if (Model.violation_date == date)
+                                {
+                                <option selected="selected">@date.ToString("yyyy/MM/dd")</option>
+                                }
+                                else
+                                {
+                                <option>@date.ToString("yyyy/MM/dd")</option>
+                                }
+
+                            }
+                        </select>
+<span class="field-validation-valid" data-valmsg-for="violation_date" data-valmsg-replace="true"></span>
+                    </div>
+
+
+                    <div class="form-group col-auto">
+                        <select id="violation_time1" name="violation_time1" class="form-control input-validation-error" data-val="true" data-val-required="違規小時必填">
+						<option value="">請選擇</option>
+                            @for (int i = 0; i <= 23; i++)
+                            {
+                                <option>@i.ToString()</option>
+                        
+                            }
+                        </select>
+                        <input type="hidden" id="hviolation_time1" value="@Model.violation_time1"/>
+						<span class="field-validation-valid" data-valmsg-for="violation_time1" data-valmsg-replace="true"></span>
+
+                    </div>
+                    <div class="form-group col-auto align-self-center">
+                        時
+                    </div>
+                    <div class="form-group col-auto">
+                        <select id="violation_time2" name="violation_time2" class="form-control input-validation-error" data-val="true" data-val-required="違規分鐘必填">
+						<option value="">請選擇</option>
+                            @for (int i = 0; i <= 59; i++)
+                            {
+                                <option>@i.ToString()</option>
+                      
+                            }
+                        </select>
+                        <input type="hidden" id="hviolation_time2" value="@Model.violation_time2"/>
+						<span class="field-validation-valid" data-valmsg-for="violation_time2" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group col-auto align-self-center">
+                        分
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-0">
+                <label class="col-form-label" for="violation_carno1">
+                    <span class="text-danger">*</span>
+                    違規車號：若舉發內容為汽車或機車，請輸入車牌號碼，例：AAA-0000。</label>
+                <div class="form-row">
+                    <div class="form-group  col-md-3 col-5">
+                        <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno1" name="violation_carno1" placeholder="例：AAA" value="@Model.violation_carno1">
+                        <span class="field-validation-valid" data-valmsg-for="violation_carno1" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group col-auto align-self-center">
+                        -
+                    </div>
+                    <div class="form-group col-md-3 col-5">
+                        <input type="text" data-val="true" data-val-required="車號欄位必填" class="form-control" id="violation_carno2" name="violation_carno2" placeholder="例：0000"  value="@Model.violation_carno2">
+                        <span class="field-validation-valid" data-valmsg-for="violation_carno2" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group mb-0">
+                    <label class="col-form-label" for="itemno">
+                        <span class="text-danger">*</span>
+                        違規事項：</label>
+                    <div class="form-group col-auto">
+
+                        <select id="itemno" class="form-control" name="itemno" data-val="true" data-val-required="違規項目必填" aria-required="true" aria-describedby="violation_place_area-error">
+                            <option value="">請先選擇上方違規地點</option>
+                        </select>
+                        <input type="hidden" id="hitemno" value="@Model.itemno"/>
+                        <span class="field-validation-valid" data-valmsg-for="itemno" data-valmsg-replace="true"></span>
+						<br />
+                        <span style="color: red"><strong>1.請先點選「違規地點」，再點選「違規事項」。</strong><br>
+						2.自113年6月30日(以檢舉日論處)起，民眾可檢舉的交通違規項目限縮成51項</span>，<span style="color: black">如經審查檢舉項目或違規事實不符合法條內容，將依規定不予舉發；其他交通違規請撥打110報案專線，由轄區派出所員警到場處理。
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="display:none">
+
+                <label class="col-form-label" for="Content">內容：</label>
+                <textarea class="form-control" name="Content" rows="3">無資料</textarea>
+                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label" for="Upfile1">
+                    <span class="text-danger">*</span>
+                    檔案上傳：</label>
+                <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+                <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file" data-val="true" data-val-required="至少第一個檔案必須上傳">
+                <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
+                <input name="Upfile3" class="form-control" id="Upfile3" type="file">
+                <input name="Upfile4" class="form-control mb-2" id="Upfile4" type="file" />
+                <input name="Upfile5" class="form-control mb-2" id="Upfile5" type="file" />
+                <input name="Upfile6" class="form-control" id="Upfile6" type="file" />
+            </div>
+
+            <div class="form-group" style="word-break: break-all;">
+                <span class="text-danger">【檔案上傳限制】</span><br>
+                1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
+                2. 僅支援圖片及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.bmp）再上傳。<br>
+                <span style="color: red">3. 自111年6月1日起，檔案上傳不支援*.gif, *.zip, *.rar。</span>
+            </div>
+
+            <div class="form-row  mt-4">
+                <label class="col-form-label" for="checkCode">
+                    <span class="text-danger">*</span>
+                    驗證碼：</label>
+
+                <div class="form-group col-auto">
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" onkeypress="fleshVerify()"/>
+                    <div id="newMessageDIV" style="display: none"></div>
+                    <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();">
+                        <img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。" /></a>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text" />
+                    <span style="color: blue">(英文字母不分大小寫;點擊圖片可更換驗證碼)</span>
+                    <noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+
+                    @Html.ValidationMessage("CheckCode")
+
+                </div>
+
+            </div>
+
+            <div class="hrline"></div>
+            <input type="hidden" name="id" value="@ViewBag.UnId"/>
+            <div class="form-row justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-info">送出</button>
+                </div>
+                <div class="col-auto">
+                    <button type="reset" class="btn btn-secondary">清除</button>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    // 可搜尋下拉選單類別
+    class SearchableDropdown {
+        constructor(inputId, hiddenSelectId) {
+            this.input = document.getElementById(inputId);
+            this.hiddenSelect = document.getElementById(hiddenSelectId);
+            this.dropdownList = document.getElementById('roadDropdownList');
+            this.options = [];
+            this.filteredOptions = [];
+            this.selectedIndex = -1;
+            this.isOpen = false;
+            
+            this.init();
+        }
+
+        init() {
+            // 綁定事件
+            this.input.addEventListener('click', () => this.toggleDropdown());
+            this.input.addEventListener('input', (e) => this.handleInput(e));
+            this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
+            
+            // 點擊外部關閉下拉選單
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.searchable-dropdown')) {
+                    this.closeDropdown();
+        }
+    });
+    }
+
+    setOptions(options) {
+        this.options = options;
+        this.filteredOptions = [...options];
+        this.renderOptions();
+    }
+
+    toggleDropdown() {
+        if (this.isOpen) {
+            this.closeDropdown();
+        } else {
+            this.openDropdown();
+        }
+    }
+
+    openDropdown() {
+        this.isOpen = true;
+        this.input.removeAttribute('readonly');
+        this.dropdownList.style.display = 'block';
+        this.filteredOptions = [...this.options];
+        this.renderOptions();
+        this.input.focus();
+    }
+
+    closeDropdown() {
+        this.isOpen = false;
+        this.input.setAttribute('readonly', 'true');
+        this.dropdownList.style.display = 'none';
+        this.selectedIndex = -1;
+    }
+
+    handleInput(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        this.filteredOptions = this.options.filter(option => 
+            option.text.toLowerCase().includes(searchTerm)
+        );
+        this.selectedIndex = -1;
+        this.renderOptions();
+    }
+
+    handleKeydown(e) {
+        if (!this.isOpen) {
+            if (e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                this.openDropdown();
+            }
+            return;
+        }
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                this.selectedIndex = Math.min(this.selectedIndex + 1, this.filteredOptions.length - 1);
+                this.updateSelection();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this.selectedIndex = Math.max(this.selectedIndex - 1, -1);
+                this.updateSelection();
+                break;
+            case 'Enter':
+                e.preventDefault();
+                if (this.selectedIndex >= 0) {
+                    this.selectOption(this.filteredOptions[this.selectedIndex]);
+                }
+                break;
+            case 'Escape':
+                e.preventDefault();
+                this.closeDropdown();
+                break;
+        }
+    }
+
+    updateSelection() {
+        const items = this.dropdownList.querySelectorAll('.dropdown-item');
+        items.forEach((item, index) => {
+            item.classList.toggle('selected', index === this.selectedIndex);
+    });
+
+    if (this.selectedIndex >= 0) {
+        items[this.selectedIndex].scrollIntoView({
+            block: 'nearest'
+        });
+    }
+    }
+
+    renderOptions() {
+        this.dropdownList.innerHTML = '';
+
+        if (this.filteredOptions.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = '找不到相符的道路';
+            this.dropdownList.appendChild(noResults);
+            return;
+        }
+
+        this.filteredOptions.forEach((option, index) => {
+            const item = document.createElement('div');
+        item.className = 'dropdown-item';
+        item.textContent = option.text;
+        item.addEventListener('click', () => this.selectOption(option));
+        this.dropdownList.appendChild(item);
+    });
+    }
+
+    selectOption(option) {
+        this.input.value = option.text;
+        this.hiddenSelect.value = option.value;
+            
+        // 更新隱藏的 select 選項
+        this.hiddenSelect.innerHTML = '';
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.text = option.text;
+        optionElement.selected = true;
+        this.hiddenSelect.appendChild(optionElement);
+            
+        this.closeDropdown();
+            
+        // 觸發 change 事件以保持與原始邏輯的兼容性
+        const changeEvent = new Event('change', { bubbles: true });
+        this.hiddenSelect.dispatchEvent(changeEvent);
+    }
+
+    setValue(value, text) {
+        this.input.value = text || '';
+        this.hiddenSelect.value = value || '';
+            
+        if (value && text) {
+            this.hiddenSelect.innerHTML = '';
+            const optionElement = document.createElement('option');
+            optionElement.value = value;
+            optionElement.text = text;
+            optionElement.selected = true;
+            this.hiddenSelect.appendChild(optionElement);
+        }
+    }
+
+    clear() {
+        this.setValue('', '');
+        this.input.placeholder = '請選擇或輸入道路名稱...';
+    }
+    }
+
+    // 初始化可搜尋下拉選單
+    const roadDropdown = new SearchableDropdown('violation_place_road_search', 'violation_place_road');
+
+    function PlayCode() {
+
+        var name = ReadCookie("CheckCode");
+        var url2 = "/wav/" + name + ".wav";
+
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            //Firefox,Chrome均支持<audio/>
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
+
+    function fleshVerify() {
+
+        //重载验证码
+
+        var time = new Date().getTime();
+
+        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
+
+    }
+    function ReadCookie(name) {
+        var dc = document.cookie;
+        var start1 = dc.indexOf(name + "=");
+        if (start1 == -1) {
+            return "";
+        }
+        else {
+            start = dc.indexOf("=", start1) + 1;
+            var end = dc.indexOf(";", start);
+            if (end == -1) {
+                end = dc.length;
+            }
+            var value = unescape(dc.substring(start, end));
+            if (value == null) {
+                return ""
+            }
+            else {
+                return value;
+            }
+        }
+    }
+
+    $("#violation_place_area").on('change', function () {
+        var id = this.value;
+        var itemText = $('#violation_place_area').find('option:selected').text();
+        //console.log(itemText);
+        if (id == "") {
+            roadDropdown.clear();
+            roadDropdown.setOptions([]);
+        } else {
+
+            $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+                .done(function (json) {
+                    data = json;
+                    
+                    // 轉換數據格式以適配新的下拉選單
+                    const options = json.map(item => ({
+                        value: item.id,
+                        text: item.subject
+                    }));
+                    
+                    roadDropdown.setOptions(options);
+                    roadDropdown.clear();
+                });
+            var typeid = 0;
+            if (itemText.indexOf('快速公路') > -1) {
+                typeid = 1;
+            }
+            if (itemText == '善化區' || itemText == '新市區' || itemText == '安定區') {
+                $("#areaMessage").show();
+            } else {
+                $("#areaMessage").hide();
+            }
+			
+            $.getJSON("/TrafficMailbox/GetViolationItems", { id: typeid })
+                .done(function (json) {
+                    data = json;
+                    console.log(data);
+                    $('#itemno').children().remove();
+                    $('#itemno').append($("<option selected></option>").attr("value","")
+                                            .text("請選擇"));
+                    $.each(json,
+                        function (i, item) {
+                            $('#itemno').append($("<option></option>").attr("value", item.Subject)
+                                .text(item.Subject));
+                            //console.log(item);
+
+                        });
+                });
+        }
+
+    });
+    $("#sendmail").click(function () {
+        var email = $('#Email').val();
+        $("#mailMessage").text('發送信件' + $('#Email').val());
+        $.get("/TrafficMailbox/SendVerifyMail/", { id: $('#Email').val() })
+            .done(function (data) {
+                $("#mailMessage").text(data);
+            });
+    });
+    $(document).ready(function () {
+        var id = $('#violation_place_area').val();
+        if (id) {
+            $.getJSON("/TrafficRoaddatas/GetRoads", { id: id })
+                .done(function (json) {
+                    data = json;
+                    
+                    // 轉換數據格式以適配新的下拉選單
+                    const options = json.map(item => ({
+                        value: item.id,
+                        text: item.subject
+                    }));
+                    
+                    roadDropdown.setOptions(options);
+                    
+                    // 設定預選值
+                    const preselectedRoadId = $('#hviolation_place_road').val();
+                    if (preselectedRoadId) {
+                        const preselectedOption = options.find(option => option.value == preselectedRoadId);
+                        if (preselectedOption) {
+                            roadDropdown.setValue(preselectedOption.value, preselectedOption.text);
+                        }
+                    }
+                });
+        }
+        
+        var itemText = $('#violation_place_area').find('option:selected').text();
+        var typeid = "";
+        if (itemText.indexOf('快速公路') > -1) {
+            typeid = "1";
+        } else if (itemText.indexOf('區') > -1) {
+            typeid = "0";
+        }
+        if (typeid != "") {
+            $.getJSON("/TrafficMailbox/GetViolationItems", { id: typeid })
+                        .done(function (json) {
+                            data = json;
+                            console.log(data);
+                            $('#itemno').children().remove();
+							
+                            $.each(json,
+                                function (i, item) {
+                                    if (item.Subject == $('#hitemno').val()) {
+                                        $('#itemno').append($("<option selected></option>").attr("value", item.Subject)
+                                            .text(item.Subject));
+                                    } else {
+                                        $('#itemno').append($("<option></option>").attr("value", item.Subject)
+                                            .text(item.Subject));
+                                    }
+                                    //console.log(item);
+
+                                });
+                        });
+        }
+
+
+        $('#violation_dateYear').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateYear").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateMonth').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateMonth").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_dateday').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_dateday").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_time1').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_time1").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#violation_time2').children().each(function () {
+
+            if ($(this).val() == $("#hviolation_time2").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+        $('#itemno').children().each(function () {
+            console.log($(this).val());
+            console.log($("#hitemno").val());
+            if ($(this).val() == $("#hitemno").val()) {
+                $(this).prop("selected", true);
+            }
+        });
+
+    });
+</script>
+<style>
+    .field-validation-error {
+        color: red;
+    }
+    
+    /* 可搜尋下拉選單樣式 */
+    .searchable-dropdown {
+        position: relative;
+        width: 100%;
+    }
+
+    .searchable-dropdown input {
+        width: 100%;
+        padding-right: 35px !important;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .searchable-dropdown input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        cursor: text;
+    }
+
+    .searchable-dropdown .dropdown-arrow {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #6c757d;
+        font-size: 12px;
+    }
+
+    .dropdown-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ced4da;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+    }
+
+    .dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    .dropdown-item:hover {
+        background-color: #e9ecef;
+    }
+
+    .dropdown-item.selected {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .no-results {
+        padding: 8px 12px;
+        color: #6c757d;
+        font-style: italic;
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>
