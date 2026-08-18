@@ -34,8 +34,8 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,8 +59,10 @@
     <Compile Include="Case.cs" />
     <Compile Include="CaseFilters.cs" />
     <Compile Include="CaseMailCheck.cs" />
+    <Compile Include="CaseMobileCheck.cs" />
     <Compile Include="CasePoproc.cs" />
     <Compile Include="CasePoprocLog.cs" />
+    <Compile Include="CaseTrafficAppend.cs" />
     <Compile Include="CaseTrafficPoproc.cs" />
     <Compile Include="CaseTrafficPoprocLog.cs" />
     <Compile Include="CaseTrafficqw.cs" />
@@ -74,35 +76,49 @@
     <Compile Include="HomeAd.cs" />
     <Compile Include="HomeLink.cs" />
     <Compile Include="HomeTheme.cs" />
+    <Compile Include="Leader.cs" />
+    <Compile Include="LeaderCatalog.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="MetaIndex.cs" />
-    <Compile Include="Migrations\202202221413281_init.cs" />
-    <Compile Include="Migrations\202202221413281_init.Designer.cs">
-      <DependentUpon>202202221413281_init.cs</DependentUpon>
+    <Compile Include="Migrations\202410250835481_initDB.cs" />
+    <Compile Include="Migrations\202410250835481_initDB.Designer.cs">
+      <DependentUpon>202410250835481_initDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202221415537_AddTrafficUnitFile.cs" />
-    <Compile Include="Migrations\202202221415537_AddTrafficUnitFile.Designer.cs">
-      <DependentUpon>202202221415537_AddTrafficUnitFile.cs</DependentUpon>
+    <Compile Include="Migrations\202410250837149_addLeaders.cs" />
+    <Compile Include="Migrations\202410250837149_addLeaders.Designer.cs">
+      <DependentUpon>202410250837149_addLeaders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202230816105_addContacts.cs" />
-    <Compile Include="Migrations\202202230816105_addContacts.Designer.cs">
-      <DependentUpon>202202230816105_addContacts.cs</DependentUpon>
+    <Compile Include="Migrations\202411151004174_addLeaderListNum.cs" />
+    <Compile Include="Migrations\202411151004174_addLeaderListNum.Designer.cs">
+      <DependentUpon>202411151004174_addLeaderListNum.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.cs" />
-    <Compile Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.Designer.cs">
-      <DependentUpon>202203220948121_addTrafficFrontEndViolationItem.cs</DependentUpon>
+    <Compile Include="Migrations\202411170257466_addLeaderNameImage.cs" />
+    <Compile Include="Migrations\202411170257466_addLeaderNameImage.Designer.cs">
+      <DependentUpon>202411170257466_addLeaderNameImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204070909000_addTrafficViolationItem.cs" />
-    <Compile Include="Migrations\202204070909000_addTrafficViolationItem.Designer.cs">
-      <DependentUpon>202204070909000_addTrafficViolationItem.cs</DependentUpon>
+    <Compile Include="Migrations\202411170317471_removeLeaderTitle.cs" />
+    <Compile Include="Migrations\202411170317471_removeLeaderTitle.Designer.cs">
+      <DependentUpon>202411170317471_removeLeaderTitle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202206100827276_addTrafficIsSendCheckname.cs" />
-    <Compile Include="Migrations\202206100827276_addTrafficIsSendCheckname.Designer.cs">
-      <DependentUpon>202206100827276_addTrafficIsSendCheckname.cs</DependentUpon>
+    <Compile Include="Migrations\202411171719494_ModifyLeadereducation.cs" />
+    <Compile Include="Migrations\202411171719494_ModifyLeadereducation.Designer.cs">
+      <DependentUpon>202411171719494_ModifyLeadereducation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202211081005428_addCaseFile.cs" />
-    <Compile Include="Migrations\202211081005428_addCaseFile.Designer.cs">
-      <DependentUpon>202211081005428_addCaseFile.cs</DependentUpon>
+    <Compile Include="Migrations\202503170734599_addSMTPServerSetting.cs" />
+    <Compile Include="Migrations\202503170734599_addSMTPServerSetting.Designer.cs">
+      <DependentUpon>202503170734599_addSMTPServerSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202503250602313_addMailFrom.cs" />
+    <Compile Include="Migrations\202503250602313_addMailFrom.Designer.cs">
+      <DependentUpon>202503250602313_addMailFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202508210702165_addtownid.cs" />
+    <Compile Include="Migrations\202508210702165_addtownid.Designer.cs">
+      <DependentUpon>202508210702165_addtownid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202512081509100_addisuse.cs" />
+    <Compile Include="Migrations\202512081509100_addisuse.Designer.cs">
+      <DependentUpon>202512081509100_addisuse.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsAttributeHelper.cs" />
@@ -125,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefugeStation.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="SMTPServerSetting.cs" />
     <Compile Include="StationInfo.cs" />
     <Compile Include="StationInfoFIles.cs" />
     <Compile Include="Statistics.cs" />
@@ -161,30 +178,43 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="generate-migration.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202202221413281_init.resx">
-      <DependentUpon>202202221413281_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410250835481_initDB.resx">
+      <DependentUpon>202410250835481_initDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202221415537_AddTrafficUnitFile.resx">
-      <DependentUpon>202202221415537_AddTrafficUnitFile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410250837149_addLeaders.resx">
+      <DependentUpon>202410250837149_addLeaders.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202230816105_addContacts.resx">
-      <DependentUpon>202202230816105_addContacts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411151004174_addLeaderListNum.resx">
+      <DependentUpon>202411151004174_addLeaderListNum.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203220948121_addTrafficFrontEndViolationItem.resx">
-      <DependentUpon>202203220948121_addTrafficFrontEndViolationItem.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411170257466_addLeaderNameImage.resx">
+      <DependentUpon>202411170257466_addLeaderNameImage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204070909000_addTrafficViolationItem.resx">
-      <DependentUpon>202204070909000_addTrafficViolationItem.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411170317471_removeLeaderTitle.resx">
+      <DependentUpon>202411170317471_removeLeaderTitle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206100827276_addTrafficIsSendCheckname.resx">
-      <DependentUpon>202206100827276_addTrafficIsSendCheckname.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411171719494_ModifyLeadereducation.resx">
+      <DependentUpon>202411171719494_ModifyLeadereducation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211081005428_addCaseFile.resx">
-      <DependentUpon>202211081005428_addCaseFile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202503170734599_addSMTPServerSetting.resx">
+      <DependentUpon>202503170734599_addSMTPServerSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503250602313_addMailFrom.resx">
+      <DependentUpon>202503250602313_addMailFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202508210702165_addtownid.resx">
+      <DependentUpon>202508210702165_addtownid.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FIX_SUMMARY.txt" />
+    <Content Include="Migrations_Troubleshooting.txt" />
+    <Content Include="PMC_ExecutionGuide.txt" />
+    <Content Include="Quick_Reference.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,13 +13,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>tnpd</RootNamespace>
     <AssemblyName>tnpd</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,12 +53,13 @@
       <HintPath>..\packages\MvcPaging.2.1.2\lib\net40\MvcPaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
@@ -69,11 +71,8 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -130,6 +129,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="TnpdModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TnpdModels\bin\Debug\TnpdModels.dll</HintPath>
@@ -194,6 +194,7 @@
     <Compile Include="Areas\baihe\Controllers\ContentController.cs" />
     <Compile Include="Areas\baihe\Controllers\FAQController.cs" />
     <Compile Include="Areas\baihe\Controllers\HomeController.cs" />
+    <Compile Include="Areas\baihe\Controllers\LeaderController.cs" />
     <Compile Include="Areas\baihe\Controllers\NewsController.cs" />
     <Compile Include="Areas\baihe\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\baihe\Controllers\StationController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Areas\cic\Controllers\ContentController.cs" />
     <Compile Include="Areas\cic\Controllers\FAQController.cs" />
     <Compile Include="Areas\cic\Controllers\HomeController.cs" />
+    <Compile Include="Areas\cic\Controllers\LeaderController.cs" />
     <Compile Include="Areas\cic\Controllers\NewsController.cs" />
     <Compile Include="Areas\cic\Controllers\StationController.cs" />
     <Compile Include="Areas\en\Controllers\ContentController.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Areas\guiren\Controllers\ContentController.cs" />
     <Compile Include="Areas\guiren\Controllers\FAQController.cs" />
     <Compile Include="Areas\guiren\Controllers\HomeController.cs" />
+    <Compile Include="Areas\guiren\Controllers\LeaderController.cs" />
     <Compile Include="Areas\guiren\Controllers\NewsController.cs" />
     <Compile Include="Areas\guiren\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\guiren\Controllers\StationController.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Areas\jiali\Controllers\ContentController.cs" />
     <Compile Include="Areas\jiali\Controllers\FAQController.cs" />
     <Compile Include="Areas\jiali\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jiali\Controllers\LeaderController.cs" />
     <Compile Include="Areas\jiali\Controllers\NewsController.cs" />
     <Compile Include="Areas\jiali\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\jiali\Controllers\StationController.cs" />
@@ -245,6 +249,7 @@
     <Compile Include="Areas\jpb\Controllers\ContentController.cs" />
     <Compile Include="Areas\jpb\Controllers\FAQController.cs" />
     <Compile Include="Areas\jpb\Controllers\HomeController.cs" />
+    <Compile Include="Areas\jpb\Controllers\LeaderController.cs" />
     <Compile Include="Areas\jpb\Controllers\NewsController.cs" />
     <Compile Include="Areas\jpb\Controllers\StationController.cs" />
     <Compile Include="Areas\jpb\jpbAreaRegistration.cs" />
@@ -256,6 +261,7 @@
     <Compile Include="Areas\madou\Controllers\ContentController.cs" />
     <Compile Include="Areas\madou\Controllers\FAQController.cs" />
     <Compile Include="Areas\madou\Controllers\HomeController.cs" />
+    <Compile Include="Areas\madou\Controllers\LeaderController.cs" />
     <Compile Include="Areas\madou\Controllers\NewsController.cs" />
     <Compile Include="Areas\madou\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\madou\Controllers\StationController.cs" />
@@ -275,6 +281,7 @@
     <Compile Include="Areas\pppc\Controllers\ContentController.cs" />
     <Compile Include="Areas\pppc\Controllers\FAQController.cs" />
     <Compile Include="Areas\pppc\Controllers\HomeController.cs" />
+    <Compile Include="Areas\pppc\Controllers\LeaderController.cs" />
     <Compile Include="Areas\pppc\Controllers\NewsController.cs" />
     <Compile Include="Areas\pppc\Controllers\StationController.cs" />
     <Compile Include="Areas\pppc\pppcAreaRegistration.cs" />
@@ -286,6 +293,7 @@
     <Compile Include="Areas\precinct1\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct1\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct1\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct1\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct1\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct1\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct1\Controllers\StationController.cs" />
@@ -298,6 +306,7 @@
     <Compile Include="Areas\precinct2\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct2\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct2\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct2\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct2\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct2\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct2\Controllers\StationController.cs" />
@@ -310,6 +319,7 @@
     <Compile Include="Areas\precinct3\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct3\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct3\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct3\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct3\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct3\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct3\Controllers\StationController.cs" />
@@ -322,6 +332,7 @@
     <Compile Include="Areas\precinct4\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct4\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct4\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct4\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct4\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct4\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct4\Controllers\StationController.cs" />
@@ -334,6 +345,7 @@
     <Compile Include="Areas\precinct5\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct5\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct5\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct5\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct5\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct5\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct5\Controllers\StationController.cs" />
@@ -346,6 +358,7 @@
     <Compile Include="Areas\precinct6\Controllers\ContentController.cs" />
     <Compile Include="Areas\precinct6\Controllers\FAQController.cs" />
     <Compile Include="Areas\precinct6\Controllers\HomeController.cs" />
+    <Compile Include="Areas\precinct6\Controllers\LeaderController.cs" />
     <Compile Include="Areas\precinct6\Controllers\NewsController.cs" />
     <Compile Include="Areas\precinct6\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\precinct6\Controllers\StationController.cs" />
@@ -365,6 +378,7 @@
     <Compile Include="Areas\shanhua\Controllers\ContentController.cs" />
     <Compile Include="Areas\shanhua\Controllers\FAQController.cs" />
     <Compile Include="Areas\shanhua\Controllers\HomeController.cs" />
+    <Compile Include="Areas\shanhua\Controllers\LeaderController.cs" />
     <Compile Include="Areas\shanhua\Controllers\NewsController.cs" />
     <Compile Include="Areas\shanhua\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\shanhua\Controllers\StationController.cs" />
@@ -377,6 +391,7 @@
     <Compile Include="Areas\traffic\Controllers\ContentController.cs" />
     <Compile Include="Areas\traffic\Controllers\FAQController.cs" />
     <Compile Include="Areas\traffic\Controllers\HomeController.cs" />
+    <Compile Include="Areas\traffic\Controllers\LeaderController.cs" />
     <Compile Include="Areas\traffic\Controllers\NewsController.cs" />
     <Compile Include="Areas\traffic\Controllers\StationController.cs" />
     <Compile Include="Areas\traffic\trafficAreaRegistration.cs" />
@@ -387,6 +402,7 @@
     <Compile Include="Areas\wpb\Controllers\ContentController.cs" />
     <Compile Include="Areas\wpb\Controllers\FAQController.cs" />
     <Compile Include="Areas\wpb\Controllers\HomeController.cs" />
+    <Compile Include="Areas\wpb\Controllers\LeaderController.cs" />
     <Compile Include="Areas\wpb\Controllers\NewsController.cs" />
     <Compile Include="Areas\wpb\Controllers\AboutLinkController.cs" />
     <Compile Include="Areas\wpb\Controllers\StationController.cs" />
@@ -401,6 +417,7 @@
     <Compile Include="Areas\xinhua\Controllers\ContentController.cs" />
     <Compile Include="Areas\xinhua\Controllers\FAQController.cs" />
     <Compile Include="Areas\xinhua\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinhua\Controllers\LeaderController.cs" />
     <Compile Include="Areas\xinhua\Controllers\NewsController.cs" />
     <Compile Include="Areas\xinhua\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\xinhua\Controllers\StationController.cs" />
@@ -414,6 +431,7 @@
     <Compile Include="Areas\xinying\Controllers\ContentController.cs" />
     <Compile Include="Areas\xinying\Controllers\FAQController.cs" />
     <Compile Include="Areas\xinying\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xinying\Controllers\LeaderController.cs" />
     <Compile Include="Areas\xinying\Controllers\NewsController.cs" />
     <Compile Include="Areas\xinying\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\xinying\Controllers\StationController.cs" />
@@ -426,6 +444,7 @@
     <Compile Include="Areas\xuejia\Controllers\ContentController.cs" />
     <Compile Include="Areas\xuejia\Controllers\FAQController.cs" />
     <Compile Include="Areas\xuejia\Controllers\HomeController.cs" />
+    <Compile Include="Areas\xuejia\Controllers\LeaderController.cs" />
     <Compile Include="Areas\xuejia\Controllers\NewsController.cs" />
     <Compile Include="Areas\xuejia\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\xuejia\Controllers\StationController.cs" />
@@ -438,6 +457,7 @@
     <Compile Include="Areas\yongkang\Controllers\ContentController.cs" />
     <Compile Include="Areas\yongkang\Controllers\FAQController.cs" />
     <Compile Include="Areas\yongkang\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yongkang\Controllers\LeaderController.cs" />
     <Compile Include="Areas\yongkang\Controllers\NewsController.cs" />
     <Compile Include="Areas\yongkang\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\yongkang\Controllers\StationController.cs" />
@@ -450,6 +470,7 @@
     <Compile Include="Areas\yujing\Controllers\ContentController.cs" />
     <Compile Include="Areas\yujing\Controllers\FAQController.cs" />
     <Compile Include="Areas\yujing\Controllers\HomeController.cs" />
+    <Compile Include="Areas\yujing\Controllers\LeaderController.cs" />
     <Compile Include="Areas\yujing\Controllers\NewsController.cs" />
     <Compile Include="Areas\yujing\Controllers\RefugeStationController.cs" />
     <Compile Include="Areas\yujing\Controllers\StationController.cs" />
@@ -467,6 +488,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaderController.cs" />
     <Compile Include="Controllers\MailboxController.cs" />
     <Compile Include="Controllers\MonitorAPIController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -487,6 +509,8 @@
     <Compile Include="Controllers\_BaseController.cs" />
     <Compile Include="Extentions\ControlExtentions.cs" />
     <Compile Include="Filters\MyAuthorizeAttribute.cs" />
+    <Compile Include="Filters\SmsGateGuardAttribute.cs" />
+    <Compile Include="Filters\SmsGateStampAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -494,6 +518,7 @@
     <Compile Include="Models\Captcha.cs" />
     <Compile Include="Models\CaseTrafficView.cs" />
     <Compile Include="Models\ChiefView.cs" />
+    <Compile Include="Models\FileSignature.cs" />
     <Compile Include="Models\GJson.cs" />
     <Compile Include="Models\Hiair2Net.cs" />
     <Compile Include="Models\ModelsAttributeHelper.cs" />
@@ -502,6 +527,10 @@
     <Compile Include="Models\NodeLink.cs" />
     <Compile Include="Models\ResponseViews.cs" />
     <Compile Include="Models\RSSCollections.cs" />
+    <Compile Include="Models\SMS\ErrorUids.cs" />
+    <Compile Include="Models\SMS\SmsBody.cs" />
+    <Compile Include="Models\SMS\SmsMain.cs" />
+    <Compile Include="Models\SMS\SmsResponse.cs" />
     <Compile Include="Models\TowAwayjson.cs" />
     <Compile Include="Models\TrafficSMSView.cs" />
     <Compile Include="Models\Utility.cs" />
@@ -1174,9 +1203,9 @@
     <Content Include="Areas\yujing\Views\Station\Index.cshtml" />
     <Content Include="Areas\en\Views\FAQ\Details.cshtml" />
     <Content Include="Areas\en\Views\FAQ\Index.cshtml" />
-    <Content Include="Areas\baihe\Views\ChiefMailbox\Create.cshtml" />
-    <Content Include="Areas\baihe\Views\ChiefMailbox\CreateSuccess.cshtml" />
-    <Content Include="Areas\baihe\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\AboutLink\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\baihe\Views\AboutLink\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\baihe\Views\AboutLink\ChiefMailbox\Index.cshtml" />
     <Content Include="Areas\cic\Views\ChiefMailbox\Create.cshtml" />
     <Content Include="Areas\cic\Views\ChiefMailbox\CreateSuccess.cshtml" />
     <Content Include="Areas\cic\Views\ChiefMailbox\Index.cshtml" />
@@ -1246,8 +1275,33 @@
     <Content Include="Areas\xuejia\Views\RefugeStation\Index.cshtml" />
     <Content Include="Areas\yongkang\Views\RefugeStation\Index.cshtml" />
     <Content Include="Areas\yujing\Views\RefugeStation\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\ChiefMailbox\Create.cshtml" />
+    <Content Include="Areas\precinct5\Views\ChiefMailbox\CreateSuccess.cshtml" />
+    <Content Include="Areas\precinct5\Views\ChiefMailbox\Index.cshtml" />
+    <Content Include="Areas\baihe\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\cic\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\guiren\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\jiali\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\jpb\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\madou\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\pppc\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct1\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct2\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct3\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct4\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct5\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\precinct6\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\shanhua\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\traffic\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\wpb\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\xinhua\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\xinying\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\xuejia\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\yongkang\Views\Leader\Index.cshtml" />
+    <Content Include="Areas\yujing\Views\Leader\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\Gmaker.png" />
+    <Content Include="index.html" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1332,6 +1386,11 @@
     <Content Include="Views\RefugeStation\Index.cshtml" />
     <Content Include="Views\Responses\Index.cshtml" />
     <Content Include="Views\Responses\CreateSuccess.cshtml" />
+    <Content Include="Views\TrafficMailbox\Append.cshtml" />
+    <Content Include="Views\TrafficMailbox\AppendSuccess.cshtml" />
+    <Content Include="Views\Shared\_BannerPartialView.cshtml" />
+    <Content Include="Views\Shared\_ShortMenu.cshtml" />
+    <Content Include="Views\Leader\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

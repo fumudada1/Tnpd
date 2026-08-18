@@ -59,8 +59,8 @@
       <HintPath>..\packages\MvcPaging.2.1.2\lib\net40\MvcPaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -199,6 +199,9 @@
     <Compile Include="Controllers\BigBannerController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CaseFilterController.cs" />
+    <Compile Include="Controllers\CaseTrafficAPIController.cs" />
+    <Compile Include="Controllers\CaseTrafficAppendController.cs" />
+    <Compile Include="Controllers\CaseTrafficReceiveController.cs" />
     <Compile Include="Controllers\CaseTrafficsController.cs" />
     <Compile Include="Controllers\EseCatalogController.cs" />
     <Compile Include="Controllers\EseController.cs" />
@@ -208,6 +211,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeLinkController.cs" />
     <Compile Include="Controllers\HomeThemeController.cs" />
+    <Compile Include="Controllers\LeaderCatalogController.cs" />
+    <Compile Include="Controllers\LeaderController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MetaIndexController.cs" />
@@ -221,8 +226,10 @@
     <Compile Include="Controllers\RefugeStationsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SendMailController.cs" />
+    <Compile Include="Controllers\SMTPController.cs" />
     <Compile Include="Controllers\SoapController.cs" />
     <Compile Include="Controllers\StationInfoController.cs" />
+    <Compile Include="Controllers\SyslogController.cs" />
     <Compile Include="Controllers\SystemLogsController.cs" />
     <Compile Include="Controllers\TrafficAPIController.cs" />
     <Compile Include="Controllers\TrafficDepartmentdetailController.cs" />
@@ -239,6 +246,7 @@
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Controllers\WandaController.cs" />
+    <Compile Include="Controllers\WayPointController.cs" />
     <Compile Include="Controllers\WebAPIController.cs" />
     <Compile Include="Controllers\WebSiteBannerController.cs" />
     <Compile Include="Controllers\WebSiteController.cs" />
@@ -257,6 +265,10 @@
     <Compile Include="Models\GJson.cs" />
     <Compile Include="Models\Hiair2Net.cs" />
     <Compile Include="Models\ModelsAttributeHelper.cs" />
+    <Compile Include="Models\SMS\ErrorUids.cs" />
+    <Compile Include="Models\SMS\SmsBody.cs" />
+    <Compile Include="Models\SMS\SmsMain.cs" />
+    <Compile Include="Models\SMS\SmsResponse.cs" />
     <Compile Include="Models\Utility.cs" />
     <Compile Include="Models\WebStatistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1422,6 +1434,45 @@
     <Content Include="Views\TrafficViolationItem\Edit.cshtml" />
     <Content Include="Views\TrafficViolationItem\Delete.cshtml" />
     <Content Include="Views\CaseTraffics\Report4.cshtml" />
+    <Content Include="Views\WayPoint\Index.cshtml" />
+    <Content Include="Views\WayPoint\Details.cshtml" />
+    <Content Include="Views\WayPoint\Create.cshtml" />
+    <Content Include="Views\WayPoint\Edit.cshtml" />
+    <Content Include="Views\WayPoint\Delete.cshtml" />
+    <Content Include="Views\CaseTrafficAppend\Index.cshtml" />
+    <Content Include="Views\CaseTrafficReceive\Index.cshtml" />
+    <Content Include="Views\Syslog\Index.cshtml" />
+    <Content Include="Views\Syslog\Details.cshtml" />
+    <Content Include="Views\Syslog\Report.cshtml" />
+    <Content Include="Views\CaseTraffics\History2022.cshtml" />
+    <Content Include="Views\CaseTraffics\Report1H2022.cshtml" />
+    <Content Include="Views\CaseTraffics\Report2H2022.cshtml" />
+    <Content Include="Views\CaseTraffics\Report3H2022.cshtml" />
+    <Content Include="Views\CaseTraffics\Report4H2022.cshtml" />
+    <Content Include="Views\CaseTraffics\EditH2022.cshtml" />
+    <Content Include="WebSiteHistory\cicen2023-05-31-052432" />
+    <Content Include="WebSiteHistory\cicen2023-05-31-052500" />
+    <Content Include="WebSiteHistory\cicen2023-05-31-054044" />
+    <Content Include="WebSiteHistory\en2023-01-16-075250" />
+    <Content Include="WebSiteHistory\jpben2023-05-31-054255" />
+    <Content Include="WebSiteHistory\tnpd2023-10-12-094331" />
+    <Content Include="WebSiteHistory\wpb2023-04-12-092754" />
+    <Content Include="Views\LeaderCatalog\Index.cshtml" />
+    <Content Include="Views\LeaderCatalog\Details.cshtml" />
+    <Content Include="Views\LeaderCatalog\Create.cshtml" />
+    <Content Include="Views\LeaderCatalog\Edit.cshtml" />
+    <Content Include="Views\LeaderCatalog\Delete.cshtml" />
+    <Content Include="Views\Leader\Index.cshtml" />
+    <Content Include="Views\Leader\Details.cshtml" />
+    <Content Include="Views\Leader\Create.cshtml" />
+    <Content Include="Views\Leader\Edit.cshtml" />
+    <Content Include="Views\Leader\Delete.cshtml" />
+    <Content Include="Views\SMTP\Index.cshtml" />
+    <Content Include="Views\SMTP\Details.cshtml" />
+    <Content Include="Views\SMTP\Create.cshtml" />
+    <Content Include="Views\SMTP\Edit.cshtml" />
+    <Content Include="Views\SMTP\Delete.cshtml" />
+    <Content Include="Views\Case\Report3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1450,7 +1501,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>13572</DevelopmentServerPort>
+          <DevelopmentServerPort>2672</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2225/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
