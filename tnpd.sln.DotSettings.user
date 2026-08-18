@@ -7,4 +7,6 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="F:\website\Tnpd\TnpdModels\bin\Debug\TnpdModels.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\website\Tnpd\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\website\cypdGlobaladmin\CypdGlobalAdmin\CypdGlobalModels\bin\Debug\CypdGlobalModels.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\website\Tnpd\TnpdModels\bin\Debug\TnpdModels.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

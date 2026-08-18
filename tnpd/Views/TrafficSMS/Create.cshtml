@@ -19,7 +19,7 @@
         </li>
         <li>請先輸入手機號碼，並按下"取得認證簡訊"，等待30秒左右，會取得驗證簡訊。
         </li>
-        <li>請注意，本簡訊使用中華電信企業簡訊服務，而各家電信公司有提供 <span class="text-danger">拒收企業簡訊之服務</span>，可能導致無法正常接收驗證碼簡訊，若是您收不到簡訊，請檢查是否有申請拒收企業簡訊服務。
+        <li>本簡訊服務使用111政府簡訊。
         </li>
     </ul>
 
@@ -68,7 +68,7 @@
             驗證碼：</label>
 
         <div class="form-group col-auto">
-            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()"/>
+            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" onkeypress="fleshVerify()"/>
 			<div id="newMessageDIV" style="display:none"></div>
             <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"/></a>
 
@@ -144,53 +144,74 @@
     }
 
     var smsTimer;
-    var t = 10;
+    var t = 180;
+    var smsAttempts = 0;
+    var maxAttempts = 3;
+
     function showTime() {
         t -= 1;
         document.getElementById('smstime').innerHTML = "請留意手機簡訊，若一直沒有收到可在" + t + "秒後可再傳送一次。";
-
         if (t <= 0) {
-
-            $("#sendSms").prop('disabled', false);
-          
+            clearTimeout(smsTimer);
+            if (smsAttempts < maxAttempts) {
+                $("#sendSms").prop('disabled', false);
+            } else {
+                document.getElementById('smstime').innerHTML = "已達到最大發送次數。";
+            }
         } else {
-            
-            smsTimer = setTimeout("showTime()", 1000);
+            smsTimer = setTimeout(showTime, 1000);
         }
-
-
-        
     }
 
-   
     $("#sendSms").click(function () {
         $("#smsMessage").text('');
-       
         var Mobile = $('#Mobile').val();
         if (!is_mobile(Mobile)) {
             $("#smsMessage").text('手機格式錯誤!');
             return;
-
+        }
+        if (smsAttempts >= maxAttempts) {
+            $("#smsMessage").text('已達到最大發送次數。');
+            return;
         }
         $("#sendSms").prop('disabled', true);
-        t = 10;
+        smsAttempts++;
+        t = 180;
         showTime();
-        $("#smsMessage").text('發送簡訊至' + Mobile+'中，請稍後!');
-        SendSMS(Mobile);
-
-
+        $("#smsMessage").text('發送簡訊至' + Mobile + '中，請稍後! (第' + smsAttempts + '次發送)');
+        SendSMS(Mobile, 0);
     });
-    function SendSMS(Mobile) {
+
+    // 重置函数，用于在需要时重置发送次数
+    function resetSmsAttempts() {
+        smsAttempts = 0;
+        clearTimeout(smsTimer);
+        $("#sendSms").prop('disabled', false);
+        document.getElementById('smstime').innerHTML = '';
+    }
+
+    var SMS_MAX_RETRY = 2;
+    var SMS_RETRY_DELAY_MS = 2000;
+
+    function SendSMS(Mobile, retryCount) {
         $.post("/TrafficSMS/SendCheckCode", { mobile: Mobile })
             .done(function (data) {
-                console.log(data);
-                if (data != '已經發送，請留意簡訊訊息!') {
-                    $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送");
-                    SendSMS(Mobile);
-                } else {
+                if (data == '已經發送，請留意簡訊訊息!') {
                     $("#smsMessage").text(data);
+                } else if (data.indexOf('請等待接收簡訊') !== -1) {
+                    // 3分鐘內已發送過，屬正常狀態，不重試，避免背景自動重複發送簡訊
+                    $("#smsMessage").text(data);
+                } else if (retryCount < SMS_MAX_RETRY) {
+                    $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送(" + (retryCount + 1) + "/" + SMS_MAX_RETRY + ")");
+                    setTimeout(function () {
+                        SendSMS(Mobile, retryCount + 1);
+                    }, SMS_RETRY_DELAY_MS);
+                } else {
+                    $("#smsMessage").text("簡訊發送失敗，請稍後再試：" + data);
                 }
-
+            })
+            .fail(function () {
+                $("#smsMessage").text("連線失敗，請稍後再試。");
             });
     }
     //訂單提交頁-驗證手機號

@@ -289,7 +289,10 @@ namespace Tnpd.Controllers
         {
             return View();
         }
-       
+        public ActionResult GetGuid()
+        {
+            return Content(Guid.NewGuid().ToString());
+        }
 
     }
 }

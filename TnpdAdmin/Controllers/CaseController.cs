@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace TnpdAdmin.Controllers
 
             var cases = _db.Cases.Include(c => c.WebSite).OrderByDescending(p => p.InitDate).AsQueryable();
             DateTime today=DateTime.Today;
-            var todayCase = _db.Cases.Include(c => c.WebSite).Where(x => x.Predate == today).AsQueryable();
+            var todayCase = _db.Cases.Include(c => c.WebSite).Where(x => x.Predate == today && x.Poprocs.Any(y => y.Status!=CaseProcessStatus.結案)).AsQueryable();
 
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
@@ -116,7 +118,7 @@ namespace TnpdAdmin.Controllers
 
         public ActionResult AssignEdit(int Id, int pclass, string processtype, string PoprocsContent, string process, int? PoprocsType, int? PoprocsSubType, string[] MemberListSelect, HttpPostedFileBase Upfile)
         {
-            Case mycase = _db.Cases.Find(Id);
+            Case mycase = _db.Cases.Include(x => x.Town).Where(c=>c.Id==Id).FirstOrDefault();
             if (mycase == null)
             {
                 return HttpNotFound();
@@ -398,7 +400,8 @@ namespace TnpdAdmin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.WebSiteId = new SelectList(_db.WebSiteNames.Where(x => x.Id > 1 && x.Id < 22).OrderBy(p => p.ListNum), "Id", "Subject", case1.WebSiteId);
+            List<WebSiteName> websites = _db.WebSiteNames.Where(x =>( x.Subject.Contains("分局") || x.Subject.Contains("隊")) && x.Language==LanguageType.中文版).OrderBy(p => p.ListNum).ToList();
+            ViewBag.WebSiteId = new SelectList(websites, "Id", "Subject", case1.WebSiteId);
 
             ViewBag.pclass = pclass;
             return View(case1);
@@ -1017,6 +1020,8 @@ namespace TnpdAdmin.Controllers
                     mailbody = mailbody.Replace("{InitDate}", myPoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
                     mailbody = mailbody.Replace("{CaseType}", myPoproc.Case.CaseType.ToString());
                     mailbody = mailbody.Replace("{EndDateTime}", myPoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
+                    mailbody = mailbody.Replace("{Subject}", myPoproc.Case.Subject);
+                    mailbody = mailbody.Replace("{Content}", Txt2Html(myPoproc.Case.Content));
                     string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
                     if (Sendfile == 1)
                     {
@@ -1040,6 +1045,8 @@ namespace TnpdAdmin.Controllers
                             mailbody = mailbody.Replace("{InitDate}", ChildCase.InitDate.Value.ToString("yyyy/MM/dd"));
                             mailbody = mailbody.Replace("{CaseType}", ChildCase.CaseType.ToString());
                             mailbody = mailbody.Replace("{EndDateTime}", myPoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
+                            mailbody = mailbody.Replace("{Subject}", ChildCase.Subject);
+                            mailbody = mailbody.Replace("{Content}", Txt2Html(ChildCase.Content));
 
                             if (Sendfile == 1)
                             {
@@ -1132,7 +1139,7 @@ namespace TnpdAdmin.Controllers
                 ViewBag.isAdmin = true;
 
             }
-            else if (member.Roles.Any(x => x.Subject.Contains("交通檢舉信箱管理者")))
+            else if (member.Roles.Any(x => x.Subject.Contains("首長信箱總管理者")))
             {
                 ViewBag.isAdmin = true;
             }
@@ -1173,6 +1180,9 @@ namespace TnpdAdmin.Controllers
                         break;
                     case 4:
                         myCases = myCases.Where(w => w.CaseType == CaseType.婦幼安全警示地點);
+                        break;
+                    case 5:
+                        myCases = myCases.Where(w => w.CaseType == CaseType.重大災害通報專區);
                         break;
 
                 }
@@ -1228,6 +1238,8 @@ namespace TnpdAdmin.Controllers
             myCases = myCases.Where(w => w.ParentId == null && (w.IsAutoClose == null || w.IsAutoClose==BooleanType.否));
             //總件數
             ViewBag.Total = myCases.Count();
+            List<Holiday> Holidays = _db.Holidays.ToList();
+            ViewBag.Holidays = Holidays;
 
             //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
             return View(myCases.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
@@ -1255,7 +1267,7 @@ namespace TnpdAdmin.Controllers
                 ViewBag.isAdmin = true;
 
             }
-            else if (member.Roles.Any(x => x.Subject.Contains("交通檢舉信箱管理者")))
+            else if (member.Roles.Any(x => x.Subject.Contains("首長信箱總管理者")))
             {
                 ViewBag.isAdmin = true;
             }
@@ -1492,6 +1504,8 @@ namespace TnpdAdmin.Controllers
             {
                 //發信
                 string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
+                mailbody = mailbody.Replace("{Subject}", mycase.Subject);
+                mailbody = mailbody.Replace("{Content}", Txt2Html(mycase.Content));
                 mailbody = mailbody.Replace("{CaseID}", mycase.CaseID);
                 mailbody = mailbody.Replace("{InitDate}", mycase.InitDate.Value.ToString("yyyy/MM/dd"));
                 mailbody = mailbody.Replace("{CaseType}", mycase.CaseType.ToString());
@@ -1555,7 +1569,7 @@ namespace TnpdAdmin.Controllers
                 ViewBag.isAdmin = true;
 
             }
-            else if (member.Roles.Any(x => x.Subject.Contains("交通檢舉信箱管理者")))
+            else if (member.Roles.Any(x => x.Subject.Contains("首長信箱總管理者")))
             {
                 ViewBag.isAdmin = true;
             }
@@ -2316,6 +2330,61 @@ namespace TnpdAdmin.Controllers
 
             return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "案件一覽表.xls");
 
+        }
+
+        public ActionResult Report3()
+        {
+            DataTable dt = new DataTable();
+            return View(dt);
+        }
+
+        [HttpPost]
+        public ActionResult Report3(string SearchByStartDate, string SearchByEndDate)
+        {
+
+
+            string tempSql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Casereport3.sql"), System.Text.Encoding.UTF8);
+            DataTable dt;
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                tempSql = tempSql.Replace("2025/1/1", startDate.ToString("yyyy/MM/dd"));
+                tempSql = tempSql.Replace("2025/2/1", endDate.ToString("yyyy/MM/dd"));
+            }
+            else
+            {
+                dt = new DataTable();
+                return View(dt);
+            }
+            
+
+
+            SqlConnection conn = new SqlConnection(GetConnectionStringByName("TnpdConnection"));
+            SqlCommand command = new SqlCommand();
+            command.Connection = conn;
+            command.CommandText = tempSql;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            dt = new DataTable();
+            da.Fill(dt);
+            return View(dt);
+
+        }
+        static string GetConnectionStringByName(string name)
+        {
+            // Assume failure.
+            string returnValue = null;
+
+            // Look for the name in the connectionStrings section.
+            ConnectionStringSettings settings =
+                ConfigurationManager.ConnectionStrings[name];
+
+            // If found, return the connection string.
+            if (settings != null)
+                returnValue = settings.ConnectionString;
+
+            return returnValue;
         }
         public ActionResult AddMerge(int id)
         {

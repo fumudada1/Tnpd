@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -1424,7 +1425,7 @@ namespace Tnpd.Models
             }
         }
 
-        public static void SystemSendMail(string toAddress, string subject, string mailBody)
+        public static void SystemSendMail0326(string toAddress, string subject, string mailBody)
         {
             
 
@@ -1466,7 +1467,49 @@ namespace Tnpd.Models
                 mailMessage.Dispose();
             }
         }
+        public static void SystemSendMail(string toAddress, string subject, string mailBody)
+        {
+            BackendContext db = new BackendContext();
 
+            try
+            {
+                SMTPServerSetting serverSetting = db.SmtpServerSettings.Where(x => x.Enable == true).FirstOrDefault();
+
+                // 建立郵件訊息
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(serverSetting.MailFrom);
+                mailMessage.To.Add(toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+
+                // 設定 SMTP 客戶端
+                SmtpClient mailSender = new SmtpClient();
+                mailSender.Host = serverSetting.Address;
+                mailSender.Port = serverSetting.Port;
+                mailSender.EnableSsl = serverSetting.EnableSsl;
+                mailSender.UseDefaultCredentials = serverSetting.UseDefaultCredentials;
+                mailSender.Credentials = new NetworkCredential(serverSetting.MailAccount, serverSetting.MailPassword);
+
+                // 設定與內送伺服器相同的設定
+                mailSender.DeliveryMethod = serverSetting.SmtpDeliveryMethod;
+
+
+
+                // 發送郵件
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
+
+
+                
+
+
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
         public static void SystemSendMailCc(string fromAddress, string toAddress, string subject, string mailBody)
         {
 
@@ -1608,6 +1651,57 @@ namespace Tnpd.Models
         }
         #endregion
 
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="encryptedString"></param>
+        /// <param name="keyString"></param>
+        /// <returns></returns>
+        public static string Decrypt(string encryptedString)
+        {
+            var keyString = "webmgt.tnpd.gov.tw";
+            byte[] btKey = Encoding.UTF8.GetBytes(keyString.Substring(0, 8));
+            byte[] btIv = Encoding.UTF8.GetBytes("tnpdmail");
+            var des = new DESCryptoServiceProvider();
+            des.Mode = CipherMode.CBC;//這裡指定加密模式為CBC
+            des.Padding = PaddingMode.PKCS7;
 
+            des.Key = btKey;
+            des.IV = btIv;
+
+            using (var ms = new MemoryStream())
+            {
+                try
+                {
+                    byte[] inData = Convert.FromBase64String(encryptedString);
+                    using (var cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(inData, 0, inData.Length);
+                        cs.FlushFinalBlock();
+                    }
+
+                    return Encoding.UTF8.GetString(ms.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    return "-1";
+                    // throw ex;
+                }
+            }
+        }
+
+        #region "取得正確格式GUID"
+        public static string GetGUID()
+        {
+            string strGuid = Guid.NewGuid().ToString();
+            while (strGuid.ToString().Substring(13, 1) == "1")
+            {
+                strGuid = Guid.NewGuid().ToString();
+            }
+
+            return strGuid;
+
+        }
+        #endregion
     }
 }

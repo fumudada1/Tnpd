@@ -1,0 +1,246 @@
+﻿@using CypdGlobal.Models
+@using CypdGlobal.Helpers
+@using CypdGlobalModels.Models
+@{
+    string unid = ViewBag.UnId;
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+    WebPresentation web = new WebPresentation(areaName, unid);
+
+    string title="";
+    string theme="";
+    string cake="";
+    string service="";
+
+    string style = "";
+    string path = "/";
+    if (Session["webstyle"] != null)
+    {
+        style = Session["webstyle"].ToString();
+
+    }
+
+    
+    if (!web.IsRight())
+    {
+        //Response.Redirect("/error.html");
+    }
+    else
+    {
+        title = ViewBag.Subject ?? web.GetTitle();
+        theme = ViewBag.Theme ?? web.GetTheme();
+        cake = ViewBag.Cake ?? web.GetCake();
+        service = ViewBag.Service ?? web.GetService();
+    }
+   
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>嘉義縣警察局</title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <meta name="DC.Creator" content="嘉義縣警察局" />
+    <meta name="DC.Subject" content="嘉義縣警察局 - @title" />
+    <meta name="DC.Description" content="嘉義縣警察局 - @title" />
+    <meta name="DC.Contributor" content="嘉義縣警察局" />
+    <meta name="DC.Type" content="text/html" />
+    <meta name="DC.Format" content="text" />
+    <meta name="DC.Source" content="嘉義縣警察局" />
+    <meta name="DC.Language" content="中文" />
+    <meta name="DC.coverage.t.max" content="2009-04-21" />
+    <meta name="DC.coverage.t.min" content="2006-11-15" />
+    <meta name="DC.Publisher" content="嘉義縣警察局" />
+    <meta name="DC.Date" content="2009-04-21" />
+    <meta name="DC.Identifier" content="376500264C" />
+    <meta name="DC.Relation" content="http://www.cypd.gov.tw/Bdp" />
+    <meta name="DC.Rights" content="嘉義縣警察局" />
+    <meta name="Category.Theme" content="@theme" />
+    <meta name="Category.Cake" content="@cake" />
+    <meta name="Category.Service" content="@service" />
+    <meta name="Keywords" content="嘉義縣警察局 - @title" />
+    <link rel="stylesheet" href="~/css/version/@(areaName).css">
+    <link rel="stylesheet" href="~/css/all.css">
+    <link rel="stylesheet" media="print" href="~/css/print.css">
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/js/ui.datepicker-zh-TW.js"></script>
+    <script type="text/javascript" src="~/js/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" src="~/js/jquery.fancybox.pack.js?v=2.1.5"></script>
+     <script src="/js/superfish.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <!--行動選單-->
+        <div class="mobile-menu">
+            <div class="search-bar">
+                <input class="bar" type="text" placeholder="搜尋..">
+                <input class="search-bar-btn" type="submit" value="">
+            </div>
+
+        </div>
+        <!-- end mobile-menu -->
+        <div class="main-content">
+            <div class="bg-content" style="background: url('/images/bg-content.png') no-repeat;">
+                <div class="header">
+                    <div class="header-inner">
+                        <div class="control">
+                         <div class="logo">
+                            <h1><a href="/">Chiayi County Police Bureau</a></h1>
+                        </div>
+                        <div class="control-setting">
+                            <a title="Top area" class="pull-left" accesskey="U" href="#">:::</a>
+                       
+                        <ul> 
+                            <li><a href="/english/Content/sitemap">Site map</a></li>
+                                <li><a href="/English">Home</a></li>
+                                <li><a href="/">正體中文</a></li>
+                        </ul>
+                          </div>
+                        </div>
+                        <div class="mobile-btn">
+                            <a href="#" class="hamburger"></a>
+                        </div>
+                          
+                        <form id="searchform1" action="/home/search" class="inside-search">
+							<input type="hidden" name="cx" value="002360945309361685819:jzzdnb8pcuk" />
+							<input type="hidden" name="cof" value="FORID:11" />
+							<input type="hidden" name="ie" value="UTF-8" />
+							<input type="text" name="q" size="14" value="" class="csetext">
+							<input type="submit" name="sa" value="" class="search_btn"> 
+						</form>
+
+                        <div class="menu">
+                            @Html.Raw(web.getAllMenu())
+                        </div>
+                        <div class='clearfix'></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="banner">
+                        <img src="~/images/banner.png" alt="">
+                    </div>
+                    <div class="breadcrumb" style="display:none">
+                        <ul>
+                            <span>現在位置：</span>
+                            <li><a href="/@areaName">首頁</a></li>
+                            <li>@RenderSection("breadcrumb")</li>
+                           
+                        </ul>
+
+                    </div>
+                    <div class="content">
+                        <div class="sidebar"><a title="" class="blockone" accesskey="C" href="#">:::</a>
+
+
+                           
+                        </div>
+                        <div class="main second">
+                            <!--內頁-->
+							<h1>site map</h1>
+								<div style="display:none"  class="right trailer jq-community"><noscript><div>No JavaScript</div></noscript>
+									<a href="javascript:void(0);" id="icon-print" class="s-icon-mail" title="print">mail</a>
+									<a href="javascript:void(0);" id="icon-mail" class="s-icon-mail" title="mail">mail</a>
+									<a href="javascript:void(0);" id="icon-fb" class=" s-icon-facebook" title="facebook">facebook</a>
+									<a href="javascript:void(0);" id="icon-twitter" class="s-icon-twitter" title="twitter">twitter</a>
+									<a href="javascript:void(0);" id="icon-plurk" class="s-icon-plurk" title="plurk">plurk</a>
+									<a href="javascript:void(0);" id="icon-line" class="s-icon-line" title="line">line</a>
+									<a href="javascript:void(0);" id="icon-google" class="s-icon-google" title="google+">google+</a>
+								</div>
+                             @RenderBody()
+                                                       </div>
+                                                   </div>
+                                               </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="sitemap-btn menu-toggle">
+                <div class="sitemap-btn-inner">
+                    <a href="javascript:void(0);"><span class="open">&#9652;Open</span><span class="close">&#9662;Close</span></a>
+                </div>
+            </div>
+            <div class="sitemap">
+
+                <div class="sitemap-inner">
+                    <div class="seal">
+                        <img src="~/images/seal.png" height="29" width="31" alt="seal">
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer">
+                <div class="footer_inner">
+                    <ul class="social">
+                        <li><a href="https://zh-tw.facebook.com/TWCYPD" target="_blank">
+                            <img src="~/images/facebook.png" height="51" width="50" alt="facebook"></a></li>
+                        <li><a href="http://www.youtube.com/user/cypdvideochannel" target="_blank">
+                            <img src="~/images/youtube.png" height="51" width="50" alt="youtube"></a></li>
+                        <li><a href="https://www.flickr.com/photos/cypd/sets/" target="_blank">
+                            <img src="~/images/flicker.png" height="51" width="50" alt="flicker"></a></li>
+                      @*  <li><a href="" target="_blank">
+                            <img src="/images/rss.png" height="51" width="50" alt="rss"></a></li>*@
+                    </ul>
+                    <a title="Alt+B : bottom content" class="blockone" accesskey="B" href="">:::</a>
+                    <div class="copyright">
+                    <p>
+                        <span>Tel：05-3620200</span>
+                        <span>Fax：05-3620239</span>     <br/>
+                        <span>Address：No. 3 Sianghe 1st Rd, East Section, Sianghe Sincun, Taibao City, Chiayi County 61249, Taiwan, ROC&nbsp
+                        </span>
+                    </p>
+                    <p><span>Privacy Statement Security Policy Copyright and Disclaimers</span><a href="#" class="freeaccess">
+                                <img src="~/images/accessibility.png" alt="accessibility"></a></p>
+                    </div>
+                </div>
+            </div>
+
+
+    <div class="gotop"></div>
+    <script src="~/js/jquery.bxslider.js"></script>
+    <script src='http://www.google.com/jsapi' type='text/javascript'></script>
+    <script src="~/js/all.js"></script>
+       @RenderSection("scripts", required: false)
+    <script type='text/javascript'>
+        google.load('search', '1', {
+            language: 'zh-Hant',
+            style: google.loader.themes.V2_DEFAULT
+        });
+        google.setOnLoadCallback(function () {
+            var customSearchOptions = {};
+            var orderByOptions = {};
+            orderByOptions['keys'] = [{
+                label: 'Relevance',
+                key: ''
+            }, {
+                label: 'Date',
+                key: 'date'
+            }];
+            customSearchOptions['enableOrderBy'] = true;
+            customSearchOptions['orderByOptions'] = orderByOptions;
+            var customSearchControl = new google.search.CustomSearchControl('002360945309361685819:jzzdnb8pcuk', customSearchOptions);
+            customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+            var options = new google.search.DrawOptions();
+            options.enableSearchboxOnly('https://www.google.com/cse?cx=002360945309361685819:jzzdnb8pcuk', null, true);
+            options.setAutoComplete(true);
+            customSearchControl.draw('cse-search-form', options);
+        }, true);
+    </script>
+</body>
+</html>
+
+
+
+
+

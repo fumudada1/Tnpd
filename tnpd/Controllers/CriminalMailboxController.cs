@@ -37,12 +37,23 @@ namespace tnpd.Controllers
                 Session["CheckCode"] = null;
                 return View(chief);
             }
-
+            Session["CheckCode"] = null;
+            //驗證E-MAIL
             DateTime duDateTime = DateTime.Now.AddMinutes(-30);
-            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == chief.Email && x.ConfirmDate >= duDateTime);
+            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == chief.Email && x.InitDate >= duDateTime && x.CheckCode == chief.EmailCode);
             if (mailCheck == null)
             {
                 ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+                ViewBag.UnId = id.ToString();
+
+
+                return View(chief);
+            }
+            //驗證手機
+            CaseMobileCheck mobileCheck = _db.CaseMobileChecks.FirstOrDefault(x => x.Mobile == chief.TEL && x.InitDate >= duDateTime && x.CheckCode == chief.SMSCode);
+            if (mobileCheck == null)
+            {
+                ModelState.AddModelError("CheckCode", "手機驗證錯誤，請3分鐘後重新寄送驗證碼，並請至手機簡訊，取得驗證碼。");
                 ViewBag.UnId = id.ToString();
 
 
@@ -218,7 +229,7 @@ namespace tnpd.Controllers
 
                 string mailBody = "親愛的市民朋友，您好，這是臺南市政府警察局-檢舉貪瀆信箱 Email認證信件。<br/>";
                 mailBody += "<a href='" + InternetURL + "/CriminalMailbox/VerifyMail/" + mailCheck.CaseGuid + "'>請點選此連結認證您的信箱</a><br/>";
-                mailBody += "本郵件是由系統自動寄出，請勿直接回覆此郵件。";
+                mailBody += "本郵件是由系統自動寄出，請勿直接回覆此郵件，本郵件是由系統自動寄出，請勿直接回覆此郵件。";
 
                 //Utility.SendGmailMail("topidea.justin@gmail.com", id, "交通違規檢舉系統Email認證", mailBody, "xuqoqvdvvsbwyrbl");
                 Utility.SystemSendMail(id, "臺南市政府警察局-檢舉貪瀆信箱  Email認證信件", mailBody);//發信
@@ -227,6 +238,65 @@ namespace tnpd.Controllers
             return Content("Email 格式錯誤");
         }
 
+        public ActionResult SendVerifyMailCode(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return Content("Email 不可空白");
+            }
+            if (id.IndexOf("@vusra.com") > -1)
+            {
+                return Content("");
+            }
+
+            DateTime date = DateTime.Now.AddMinutes(-3);
+
+            var caseMailCheck = _db.caseMailChecks.Where(x => x.Email == id && x.InitDate > date).OrderByDescending(x => x.Id).FirstOrDefault();
+            if (caseMailCheck != null)
+            {
+                return Content("認證郵件已送出，請檢查信箱垃圾信件，或稍後再試");
+            }
+
+            if (Utility.IsValidEmail(id))
+            {
+                CaseMailCheck mailCheck = new CaseMailCheck
+                {
+                    CaseGuid = Guid.NewGuid().ToString(),
+                    Email = id,
+                    InitDate = DateTime.Now,
+                    ConfirmDate = DateTime.Now.AddYears(-25),
+                    IsConfirm = BooleanType.否,
+                    CheckCode = GenerateRandomNumbers(6)
+                };
+                _db.caseMailChecks.Add(mailCheck);
+                _db.SaveChanges();
+                string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
+
+                string mailBody = "親愛的市民朋友，您好，這是臺南市政府警察局-檢舉貪瀆信箱 Email認證信件。<br/>";
+                //mailBody += "<a href='" + InternetURL + "/ChiefMailbox/VerifyMail/" + mailCheck.CaseGuid + "'>請點選此連結認證您的信箱</a><br/>";
+                mailBody += "台端申請臺南市政府檢舉貪瀆信箱E-mail驗證服務，請輸入E-mail驗證碼:<span style='color: blue;font-size: large'>" + mailCheck.CheckCode + "</span>";
+                mailBody += "本郵件是由系統自動寄出，請勿直接回覆此郵件，本郵件是由系統自動寄出，請勿直接回覆此郵件。";
+
+                //Utility.SendGmailMail("topidea.justin@gmail.com", id, "交通違規檢舉系統Email認證", mailBody, "xuqoqvdvvsbwyrbl");
+                Utility.SystemSendMail(id, "臺南市政府警察局-檢舉貪瀆信箱  Email認證信件", mailBody);//發信
+                return Content("認證郵件已送出，請至信中取得驗證碼，完成後即可回網頁填寫入驗證碼，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+            }
+            return Content("Email 格式錯誤");
+        }
+
+        static string GenerateRandomNumbers(int length)
+        {
+            Random random = new Random();
+            string result = "";
+
+            for (int i = 0; i < length; i++)
+            {
+                // 生成隨機數字並附加到結果字符串
+                result += random.Next(10).ToString();
+            }
+
+            return result;
+        }
         public ActionResult VerifyMail(string id)
         {
             CaseMailCheck mailCheck = _db.caseMailChecks.OrderByDescending(x => x.Id).FirstOrDefault(x => x.CaseGuid == id);

@@ -6,7 +6,7 @@
 
     WebPresentation web ;
 
-    string title = "";
+    string title = "暫無資料";
     string theme = "";
     string cake = "";
     string service = "";
@@ -21,7 +21,7 @@
     else
     {
         web = new WebPresentation(areaName, unid);
-        title = ViewBag.Subject ?? web.GetTitle();
+        title = ViewBag.Subject ?? web.GetTitle()?? "暫無資料";
         theme = ViewBag.Theme ?? web.GetTheme();
         cake = ViewBag.Cake ?? web.GetCake();
         service = ViewBag.Service ?? web.GetService();
@@ -109,7 +109,7 @@
                 ============================================= -->
                 <nav id="primary-menu" class="style-2 ">
                     <div class="container clearfix ">
-                        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                        <button type="button" id="primary-menu-trigger" role="button" aria-expanded="false" aria-controls="primary-menu-nav" aria-label="展開選單" title="展開選單"><i class="icon-reorder" aria-hidden="true"></i><span class="visually-hidden">選單</span></button>
                         @Html.Raw(web.getAllMenu())
                        
                     </div>
@@ -202,7 +202,7 @@
                         <ul class="crul">
                             <li> No.650, Wunsian Rd., North Dist., Tainan City 704011, Taiwan (R.O.C.)</li>
                             <li>Tel : 886-6-2598595</li>
-                            <li>@alias. Tainan City Police Department © 2018</li>
+                            <li>@alias, Tainan City Police Department © 2018</li>
                             <li class="d-none d-md-block">Best viewed with IE10.0+, Firefox, Chrome or higher with 1024
                                 x 768 resolution.</li>
                            
@@ -226,12 +226,12 @@
     <div id="gotoTop"><a href="#" class="gotoTop-sty" title="Go To Top"><i class="icon-angle-up"></i><span class="sr-only">Go To Top</span></a></div>
     <!-- External JavaScripts
     ============================================= -->
-    <script src="~/Areas//@areaName/js/jquery.js"></script>
-    <script src="~/Areas//@areaName/js/plugins.js"></script>
+    <script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
+    <script src="/js/plugins.js"></script>
     <!-- Footer Scripts
     ============================================= -->
-    <script src="~/Areas//@areaName/js/functions.js"></script>
-    <script src="~/Areas//@areaName/js/fontsize.js"></script>
+    <script src="/js/functions.js"></script>
+    <script src="/js/fontsize.js"></script>
     <script>
     $(document).ready(function() {
 

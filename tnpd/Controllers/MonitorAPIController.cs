@@ -17,7 +17,7 @@ namespace tnpd.Controllers
 
         public ActionResult Index()
         {
-            string Json3 = GetJsonContent("http://t-cctv.tnpd.gov.tw/api/getMonitor");
+            string Json3 = GetJsonContent("http://p-cctv.tnpd.gov.tw/api/GetMonitor");
 
 
             return Content(Json3, "Application/json");
@@ -29,9 +29,17 @@ namespace tnpd.Controllers
             var uri = new Uri(Url);
             var request = WebRequest.Create(Url) as HttpWebRequest;
 
+            WebClient wc = new WebClient();
+            //REF: https://stackoverflow.com/a/39534068/288936
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+                SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            //string res = wc.DownloadString(Url);
+
             // If required by the server, set the credentials.
 
-            request.UserAgent = "*/*";
+            request.UserAgent = "PostmanRuntime/7.26.5";
+            request.Accept = "*/*";
 
             request.Credentials = CredentialCache.DefaultCredentials;
 
@@ -41,11 +49,13 @@ namespace tnpd.Controllers
 
             // 重點是修改這行
 
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;// SecurityProtocolType.Tls1.2;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+                                                   SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
 
 
             // Get the response.
+
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -77,6 +87,8 @@ namespace tnpd.Controllers
             return responseFromServer;
 
         }
+
+
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {

@@ -30,14 +30,14 @@ namespace tnpd.Controllers
 
             //驗證碼確認
             string sCheckCode = Session["CheckCode"] != null ? Session["CheckCode"].ToString().ToLower() :DateTime.Now.Millisecond.ToString() ;
-            //if (checkCode.ToLower() != sCheckCode)
-            //{
-            //    ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
-            //    ViewBag.UnId = id.ToString();
-            //    ViewBag.message = "驗證碼錯誤!!";
-            //    Session["CheckCode"] = null;
-            //    return View();
-            //}
+            if (checkCode.ToLower() != sCheckCode)
+            {
+                ModelState.AddModelError("CheckCode", "驗證碼錯誤!!");
+                ViewBag.UnId = id.ToString();
+                ViewBag.message = "驗證碼錯誤!!";
+                Session["CheckCode"] = null;
+                return View();
+            }
 
             //try
             //{

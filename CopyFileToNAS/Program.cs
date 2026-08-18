@@ -43,7 +43,13 @@ namespace CopyFileToNAS
             foreach (CaseTraffic caseTraffic in tlist)
             {
                 tid = caseTraffic.Id;
-                string savePath = DestinationPath + caseTraffic.assignUnit.Subject + "\\" + caseTraffic.InitDate.Value.ToString("yyyy-MM") + "\\" + caseTraffic.CaseID + "\\";
+                string assignUnitPath = caseTraffic.assignUnit.Subject;
+                if (caseTraffic.UnitFile != null)
+                {
+                    assignUnitPath = caseTraffic.UnitFile;
+                }
+
+                string savePath = DestinationPath + assignUnitPath + "\\" + caseTraffic.InitDate.Value.ToString("yyyy-MM") + "\\" + caseTraffic.CaseID + "\\";
                 if (!System.IO.Directory.Exists(savePath))
                 {
                     System.IO.Directory.CreateDirectory(savePath);

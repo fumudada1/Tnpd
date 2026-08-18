@@ -17,7 +17,8 @@ namespace tnpd.Areas.traffic
             context.MapRoute(
                 "traffic_default",
                 "traffic/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

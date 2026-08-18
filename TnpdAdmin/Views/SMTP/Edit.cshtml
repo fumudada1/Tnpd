@@ -1,0 +1,125 @@
+﻿
+@using Tnpd.Models
+@model TnpdModels.SMTPServerSetting
+
+@{
+    ViewBag.Title = "發信主機設定編輯";
+}
+
+<h2>發信主機設定編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SMTPServerSetting</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Subject,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("Subject") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Address,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("Address") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MailAccount)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MailAccount,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("MailAccount") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MailPassword)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MailPassword,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("MailPassword") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Port)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Port,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("Port") })
+           
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MailFrom)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MailFrom,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("MailFrom") })
+           
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EnableSsl)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EnableSsl,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("EnableSsl") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UseDefaultCredentials)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.UseDefaultCredentials,new { placeholder=ModelsAttributeHelper<TnpdModels.SMTPServerSetting>.GetDisplayName("UseDefaultCredentials") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SmtpDeliveryMethod)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.SmtpDeliveryMethod, new SelectList(Enum.GetValues(typeof(System.Net.Mail.SmtpDeliveryMethod))))
+            @Html.ValidationMessageFor(model => model.SmtpDeliveryMethod)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enable)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Enable, 
+                new List<SelectListItem> {
+                    
+                    new SelectListItem { Text = "是", Value = "true" },
+                    new SelectListItem { Text = "否", Value = "false" }
+                }, 
+                new { @class = "form-control" })
+
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+        @Html.HiddenFor(model => model.initOrg)
+        
+
+            @Html.HiddenFor(model => model.InitDate)
+
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

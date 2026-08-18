@@ -17,7 +17,8 @@ namespace tnpd.Areas.cic
             context.MapRoute(
                 "cic_default",
                 "cic/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

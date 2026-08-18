@@ -43,7 +43,7 @@
             <ul class="ullink">
                 @foreach (var file in Model.Fileses)
                 {
-                    <li><a href="@file.UpFile.ToLower()" title="@(file.Subject)(另開視窗)">@file.Subject</a></li>
+                    <li><a download href="@file.UpFile.ToLower()" title="@(file.Subject)(另開視窗)">@file.Subject</a></li>
                 }
                
             </ul>

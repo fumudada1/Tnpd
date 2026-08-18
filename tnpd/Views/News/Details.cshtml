@@ -15,7 +15,7 @@
     {
 
         <div class="mb-2"><i class="icon-line-paper-clip"></i> 相關附件
-            <div style="padding-top:15px">1.「為提供使用者有文書軟體選擇的權利，本專區有提供ODF開放文件格式，建議您安裝<a href="http://zh-tw.libreoffice.org/download/libreoffice-still/" title="免費開源軟體(另開新視窗)" target="_blank">免費開源軟體</a>或以您慣用的軟體開啟文件。」
+            <div style="padding-top:15px">1.「為提供使用者有文書軟體選擇的權利，本專區有提供ODF開放文件格式，建議您安裝<a href="https://zh-tw.libreoffice.org/download/libreoffice-still/" title="免費開源軟體(另開新視窗)" target="_blank">免費開源軟體</a>或以您慣用的軟體開啟文件。」
             </div>
             <ul class="ullink">
                 
@@ -27,7 +27,7 @@
                     if (finfo.Exists)
                     {
                         var hashCode=UIUtility.GetSHA1Hash(finfo.FullName);
-                        <li><a href="@file.UpFile.ToLower()" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                        <li><a download href="@file.UpFile.ToLower()" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
                         <span>SHA256:@hashCode</span>
                     }
                     if (finfo.Extension.ToLower() == ".docx")
@@ -39,7 +39,7 @@
                         if (pdfinfo.Exists)
                         {
                             var hashCode = UIUtility.GetSHA1Hash(pdfinfo.FullName);
-                            <li><a href="@pdffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                            <li><a download href="@pdffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
                             <span>SHA256:@hashCode</span>
                         }
 
@@ -50,7 +50,7 @@
                         if (odfinfo.Exists)
                         {
                             var hashCode = UIUtility.GetSHA1Hash(odfinfo.FullName);
-                            <li><a href="@odffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
+                            <li><a download href="@odffile" title="@(file.Subject).@fileName[fileName.Length-1] (另開視窗)">@file.Subject</a></li>
                             <span>SHA256:@hashCode</span>
                         }
                     }
@@ -59,7 +59,7 @@
                 
                 @*@foreach (var file in Model.NewsFileses)
                 {
-                    <li><a href="@file.UpFile.ToLower()" title="@(file.Subject) (另開視窗)">@file.Subject</a></li>
+                    <li><a download href="@file.UpFile.ToLower()" title="@(file.Subject) (另開視窗)">@file.Subject</a></li>
                    
 
                 }*@

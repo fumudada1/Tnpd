@@ -17,7 +17,8 @@ namespace tnpd.Areas.xinying
             context.MapRoute(
                 "xinying_default",
                 "xinying/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

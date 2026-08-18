@@ -34,7 +34,27 @@ namespace tnpd.Controllers
                 Session["CheckCode"] = null;
                 return View(visit);
             }
+            //驗證E-MAIL
+            DateTime duDateTime = DateTime.Now.AddMinutes(-30);
+            CaseMailCheck mailCheck = _db.caseMailChecks.FirstOrDefault(x => x.Email == visit.Email && x.InitDate >= duDateTime && x.CheckCode == visit.EmailCode);
+            if (mailCheck == null)
+            {
+                ModelState.AddModelError("CheckCode", "E-mail驗證錯誤，請寄送認證郵件，並請至信箱接收認證郵件，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。");
+                ViewBag.UnId = id.ToString();
 
+
+                return View(visit);
+            }
+            //驗證手機
+            CaseMobileCheck mobileCheck = _db.CaseMobileChecks.FirstOrDefault(x => x.Mobile == visit.TEL && x.InitDate >= duDateTime && x.CheckCode == visit.SMSCode);
+            if (mobileCheck == null)
+            {
+                ModelState.AddModelError("CheckCode", "手機驗證錯誤，請3分鐘後重新寄送驗證碼，並請至手機簡訊，取得驗證碼。");
+                ViewBag.UnId = id.ToString();
+
+
+                return View(visit);
+            }
             if (ModelState.IsValid)
             {
                 Case mailCase = new Case();

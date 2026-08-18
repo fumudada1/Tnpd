@@ -77,11 +77,15 @@ namespace tnpd.Controllers
 
         }
 
-        public ActionResult GetPointByVillage(string id, string district)
+        public ActionResult GetPointByVillage(string id, string district,int type=0)
         {
             var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
 
             stations = stations.Where(x => x.Village == id && x.DIstrict == district && x.Twd97Y != "").ToList();
+            if (type == 1)
+            {
+                stations = stations.Where(x => x.IsParkingLot == IsEnable.是).ToList();
+            }
 
             var newstations = stations.Select(x => new
             {
@@ -93,20 +97,24 @@ namespace tnpd.Controllers
                 x.DIstrict,
                 x.Village,
                 lat = x.Twd97X,
-                lng = x.Twd97Y
+                lng = x.Twd97Y,
+                x.IsParkingLot
 
             });
 
             return Json(newstations, JsonRequestBehavior.AllowGet);
 
         }
-
-        public ActionResult GetPointByDistrict(string id)
+        //use
+        public ActionResult GetPointByDistrict(string id, int type = 0)
         {
             var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
 
             stations = stations.Where(x => x.DIstrict == id && x.Twd97Y != "").ToList();
-
+            if (type == 1)
+            {
+                stations = stations.Where(x => x.IsParkingLot == IsEnable.是).ToList();
+            }
             var newstations = stations.Select(x => new
             {
                 id = x.Id,
@@ -117,20 +125,24 @@ namespace tnpd.Controllers
                 x.DIstrict,
                 x.Village,
                 lat = x.Twd97X,
-                lng = x.Twd97Y
+                lng = x.Twd97Y,
+                x.IsParkingLot
 
             });
 
             return Json(newstations, JsonRequestBehavior.AllowGet);
 
         }
-
-        public ActionResult GetPointByPrecinct(string id)
+        //use
+        public ActionResult GetPointByPrecinct(string id, int type = 0)
         {
 
             var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
             stations = stations.Where(x => x.Precinct == id && x.Twd97Y != "").OrderBy(x => x.Id).ToList();
-
+            if (type == 1)
+            {
+                stations = stations.Where(x => x.IsParkingLot == IsEnable.是).ToList();
+            }
 
             var newstations = stations.Select(x => new
             {
@@ -142,18 +154,20 @@ namespace tnpd.Controllers
                 x.DIstrict,
                 x.Village,
                 lat = x.Twd97X,
-                lng = x.Twd97Y
+                lng = x.Twd97Y,
+                x.IsParkingLot
 
             });
 
             return Json(newstations, JsonRequestBehavior.AllowGet);
 
         }
-
-        public ActionResult GetPointByAddress(string address)
+        //use
+        public ActionResult GetPointByAddress(string address, int type = 0, int distance = 3000)
         {
-            string targetURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyC631kTAWg6pT3b3w3sFaD8xhxxASuM7xI&sensor=false&language=zh-tw";
+            string targetURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyBeFhLiEl0Rsc3oxU7Bc5cumx9Otbos0bw&sensor=false&language=zh-tw";
             string text = GetJsonContent(targetURI);
+
             var gjsons = JsonConvert.DeserializeObject<GJson>(text);
 
             if (gjsons.results.Count() > 0)
@@ -161,11 +175,14 @@ namespace tnpd.Controllers
                 var geometry = gjsons.results[0].geometry;
                 double lat = Convert.ToDouble(geometry.location.lat);
                 double lng = Convert.ToDouble(geometry.location.lng);
-                int dis = 3000;
+                int dis = distance;
                 var coord = new GeoCoordinate(lat, lng);
                 var stations = _db.refugeStations.SqlQuery("select * from ViewRefugeStations").ToList<RefugeStation>();
                 stations = stations.Where(x => x.Twd97Y != "").ToList();
-
+                if (type == 1)
+                {
+                    stations = stations.Where(x => x.IsParkingLot == IsEnable.是).ToList();
+                }
                 var jsonitem = stations.Where(x => !string.IsNullOrEmpty(x.Twd97X) && !string.IsNullOrEmpty(x.Twd97Y)
                                                && double.Parse(x.Twd97X) <= 90 && double.Parse(x.Twd97X) >= -90
                                                && double.Parse(x.Twd97Y) <= 180 && double.Parse(x.Twd97Y) >= -180).Select(
@@ -180,8 +197,10 @@ namespace tnpd.Controllers
                             c.Village,
                             lat = c.Twd97X,
                             lng = c.Twd97Y,
-                            Dis = (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord),
-                            DisShow = (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) > 1000 ? string.Format("{0:0.0}公里", (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) / 1000) : string.Format("{0}公尺", (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord))
+                            c.IsParkingLot,
+
+                            Dis = (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord)
+
                         }
                     ).Where(o => o.Dis <= dis)
                     .OrderBy(o => o.Dis)

@@ -301,7 +301,14 @@ App.controller('treeviewCtrl', ['toolService', 'treeApi', '$scope', '$http', 'Mo
             treeApi.UpdateSite('Cypd', []);
 
         };
-        
+        $scope.visibleColor = function (visible) {
+            if (visible == 0) {
+                return 'color:#cccccc'
+            } else {
+                return '';
+            }
+
+        };
        
     }])
     .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {

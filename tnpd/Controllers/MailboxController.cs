@@ -36,64 +36,72 @@ namespace tnpd.Controllers
                 Session["CheckCode"] = null;
                 return View();
             }
+            Session["CheckCode"] = null;
             if (CaseID.IndexOf('A') == 0)
             {
                 CaseTraffic traffic = _db.CaseTraffics.FirstOrDefault(x => x.CaseID == CaseID && x.Email == Email);
                 if (traffic == null)
                 {
-                    SqlConnection conn = new SqlConnection(GetConnectionStringByName("OldTnpdConnection"));
-                    SqlCommand command = new SqlCommand();
-                    command.Connection = conn;
-                    command.CommandText = "select * from trafficCasedata where serno=@serno and Email=@Email";
-                    command.Parameters.Add("serno", CaseID);
-                    command.Parameters.Add("Email", Email);
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows.Count == 0)
+                    BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+                    CaseTraffic trafficOld = _db.CaseTraffics.FirstOrDefault(x => x.CaseID == CaseID && x.Email == Email);
+                    if (trafficOld!=null)
                     {
-                        ViewBag.repost = "案件找不到";
-
+                        traffic = trafficOld;
                     }
-                    else
-                    {
-                        DataRow dataRow = dt.Rows[0];
-                        SqlCommand command1 = new SqlCommand();
-                        command1.Connection = conn;
-                        command1.CommandText = "select * from trafficpoproc where serno=@serno";
-                        command1.Parameters.Add("serno", CaseID);
-                        SqlDataAdapter da1 = new SqlDataAdapter(command1);
-                        DataTable dt1 = new DataTable();
-                        da1.Fill(dt1);
-                        CaseTraffic oldCase = new CaseTraffic();
-                        oldCase.CaseID = dataRow["serno"].ToString();
-                        oldCase.Predate = GetDateTime(dataRow["predate"].ToString());
-                        oldCase.Email = dataRow["Email"].ToString();
-                        oldCase.Subject = dataRow["subject"].ToString();
-                        oldCase.Content = dataRow["content"].ToString();
-                        oldCase.violation_carno = dataRow["violation_carno"].ToString();
-                        oldCase.violation_date =Convert.ToDateTime(dataRow["violation_date"].ToString()) ;
-                        oldCase.violation_time = dataRow["violation_time"].ToString();
-                        oldCase.violation_place = dataRow["violation_place"].ToString();
-                        if (dt1.Rows.Count > 0)
-                        {
-                            DataRow poprocRow = dt1.Rows[0];
-                            CaseTrafficPoproc oldCasePoproc = new CaseTrafficPoproc();
-                            if (poprocRow["status"].ToString() != "3")
-                            {
-                                oldCasePoproc.Status = CaseProcessStatus.待辦;
-                            }
-                            else
-                            {
-                                oldCasePoproc.Status = CaseProcessStatus.結案;
-                            }
-                            oldCasePoproc.AssignMemo = poprocRow["ancontent"].ToString();
-                            oldCase.Poprocs = new List<CaseTrafficPoproc>();
-                            oldCase.Poprocs.Add(oldCasePoproc);
-                            traffic = oldCase;
-                        }
 
-                    }
+                    //SqlConnection conn = new SqlConnection(GetConnectionStringByName("OldTnpdConnection"));
+                    //SqlCommand command = new SqlCommand();
+                    //command.Connection = conn;
+                    //command.CommandText = "select * from trafficCasedata where serno=@serno and Email=@Email";
+                    //command.Parameters.Add("serno", CaseID);
+                    //command.Parameters.Add("Email", Email);
+                    //SqlDataAdapter da = new SqlDataAdapter(command);
+                    //DataTable dt = new DataTable();
+                    //da.Fill(dt);
+                    //if (dt.Rows.Count == 0)
+                    //{
+                    //    ViewBag.repost = "案件找不到";
+
+                    //}
+                    //else
+                    //{
+                    //    DataRow dataRow = dt.Rows[0];
+                    //    SqlCommand command1 = new SqlCommand();
+                    //    command1.Connection = conn;
+                    //    command1.CommandText = "select * from trafficpoproc where serno=@serno";
+                    //    command1.Parameters.Add("serno", CaseID);
+                    //    SqlDataAdapter da1 = new SqlDataAdapter(command1);
+                    //    DataTable dt1 = new DataTable();
+                    //    da1.Fill(dt1);
+                    //    CaseTraffic oldCase = new CaseTraffic();
+                    //    oldCase.CaseID = dataRow["serno"].ToString();
+                    //    oldCase.Predate = GetDateTime(dataRow["predate"].ToString());
+                    //    oldCase.Email = dataRow["Email"].ToString();
+                    //    oldCase.Subject = dataRow["subject"].ToString();
+                    //    oldCase.Content = dataRow["content"].ToString();
+                    //    oldCase.violation_carno = dataRow["violation_carno"].ToString();
+                    //    oldCase.violation_date =Convert.ToDateTime(dataRow["violation_date"].ToString()) ;
+                    //    oldCase.violation_time = dataRow["violation_time"].ToString();
+                    //    oldCase.violation_place = dataRow["violation_place"].ToString();
+                    //    if (dt1.Rows.Count > 0)
+                    //    {
+                    //        DataRow poprocRow = dt1.Rows[0];
+                    //        CaseTrafficPoproc oldCasePoproc = new CaseTrafficPoproc();
+                    //        if (poprocRow["status"].ToString() != "3")
+                    //        {
+                    //            oldCasePoproc.Status = CaseProcessStatus.待辦;
+                    //        }
+                    //        else
+                    //        {
+                    //            oldCasePoproc.Status = CaseProcessStatus.結案;
+                    //        }
+                    //        oldCasePoproc.AssignMemo = poprocRow["ancontent"].ToString();
+                    //        oldCase.Poprocs = new List<CaseTrafficPoproc>();
+                    //        oldCase.Poprocs.Add(oldCasePoproc);
+                    //        traffic = oldCase;
+                    //    }
+
+                    //}
                     
 
                      ViewBag.repost = "案件找不到";

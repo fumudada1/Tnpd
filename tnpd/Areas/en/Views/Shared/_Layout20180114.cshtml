@@ -1,4 +1,4 @@
-﻿
+
 @using tnpd.Models
 @using TnpdModels
 @{
@@ -133,7 +133,7 @@
         ============================================= -->
         <nav id="primary-menu" class="with-arrows style-2 center">
             <div class="container clearfix">
-                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                <button type="button" id="primary-menu-trigger" role="button" aria-expanded="false" aria-controls="primary-menu-nav" aria-label="展開選單" title="展開選單"><i class="icon-reorder" aria-hidden="true"></i><span class="visually-hidden">選單</span></button>
                 @Html.Raw(web.getAllMenu())
             </div>
         </nav>
@@ -253,12 +253,12 @@
 <div id="gotoTop" class="icon-angle-up" title="gotoTop"></div>
 <!-- External JavaScripts
 ============================================= -->
-<script src="~/Areas//@areaName/js/jquery.js"></script>
-<script src="~/Areas//@areaName/js/plugins.js"></script>
+<script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
+<script src="/js/plugins.js"></script>
 <!-- Footer Scripts
 ============================================= -->
-<script src="~/Areas//@areaName/js/functions.js"></script>
-<script src="~/Areas//@areaName/js/fontsize.js"></script>
+<script src="/js/functions.js"></script>
+<script src="/js/fontsize.js"></script>
 <script>
     $(document).ready(function () {
 

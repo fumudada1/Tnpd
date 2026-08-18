@@ -19,6 +19,30 @@ namespace TnpdModels
         [Display(Name = "行為")]
         public string Subject { get; set; }
 
+        [MaxLength(10)]
+        [Display(Name = "單位")]
+        public string Org { get; set; }
+
+        [MaxLength(10)]
+        [Display(Name = "子單位")]
+        public string subOrg { get; set; }
+
+        
+        [Display(Name = "單位代號")]
+        public int? Unitid { get; set; }
+
+        
+        [Display(Name = "事件")]
+        public SystemLogEvent? Enent { get; set; }
+
+       
+        [Display(Name = "屬性")]
+        public SystemLogAttr ? attr { get; set; }
+
+        [MaxLength(50)]
+        [Display(Name = "網路位置(IP)")]
+        public string IP { get; set; }
+
         [MaxLength(50)]
         [Display(Name = "發布者")]
         public string Poster { get; set; }

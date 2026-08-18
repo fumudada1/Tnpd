@@ -34,12 +34,13 @@
     overflow: hidden;
 }
 
-.testi-content01 h4 {
-    margin-bottom: 0;
+.testi-content01 .styh4 {
     margin-top: 5px;
     margin-bottom: 20px;
     font-family: "微軟正黑體", 'Crete Round', serif;
     font-size: 1.3em;
+    font-weight: 600;
+    color: #444;
 }
 
 .testi-meta01 {
@@ -49,7 +50,7 @@
 
 .testi-meta01 a {
     display: block;
-    background-color: #2db3b8;
+    background-color: #007B7F;
     color: #fff;
     border-radius: 5px;
     padding: 7px 0;
@@ -57,7 +58,7 @@
 
 .testi-meta01 a:hover {
     display: block;
-    background-color: #028b9f;
+    background-color: #175E60;
     color: #fff;
 }
 
@@ -80,20 +81,20 @@
 }
 
 .feature-box03 .fbox-icon03 i {
-    background-color: #83be10 !important;
+    background-color: #fcea02 !important;
 }
 
 .fbox-icon03 i:after {
-    box-shadow: 0 0 0 3px #83be10 !important;
+    box-shadow: 0 0 0 3px #fcea02 !important;
 }
 
 .feature-box04 .fbox-icon04 i {
 
-    background-color: #2db3b8 !important;
+    background-color: #26989C !important;
 }
 
 .fbox-icon04 i:after {
-    box-shadow: 0 0 0 3px #2db3b8 !important;
+    box-shadow: 0 0 0 3px #26989C !important;
 }
 
 .feature-box05 .fbox-icon05 i {
@@ -129,17 +130,17 @@
     background-color: #e8eff7
 }
 
-.i_newbox h4 {
+.i_newbox .styh4 {
     margin-bottom: 5px;
     margin-top: 10px;
     font-size: 1.3em;
 }
 
-.i_newbox h4 a {
+.i_newbox .styh4 a {
     color: #111;
 }
 
-.i_newbox h4 a:hover {
+.i_newbox .styh4 a:hover {
     color: #c4302b;
 }
 
@@ -154,7 +155,7 @@
 
 .i_newbox ul li span {
     display: block;
-    color: #8d8d8d;
+    color: #333333;
 }
 
 .i_newbox ul li {
@@ -210,7 +211,7 @@
 }
 
 
-.link_title h4 {
+.link_title h3 {
     float: left;
     font-size: 1.3em;
     display: inline-block;
@@ -267,7 +268,8 @@
 }
 
 .carousel-indicators {
-    bottom: -18%;
+    bottom: -13%;
+    list-style-type:none;
 }
 
 .carousel-indicators li {
@@ -320,9 +322,6 @@ a.bannera:focus {
 .indexaddlink01 a:hover i {
     color: #ff7d74;
 }
-
-
-
 
 .indexaddlink01 a i {
     font-size: 2.2em;
@@ -400,9 +399,6 @@ a.facebook {
     display: block;
 }
 
-
-
-
 @media screen and (min-width: 200px) and (max-width: 598px) {
     ul.tab-nav:not(.tab-nav-lg) li {
         float: left;
@@ -479,4 +475,32 @@ a.facebook {
         flex: 100% !important;
         max-width: 100% !important;
     }
+}
+
+@media (max-width: 768px) {
+    .indexaddlink02 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .indexadd {
+        padding: 10px 0!important;
+        margin-right: 15px;
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    .indexaddlink01 {
+        padding-left: 20px;
+    }
+
+    .indexaddlink03 {
+        padding-right: 20px;
+    }
+
+}
+
+.carousel-item.active a:focus{
+    opacity:0.7;
+    border: 300px dashed #ff7200!important
 }

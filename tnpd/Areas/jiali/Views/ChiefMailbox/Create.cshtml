@@ -1,219 +1,343 @@
 ﻿@model tnpd.Models.ChiefView
 <div class="row">
-    @using (Html.BeginForm("Create", "ChiefMailbox", new { @class = "form form-vaild form-aligned trailer" }))
+    @using (Html.BeginForm("Create", "ChiefMailbox", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        @ViewBag.Message
+        @Html.ValidationSummary(false, "", new { @class = "h4title", style = "color:red;" })
+        if (ViewBag.Message != null)
+        {
+            <div style="color: red;" class="h4title">
+                <i class="fas fa-exclamation-triangle"></i> @ViewBag.Message
+            </div>
+        }
         <div class="col-12">
             <p>
                 親愛的民眾您好：<br>
-                感謝您使用本局的信箱，透過信箱可以讓我們知道您的需求及問題在哪裡， 以便為您做更多的服務，真正達到落實"便民"的目標。<br>
+                感謝您使用本局的信箱，透過信箱可以讓我們知道您的需求及問題在哪裡， 以便為您做更多的服務。<br>
                 (有 <span class="text-danger">*</span> 號請務必填寫)
             </p>
-
+            <p>
+                為避免郵件帳號遭人冒用，從事假訊息散布之疑慮，使您陳情意見能正確傳達並獲取服務，即日起，陳情案件採用<span style="color: red">信箱</span>
+                及<span style="color: red">簡訊</span> 雙重登入驗證。
+            </p>
+            <h4 class="h4title">填寫流程說明：</h4>
+            <ul class="ultxt">
+                <li><span style="color: red">步驟一（簡訊驗證）</span>：填寫行動電話 → 點選「取得認證簡訊」→ 收到簡訊後輸入驗證碼 → 點選「下一步」</li>
+                <li><span style="color: red">步驟二（E-Mail驗證）</span>：填寫E-Mail → 點選「寄送認證郵件」→ 至信箱取得驗證碼後輸入 → 點選「下一步」<br>
+                    本系統將依據您所提供的E-Mail回覆處理進度，若無法收到認證郵件，請至「垃圾郵件」查看，請盡量避免使用免費信箱。
+                </li>
+                <li><span style="color: red">步驟三（填寫資料）</span>：填寫姓名、主題、內容等資料 → 點選「送出」完成陳情</li>
+                <li><span style="color: red">請於收到認證郵件及簡訊驗證碼30分鐘內完成驗證，若逾期請重新取得驗證碼。</span></li>
+            </ul>
             <div class="hrline"></div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label" for="Name"><span class="text-danger">*</span>
-                        姓名：</label>
-                    <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
-                    <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+            <!-- 步驟指示列 -->
+            <div class="wizard-steps">
+                <span id="step-label-1" class="step-badge step-active">步驟一 簡訊驗證</span>
+                <span class="step-arrow">&rsaquo;</span>
+                <span id="step-label-2" class="step-badge">步驟二 E-Mail驗證</span>
+                <span class="step-arrow">&rsaquo;</span>
+                <span id="step-label-3" class="step-badge">步驟三 填寫資料</span>
+            </div>
+            <div class="hrline"></div>
 
+            <!-- 步驟一：簡訊驗證 -->
+            <div id="step1">
+                <div class="form-group">
+                    <label class="col-form-label" for="TEL">
+                        <span class="text-danger">*</span>行動電話：</label>
+                    <input id="TEL" class="form-control" name="TEL" placeholder="請輸入行動電話" type="text" value="@Model.TEL" />
+                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+                    <button type="button" id="sendSms" class="btn btn-info" style="MARGIN-TOP: 10PX">取得認證簡訊</button>
+                    <span id="smstime" style="color: blue"></span><br>
+                    <span style="color: blue">(送出後，請至手機取得驗證碼，並到下面簡訊驗證碼輸入)</span><br>
+                    <span style="color: red" id="smsMessage"></span>
                 </div>
-                <div class="form-group col-md-6"  style="display: none">
-                    <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
-                        性別：</label>
-                    <div class="form-group">
-                        <select  class="form-control"  id="Gender" name="Gender"><option>男</option>
-                            <option>女</option>
-                        </select>
-                      
-
+                <div class="form-group">
+                    <label class="col-form-label" for="SMSCode">
+                        <span class="text-danger">*</span>
+                        簡訊驗證碼：(請至手機取得驗證碼)</label>
+                    <input id="SMSCode" class="form-control" data-val="true" data-val-required="簡訊驗證碼必填" name="SMSCode" placeholder="請輸入簡訊驗證碼" type="text" value="@Model.SMSCode" />
+                    <span class="field-validation-valid" data-valmsg-for="SMSCode" data-valmsg-replace="true"></span>
+                    <span style="color: red" id="smsVerifyMsg">@ViewBag.SMSMessage</span>
+                </div>
+                <div class="form-row justify-content-end mt-3">
+                    <div class="col-auto">
+                        <button type="button" id="btn-next1" class="btn btn-primary">下一步 &rsaquo;</button>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-form-label" for="Email"><span class="text-danger">*</span>
-                    E-Mail：</label>
-              
-                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
-                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-
-            </div>
-            <div class="form-group">
-                <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
-                <span style="color: red" id="mailMessage"></span>
-            </div>
-
-            <h4 class="h4title">寄送認證郵件注意事項：</h4>
-
-            <ul class="ultxt">
-                <li>填寫e-mail → 點選「寄送認證郵件」鈕→
-                    出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
-                </li>
-                <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
-                </li>
-                <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
-                </li>
-            </ul>
-
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label" for="TEL">
-                        電話：</label>
-                
-                    <input id="TEL" class="form-control" name="TEL" placeholder="請輸入聯絡電話" type="text" value="@Model.TEL" />
-                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
-
+            <!-- 步驟二：E-Mail驗證 -->
+            <div id="step2" style="display:none">
+                <div class="form-group">
+                    <label class="col-form-label" for="Email"><span class="text-danger">*</span>
+                        E-Mail：</label>
+                    <span style="color:red">因目前Yahoo信箱異常，請先使用其他信箱，避免信件接收失敗</span>
+                    <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+                    <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                 </div>
-                <div class="form-group col-md-6"  style="display: none">
-                    <label class="col-form-label" for="Job">
-                        職業：</label>
-                    <input class="form-control"  id="Job" name="Job" placeholder="請輸入職業" type="text" value="@Model.Job" />
-                    <span class="field-validation-valid" data-valmsg-for="Job" data-valmsg-replace="true"></span>
-
+                <div class="form-group">
+                    <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br />
+                    <span style="color: blue">(寄出後，請至E-mail 取得驗證碼，並到下面 E-Mail驗證碼輸入)</span>
+                    <br />
+                    <span style="color: red" id="mailMessage"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="EmailCode">
+                        <span class="text-danger">*</span>
+                        E-Mail驗證碼：(請至E-mail裡取得驗證碼)</label>
+                    <input id="EmailCode" class="form-control" data-val="true" data-val-required="E-Mail驗證碼必填" name="EmailCode" placeholder="請輸入E-Mail裡驗證碼" type="text" value="@Model.EmailCode" autocomplete="one-time-code" />
+                    <span class="field-validation-valid" data-valmsg-for="EmailCode" data-valmsg-replace="true"></span>
+                    <span style="color: red" id="emailVerifyMsg">@ViewBag.EMailMessage</span>
+                </div>
+                <div class="form-row justify-content-end mt-3">
+                    <div class="col-auto">
+                        <button type="button" id="btn-next2" class="btn btn-primary">下一步 &rsaquo;</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-form-label" for="Address">
-                    地址：</label>
-                <div class="form-row ">
-                   
-                    <input id="Address" class="form-control" name="Address" placeholder="請輸入地址" placeholder="現居地址" type="text" value="@Model.Address" />
-                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-
+            <!-- 步驟三：填寫資料 -->
+            <div id="step3" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label" for="Name"><span class="text-danger">*</span>
+                            姓名：</label>
+                        <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
+                        <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group col-md-6" style="display: none">
+                        <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
+                            性別：</label>
+                        <div class="form-group">
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6" style="display: none">
+                        <label class="col-form-label" for="Job">職業：</label>
+                        <input class="form-control" id="Job" name="Job" placeholder="請輸入職業" type="text" value="@Model.Job" />
+                        <span class="field-validation-valid" data-valmsg-for="Job" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="Address">地址：</label>
+                    <div class="form-row">
+                        <input id="Address" class="form-control" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
+                        <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="Subject"><span class="text-danger">*</span>
+                        主題：</label>
+                    <input id="Subject" class="form-control" data-val="true" data-val-required="主旨必填" name="Subject" placeholder="請輸入主旨" type="text" value="@Model.Subject" />
+                    <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="Content">內容：</label>
+                    <textarea class="form-control" data-val="true" data-val-required="必填" name="Content" id="Content" rows="3">@Model.Content</textarea>
+                    <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="Upfile1">檔案上傳：</label>
+                    <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file">
+                    <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
+                    <input name="Upfile3" class="form-control" id="Upfile3" type="file">
+                </div>
+                <div class="form-group" style="word-break: break-all;">
+                    <span class="text-danger">【檔案上傳限制】</span><br>
+                    1. 3個檔案加總請勿超過50MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span>，附檔檔名請使用半形英數字命名。<br>
+                    2. 僅支援圖片、影片以及Word、PDF檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp, *.doc, *.docx, *.pdf）<br>
+                    3. rar及zip等檔案格式因容易夾帶電腦病毒或是惡意程式，自即日起，停止接收上傳，敬請見諒。
+                </div>
+                <div class="form-row mt-4">
+                    <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
+                        驗證碼：</label>
+                    <div class="form-group col-auto">
+                        <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更換驗證碼" tabindex="0" onclick="fleshVerify()" onkeypress="fleshVerify()" />
+                        <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。" /></a>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input id="checkCode" class="form-control" name="checkCode" placeholder="請輸入驗證碼" type="text" data-val="true" data-val-required="驗證碼必填" /><span class="field-validation-valid" data-valmsg-for="checkCode" data-valmsg-replace="true"></span>
+                        <noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
+                        <div id="newMessageDIV" style="display:none"></div>
+                        @Html.ValidationMessage("CheckCode")
+                    </div>
+                </div>
+                <div class="hrline"></div>
+                <input type="hidden" name="id" value="@ViewBag.UnId" />
+                <div class="form-row justify-content-end mt-3">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-info">送出</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-form-label" for="Subject"><span class="text-danger">*</span>
-                    主題：</label>
-                <input id="Subject" class="form-control" data-val="true" data-val-required="主旨必填" name="Subject" placeholder="請輸入主旨" type="text" value="@Model.Subject"  />
-                <span class="field-validation-valid" data-valmsg-for="Subject" data-valmsg-replace="true"></span>
-
-               
-            </div>
-
-            <div class="form-group">
-                <label class="col-form-label" for="Content">內容：</label>
-                <textarea class="form-control"   data-val="true" data-val-required="必填" name="Content" rows="3">@Model.Content</textarea>
-                <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
-
-            </div>
-            <div class="form-group">
-                <label class="col-form-label" for="Upfile1">
-                    <span class="text-danger">*</span>
-                    檔案上傳：</label>
-                <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
-                <input id="Upfile1" class="form-control mb-2" data-val="true" data-val-required="至少第一個檔案必須上傳" name="Upfile1" type="file">
-                <input id="Upfile2" class="form-control mb-2" name="Upfile2" type="file">
-                <input id="Upfile3" class="form-control" name="Upfile3" type="file">
-            </div>
-
-            <div class="form-group" style="word-break: break-all;">
-                <span class="text-danger">【檔案上傳限制】</span><br>
-                1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
-                2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
-
-            </div>
-            <div class="form-row  mt-4">
-                <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
-                    驗證碼：</label>
-
-                <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
-                    <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
-                   
-                </div>
-                <div class="form-group col-md-3">
-                    <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
-                   
-                     @Html.ValidationMessage("CheckCode")              
-                </div>
-
-            </div>
-
-            <div class="hrline"></div>
-            <input type="hidden" name="id" value="@ViewBag.UnId"/>
-            <div class="form-row justify-content-center">
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-info">送出</button>
-                </div>
-                <div class="col-auto">
-                    <button type="reset" class="btn btn-secondary">清除</button>
-                </div>
-            </div>
-
         </div>
-
-
     }
-
 </div>
 <script type="text/javascript">
-    function PlayCode() {
-        var name = ReadCookie("CheckCode");
-        var url2 = "/wav/" + name + ".wav";
+    var smsVerified = false;
+    var emailVerified = false;
 
-        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
-            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
-            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
-        } else {
-            //Firefox,Chrome均支持<audio/>
-            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
-        }
+    function goStep(n) {
+        $('#step1,#step2,#step3').hide();
+        $('#step' + n).show();
+        $('#step-label-1,#step-label-2,#step-label-3').removeClass('step-active');
+        $('#step-label-' + n).addClass('step-active');
     }
-    $("#sendmail").click(function () {
-        var email = $('#Email').val();
-        $("#mailMessage").text('發送信件' + $('#Email').val());
-        $.get("/ChiefMailbox/SendVerifyMail/", { id: $('#Email').val() })
+
+    $(document).ready(function () { var _initStep = @((!ViewData.ModelState.IsValid || ViewBag.Message != null) ? 3 : 1);
+        goStep(_initStep);
+ });
+
+    $('#TEL').on('input', function () { smsVerified = false; });
+    $('#SMSCode').on('input', function () { smsVerified = false; });
+    $('#Email').on('input', function () { emailVerified = false; });
+    $('#EmailCode').on('input', function () { emailVerified = false; });
+
+    $('#btn-next1').click(function () {
+        var mobile = $('#TEL').val();
+        var code = $('#SMSCode').val();
+        if (!mobile) { $('#smsVerifyMsg').text('請填寫行動電話'); return; }
+        if (!code) { $('#smsVerifyMsg').text('請填寫簡訊驗證碼'); return; }
+        if (smsVerified) { goStep(2); return; }
+        var $btn = $(this);
+        $btn.prop('disabled', true).text('驗證中...');
+        $.post('/ChiefMailbox/CheckSmsCode', { mobile: mobile, code: code })
             .done(function (data) {
-                $("#mailMessage").text(data);
+                if (data.success) {
+                    smsVerified = true;
+                    goStep(2);
+                } else {
+                    $('#smsVerifyMsg').text(data.message);
+                }
+            })
+            .always(function () {
+                $btn.prop('disabled', false).html('下一步 &rsaquo;');
+            });
+    });
+
+    $('#btn-next2').click(function () {
+        var email = $('#Email').val();
+        var code = $('#EmailCode').val();
+        if (!email) { $('#emailVerifyMsg').text('請填寫E-Mail'); return; }
+        if (!code) { $('#emailVerifyMsg').text('請填寫E-Mail驗證碼'); return; }
+        if (emailVerified) { goStep(3); return; }
+        var $btn = $(this);
+        $btn.prop('disabled', true).text('驗證中...');
+        $.post('/ChiefMailbox/CheckEmailCode', { email: email, code: code })
+            .done(function (data) {
+                if (data.success) {
+                    emailVerified = true;
+                    goStep(3);
+                } else {
+                    $('#emailVerifyMsg').text(data.message);
+                }
+            })
+            .always(function () {
+                $btn.prop('disabled', false).html('下一步 &rsaquo;');
+            });
+    });
+
+    $('#sendmail').click(function () {
+        $('#mailMessage').text('發送信件中...');
+        $.get('/ChiefMailbox/SendVerifyMailCode/', { id: $('#Email').val() })
+            .done(function (data) {
+                $('#mailMessage').text(data);
             });
     });
 
     function fleshVerify() {
-
-        //重载验证码
-
         var time = new Date().getTime();
-
         document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
-
     }
+
+    function PlayCode() {
+        var name = ReadCookie('CheckCode');
+        var url2 = '/wav/' + name + '.wav';
+        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
+            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
+        } else {
+            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
+        }
+    }
+
     function ReadCookie(name) {
         var dc = document.cookie;
-        var start1 = dc.indexOf(name + "=");
-        if (start1 == -1) {
-            return "";
+        var start1 = dc.indexOf(name + '=');
+        if (start1 == -1) { return ''; }
+        var start = dc.indexOf('=', start1) + 1;
+        var end = dc.indexOf(';', start);
+        if (end == -1) { end = dc.length; }
+        var value = unescape(dc.substring(start, end));
+        return value || '';
+    }
+
+    var smsTimer;
+    var t = 180;
+    var smsAttempts = 0;
+    var maxAttempts = 3;
+
+    function showTime() {
+        t -= 1;
+        document.getElementById('smstime').innerHTML = '請留意手機簡訊，若一直沒有收到可在' + t + '秒後可再傳送一次。';
+        if (t <= 0) {
+            clearTimeout(smsTimer);
+            if (smsAttempts < maxAttempts) {
+                $('#sendSms').prop('disabled', false);
+            } else {
+                document.getElementById('smstime').innerHTML = '已達到最大發送次數。';
+            }
+        } else {
+            smsTimer = setTimeout(showTime, 1000);
         }
-        else {
-            start = dc.indexOf("=", start1) + 1;
-            var end = dc.indexOf(";", start);
-            if (end == -1) {
-                end = dc.length;
-            }
-            var value = unescape(dc.substring(start, end));
-            if (value == null) {
-                return ""
-            }
-            else {
-                return value;
-            }
+    }
+
+    $('#sendSms').click(function () {
+        $('#smsMessage').text('');
+        var Mobile = $('#TEL').val();
+        if (!is_mobile(Mobile)) {
+            $('#smsMessage').text('手機格式錯誤!');
+            return;
         }
+        if (smsAttempts >= maxAttempts) {
+            $('#smsMessage').text('已達到最大發送次數。');
+            return;
+        }
+        $('#sendSms').prop('disabled', true);
+        smsAttempts++;
+        t = 180;
+        showTime();
+        $('#smsMessage').text('發送簡訊至' + Mobile + '中，請稍後! (第' + smsAttempts + '次發送)');
+        SendSMS(Mobile);
+    });
+
+    function SendSMS(Mobile) {
+        $.post('/ChiefMailbox/SendVerifyMobile', { mobile: Mobile, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() })
+            .done(function (data) {
+                if (data != '已經發送，請留意簡訊訊息!') {
+                    console.log('ans:' + data);
+                } else {
+                    $('#smsMessage').text(data);
+                }
+            });
+    }
+
+    function is_mobile(mobile) {
+        if (mobile === '') { return false; }
+        return /^(09([0-9]){8})$/.test(mobile);
     }
 </script>
 <style>
-    .field-validation-error {
-        color:red
-    }
+    .field-validation-error { color: red; }
+    .wizard-steps { margin: 15px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .step-badge { font-size: 0.95em; padding: 6px 12px; background-color: #6c757d; color: #fff; border-radius: 4px; display: inline-block; }
+    .step-badge.step-active { background-color: #17a2b8; color: #fff; }
+    .step-arrow { color: #6c757d; font-size: 1.3em; }
 </style>
 <script src="/js/jquery.validate.js"></script>
-
 <script src="/js/jquery.validate.unobtrusive.js"></script>
 <script src="/js/jquery.unobtrusive-ajax.min.js"></script>

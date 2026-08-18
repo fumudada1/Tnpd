@@ -30,6 +30,22 @@ namespace tnpd
             
         }
 
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError().GetBaseException();
+            if (ex != null)
+            {
+                System.Diagnostics.EventLog.WriteEntry(
+                    "Application",
+                    string.Format("URL: {0}\nIP: {1}\n\n{2}",
+                        Request.Url,
+                        Request.Headers["X-RDWR-IP"],
+                        ex.ToString()),
+                    System.Diagnostics.EventLogEntryType.Error
+                );
+            }
+        }
+
         protected void Session_Start(Object sender, EventArgs e)
         {
 
@@ -103,6 +119,54 @@ namespace tnpd
                 {
                    
                 }
+            }
+        }
+
+        protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
+        {
+            var app = sender as HttpApplication;
+            // remove Server header
+            if (app != null)
+            {
+                app.Context.Response.Headers.Remove("Server");
+                app.Context.Response.Headers.Remove("X-AspNet-Version");
+                app.Context.Response.Headers.Remove("X-AspNetMvc-Version");
+
+                RemoveDuplicateSetCookie(app.Context.Response);
+            }
+
+
+        }
+
+        /// <summary>
+        /// 移除內容完全相同的重複 Set-Cookie 標頭。
+        ///
+        /// 成因：ASP.NET 在 Session 建立當下就將 Session Cookie 直接寫入回應標頭，
+        /// 之後若有其他 Cookie（例如 View 產生的防偽 Token）加入 Response.Cookies 集合，
+        /// ReleaseRequestState 階段會把整個集合再同步一次，且不會跳過已輸出過的 Session Cookie，
+        /// 導致同一組 Session Cookie 出現兩筆完全相同的 Set-Cookie。
+        ///
+        /// 兩筆的 name/value/path 相同，瀏覽器解析後仍是同一個 Cookie，
+        /// 不會造成 Session 覆蓋；此處僅為避免重複標頭造成的困擾。
+        /// </summary>
+        private void RemoveDuplicateSetCookie(HttpResponse response)
+        {
+            string[] setCookies = response.Headers.GetValues("Set-Cookie");
+            if (setCookies == null || setCookies.Length < 2)
+            {
+                return;
+            }
+
+            string[] distinct = setCookies.Distinct(StringComparer.Ordinal).ToArray();
+            if (distinct.Length == setCookies.Length)
+            {
+                return;   // 沒有完全相同的重複項，不動作
+            }
+
+            response.Headers.Remove("Set-Cookie");
+            foreach (string cookie in distinct)
+            {
+                response.Headers.Add("Set-Cookie", cookie);
             }
         }
     }

@@ -35,5 +35,13 @@ namespace TnpdModels
         [Display(Name = "確認時間")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime ConfirmDate { get; set; }
+
+        [Display(Name = "驗證碼")]
+        public string CheckCode { get; set; }
+
+        // 新增欄位
+        public bool IsUsed { get; set; }        // 是否已使用
+        public DateTime? UsedDate { get; set; }  // 使用時間
+        public string UsedIp { get; set; }       // 使用的 IP
     }
 }

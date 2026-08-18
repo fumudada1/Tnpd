@@ -1,12 +1,13 @@
 ﻿
 @using MvcPaging
 @using Tnpd.Helpers
+@using TnpdModels
 @model MvcPaging.IPagedList<TnpdModels.Case>
 
 @{
     ViewBag.Title = "案件查詢";
+    List<Holiday> Holidays = ViewBag.Holidays;
 }
-
 <h2>案件查詢</h2>
 
 
@@ -21,8 +22,11 @@
     <input type="hidden" id="hidSearchByCategories1" value="@ViewData["SearchByCategories1"]" /> 
     <input type="hidden" id="hidSearchByCategories2" value="@ViewData["SearchByCategories2"]" /> 
     案號：@Html.InputSearchBox("SearchByCaseId", ViewData["SearchByCaseId"])
-    案件狀態： @Html.DropDownList("SearchByStatus", new SelectList(Enum.GetValues(typeof(TnpdModels.CaseProcessStatus))).Where(x=>x.Text!="未分派"),"請選擇")
-               <br/>    關鍵字:@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) (標題、內容、姓名、E-mail、電話)
+    @if(Request["pclass"]!="5"){
+    <lablel>案件狀態：</lablel>  @Html.DropDownList("SearchByStatus", new SelectList(Enum.GetValues(typeof(TnpdModels.CaseProcessStatus))).Where(x=>x.Text!="未分派"),"請選擇")
+               <br/>
+    }
+        關鍵字:@Html.InputSearchBox("SearchBySubject", ViewData["SearchBySubject"]) (標題、內容、姓名、E-mail、電話)
                    
         	<br/> 收件日期:<input type="text" name="SearchByStartDate" value="@ViewData["SearchByStartDate"]" class = "datepicker" autocomplete="off" /> ~ <input type="text" name="SearchByEndDate" value="@ViewData["SearchByEndDate"]" class = "datepicker" autocomplete="off"/>
     </div>
@@ -77,7 +81,7 @@
             @Html.DisplayFor(modelItem => item.CaseType)
         </td>
         <td>
-            @item.InitDate
+            @item.InitDate.Value.ToString("yyyy/MM/dd HH:mm")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -105,27 +109,37 @@
         <td>
             @{
         Double timespan;
+                int holidayCount;
                 if (item.Poprocs.Count > 0)
                 {
 
                     if (item.Poprocs.FirstOrDefault().EndDateTime.HasValue)
                     {
+                         holidayCount = Holidays.Where(x =>
+                            x.InitDate >= item.InitDate.Value && x.InitDate <= item.Poprocs.FirstOrDefault().EndDateTime.Value)
+                            .Select(x => x.InitDate).Distinct().Count();
 
                         timespan = new TimeSpan(item.Poprocs.FirstOrDefault().EndDateTime.Value.Ticks -
                                                 item.InitDate.Value.Ticks).TotalDays;
-                        @Math.Round(timespan, 2).ToString()
+                        @Math.Round(timespan-holidayCount, 2).ToString()
                     }
                     else
                     {
+                        holidayCount = Holidays.Where(x =>
+                            x.InitDate >= item.InitDate.Value && x.InitDate <= DateTime.Now)
+                            .Select(x => x.InitDate).Distinct().Count();
 
                         timespan = new TimeSpan(DateTime.Now.Ticks - item.InitDate.Value.Ticks).TotalDays;
-                        @Math.Round(timespan, 2).ToString()
+                        @Math.Round(timespan-holidayCount, 2).ToString()
                     }
                 }
                 else
                 {
+                    holidayCount = Holidays.Where(x =>
+                        x.InitDate >= item.InitDate.Value && x.InitDate <= DateTime.Now)
+                        .Select(x => x.InitDate).Distinct().Count();
                     timespan = new TimeSpan(DateTime.Now.Ticks - item.InitDate.Value.Ticks).TotalDays;
-                    @Math.Round(timespan, 2).ToString()
+                    @Math.Round(timespan-holidayCount, 2).ToString()
                 }
 
             }

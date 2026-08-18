@@ -1,6 +1,7 @@
 ﻿
 @using MvcPaging
 @using Tnpd.Helpers
+@using TnpdModels
 @model MvcPaging.IPagedList<TnpdModels.CasePoproc>
 
 @{
@@ -31,11 +32,15 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Case.Predate)
         </th>
+
         <th>
             辦理天數
         </th>
         <th>
-           案件狀態
+            案件狀態
+        </th>
+        <th>
+            
         </th>
         
     </tr>
@@ -88,7 +93,12 @@
                 <br/>  <span><img src="/Images/documents.png" style="width: 20px"/>併案案件</span> 
             }   
         </td>
-      
+        <td>
+            @if (item.Case.PoprocslLogs.Any(x => x.Action == "案件更換承辦人") && item.Case.CaseType==CaseType.首長信箱)
+            {
+                <span>已指定承辦人</span>
+            }
+        </td>
     </tr>
 }
 </tbody>

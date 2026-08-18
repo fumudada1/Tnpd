@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -38,7 +38,10 @@ namespace tnpd.Controllers
             image = null;
 
             string filename = System.Guid.NewGuid().ToString().ToLower();
-            Response.Cookies.Add(new HttpCookie("CheckCode", filename));
+            //Response.Cookies.Add(new HttpCookie("CheckCode", filename));
+            HttpCookie CheckCodeCookie = new HttpCookie("CheckCode", filename);
+            CheckCodeCookie.Path = "/; SameSite=Strict; Secure";
+            Response.Cookies.Add(CheckCodeCookie);
             // 生成一个guid作为文件名称,这样防止通过cookie直接看到验证码，这样就没意义了呀~
             //by http://www.jizhuni.com
             if (Request.Cookies["CheckCode"] != Request.Cookies["OldCode"])
@@ -51,14 +54,20 @@ namespace tnpd.Controllers
                         System.IO.File.Delete(delPath);
                     }
                     Response.Cookies.Remove("OldCode");
-                    Response.Cookies.Add(new HttpCookie("OldCode", filename));
+                    HttpCookie OldCodeCookie = new HttpCookie("OldCode", filename);
+                    OldCodeCookie.Path = "/; SameSite=Strict; Lax";
+                    Response.Cookies.Add(OldCodeCookie);
+                    
                 }
                 else
                 {
-                    Response.Cookies.Add(new HttpCookie("OldCode", filename));
+                    Response.Cookies.Remove("OldCode");
+                    HttpCookie OldCodeCookie = new HttpCookie("OldCode", filename);
+                    OldCodeCookie.Path = "/; SameSite=Strict; Lax";
+                    Response.Cookies.Add(OldCodeCookie);
                 }
             }
-           
+
 
             try
             {
@@ -86,9 +95,9 @@ namespace tnpd.Controllers
             catch (Exception e)
             {
                 return result;
-               
+
             }
-          
+
 
 
             return result;
@@ -140,26 +149,26 @@ namespace tnpd.Controllers
 
             //try
             //{
-                // 生成音频文件
-                SpVoice voice = new SpVoice();
-                string voiceStr = "";
-                for (int i = 0; i < code.Length; i++)
-                {
-                    voiceStr += code[i] + " ";
-                }
-                voice.Volume = 100;
-                voice.Rate = 1;
-                //voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFlagsAsync); //播放音频文件
-                //voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
-                SpeechStreamFileMode SpFileMode = SpeechStreamFileMode.SSFMCreateForWrite;
-                SpFileStream SpFileStream = new SpFileStream();
-                string savePath = Server.MapPath("~/wav1/") + filename + ".wav";
-                SpFileStream.Open(savePath, SpFileMode, false);
+            // 生成音频文件
+            SpVoice voice = new SpVoice();
+            string voiceStr = "";
+            for (int i = 0; i < code.Length; i++)
+            {
+                voiceStr += code[i] + " ";
+            }
+            voice.Volume = 100;
+            voice.Rate = 1;
+            //voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFlagsAsync); //播放音频文件
+            //voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
+            SpeechStreamFileMode SpFileMode = SpeechStreamFileMode.SSFMCreateForWrite;
+            SpFileStream SpFileStream = new SpFileStream();
+            string savePath = Server.MapPath("~/wav1/") + filename + ".wav";
+            SpFileStream.Open(savePath, SpFileMode, false);
 
-                voice.AudioOutputStream = SpFileStream;
-                voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFlagsAsync);
-                voice.WaitUntilDone(Timeout.Infinite);
-                SpFileStream.Close();
+            voice.AudioOutputStream = SpFileStream;
+            voice.Speak(voiceStr, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+            voice.WaitUntilDone(Timeout.Infinite);
+            SpFileStream.Close();
             //}
             //catch (Exception e)
             //{

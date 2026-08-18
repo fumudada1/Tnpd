@@ -1,42 +1,16 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
 
     $("#tabNewHeader").show();
-    initTabBlurEvent();
 
+    // 無障礙修正 GN1240300E / GN1210100E：確保 roving tabindex 隨頁籤焦點正確更新
+    // jQuery UI tabs 方向鍵切換只更新 aria-selected，未更新 tabindex=0，此處補正
+    // 採文件層級委派（document → #tabNewHeader li[role='tab']）
+    // 選擇器在事件觸發時才評估，不受 jQuery UI 初始化時序影響
+    $(document).on("focusin", "#tabNewHeader li[role='tab']", function () {
+        $("#tabNewHeader li[role='tab']").attr("tabindex", "-1");
+        $(this).attr("tabindex", "0");
+    });
 
 });
 
 
-
-
-function initTabBlurEvent() {
-    //$("a[id*=ui-id-]").each(function () {
-    //    $(this).blur(function () {
-    //        // console.log("blur");
-    //        var index = $(this).index();
-    //        $("div[id*=tabs-news-" + (index + 1).tostr() + "]").children("div").children("div").children("a").first().focus();
-    //    });
-    //});
-    $("div[id*=tabs-news-]").each(function () {
-        var index = parseInt($(this).attr("id").replace("tabs-news-", "")) - 1;
-        if (index != $("div[id*=tabs-news-]").length - 1) {
-            var target = $(this).children("div").children("div").children("div").children("div").last().children("a");
-            console.log(target);
-            $(target).blur(function () {
-                console.log("blur");
-                console.log("#ui-id-" + (index + 2).toString() + " focus");
-                $("#ui-id-" + (index + 2).toString()).focus();
-                $("#tabNewHeader").children("li").attr("class", "ui-state-default ui-corner-top");
-                $("#ui-id-" + (index + 2).toString()).parent().attr("class", "ui-state-default ui-corner-top ui-tabs-active ui-state-active");
-                $("div[id*=tabs-news-]").hide();
-                $("#tabs-news-" + (index + 2).toString()).show();
-            });
-        }
-    });
-   
-}
-
-
-
-
-   

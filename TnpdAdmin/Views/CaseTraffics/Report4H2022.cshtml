@@ -1,0 +1,41 @@
+﻿
+@using MvcPaging
+@using Tnpd.Helpers
+
+
+@{
+    ViewBag.Title = "受理民眾檢舉違規項目表";
+   
+}
+
+<h2>受理民眾檢舉違規項目表</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div>
+           
+        <br/> 收件日期:<input type="text" name="SearchByStartDate" value="" class = "datepicker" autocomplete="off"/> ~ <input type="text" name="SearchByEndDate" value="" class = "datepicker" autocomplete="off"/>
+    </div>
+    <div>
+        <input type="submit" value="搜尋" />
+    </div>
+
+    
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+            $('#SearchByCategories1').append($("<option></option>").attr("value", '').text('請選擇'));
+            $('#SearchByCategories2').append($("<option></option>").attr("value", '').text('請選擇'));
+        });
+    </script>
+}   
+
+

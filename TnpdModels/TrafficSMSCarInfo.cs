@@ -24,7 +24,7 @@ namespace TnpdModels
         public CarType CarType { get; set; }
 
         [Required(ErrorMessage = "{0}必填")]
-        [MaxLength(10)]
+        [MaxLength(20)]
         [Display(Name = "車主/公司名稱")]
         public string CarOwner { get; set; }
 

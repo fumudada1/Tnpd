@@ -4,11 +4,13 @@ using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 using MvcPaging;
 using System.Web.Mvc;
 using Tnpd.Controllers;
 using Tnpd.Filters;
+using TnpdAdmin.Models.SMS;
 using TnpdModels;
 
 namespace TnpdAdmin.Controllers
@@ -35,8 +37,8 @@ namespace TnpdAdmin.Controllers
 
             var trafficsmscarinfos = _db.trafficSmsCarInfos.Include(t => t.trafficSms).OrderByDescending(p => p.checkStatus).ThenByDescending(x => x.InitDate).AsQueryable();
             ViewBag.TrafficSMSId = new SelectList(_db.trafficSmses.OrderBy(p => p.InitDate), "Id", "Name");
-
-
+            ViewBag.TrafficSMSCarInfoRejectId = new SelectList(_db.TrafficSmsCarInfoRejects.OrderBy(p => p.ListNum), "Id", "Subject");
+            ViewBag.SMSStatus = new SelectList(Enum.GetValues(typeof(TnpdModels.SMSStatus)));
             if (hasViewData("SearchByCarType"))
             {
                 string CarType = getViewDateStr("SearchByCarType");
@@ -85,7 +87,61 @@ namespace TnpdAdmin.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult BatchCheck(string hidItem, int TrafficSMSCarInfoRejectId, SMSStatus SMSStatus)
+        {
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
+            hidItem = hidItem.Trim(',');
+            string[] itemIds = hidItem.Split(',');
+            int[] intItemIds = Array.ConvertAll(itemIds, int.Parse);
+            List<TrafficSMSCarInfo> trafficSmsCarInfos = _db.trafficSmsCarInfos.Where(x => intItemIds.Contains(x.Id)).ToList();
+            foreach (var carInfo in trafficSmsCarInfos)
+            {
+                carInfo.checkStatus = SMSStatus;
+                carInfo.TrafficSMSCarInfoRejectId = TrafficSMSCarInfoRejectId;
+                if (carInfo.checkStatus != SMSStatus.未通過)
+                {
+                    carInfo.TrafficSMSCarInfoRejectId = null;
+                }
+               
+                if (carInfo.checkStatus == SMSStatus.已通過)
+                {
+                    string result = Send1911SMS(carInfo.trafficSms.Mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + carInfo.CarNO + "已經審查通過!");
+                }
+                if (carInfo.checkStatus == SMSStatus.未通過)
+                {
+                    string result = Send1911SMS(carInfo.trafficSms.Mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + carInfo.CarNO + "未審查通過!");
+                }
+
+
+            }
+
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        public ActionResult Report()
+        {
+
+            var trafficsmscarinfos = _db.trafficSmsCarInfos.Include(t => t.trafficSms)
+                .Where(x => x.checkStatus == SMSStatus.待審核).OrderByDescending(x => x.InitDate).ToList();
+            StringBuilder sbBuilder = new StringBuilder("\"車號\",\"車主/公司名稱\",\"車子類型\",\"身分證字號\"\n");
+
+            foreach (TrafficSMSCarInfo info in trafficsmscarinfos)
+            {
+                sbBuilder.Append("\"" + info.CarNO + "\",\"" + info.CarOwner + "\",\"" + info.CarType + "\",\"" +
+                                 info.Pid + "\"\n");
+            }
+
+            string stringCSV = sbBuilder.ToString().Trim();
+            Byte[] bytecsv = System.Text.Encoding.UTF8.GetBytes(stringCSV);
+            return File(bytecsv, "text/csv", "sms.csv");
+
+        }
 
 
 
@@ -166,11 +222,11 @@ namespace TnpdAdmin.Controllers
                 trafficsmscarinfo.Update();
                 if (trafficsmscarinfo.checkStatus == SMSStatus.已通過)
                 {
-                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "已經審查通過!");
+                    string result = Send1911SMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "已經審查通過!");
                 }
                 if (trafficsmscarinfo.checkStatus == SMSStatus.未通過)
                 {
-                    string result = SendHinetSMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "未審查通過!");
+                    string result = Send1911SMS(mobile, "台端申請臺南市政府警察局交通違規簡訊服務,車號:" + trafficsmscarinfo.CarNO + "未審查通過!");
                 }
 
 
@@ -215,6 +271,19 @@ namespace TnpdAdmin.Controllers
                 // Console.WriteLine(retCode + " : " + retContent);
             }
 
+
+        }
+
+        private static string Send1911SMS(string mobile, string message)
+        {
+            string username = ConfigurationManager.AppSettings["trafficUsername"].Trim();
+            string password = ConfigurationManager.AppSettings["trafficPassword"].Trim();
+            SmsMain smsMain = new SmsMain(username, password);
+            SmsBody smsBody = new SmsBody("臺南市政府警察局交通大隊簡訊服務", mobile, message);
+            smsMain.SmsBody.Add(smsBody);
+
+            string result = smsMain.SendWithWebRequest();
+            return result;
 
         }
         //

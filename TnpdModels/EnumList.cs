@@ -122,4 +122,23 @@ namespace TnpdModels
         平面道路,
         快速道路
     }
+
+    public enum IsEnable
+    {
+        否 = 0,
+        是 = 1
+    }
+
+    public enum SystemLogEvent
+    {
+        新增,
+        異動,
+        刪除
+    }
+
+    public enum SystemLogAttr
+    {
+        系統登入,
+        網站維護
+    }
 }

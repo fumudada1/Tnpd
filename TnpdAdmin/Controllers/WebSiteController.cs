@@ -181,7 +181,7 @@ namespace Tnpd.Controllers
             XmlNode NewXmlNode = XmlDoc.CreateNode(XmlNodeType.Element, "", "siteMapNode", "");
             string saveTime = DateTime.Now.ToString("yyyyMMddhhmmsss");
             string strLink = "";
-            string strGuid = Guid.NewGuid().ToString();
+            string strGuid = Utility.GetGUID();
             XmlAttribute title = XmlDoc.CreateAttribute("title");
             title.Value = webNode.Subject;
             NewXmlNode.Attributes.Append(title);

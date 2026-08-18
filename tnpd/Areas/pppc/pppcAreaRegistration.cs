@@ -17,7 +17,8 @@ namespace tnpd.Areas.pppc
             context.MapRoute(
                 "pppc_default",
                 "pppc/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

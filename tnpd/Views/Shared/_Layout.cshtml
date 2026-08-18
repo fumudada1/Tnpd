@@ -25,7 +25,7 @@
     {
         unid = ViewBag.UnId.ToString();
         web = new WebPresentation("tnpd", unid);
-        title = ViewBag.Subject ?? web.GetTitle()?? ViewBag.Title;
+        title = ViewBag.Subject ?? web.GetTitle()?? ViewBag.Title??"暫無資料";
         theme = ViewBag.Theme ?? web.GetTheme();
         cake = ViewBag.Cake ?? web.GetCake();
         service = ViewBag.Service ?? web.GetService();
@@ -38,6 +38,8 @@
 <html lang="zh-Hant">
 
 <head>
+<meta name="google-site-verification" content="gRj9veSVQUQ5LvIwJZCVJjtpTpmGjm8gsKbd1rZbtOc" />
+ <meta name="Description" content="臺南市政府警察局-@title,台南市警局,台南市警察局,台南政府市警察局,台南市交通檢舉,交通違規檢舉,良民證申請,違規檢舉" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="x-ua-compatible" content="IE=11,chrome=1" >
     <!-- Stylesheets
@@ -52,13 +54,14 @@
     <link rel="stylesheet" href="/css/magnific-popup.css?a=111" type="text/css" />
     <link rel="stylesheet" href="/css/responsive.css?a=111" type="text/css" />
     <link rel="stylesheet" href="/css/custom.css?a=333" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
 
     <!-- Document Title
     ============================================= -->
    
-    <title>臺南市政府警察局全球資訊網-@title</title>
+    <title>@title-臺南市政府警察局全球資訊網</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="DC.Title" content="臺南市政府警察局-@title" />
     <meta name="DC.Creator" content="臺南市政府警察局" />
@@ -128,8 +131,8 @@
             <!-- Logo
             ============================================= -->
             <h1 id="logo" class="nomargin">
-                <a href="/" class="standard-logo" title="臺南市政府警察局"><img src="/images/logo.png?a=1" alt="臺南市政府警察局"></a>
-                <a href="/" class="retina-logo" title="臺南市政府警察局"><img src="/images/logo@2x.png?a=1" alt="臺南市政府警察局"></a>
+                <a href="/" class="standard-logo"><img src="/images/logo.png?a=1" alt="臺南市政府警察局"></a>
+                <a href="/" class="retina-logo"><img src="/images/logo@2x.png?a=1" alt="臺南市政府警察局"></a>
             </h1>
             <!-- #logo end -->
 			@if (Session["holiday"] != null)
@@ -171,7 +174,16 @@
             ============================================= -->
             <nav id="primary-menu" class="with-arrows style-2 center">
                 <div class="container clearfix">
-                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                    <!-- 無障礙修正：GN1130300E、GN1210100E、GN1240301E、CS2240700E、GN1410200E -->
+                    <button type="button" id="primary-menu-trigger"
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls="primary-menu-nav"
+                            aria-label="展開選單"
+                            title="展開選單">
+                        <i class="icon-reorder" aria-hidden="true"></i>
+                        <span class="visually-hidden">選單</span>
+                    </button>
                     @Html.Raw(web.getAllMenu())
                 </div>
             </nav>
@@ -229,11 +241,16 @@
                                 <div class="societybox">
                                     <ul>
 										<li>
-											<div class="line-it-button" style="display: none;" data-type="share-c" data-lang="zh-Hant" ></div>
-											<script src="//scdn.line-apps.com/n/line_it/thirdparty/loader.min.js" async="async" defer="defer" ></script>
+                                            <!-- 無障礙修正：HM1240404E - 另開新視窗告知 -->
+                                            <a href="#" onclick="window.open('https://lineit.line.me/share/ui?url=' + encodeURIComponent(location.href)); return false;"
+                                               title="分享給 LINE 好友（另開新視窗）"
+                                               aria-label="分享給 LINE 好友（另開新視窗）"
+                                               style="padding: 0 4px">
+                                                <img alt="分享給LINE好友（另開新視窗）" src='https://2.bp.blogspot.com/-E__UA_CCtec/WHgA9yoF0XI/AAAAAAAAIvE/YosXs69By9oPnLWYJsOAKCCSUoVUucKvgCLcB/s1600/40x40.png' style="width: 30px;" />
+                                            </a>
 										</li>
                                         <li>
-                                            <a href="http://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
+                                            <a href="https://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
                                                title="網站分享至facebook(另開視窗)" target="_blank">
                                                 <i class="icon-facebook"></i>
                                                 <i class="icon-facebook"></i>
@@ -274,8 +291,7 @@
             <!-- Footer Widgets
             ============================================= -->
             <div class="text-center footercollapse">
-                <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-                   aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;"> 展開/收合</span></a>
+               
             </div>
             <div class="collapse show" id="collapseExample">
                 <div class="footer-widgets-wrap clearfix">
@@ -304,9 +320,9 @@
                 </div>
                 <div class="col_half col_last tright ">
                     <ul class="crul01 d-none d-md-block">
-                        <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                        <li><a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20221230163447" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                         <li><a href="#" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
-                        <li class="d-none d-sm-block"><img src="/images/new/footer003.jpg" alt="QR Code"></li>
+                        <li class="d-none d-sm-block"><img src="/images/new/footer003.png" alt="QR Code"></li>
                     </ul>
                 </div>
             </div>

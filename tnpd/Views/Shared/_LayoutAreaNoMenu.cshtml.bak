@@ -1,0 +1,282 @@
+﻿@using CypdGlobal.Models
+@using CypdGlobal.Helpers
+@using CypdGlobalModels.Models
+@{
+    string unid = ViewBag.UnId;
+    string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
+    WebPresentation web = new WebPresentation(areaName, unid);
+
+    string title="";
+    string theme="";
+    string cake="";
+    string service="";
+
+    string style = "";
+    string path = "/";
+    if (Session["webstyle"] != null)
+    {
+        style = Session["webstyle"].ToString();
+
+    }
+
+    
+    if (!web.IsRight())
+    {
+        //Response.Redirect("/error.html");
+    }
+    else
+    {
+        title = ViewBag.Subject ?? web.GetTitle();
+        theme = ViewBag.Theme ?? web.GetTheme();
+        cake = ViewBag.Cake ?? web.GetCake();
+        service = ViewBag.Service ?? web.GetService();
+    }
+   
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>嘉義縣警察局</title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <meta name="DC.Creator" content="嘉義縣警察局" />
+    <meta name="DC.Subject" content="嘉義縣警察局 - @title" />
+    <meta name="DC.Description" content="嘉義縣警察局 - @title" />
+    <meta name="DC.Contributor" content="嘉義縣警察局" />
+    <meta name="DC.Type" content="text/html" />
+    <meta name="DC.Format" content="text" />
+    <meta name="DC.Source" content="嘉義縣警察局" />
+    <meta name="DC.Language" content="中文" />
+    <meta name="DC.coverage.t.max" content="2009-04-21" />
+    <meta name="DC.coverage.t.min" content="2006-11-15" />
+    <meta name="DC.Publisher" content="嘉義縣警察局" />
+    <meta name="DC.Date" content="2009-04-21" />
+    <meta name="DC.Identifier" content="376500264C" />
+    <meta name="DC.Relation" content="http://www.cypd.gov.tw/Bdp" />
+    <meta name="DC.Rights" content="嘉義縣警察局" />
+    <meta name="Category.Theme" content="@theme" />
+    <meta name="Category.Cake" content="@cake" />
+    <meta name="Category.Service" content="@service" />
+    <meta name="Keywords" content="嘉義縣警察局 - @title" />
+    <link rel="stylesheet" href="~/css/version/@(areaName).css">
+    <link rel="stylesheet" href="~/css/all.css">
+    <link rel="stylesheet" media="print" href="~/css/print.css">
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/js/ui.datepicker-zh-TW.js"></script>
+    <script type="text/javascript" src="~/js/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" src="~/js/jquery.fancybox.pack.js?v=2.1.5"></script>
+     <script src="/js/superfish.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <!--行動選單-->
+        <div class="mobile-menu">
+            <div class="search-bar">
+                <input class="bar" type="text" placeholder="搜尋..">
+                <input class="search-bar-btn" type="submit" value="">
+            </div>
+
+        </div>
+        <!-- end mobile-menu -->
+        <div class="main-content">
+            <div class="bg-content" style="background: url('/images/bg-content.png') no-repeat;">
+                <div class="header">
+                    <div class="header-inner">
+                        <div class="control">
+                         <div class="logo">
+                            <h1><a href="/">嘉義縣警察局-Chiayi County Police Bureau</a></h1>
+                        </div>
+                        <div class="control-setting">
+                            <a title="上方選單區" class="pull-left" accesskey="U" href="#">:::</a>
+                        <p class="changesize">字級:
+                           <a href="javascript:void(0);" class="changesize-s">小</a>
+                           <a href="javascript:void(0);" class="changesize-m">中</a>
+                           <a href="javascript:void(0);" class="changesize-l">大</a>
+                       </p>
+                        <ul> 
+                            <li><a href="/content/sitemap">網站導覽</a></li>
+                            <li><a href="/">一般</a></li>
+                            <li><a href="/inKid">婦幼</a></li>
+                            <li><a href="/policeagency">警政</a></li>
+                                <li><a href="/child">兒童版</a></li>
+                            
+                                
+                                <li><a href="/english">English</a></li>
+                        </ul>
+                          </div>
+                        </div>
+                        <div class="mobile-btn">
+                            <a href="#" class="hamburger"></a>
+                        </div>
+                          
+                        <form id="searchform1" action="/home/search" class="inside-search">
+							<input type="hidden" name="cx" value="002360945309361685819:jzzdnb8pcuk" />
+							<input type="hidden" name="cof" value="FORID:11" />
+							<input type="hidden" name="ie" value="UTF-8" />
+							<input type="text" name="q" size="14" value="" class="csetext">
+							<input type="submit" name="sa" value="" class="search_btn"> 
+						</form>
+
+                        <div class="menu">
+                            @Html.Raw(web.getAllMenu())
+                        </div>
+                        <div class='clearfix'></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="banner">
+                        <img src="~/images/banner.png" alt="">
+                    </div>
+                    <div class="breadcrumb">
+                        <ul>
+                            <span>現在位置：</span>
+                            <li><a href="/@areaName">首頁</a></li>
+                            <li>@RenderSection("breadcrumb")</li>
+                           
+                        </ul>
+
+                    </div>
+                    <div class="content">
+                        <div class="sidebar"><a title="左方相關連結區" class="blockone" accesskey="C" href="#">:::</a>
+
+
+                           
+                        </div>
+                        <div class="main second">
+                            <!--內頁-->
+							<h1>@ViewBag.Title </h1>
+								<div  class="right trailer jq-community"><noscript><div>您的網頁不支援 JavaScript,所以無法支援下方社群分享列表、列印、回上頁功能</div></noscript>
+									<a href="javascript:void(0);" id="icon-print" class="s-icon-mail" title="print">mail</a>
+									<a href="javascript:void(0);" id="icon-mail" class="s-icon-mail" title="mail">mail</a>
+									<a href="javascript:void(0);" id="icon-fb" class=" s-icon-facebook" title="facebook">facebook</a>
+									<a href="javascript:void(0);" id="icon-twitter" class="s-icon-twitter" title="twitter">twitter</a>
+									<a href="javascript:void(0);" id="icon-plurk" class="s-icon-plurk" title="plurk">plurk</a>
+									<a href="javascript:void(0);" id="icon-line" class="s-icon-line" title="line">line</a>
+									<a href="javascript:void(0);" id="icon-google" class="s-icon-google" title="google+">google+</a>
+								</div>
+                             @RenderBody()
+                                                       </div>
+                                                   </div>
+                                               </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="sitemap-btn menu-toggle">
+                <div class="sitemap-btn-inner">
+                    <a href="javascript:void(0);"><span class="open">&#9652;Open</span><span class="close">&#9662;Close</span></a>
+                </div>
+            </div>
+            <div class="sitemap">
+
+                <div class="sitemap-inner">
+                    <div class="seal">
+                        <img src="~/images/seal.png" height="29" width="31" alt="seal">
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer">
+                <div class="footer_inner">
+                    <ul class="social">
+                         <li><a href="https://zh-tw.facebook.com/TWCYPD" target="_blank">
+                            <img src="/images/facebook.png" height="51" width="50" alt="facebook"></a></li>
+                        <li><a href="http://www.youtube.com/user/cypdvideochannel" target="_blank">
+                            <img src="/images/youtube.png" height="51" width="50" alt="youtube"></a></li>
+                        <li><a href="https://www.flickr.com/photos/cypd/sets/" target="_blank">
+                            <img src="/images/flicker.png" height="51" width="50" alt="flicker"></a></li>
+                      
+                    </ul>
+                    <a title="下方相關連結區" class="blockone" accesskey="B" href="">:::</a>
+                    <div class="copyright">
+
+                        <p>
+                            <span>地址：61249嘉義縣太保市祥和一路東段三號&nbsp<a href="#"></a></span>
+                           
+                            <span>勤務中心：05-3620237</span>
+                        </p>
+						<p><span>總機：05-3620200 (本局總機無法撥打市話及長途，請小心詐騙集團行騙)</span></p>
+                        <p>
+                            <span>勤務中心服務時間：24小時</span>
+                            @{
+                                BackendContext _db = new BackendContext();
+                                var lastNews = _db.Newses.OrderByDescending(x => x.InitDate).FirstOrDefault();
+                                var LastNewsDate = lastNews.InitDate == null ? "" : Convert.ToDateTime(lastNews.InitDate).ToString("yyyy-MM-dd");
+                                
+                            }
+                            <span>本局各單位服務時間：08:00-17:00</span> <span>最近更新日期:@LastNewsDate </span>
+                        </p>
+                        <p><span>本網站為 &nbsp 嘉義縣警察局 &nbsp 版權所有</span></p>
+
+
+
+                         <ul>
+                            <li><a href="/Article/3fefef73-6700-83e0-0696-fcbc0297ac6a">隱私權政策宣告</a></li>
+                            <li><a href="/Article/124213cb-0840-10f2-7641-9a97d76ab613">資訊安全政策宣告</a></li>
+                            <li><a href="/Directory/83ebf4b1-ae58-3d21-7a25-aab7863c44bf">個人資料保護專區</a></li>
+                            <li><a href="/Article/a96dcced-0a72-e15d-46d5-eb86eb10a1ab">政府網站資料開放宣告</a></li>
+                            <li><a href="#" class="freeaccess">
+                                <img src="~/images/accessibility.png" alt="accessibility"></a></li>
+                        </ul>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+    <div class="gotop"></div>
+    <script src="~/js/jquery.bxslider.js"></script>
+    <script src='http://www.google.com/jsapi' type='text/javascript'></script>
+    <script src="~/js/all.js"></script>
+       @RenderSection("scripts", required: false)
+    <script type='text/javascript'>
+        google.load('search', '1', {
+            language: 'zh-Hant',
+            style: google.loader.themes.V2_DEFAULT
+        });
+        google.setOnLoadCallback(function () {
+            var customSearchOptions = {};
+            var orderByOptions = {};
+            orderByOptions['keys'] = [{
+                label: 'Relevance',
+                key: ''
+            }, {
+                label: 'Date',
+                key: 'date'
+            }];
+            customSearchOptions['enableOrderBy'] = true;
+            customSearchOptions['orderByOptions'] = orderByOptions;
+            var customSearchControl = new google.search.CustomSearchControl('002360945309361685819:jzzdnb8pcuk', customSearchOptions);
+            customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+            var options = new google.search.DrawOptions();
+            options.enableSearchboxOnly('https://www.google.com/cse?cx=002360945309361685819:jzzdnb8pcuk', null, true);
+            options.setAutoComplete(true);
+            customSearchControl.draw('cse-search-form', options);
+        }, true);
+    </script>
+</body>
+</html>
+
+
+
+
+

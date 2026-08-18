@@ -1,0 +1,113 @@
+﻿
+@using Tnpd.Models
+@model TnpdModels.WayPoint
+
+@{
+    ViewBag.Title = "固定式交通違規照相路段編輯";
+}
+
+<h2>固定式交通違規照相路段編輯</h2>
+
+    @using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>WayPoint</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CityName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CityName,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("CityName") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RegionName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.RegionName,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("RegionName") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Address,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("Address") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DeptNm)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DeptNm,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("DeptNm") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BranchNm)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BranchNm,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("BranchNm") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Longitude)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Longitude,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("Longitude") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Latitude)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Latitude,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("Latitude") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.direct)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.direct,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("direct") })
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.limit)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.limit,new { placeholder=ModelsAttributeHelper<TnpdModels.WayPoint>.GetDisplayName("limit") })
+           
+        </div>
+
+            @Html.HiddenFor(model => model.Poster)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.initOrg)
+        </div>
+       
+
+            @Html.HiddenFor(model => model.InitDate)
+        
+
+            @Html.HiddenFor(model => model.UpdateDate)
+        <p>
+            <input type="submit" value="更新" /> <input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

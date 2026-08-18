@@ -146,6 +146,7 @@ namespace SynchronizeAD
                         }
                         unit.ParentId = ParentId;
                         _db.Units.Add(unit);
+                        Units.Add(unit);
                     }
 
                     try
@@ -171,15 +172,17 @@ namespace SynchronizeAD
                     string userPrincipalName = GetPropertyValue(childEntry1, "userPrincipalName");
                     string sAMAccountName = GetPropertyValue(childEntry1, "sAMAccountName");
 
-                    if (string.IsNullOrEmpty(descriptionName))
+                    if (string.IsNullOrEmpty(displayName))
                     {
-                        descriptionName = displayName;
+                        displayName = descriptionName;
                     }
+                    
+                  
                     //Console.WriteLine(descriptionName);
                     Member member = members.FirstOrDefault(x => x.Account == sAMAccountName);
                     if (member != null)
                     {
-                        member.Name = descriptionName;
+                        member.Name = displayName;
                         member.Email = userPrincipalName;
                         //若有異動單位
                         if (ParentId != member.UnitId)
@@ -198,11 +201,13 @@ namespace SynchronizeAD
                         member.Email = userPrincipalName;
                         member.UnitId = ParentId;
                         _db.Members.Add(member);
+                        members.Add(member);
                     }
 
                     try
                     {
                         _db.SaveChanges();
+
                     }
                     catch (Exception e)
                     {

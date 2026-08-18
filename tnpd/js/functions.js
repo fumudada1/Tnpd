@@ -3441,7 +3441,46 @@ var SEMICOLON = SEMICOLON || {};
 					$( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass('d-block');
 				}
 				$body.toggleClass("primary-menu-open");
+				// 無障礙修正：更新 aria-expanded 狀態 (GN1410200E)
+				var isOpen = $body.hasClass("primary-menu-open");
+				$('#primary-menu-trigger').attr('aria-expanded', isOpen ? 'true' : 'false');
 				return false;
+			});
+
+			// 無障礙修正：ESC 鍵關閉選單，焦點返回觸發按鈕 (CS2240700E)
+			$(document).on('keydown.primaryMenu', function(e) {
+				if ((e.key === 'Escape' || e.key === 'Esc') && $body.hasClass('primary-menu-open')) {
+					if( $('#primary-menu').find('ul.mobile-primary-menu').length > 0 ) {
+						$( '#primary-menu > ul.mobile-primary-menu, #primary-menu > div > ul.mobile-primary-menu' ).removeClass('d-block');
+					} else {
+						$( '#primary-menu > ul, #primary-menu > div > ul' ).removeClass('d-block');
+					}
+					$body.removeClass('primary-menu-open');
+					$('#primary-menu-trigger').attr('aria-expanded', 'false').focus();
+				}
+			});
+
+			// 無障礙修正：選單開啟時的 focus trap (GN1240301E)
+			$(document).on('keydown.menuFocusTrap', function(e) {
+				if (!$body.hasClass('primary-menu-open') || e.key !== 'Tab') { return; }
+				var $menu = $('#primary-menu');
+				var $focusable = $menu.find('a, button, input, [tabindex="0"]').filter(':visible');
+				var $trigger = $('#primary-menu-trigger');
+				// 將觸發按鈕也納入焦點循環
+				var $all = $trigger.add($focusable);
+				var $first = $all.first();
+				var $last = $all.last();
+				if (e.shiftKey) {
+					if ($(document.activeElement).is($first)) {
+						e.preventDefault();
+						$last.focus();
+					}
+				} else {
+					if ($(document.activeElement).is($last)) {
+						e.preventDefault();
+						$first.focus();
+					}
+				}
 			});
 			$('#page-submenu-trigger').click(function() {
 				$body.toggleClass('top-search-open', false);

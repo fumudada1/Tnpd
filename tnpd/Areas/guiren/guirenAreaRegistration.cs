@@ -17,7 +17,8 @@ namespace tnpd.Areas.guiren
             context.MapRoute(
                 "guiren_default",
                 "guiren/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

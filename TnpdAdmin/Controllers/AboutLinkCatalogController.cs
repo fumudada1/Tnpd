@@ -134,7 +134,8 @@ namespace TnpdAdmin.Controllers
       {
 		 maxListNum = _db.AboutLinkCatalogs.Max(x => x.ListNum) ;
       }                
-				aboutlinkcatalog.ListNum = maxListNum +1; 
+				aboutlinkcatalog.ListNum = maxListNum +1;
+                aboutlinkcatalog.SystemMessage = "新增相關連結類別,標題:" + aboutlinkcatalog.Subject;
                 aboutlinkcatalog.Create(_db,_db.AboutLinkCatalogs);
                 return RedirectToAction("Index");
             }
@@ -198,7 +199,7 @@ namespace TnpdAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                aboutlinkcatalog.SystemMessage = "修改相關連結類別,標題:" + aboutlinkcatalog.Subject;
                //_db.Entry(aboutlinkcatalog).State = EntityState.Modified;
                 aboutlinkcatalog.Update();
                 return RedirectToAction("Index",new{Page=-1});

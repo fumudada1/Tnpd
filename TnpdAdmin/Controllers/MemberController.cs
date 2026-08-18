@@ -262,11 +262,14 @@ namespace Tnpd.Controllers
                     //{
                         SqlConnection connection = new SqlConnection(WebConfigurationManager
                             .ConnectionStrings["TnpdConnection"].ConnectionString);
-                        SqlCommand command = new SqlCommand("INSERT INTO SystemLogs  (Subject, Poster, InitDate) VALUES (@Subject, @Poster, @InitDate)", connection);
+                        SqlCommand command = new SqlCommand("INSERT INTO SystemLogs  (Subject, Poster, InitDate,Org,subOrg,UnitId) VALUES (@Subject, @Poster, @InitDate,@Org,@subOrg,@UnitId)", connection);
                         command.Parameters.Add("@Subject",
                             "帳號:" + member.Account + "，姓名:" + member.Name + "於" + DateTime.Now.ToString() + "登入系統成功");
                         command.Parameters.Add("@Poster", member.Account);
                         command.Parameters.Add("@InitDate", DateTime.Now);
+                        command.Parameters.Add("@Org", member.MyUnit.ParentUnit.Subject);
+                        command.Parameters.Add("@subOrg", member.MyUnit.Subject);
+                        command.Parameters.Add("@UnitId", member.MyUnit.ParentId);
                         connection.Open();
                         command.ExecuteNonQuery();
                         connection.Close();
@@ -509,6 +512,40 @@ namespace Tnpd.Controllers
             }
             ViewBag.message = "登入失敗!";
             return View();
+
+        }
+
+        
+        [AllowAnonymous]
+        public ActionResult tnpdssologin(string data)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                Member member = ValidateUser(data);
+                if (member != null)
+                {
+                    member.Permission = member.Permission + ",M4,M5,M6";
+                    Utility.GetPerssion(member);
+                    string userData = JsonConvert.SerializeObject(member);
+                    //宣告一個驗證票
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, data, DateTime.Now, DateTime.Now.AddHours(5), false, userData);
+                    //加密驗證票
+                    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                    //建立Cookie
+                    HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+
+                    //將Cookie寫入回應
+
+                    System.Web.HttpContext.Current.Response.Cookies.Add(authenticationcookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Login");
+            }
+            return RedirectToAction("Loginadmin");
+            
+          
 
         }
 

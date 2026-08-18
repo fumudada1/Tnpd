@@ -17,7 +17,8 @@ namespace tnpd.Areas.xuejia
             context.MapRoute(
                 "xuejia_default",
                 "xuejia/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

@@ -6,7 +6,7 @@
     string subject = "";
     CasePoproc poproc = Model.Poprocs.Where(x => x.Status == CaseProcessStatus.未分派).FirstOrDefault();
     string path = @"D:\website\tnpd\tnpdAdmin\TrafficFiles\";
-    string path1 = @"Z:\backup\ChiefMailbox\"  + Model.InitDate.Value.ToString("yyyy-MM") + "\\" + @Model.CaseID + "\\";
+    string path1 = @"Z:\backup\ChiefMailbox\" + Model.InitDate.Value.ToString("yyyy-MM") + "\\" + @Model.CaseID + "\\";
 }
 
 <h2>單位改派作業</h2>
@@ -139,92 +139,29 @@
                 @if (!string.IsNullOrEmpty(Model.Upfile1))
                 {
 
-                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile1);
-                    if (finfo1.Exists)
-                    {
-                    <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
-                    else 
-                    if (finfo.Exists)
-                    {
-                         <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
-                    else
-                    {
-                     <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
-                   
+                    <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
+
                 }
                 @if (!string.IsNullOrEmpty(Model.Upfile2))
                 {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile2);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile2);
-                    if (finfo1.Exists)
-                    {
-                    <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }
-                    else 
-                    if (finfo.Exists) { 
-                         <br/>  <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }else{
-                        
-                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }
-                   
+                    <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
+
                 }
                 @if (!string.IsNullOrEmpty(Model.Upfile3))
                 {
-                     FileInfo finfo = new FileInfo(path + Model.Upfile3);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile3);
-                    if (finfo1.Exists)
-                    {
-                    <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }
-                    else
-                    if (finfo.Exists) { 
-                         <br/>  <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }else{
-                        
-                   <br/>    <a href="http://10.128.0.43:8080/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }
+                    
+                    <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                      
                 }
                 @if (!string.IsNullOrEmpty(Model.Upfile4))
                 {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile4);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile4);
-                    if (finfo1.Exists)
-                    {
-                     <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                     <br />  <a href="/TrafficFiles/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
-                    else
-                    {
-                        
-                     <br />    <a href="http://10.128.0.43:8080/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
+                    <a href="/TrafficFiles/@Model.Upfile4" target="_black">@Model.Upfile4</a>
+                   
                 }
 
-                 @if (!string.IsNullOrEmpty(Model.Upfile5))
+                @if (!string.IsNullOrEmpty(Model.Upfile5))
                 {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile5);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile5);
-                    if (finfo1.Exists)
-                    {
-                     <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                     <br />  <a href="/TrafficFiles/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
-                    else
-                    {
-                        
-                     <br />    <a href="http://10.128.0.43:8080/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
+                    <a href="/TrafficFiles/@Model.Upfile5" target="_black">@Model.Upfile5</a>
                 }
             </td>
 
@@ -435,7 +372,8 @@
 
                 </tbody>
             </table>
-        }else if (Model.CaseType == CaseType.重大災害通報專區)
+        }
+        else if (Model.CaseType == CaseType.重大災害通報專區)
         {
             <table class="table table-v">
 
@@ -452,7 +390,7 @@
                     </tr>
                     <tr>
 
-                        <td colspan="2">現居地址：@(Model.PostalCode+Model.Address)</td>
+                        <td colspan="2">現居地址：@(Model.PostalCode + Model.Address)</td>
 
                     </tr>
 
@@ -484,98 +422,32 @@
 
                         <td colspan="2">上傳附件檔：<br />
                             @if (!string.IsNullOrEmpty(Model.Upfile1))
-                {
+                            {
 
-                    FileInfo finfo = new FileInfo(path + Model.Upfile1);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile1);
-                    if (finfo1.Exists)
-                    {
-                                <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
-                    else if (finfo.Exists)
-                    {
                                 <a href="/TrafficFiles/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
-                    else
-                    {
-                                <a href="http://10.128.0.43:8080/@Model.Upfile1" target="_black">@Model.Upfile1</a>
-                    }
 
-                }
+                            }
                             @if (!string.IsNullOrEmpty(Model.Upfile2))
-                {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile2);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile2);
-                    if (finfo1.Exists)
-                    {
-                                <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                                <br />  <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }
-                    else
-                    {
-                        
-                                <br />    <a href="http://10.128.0.43:8080/@Model.Upfile2" target="_black">@Model.Upfile2</a>
-                    }
+                            {
+                                <a href="/TrafficFiles/@Model.Upfile2" target="_black">@Model.Upfile2</a>
 
-                }
+                            }
                             @if (!string.IsNullOrEmpty(Model.Upfile3))
-                {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile3);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile3);
-                    if (finfo1.Exists)
-                    {
-                                <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                                <br />  <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }
-                    else
-                    {
-                        
-                                <br />    <a href="http://10.128.0.43:8080/@Model.Upfile3" target="_black">@Model.Upfile3</a>
-                    }
-                }
+                            {
+                    
+                                <a href="/TrafficFiles/@Model.Upfile3" target="_black">@Model.Upfile3</a>
+                      
+                            }
                             @if (!string.IsNullOrEmpty(Model.Upfile4))
-                {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile4);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile4);
-                    if (finfo1.Exists)
-                    {
-                                <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                                <br />  <a href="/TrafficFiles/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
-                    else
-                    {
-                        
-                                <br />    <a href="http://10.128.0.43:8080/@Model.Upfile4" target="_black">@Model.Upfile4</a>
-                    }
-                }
+                            {
+                                <a href="/TrafficFiles/@Model.Upfile4" target="_black">@Model.Upfile4</a>
+                   
+                            }
 
                             @if (!string.IsNullOrEmpty(Model.Upfile5))
-                {
-                    FileInfo finfo = new FileInfo(path + Model.Upfile5);
-                    FileInfo finfo1 = new FileInfo(path1 + Model.Upfile5);
-                    if (finfo1.Exists)
-                    {
-                                <a href="/TrafficFiles2/ChiefMailbox/@Model.InitDate.Value.ToString("yyyy-MM")/@Model.CaseID/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
-                    else if (finfo.Exists)
-                    { 
-                                <br />  <a href="/TrafficFiles/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
-                    else
-                    {
-                        
-                                <br />    <a href="http://10.128.0.43:8080/@Model.Upfile5" target="_black">@Model.Upfile5</a>
-                    }
-                }
+                            {
+                                <a href="/TrafficFiles/@Model.Upfile5" target="_black">@Model.Upfile5</a>
+                            }
 
                         </td>
 

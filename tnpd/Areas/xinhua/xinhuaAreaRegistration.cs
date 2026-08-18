@@ -17,7 +17,8 @@ namespace tnpd.Areas.xinhua
             context.MapRoute(
                 "xinhua_default",
                 "xinhua/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

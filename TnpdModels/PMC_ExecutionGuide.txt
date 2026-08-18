@@ -1,0 +1,116 @@
+שÝשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששß
+שר  Package Manager Console °ץ¦ז«ü«n - Add-Migration addisuse          שר
+שדשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששו
+
+¡i­«­n¡j¾E²¾₪ו¥ף₪w¦Û°Ê¥ֽ¦¨¦b¡G
+  ?? TnpdModels/Migrations/202512081509100_addisuse.cs
+  ?? TnpdModels/Migrations/202512081509100_addisuse.Designer.cs
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+?? °ץ¦ז¨BֶJ¡G
+
+1??  ¥´¶} Package Manager Console
+   ? ¦b Visual Studio ₪₪
+   ? µז³ז¡GTools ¡ק NuGet Package Manager ¡ק Package Manager Console
+   
+2??  ½T»{¹w³]±M®׳³]¸m
+   ? ¦b Package Manager Console ³»³¡₪U©װ¿ן³ז₪₪
+   ? ¿ן¾Ü¡GDefault project: TnpdModels
+   
+3??  °ץ¦ז¾E²¾©R¥O
+   
+   ¡i₪ט¦¡ A - ¥u¥ֽ¦¨¾E²¾¡]₪w§¹¦¨¡^¡j
+   Add-Migration addisuse
+   
+   ¡i₪ט¦¡ B - ¥ֽ¦¨¾E²¾¨ֳ¥ß§Yְ³¥־¡j
+   Add-Migration addisuse
+   Update-Database
+   
+   ¡i₪ט¦¡ C - ¥uְ³¥־₪w¥ֽ¦¨×÷¾E²¾¡j
+   Update-Database
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+?? ±`¨£¿ש»~»P­׳´_₪ט®׳¡G
+
+? ¿ש»~ 1: "No pending code-based migrations"
+   ­ל¦]: ¾E²¾₪ו¥ף₪w¦s¦b
+   ¸ׁ¨M₪ט®׳: °ץ¦ז Update-Database ְ³¥־¾E²¾
+
+? ¿ש»~ 2: "Unable to determine the principal end of an association"
+   ­ל¦]: ¼ׂ«¬ֳצ«Y°t¸m°ÝֳD
+   ¸ׁ¨M₪ט®׳: ְֻ¬d¼ׂ«¬₪₪×÷¥~ֱה°t¸m
+
+? ¿ש»~ 3: "The migration '<name>' has already been applied to the database"
+   ­ל¦]: ¾E²¾₪wְ³¥־¹L
+   ¸ׁ¨M₪ט®׳: ְֻ¬d __MigrationHistory ×ם
+
+? ¿ש»~ 4: "Named connection strings can only be used on DataContext"
+   ­ל¦]: ³s±µ¦r²ֵ¦ך°t¸m°ÝֳD
+   ¸ׁ¨M₪ט®׳: ְֻ¬d App.config ₪₪×÷³s±µ¦r²ֵ¦ך
+
+? ¿ש»~ 5: "Could not load file or assembly 'EntityFramework'"
+   ­ל¦]: NuGet ¥]¬Û¨ּ©Ê°ÝֳD
+   ¸ׁ¨M₪ט®׳: °ץ¦ז Update-Package EntityFramework
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+?? ֵחֳׂ¨BֶJ¡G
+
+°ץ¦ז¥H₪U©R¥Oֵחֳׂ¾E²¾×¬÷A¡G
+
+1. ¬d¬Ý«Ý©w¾E²¾¡G
+   Get-Migrations
+
+2. ¬d¬Ý₪wְ³¥־×÷¾E²¾¡G
+   Update-Database -Script
+
+3. ¦^÷u¾E²¾¡]¦p»Ý­n¡^¡G
+   Update-Database -TargetMigration <previous_migration>
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+?? ¾E²¾¸װ²׃«H®§¡G
+
+¾E²¾¦W÷Ù: addisuse
+¾E²¾ ID: 202512081509100_addisuse
+DbContext: TnpdModels.BackendContext
+
+¡iUp() ₪ט×k - °ץ¦ז¾E²¾®ֹ²K¥[¥H₪Uִז¦ל¡j
+  ? CaseMailChecks ×ם:
+    - IsUsed (bool) - ¬O§_₪w¨ֿ¥־
+    - UsedDate (DateTime?) - ¨ֿ¥־®ֹ¶¡
+    - UsedIp (string[50]) - ¨ֿ¥־×÷ IP
+
+  ? CaseMobileChecks ×ם:
+    - IsUsed (bool) - ¬O§_₪w¨ֿ¥־
+    - UsedDate (DateTime?) - ¨ֿ¥־®ֹ¶¡
+    - UsedIp (string[50]) - ¨ֿ¥־×÷ IP
+
+¡iDown() ₪ט×k - ¦^÷u¾E²¾®ֹ§R°£₪W­zִז¦ל¡j
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+? °t¸m?¬d²M³ז¡G
+
+? Visual Studio ₪w¦w¸ֻ NuGet Package Manager
+? TnpdModels ±M®׳₪w±ׂ¥־ Entity Framework 5.0.0
+? App.config ¥]§t¦³®ִ×÷ TnpdConnection ³s±µ¦r²ֵ¦ך
+? Configuration.cs ₪₪ AutomaticMigrationsEnabled = false
+? ¾E²¾₪ו¥ף¦ל¸m¥¿½T¥B®ז¦¡¦³®ִ
+? ¼ׂ«¬ֳ‏ (CaseMailCheck, CaseMobileCheck) ¥]§t·sִז¦ל
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+?? ¶K₪h¡G
+
+? °ץ¦ז¾E²¾«e°ָ¥²³ֶ¥ק¼ֶ¾Ú®w
+? ´ת¸ױְפ¹ׂ₪₪¥‎°ץ¦ז¾E²¾¡A½T»{µL»~«ב¦A¦b¥ֽ²£ְפ¹ׂ°ץ¦ז
+? ¦p¹J°ÝֳD¡A¬d¬Ý Package Manager Console ×÷§¹¾ד¿ש»~®ר®§
+? ¥i¥־ -Verbose °ׁ¼ֶ¬d¬Ý¸װ²׃×÷°ץ¦ז₪י»x¡G
+  Update-Database -Verbose
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+­Y»Ý­n¶i₪@¨B×÷ְ°§U¡A½׀´£¨ׁ Package Manager Console ₪₪×÷§¹¾ד¿ש»~®ר®§¡C

@@ -3,7 +3,7 @@
 
 <script type="text/ng-template" id="nodes_renderer.html">
 
-  <div context-menu="menuOptions(this)"  ui-tree-handle  class="tree-node tree-node-content">
+  <div context-menu="menuOptions(this)"  ui-tree-handle  class="tree-node tree-node-content" style="{{visibleColor(node['@Visible'])}}">
     <a class="btn btn-primary" ng-if="node['@DataType']=='directory'" data-nodrag ng-click="toggle(this)"><span
         class="glyphicon"
         ng-class="{

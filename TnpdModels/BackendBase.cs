@@ -59,26 +59,34 @@ namespace TnpdModels
             {
                 this.InitDate = DateTime.Now;
             }
+
+            Member member;
             if(HttpContext.Current.User.Identity.Name!=""){
                 
-                var member = db.Members.FirstOrDefault(x => x.Account == HttpContext.Current.User.Identity.Name);
+                 member = db.Members.FirstOrDefault(x => x.Account == HttpContext.Current.User.Identity.Name);
 
 
             this.Poster = member.Name + "(" + member.Account + ")";
-            this.initOrg = string.Format("{0} {1}", member.MyUnit.ParentUnit.Subject, member.MyUnit.Subject);       
+            this.initOrg = string.Format("{0} {1}", member.MyUnit.ParentUnit.Subject, member.MyUnit.Subject);    
+             if (!string.IsNullOrEmpty(this.SystemMessage))
+            {
+                SystemLog log = new SystemLog();
+                log.Subject = this.SystemMessage;
+                log.InitDate = DateTime.Now;
+                log.Poster = member.Name + "(" + member.Account+")";
+                log.Org = member.MyUnit.ParentUnit.Subject;
+                log.subOrg = member.MyUnit.ParentUnit.Subject;
+                log.Unitid = member.MyUnit.ParentId;
+                log.Enent = SystemLogEvent.新增;
+                log.attr = SystemLogAttr.網站維護;
+                db.SystemLogs.Add(log);
+            }
 
             }
             
 
             dbSet.Add(this);
-            if (!string.IsNullOrEmpty(this.SystemMessage))
-            {
-                SystemLog log = new SystemLog();
-                log.Subject = this.SystemMessage;
-                log.InitDate = DateTime.Now;
-                log.Poster = HttpContext.Current.User.Identity.Name;
-                db.SystemLogs.Add(log);
-            }
+           
             db.SaveChanges();
         }
 
@@ -98,8 +106,13 @@ namespace TnpdModels
             {
                 SystemLog log = new SystemLog();
                 log.InitDate = DateTime.Now;
-                log.Poster = HttpContext.Current.User.Identity.Name;
+                log.Poster = member.Name + "(" + member.Account + ")";
                 log.Subject = this.SystemMessage;
+                log.Org = member.MyUnit.ParentUnit.Subject;
+                log.subOrg = member.MyUnit.Subject;
+                log.Unitid = member.MyUnit.ParentId;
+                log.Enent = SystemLogEvent.異動;
+                log.attr = SystemLogAttr.網站維護;
                 db.SystemLogs.Add(log);
             }
             db.SaveChanges();
@@ -110,13 +123,19 @@ namespace TnpdModels
             this.UpdateDate = DateTime.Now;
             this.Updater = System.Web.HttpContext.Current.User.Identity.Name;
             db.Entry(this).State = EntityState.Modified;
-
+            var member = db.Members.FirstOrDefault(x => x.Account == HttpContext.Current.User.Identity.Name);
             if (!string.IsNullOrEmpty(this.SystemMessage))
             {
                 SystemLog log = new SystemLog();
                 log.InitDate = DateTime.Now;
-                log.Poster = HttpContext.Current.User.Identity.Name;
+                log.Poster = member.Name + "(" + member.Account + ")";
                 log.Subject = this.SystemMessage;
+                log.Org = member.MyUnit.ParentUnit.Subject;
+                log.subOrg = member.MyUnit.Subject;
+                log.Unitid = member.MyUnit.ParentId;
+                log.Enent = SystemLogEvent.異動;
+                log.attr = SystemLogAttr.網站維護;
+
                 db.SystemLogs.Add(log);
             }
             try
@@ -176,12 +195,18 @@ namespace TnpdModels
         {
             dbSet.Remove(this);
             db.Entry(this).State = EntityState.Deleted;
+            var member = db.Members.FirstOrDefault(x => x.Account == HttpContext.Current.User.Identity.Name);
             if (!string.IsNullOrEmpty(this.SystemMessage))
             {
                 SystemLog log = new SystemLog();
                 log.InitDate = DateTime.Now;
-                log.Poster = HttpContext.Current.User.Identity.Name;
+                log.Poster = member.Name + "(" + member.Account + ")";
                 log.Subject = this.SystemMessage;
+                log.Org = member.MyUnit.ParentUnit.Subject;
+                log.subOrg = member.MyUnit.Subject;
+                log.Unitid = member.MyUnit.ParentId;
+                log.Enent = SystemLogEvent.刪除;
+                log.attr = SystemLogAttr.網站維護;
                 db.SystemLogs.Add(log);
             }
 

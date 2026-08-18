@@ -1,0 +1,196 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║  遷移執行快速參考卡                                                    ║
+║  - Add-Migration addisuse 快速指令                                     ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+【基本命令】
+
+1. 僅生成遷移（推薦用於驗證）
+   ───────────────────────────
+   Add-Migration addisuse
+   
+   結果：
+   ? 生成 202512081509100_addisuse.cs
+   ? 生成 202512081509100_addisuse.Designer.cs
+   ? 未修改數據庫
+
+
+2. 生成遷移後立即應用
+   ──────────────────
+   Add-Migration addisuse
+   Update-Database
+   
+   結果：
+   ? 生成遷移文件
+   ? 執行 Up() 方法
+   ? 修改數據庫
+
+
+3. 僅應用已生成的遷移（推薦）
+   ────────────────────────
+   Update-Database
+   
+   前提條件：
+   ? 遷移文件已存在
+   ? 尚未應用到數據庫
+
+
+4. 查看待定遷移清單
+   ──────────────
+   Get-Migrations
+   
+   結果：
+   列出所有可用遷移
+
+
+5. 回滾遷移到上一版本
+   ────────────────
+   Update-Database -TargetMigration 202508210702165_addtownid
+   
+   結果：
+   ? 執行 Down() 方法
+   ? 刪除新加欄位
+
+
+═══════════════════════════════════════════════════════════════════════
+
+【進階命令】
+
+6. 以詳細模式執行（顯示執行過程）
+   ────────────────────────────
+   Update-Database -Verbose
+   
+   用途：診斷執行問題
+
+
+7. 生成 SQL 指令碼但不執行
+   ────────────────────
+   Update-Database -Script
+   
+   用途：審查 SQL 指令碼
+
+
+8. 回滾到初始狀態
+   ─────────────
+   Update-Database -TargetMigration:0
+   
+   用途：移除所有遷移（危險操作）
+
+
+9. 查看完整的遷移歷史
+   ───────────────
+   Update-Database -Script -SourceMigration:0
+   
+   用途：查看從起點到現在的所有 SQL 指令
+
+═══════════════════════════════════════════════════════════════════════
+
+【當前遷移狀態】
+
+遷移名稱：     addisuse
+遷移 ID：      202512081509100_addisuse
+Target DbContext: BackendContext
+
+【Up() 方法將執行】
+  ? 新增 CaseMailChecks.IsUsed (bool, 非空)
+  ? 新增 CaseMailChecks.UsedDate (DateTime?)
+  ? 新增 CaseMailChecks.UsedIp (nvarchar(50))
+  ? 新增 CaseMobileChecks.IsUsed (bool, 非空)
+  ? 新增 CaseMobileChecks.UsedDate (DateTime?)
+  ? 新增 CaseMobileChecks.UsedIp (nvarchar(50))
+
+【Down() 方法將回滾】
+  ? 刪除上述所有欄位
+
+═══════════════════════════════════════════════════════════════════════
+
+【執行流程圖】
+
+┌─────────────────────────────────┐
+│ 打開 Package Manager Console    │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│ 選擇預設專案：TnpdModels        │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│ 輸入命令：Update-Database       │
+│ （或 Add-Migration addisuse）    │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│ 等待執行完成                    │
+│ （可能需要 1-5 分鐘）           │
+└────────┬────────────────────────┘
+         │
+    ┌────┴────┐
+    ▼         ▼
+┌────────┐ ┌───────┐
+│ 成功   │ │ 失敗  │
+└────┬───┘ └───┬───┘
+     │         │
+     ▼         ▼
+  驗證      查看錯誤訊息
+  ?         參考排查指南
+
+═══════════════════════════════════════════════════════════════════════
+
+【成功標誌】
+
+執行成功的訊息示例：
+
+√ Applying code-based migrations in <date>
+√ Creating sequence 'dbo.seq_default'
+√ Altering table 'dbo.CaseMailChecks'
+  - Adding column 'IsUsed'
+  - Adding column 'UsedDate'
+  - Adding column 'UsedIp'
+√ Altering table 'dbo.CaseMobileChecks'
+  - Adding column 'IsUsed'
+  - Adding column 'UsedDate'
+  - Adding column 'UsedIp'
+√ Updating the target database schema
+
+═══════════════════════════════════════════════════════════════════════
+
+【驗證遷移是否成功】
+
+執行以下查詢確認：
+
+在 SQL Server Management Studio 中執行：
+
+-- 查看遷移歷史
+SELECT * FROM dbo.__MigrationHistory 
+WHERE MigrationId LIKE '%addisuse%'
+
+-- 驗證新欄位是否存在
+SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME IN ('CaseMailChecks', 'CaseMobileChecks')
+  AND COLUMN_NAME IN ('IsUsed', 'UsedDate', 'UsedIp')
+
+預期結果：應顯示 6 行（2 個表 × 3 個新欄位）
+
+═══════════════════════════════════════════════════════════════════════
+
+【重要提醒】
+
+?? 執行前必須：
+   1. 備份數據庫
+   2. 在開發環境測試
+   3. 確認連接字符串有效
+
+?? 如有問題：
+   1. 不要重複執行相同命令
+   2. 查看完整的錯誤訊息
+   3. 參考排查指南中的對應錯誤
+
+?? 回滾方法：
+   如需回滾，執行：
+   Update-Database -TargetMigration 202508210702165_addtownid
+
+═══════════════════════════════════════════════════════════════════════

@@ -17,7 +17,8 @@ namespace tnpd.Areas.yujing
             context.MapRoute(
                 "yujing_default",
                 "yujing/{controller}/{action}/{id}",
-                new {Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new {Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

@@ -133,7 +133,7 @@ List<News> newse4 = ViewBag.newse4;
         ============================================= -->
         <nav id="primary-menu" class="style-2">
             <div class="container clearfix">
-                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                <button type="button" id="primary-menu-trigger" role="button" aria-expanded="false" aria-controls="primary-menu-nav" aria-label="展開選單" title="展開選單"><i class="icon-reorder" aria-hidden="true"></i><span class="visually-hidden">選單</span></button>
                 @Html.Raw(web.getAllMenu())
                 <!-- Top Search
                 ============================================= -->
@@ -161,97 +161,14 @@ List<News> newse4 = ViewBag.newse4;
 ============================================= -->
 <section id="content">
 <div class="content-wrap pt0pb0" >
-<div class="content-wrap bg001" style="background-image: url(/images/@(bannerImageName).png);background-repeat:repeat-x; background-position: bottom;">
-    <div class="container clearfix">
-        <section id="slider" class="slider-element revoslider-wrap clearfix">
-            <div id="rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#fff;padding:0px;margin-top:0px;margin-bottom:0px;">
-                <div id="rev_slider" class="rev_slider fullwidthabanner hideImage" data-version="5.0.4.1" style="display:none">
-                    <ul>
-                        @{
-                            var i = 1;
-                        }
-                        @foreach (BigBanner banner in banners)
-                        {
-                           
-                            <li data-index="rs-00@(i)" data-transition="crossfade" data-slotamount="4"
-                                data-easein="default" data-easeout="default" data-masterspeed="300"
-                                data-thumb="/upfiles/images/s@(banner.UpImage)" data-rotate="0" data-fstransition="fade"
-                                data-fsmasterspeed="300" data-fsslotamount="4" data-saveperformance="off"
-                                data-title="@banner.Subject" data-param1=""
-                                data-description="">
-                                <a href="@banner.URL" title="@(banner.Subject) (另開新視窗)" target="_blank" >
-                                <img src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"
-                                     data-lazyload="/upfiles/images/M@(banner.UpImage)" data-bgposition="center center"
-                                     data-bgfit="cover" data-.bgrepeat="no-repeat" class="rev-slidebg"
-                                     data-no-retina></a>
-                                <span class="tp-title">@banner.Subject</span>
-                            </li>
-                            i++;
-                        }
-
-                    </ul>
-                    <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
-                </div>
-                <noscript>您的瀏覽器不支援JavaScript功能，若網頁功能無法正常使用時，請開啟瀏覽器JavaScript狀態。</noscript>
-            </div>
-        </section>
-    </div>
-</div>
-<div class="content-wrap" id="main_content">
-    <div class="container clearfix">
-        <a href="#C" accesskey="C" name="C" class="alt-c02" title="中間主要內容區">:::</a>
-        <div class="row">
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box01">
-                    <div class="fbox-icon fbox-icon01">
-                        <a href="/Article/d50c22e4-fb47-69cc-e33a-795e2bc87aac" title="E化服務查詢(另開視窗)" target="_blank"><i class="icon-line-zoom-in i-alt"></i><span class="sr-only">E化服務查詢</span></a>
-                    </div>
-                    <h2>E化服務查詢</h2>
-                </div>
-            </div>
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box02">
-                    <div class="fbox-icon fbox-icon02">
-                        <a href="/News/429f4276-b1d5-50f2-d997-99cead1afe75/18" title="政府公開資訊(另開視窗)" target="_blank"><i class="icon-line2-globe i-alt"></i><span class="sr-only">政府公開資訊</span></a>
-                    </div>
-                    <h2>政府公開資訊</h2>
-                </div>
-            </div>
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box03">
-                    <div class="fbox-icon fbox-icon03">
-                        <a href="/@areaName/FAQ/Index/edef96c1-8923-36c6-18d4-06ceca4b160a" title="常見問答"><i class="icon-group i-alt"></i><span class="sr-only">常見問答</span></a>
-                    </div>
-                    <h2>常見問答</h2>
-                </div>
-            </div>
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box04">
-                    <div class="fbox-icon fbox-icon04">
-                        <a href="/Directory/547649a8-cfa6-5d7b-d3e8-0c2927517d4d" title="線上申辦(另開視窗)" target="_blank"><i class="icon-screen i-alt"></i><span class="sr-only">線上申辦</span></a>
-                    </div>
-                    <h2>線上申辦</h2>
-                </div>
-            </div>
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box05">
-                    <div class="fbox-icon fbox-icon05">
-                        <a href="/@areaName/News/Index/5ca56575-8aa1-4fb7-ad2a-d6670590180b?sClass=14" title="表單下載"><i class="icon-download i-alt"></i><span class="sr-only">表單下載</span></a>
-                    </div>
-                    <h2>表單下載</h2>
-                </div>
-            </div>
-            <div class="col-md-2  col-6">
-                <div class="feature-box fbox-center fbox-outline fbox-effect feature-box06">
-                    <div class="fbox-icon fbox-icon06">
-                        <a href="/News/9d45c10f-5ee5-0c25-408f-ac504ded48bb/21" title="警政統計(另開視窗)"  target="_blank"><i class="icon-bar-chart i-alt"></i><span class="sr-only">警政統計</span></a>
-                    </div>
-                    <h2>警政統計</h2>
-                </div>
-            </div>
+@Html.Partial("_BannerPartialView")
+    <div id="main_content" class="content-wrap">
+        <div class="container clearfix">
+            <a accesskey="C" class="alt-c02" href="#C" name="C" title="中間主要內容區">:::</a>
+            @Html.Partial("_ShortMenu","2")
         </div>
     </div>
-</div>
+
 <div class="content-wrap bg02">
     <div class="container clearfix">
         <div class="row">
@@ -403,7 +320,7 @@ List<News> newse4 = ViewBag.newse4;
                             @foreach (HomeLink link in homeLinks.Take(5))
                             {
                               
-                                <li><a title="@link.Subject" href="@link.Url">
+                                <li><a  href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
                                     <img src="@link.UpImage" alt="@link.Subject"></a></li>
                             }
 
@@ -426,7 +343,7 @@ List<News> newse4 = ViewBag.newse4;
         ============================================= -->
         <div class="text-center footercollapse">
             <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-               aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;"> 展開/收合</span></a>
+               aria-controls="collapseExample" aria-label="展開或收合選單" title="展開/收合">展開/收合選單<span class="sr-only">展開/收合選單</span></a>
         </div>
         <div class="collapse show" id="collapseExample">
             <div class="footer-widgets-wrap clearfix">
@@ -457,7 +374,7 @@ List<News> newse4 = ViewBag.newse4;
             </div>
             <div class="col_half col_last tright ">
                 <ul class="crul01 d-none d-md-block">
-                    <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20221230163447" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                     <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
                 </ul>
             </div>
@@ -483,7 +400,14 @@ List<News> newse4 = ViewBag.newse4;
 <script src="/js/fontsize.js"></script>
 <script>
     $(document).ready(function () {
+        $('.carousel-item a').on('focus', function () {
+            // 當 <a> 標籤獲得焦點時，暫停輪播
 
+            $('#carouselExampleCaptions').carousel('pause');
+        }).on('blur', function () {
+            // 當 <a> 標籤失去焦點時，恢復輪播
+            $('#carouselExampleCaptions').carousel('cycle');
+        });
         /* This function looks for a change in the hash (activation of an in-page link) and sets focus to and 
         highlights the target element. This is necessary because webkit does not set focus as it should. If 
         the hash is empty (the user hit the back button after activating an in-page link) focus is set to body.

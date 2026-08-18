@@ -54,6 +54,7 @@ namespace TnpdModels
         [Display(Name = "twd97y座標")]
         public string Twd97Y { get; set; }
 
-
+        [Display(Name = "兼作停車空間")]
+        public IsEnable? IsParkingLot { get; set; }
     }
 }

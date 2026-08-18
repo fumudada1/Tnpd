@@ -321,6 +321,7 @@
     }
 
     #primary-menu-trigger {
+        display: block;
         opacity: 1;
         pointer-events: auto;
         top: 25px;

@@ -32,6 +32,9 @@
 
 <table class="table table-v">
     <tr>
+        <th style="width:60px">
+            <input name="clickAll" id="clickAll" type="checkbox"> 全選
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().CarNO)
         </th>
@@ -50,9 +53,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().checkStatus)
         </th>
-        
+
         <th>
-           註冊人姓名
+            註冊人姓名
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().InitDate)
@@ -62,6 +65,12 @@
 <tbody>
 @foreach (var item in Model) {
     <tr>
+        <td>
+
+            <input id="chkItem@(item.Id)" class="chkItem"  type="checkbox" value="@item.Id"> <label style="width: 100px;display: inline" for="chkItem@(item.Id)">選取</label>
+
+              
+        </td>
         <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.CarNO)
         </td>
@@ -79,28 +88,40 @@
         </td>
         <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.checkStatus)
-           @if (item.checkStatus== SMSStatus.未通過 && item.TrafficSMSCarInfoRejectId.HasValue)
-           {
-               <span>(@item.TrafficSmsCarInfoReject.Subject)</span>
-           }
+            @if (item.checkStatus == SMSStatus.未通過 && item.TrafficSMSCarInfoRejectId.HasValue)
+            {
+                <span>(@item.TrafficSmsCarInfoReject.Subject)</span>
+            }
         </td>
         <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.trafficSms.Name)
         </td>
         <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.trafficSms.InitDate)
+            @Html.DisplayFor(modelItem => item.InitDate)
         </td>
         <td>
-            @Html.ActionLink("審核", "Edit", new { id=item.Id }) 
+            @Html.ActionLink("審核", "Edit", new { id = item.Id })
             @*@Html.ActionLink("內容", "Details", new { id=item.Id }) | *@
             @*@Html.ActionLink("刪除", "Delete", new { id=item.Id })*@
-            @Html.Hidden("ID",item.Id)
+            @Html.Hidden("ID", item.Id)
         </td>
     </tr>
 }
 </tbody>
 </table>
-
+@using (Html.BeginForm("BatchCheck", "TrafficSMS", FormMethod.Post, new { id = "formItem" }))
+{
+    <span>指派承辦人：</span>
+    @Html.DropDownList("SMSStatus")
+    @Html.DropDownList("TrafficSMSCarInfoRejectId")
+    <input type="hidden" name="hidItem" id="hidItem" value=""/>
+    <input type="button" id="btnAssign" value="批次審核"/>
+}
+@using (Html.BeginForm("Report", "TrafficSMS", FormMethod.Post, new { id = "formItem" }))
+{
+    
+    <input type="submit" value="匯出CSV"/>
+}
 <div class="pager">
     @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount) 共  @ViewBag.Total 筆
 </div>
@@ -114,6 +135,57 @@
             $(".datepicker").datepicker();
 
         });
+        $("#clickAll").click(function () {
+
+            if ($("#clickAll").prop("checked")) {
+                $(".chkItem").each(function () {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $(".chkItem").each(function () {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+        $("#btnAssign").click(function () {
+            var ItemText = '';
+            $(".chkItem").each(function () {
+                var id = $(this).val();
+                
+                if ($(this).is(":checked")) {
+
+                    ItemText = ItemText + id + ',';
+
+                }
+
+
+            });
+            $("#hidItem").val(ItemText);
+            console.log($("#hidItem").val());
+            $("#formItem").submit();
+
+        });
+        
+        if ($("#checkStatus").val() == "未通過") {
+            $("#TrafficSMSCarInfoRejectId").show();
+        } else {
+            $("#TrafficSMSCarInfoRejectId").hide();
+        };
+
+        $("#SMSStatus").change(function () {
+
+            if ($(this).val() == "未通過") {
+                $("#TrafficSMSCarInfoRejectId").show();
+            } else {
+                $("#TrafficSMSCarInfoRejectId").hide();
+            }
+        });
     </script>
+    
+    <style>
+        #TrafficSMSCarInfoRejectId {
+            display: none;
+        }
+    </style>
 }
 

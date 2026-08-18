@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using tnpd.Models;
+using tnpd.Models.SMS;
 using TnpdModels;
 
 namespace tnpd.Controllers
@@ -17,24 +18,28 @@ namespace tnpd.Controllers
         //
         // GET: /TrafficSMS/
 
-        public ActionResult Index()
+        public ActionResult Index(Guid id)
         {
-            //ViewBag.UnId = id.ToString();
+            ViewBag.UnId = id.ToString();
+            
             return View();
         }
 
-        public ActionResult Create(string checkRead)
+        public ActionResult Create(Guid id, string checkRead)
         {
-            if (Session["TrafficSMSGUID"] != null)
+           
+
+            string referer = "";
+            if (Request.UrlReferrer != null)
             {
-                return RedirectToAction("AddCarInfo", new { id = Session["TrafficSMSGUID"] });
+                referer = Request.UrlReferrer.ToString();
             }
 
-            if (checkRead != "agree")
+            if (string.IsNullOrEmpty(referer) || !referer.ToLower().Contains("trafficsms"))
             {
-                return RedirectToAction("Index");
+                // 拒绝访问，重定向到错误页面或显示错误信息
+                return RedirectToAction("Index", "TrafficSMS", new { id = id });
             }
-           
             TrafficSMSView trafficSms = new TrafficSMSView();
 
           
@@ -67,19 +72,19 @@ namespace tnpd.Controllers
                     return View(smsView);
                 }
 
-                
 
-                //if (trafficSms.CheckCode != smsView.SMSCode)
-                //{
-                //    ViewBag.Message = "驗證碼錯誤!";
-                //    return View(smsView);
-                //}
 
-                //if (trafficSms.InitDate.Value.AddMinutes(5) < DateTime.Now)
-                //{
-                //    ViewBag.Message = "驗證碼過期!";
-                //    return View(smsView);
-                //}
+                if (trafficSms.CheckCode != smsView.SMSCode)
+                {
+                    ViewBag.Message = "驗證碼錯誤!";
+                    return View(smsView);
+                }
+
+                if (trafficSms.InitDate.Value.AddMinutes(5) < DateTime.Now)
+                {
+                    ViewBag.Message = "驗證碼過期!";
+                    return View(smsView);
+                }
 
                 trafficSms.Name = smsView.Name;
                 trafficSms.IsAction = BooleanType.是;
@@ -197,9 +202,15 @@ namespace tnpd.Controllers
                 trafficSms.Create(_db, _db.trafficSmses);
             }
 
-            string message = "台端申請臺南市政府警察局交通違規簡訊服務，請輸入驗證碼" + CheckCode;
+            string message = "台端申請臺南市政府警察局交通違規簡訊服務，請輸入驗證碼" + CheckCode + "，如果這不是您的驗證申請，請忽略此簡訊。";
+            string username = ConfigurationManager.AppSettings["trafficUsername"].Trim();
+            string password = ConfigurationManager.AppSettings["trafficPassword"].Trim();
+            SmsMain smsMain = new SmsMain(username, password);
+            SmsBody smsBody = new SmsBody("臺南市政府警察局交通大隊", mobile, message);
+            smsMain.SmsBody.Add(smsBody);
 
-            string result = SendHinetSMS(mobile, message);
+            string result = smsMain.SendWithWebRequest();
+            //string result = SendHinetSMS(mobile, message);
 
             return Content(result);
         }
@@ -233,10 +244,16 @@ namespace tnpd.Controllers
                 trafficSms.Create(_db, _db.trafficSmses);
             }
 
-            string message = "台端申請臺南市政府警察局交通違規簡訊服務，請輸入驗證碼" + CheckCode;
+            string message = "台端申請臺南市政府警察局交通違規簡訊服務，請輸入驗證碼" + CheckCode + "，如果這不是您的驗證申請，請忽略此簡訊。";
 
-            string result = SendHinetSMS(mobile, message);
+            string username = ConfigurationManager.AppSettings["trafficUsername"].Trim();
+            string password = ConfigurationManager.AppSettings["trafficPassword"].Trim();
+            SmsMain smsMain = new SmsMain(username, password);
+            SmsBody smsBody = new SmsBody("臺南市政府警察局交通大隊",mobile,message);
+            smsMain.SmsBody.Add(smsBody);
 
+            string result = smsMain.SendWithWebRequest();
+            //string result = SendHinetSMS(mobile, message);
             return Content(result);
         }
 

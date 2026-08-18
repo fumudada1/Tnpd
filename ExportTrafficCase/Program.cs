@@ -20,71 +20,123 @@ namespace ExportTrafficCase
         {
             BackendContext _db = new BackendContext();
             List<CaseTraffic> caseTraffics = _db.CaseTraffics.Where(x => x.IsSend == false).Take(50).ToList();
-            
+
             string JsonText = "";
             var list = caseTraffics.Select(x => new
             {
-                         Id = x.Id,
-                         InitDate = x.InitDate,
-                    CaseID = x.CaseID,
-                    Subject = x.Subject,
-                    Content = x.Content,
-                    Name = x.Name,
-                    Pid = x.Pid,
-                    Gender = x.Gender == GenderType.男 ? "男" : "女",
-                    Email = x.Email,
-                    TEL = x.TEL,
-                    Job = x.Job,
-                    Address = x.Address,
-                    IP = x.IP,
-                    assignUnit = x.assignUnit.Subject,
-                    Upfile1 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile1 + " http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile1,
-                    Upfile2 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile2 + " http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile2,
-                    Upfile3 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile3 + " http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile3,
-                    Upfile4 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile4 + " http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile4,
-                    Upfile5 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile5 + " http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile5,
-                    Upfile6 = "",
-                         Upfile7 = "",
-                         Upfile8 = "",
-                         Upfile9 = "",
-                         Upfile10 = "",
-                         Upfile11 = "",
-                         Upfile12 = "",
-                    violation_date = x.violation_date,
-                    violation_time = x.violation_time,
-                    Predate = x.Predate,
-                    violation_place = x.violation_place,
-                    violation_carno = x.violation_carno,
-                    violation_place_area = x.violation_place_area,
-                    violation_place_road = x.violation_place_road,
-                    itemno = x.itemno,
-                    checkName = checkMyName(x.Pid),
-                    分派 = new
-                    {
-                        CaseTime = x.Poprocs.Count == 0 ? x.InitDate : x.Poprocs.FirstOrDefault().CaseTime,
-                        assignUnit = x.Poprocs.Count == 0 ? "" : x.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject + " " + x.Poprocs.FirstOrDefault().assignUnit.Subject,
-                        assignMember = x.Poprocs.Count == 0 ? "" : x.Poprocs.FirstOrDefault().assignMember.CName,
+                Id = x.Id,
+                InitDate = x.InitDate,
+                CaseID = x.CaseID,
+                Subject = x.Subject,
+                Content = x.Content,
+                Name = x.Name,
+                Pid = x.Pid,
+                Gender = x.Gender == GenderType.男 ? "男" : "女",
+                Email = x.Email,
+                TEL = x.TEL,
+                Job = x.Job,
+                Address = x.Address,
+                IP = x.IP,
+                assignUnit = x.assignUnit.Subject,
+                Upfile1 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile1 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile1,
+                Upfile2 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile2 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile2,
+                Upfile3 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile3 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile3,
+                Upfile4 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile4 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile4,
+                Upfile5 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile5 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile5,
+                Upfile6 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile6 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile6,
+                Upfile7 = "",
+                Upfile8 = "",
+                Upfile9 = "",
+                Upfile10 = "",
+                Upfile11 = "",
+                Upfile12 = "",
+                violation_date = x.violation_date,
+                violation_time = x.violation_time,
+                Predate = x.Predate,
+                violation_place = x.violation_place,
+                violation_carno = x.violation_carno,
+                violation_place_area = x.violation_place_area,
+                violation_place_road = x.violation_place_road,
+                itemno = x.itemno,
+                checkName = checkMyName(x.Pid),
+                分派 = new
+                {
+                    CaseTime = x.Poprocs.Count == 0 ? x.InitDate : x.Poprocs.FirstOrDefault().CaseTime,
+                    assignUnit = x.Poprocs.Count == 0 ? "" : x.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject + " " + x.Poprocs.FirstOrDefault().assignUnit.Subject,
+                    assignMember = x.Poprocs.Count == 0 ? "" : x.Poprocs.FirstOrDefault().assignMember.CName,
 
-                    }
+                }
 
             });
             JsonText = Encrypt3DES(JsonConvert.SerializeObject(list));
 
             string result = Post("https://10.4.2.12/TNPDAPI/PublicReport", JsonText);
             Console.WriteLine("傳送結果:" + result);
-            Console.ReadKey();
-            System.IO.File.WriteAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\json.txt", JsonText, System.Text.Encoding.UTF8);
-            string desString = System.IO.File.ReadAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\json.txt", System.Text.Encoding.UTF8);
-            string deJsonText = Decrypt3DES(desString);
-            System.IO.File.WriteAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\sjson.txt", deJsonText, System.Text.Encoding.UTF8);
+            ////Console.ReadKey();
+            //System.IO.File.WriteAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\json.txt", JsonText, System.Text.Encoding.UTF8);
+            //string desString = System.IO.File.ReadAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\json.txt", System.Text.Encoding.UTF8);
+            //string deJsonText = Decrypt3DES(desString);
+            //System.IO.File.WriteAllText("D:\\website\\Tnpd\\ExportTrafficCases\\sendData\\sjson.txt", deJsonText, System.Text.Encoding.UTF8);
 
             foreach (CaseTraffic item in caseTraffics)
             {
-               
 
-            item.IsSend = true;
-            _db.SaveChanges();
+
+                item.IsSend = true;
+
             }
+            _db.SaveChanges();
+
+            //傳送補件資訊
+            List<CaseTrafficAppend> caseTrafficsAppends = _db.CaseTrafficAppends.Where(x => x.IsSend == false).Take(50).ToList();
+            if (caseTrafficsAppends.Count > 0)
+            {
+                string JsonTextAppend = "";
+                var Appendlist = caseTrafficsAppends.Select(x => new
+                {
+                    Id = x.Id,
+                    InitDate = x.InitDate,
+                    CaseID = x.CaseID,
+                    CaseTrafficAppendGuid = x.CaseTrafficAppendGuid,
+                    Memo = x.memo,
+                    Append = x.Append,
+                    Deadline = x.deadline,
+
+                    Append_date = x.Append_date,
+
+                    Upfile1 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile1 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile1,
+                    Upfile2 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile2 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile2,
+                    Upfile3 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile3 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile3,
+                    Upfile4 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile4 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile4,
+                    Upfile5 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile5 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile5,
+                    Upfile6 = "http://webmgt.tnpd.gov.tw/TrafficFiles/" + x.Upfile6 + " ,http://webmgt.tnpd.gov.tw/TrafficFiles2/" + x.Case.assignUnit.Subject + "/" + x.InitDate.Value.ToString("yyyy-MM") + "/" + x.CaseID + "/" + x.Upfile6,
+
+                    violation_date = x.violation_date,
+                    violation_place = x.violation_place,
+                    violation_carno = x.violation_carno,
+                    violation_place_area = x.violation_place_area,
+                    violation_place_road = x.violation_place_road,
+                    itemno = x.itemno,
+
+
+                });
+                JsonText = Encrypt3DES(JsonConvert.SerializeObject(JsonTextAppend));
+
+                string resultAppend = Post("https://10.4.2.12/TNPDAPI/PublicReport", JsonText);
+                Console.WriteLine("傳送結果:" + resultAppend);
+                //Console.ReadKey();
+
+                foreach (CaseTrafficAppend item in caseTrafficsAppends)
+                {
+
+
+                    item.IsSend = true;
+
+                }
+                _db.SaveChanges();
+            }
+
+
 
         }
 
@@ -93,7 +145,7 @@ namespace ExportTrafficCase
         /// </summary>
         /// <param name="url">請求後臺地址</param>
         /// <returns></returns>
-        private static string Post(string url,string inputData)
+        private static string Post(string url, string inputData)
         {
             string result = string.Empty;
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -102,7 +154,7 @@ namespace ExportTrafficCase
 
             #region 添加Post 參數
             NameValueCollection postParams = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            
+
             postParams.Add("input", inputData);
 
             byte[] data = Encoding.UTF8.GetBytes(postParams.ToString());
@@ -123,14 +175,19 @@ namespace ExportTrafficCase
             }
             return result;
         }
-       
+
 
         private static string checkMyName(string pid)
         {
-            string url = "http://10.128.0.41:2080/Soap/checkId?id=" + pid;
-            string result = GetJsonContent(url);
+            //if (pid.Length == 10)
+            //{
+            //    string url = "http://10.128.0.41:2080/Soap/checkId?id=" + pid;
+            //    string result = GetJsonContent(url);
+            //}
 
-            return result;
+
+
+            return "身分證格式錯誤";
         }
 
         private static string GetJsonContent(string Url)

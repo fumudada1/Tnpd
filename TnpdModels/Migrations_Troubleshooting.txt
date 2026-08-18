@@ -1,0 +1,228 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║  Entity Framework Migration 錯誤排查與修復                            ║
+║  - Add-Migration addisuse 常見問題解決方案                            ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+【優先級 1 - 執行前檢查】
+
+1. 確認 Visual Studio 已重新啟動
+   ? 關閉並重新打開 Visual Studio
+   ? 清除 Visual Studio 快取
+
+2. 確認解決方案已重新編譯
+   ? Build → Clean Solution
+   ? Build → Rebuild Solution
+
+3. 確認 Package Manager Console 已刷新
+   ? 關閉 Package Manager Console 標籤
+   ? 重新打開 Tools → NuGet Package Manager → Package Manager Console
+
+══════════════════════════════════════════════════════════════════════
+
+【優先級 2 - 常見錯誤及修復】
+
+? 錯誤 1: "There are no pending code-based migrations"
+────────────────────────────────────────────────────────
+描述：系統檢測不到新的遷移
+原因：
+  ? 遷移文件已存在
+  ? 模型未進行任何變更
+  ? DbContext 不識別遷移文件
+
+修復方案：
+  1. 確認遷移文件存在於正確位置：
+     TnpdModels\Migrations\202512081509100_addisuse.cs ?
+  
+  2. 執行以下命令查看待定遷移：
+     Get-Migrations
+  
+  3. 如果列表中有 addisuse，執行：
+     Update-Database
+  
+  4. 如果沒有出現，嘗試重新構建解決方案：
+     Build-Project TnpdModels
+
+? 錯誤 2: "The DbContext type 'TnpdModels.BackendContext' is not mapped"
+────────────────────────────────────────────────────────────────────
+描述：DbContext 配置問題
+原因：
+  ? DbContext 類未正確引用
+  ? 命名空間不正確
+
+修復方案：
+  1. 檢查 Configuration.cs 第一行：
+     internal sealed class Configuration : DbMigrationsConfiguration<TnpdModels.BackendContext>
+  
+  2. 確認 BackendContext 類定義正確：
+     public class BackendContext : DbContext { ... }
+
+? 錯誤 3: "Unable to connect to the target database"
+────────────────────────────────────────────────────
+描述：連接字符串或數據庫連接失敗
+原因：
+  ? App.config 中連接字符串錯誤或不存在
+  ? SQL Server 服務未啟動
+  ? 網絡連接問題
+
+修復方案：
+  1. 驗證 App.config 中的連接字符串：
+     <add name="TnpdConnection" connectionString="..." />
+  
+  2. 確認 SQL Server 已啟動：
+     ? Windows Services 中檢查 SQL Server 狀態
+     ? 或在 SQL Server Management Studio 中測試連接
+  
+  3. 測試連接字符串：
+     在 Package Manager Console 中執行：
+     $context = New-Object TnpdModels.BackendContext
+     $context.Database.Connection.Open()
+     $context.Database.Connection.Close()
+
+? 錯誤 4: "The specified named connection is either not defined or not valid"
+──────────────────────────────────────────────────────────────────────────
+描述：連接字符串名稱不匹配
+原因：
+  ? BackendContext 構造函數中的連接字符串名稱與 App.config 不符
+  ? 拼寫錯誤
+
+修復方案：
+  1. 檢查 BackendContext.cs 中的構造函數：
+     public BackendContext()
+         : base("name=TnpdConnection")
+     { }
+  
+  2. 確認 App.config 中的對應項：
+     <add name="TnpdConnection" connectionString="..." />
+
+? 錯誤 5: "Entity Framework Migrations not enabled for context"
+────────────────────────────────────────────────────────────
+描述：Migrations 未啟用
+原因：
+  ? Configuration.cs 未正確設置
+  ? DbContext 未正確繼承
+
+修復方案：
+  1. 確認 Configuration.cs 存在且格式正確
+  2. 在 Package Manager Console 中執行：
+     Enable-Migrations -ContextTypeName TnpdModels.BackendContext
+
+? 錯誤 6: "Could not load file or assembly 'EntityFramework'"
+──────────────────────────────────────────────────────────
+描述：EntityFramework 程序集加載失敗
+原因：
+  ? NuGet 包安裝不完整
+  ? 版本衝突
+
+修復方案：
+  1. 在 Package Manager Console 中執行：
+     Update-Package EntityFramework -Reinstall
+  
+  2. 或完全卸載並重新安裝：
+     Uninstall-Package EntityFramework -Force
+     Install-Package EntityFramework -Version 5.0.0
+
+? 錯誤 7: "Model compatibility cannot be checked because the database"
+──────────────────────────────────────────────────────────────────
+描述：模型與數據庫結構不兼容
+原因：
+  ? 舊版遷移未應用
+  ? 數據庫結構與模型不符
+
+修復方案：
+  1. 查看所有待定遷移：
+     Get-Migrations -IncludePending
+  
+  2. 應用所有待定遷移：
+     Update-Database
+  
+  3. 如果仍有問題，查看遷移歷史：
+     Select * From dbo.__MigrationHistory
+
+? 錯誤 8: "Multiple context types were found in assembly"
+──────────────────────────────────────────────────────
+描述：同一程序集中有多個 DbContext
+原因：
+  ? 重複的 DbContext 定義
+
+修復方案：
+  1. 明確指定要使用的 DbContext：
+     Add-Migration addisuse -ContextTypeName TnpdModels.BackendContext
+  
+  2. 或檢查是否有重複的 BackendContext 定義
+
+══════════════════════════════════════════════════════════════════════
+
+【優先級 3 - 診斷命令】
+
+使用以下命令診斷問題：
+
+1. 列出所有遷移：
+   Get-Migrations
+
+2. 列出所有遷移（包括待定）：
+   Get-Migrations -IncludePending
+
+3. 查看目前應用的遷移版本：
+   Update-Database -Script | head -20
+
+4. 以詳細模式執行遷移：
+   Update-Database -Verbose
+
+5. 查看模型快照：
+   Get-Item TnpdModels\Migrations\Configuration.cs
+
+6. 查看數據庫遷移歷史：
+   # 在 SQL Server Management Studio 中執行
+   SELECT * FROM dbo.__MigrationHistory
+
+══════════════════════════════════════════════════════════════════════
+
+【優先級 4 - 核心檢查清單】
+
+在執行 Update-Database 前，確認以下項目：
+
+? 備份已執行
+  備份位置：__________________
+  備份時間：__________________
+
+? Visual Studio 已編譯
+  Build Status: Clean/Successful
+
+? Package Manager Console 已刷新
+  Active Project: TnpdModels
+
+? 連接字符串有效
+  Connection Name: TnpdConnection
+  Server: ________________
+  Database: ________________
+
+? 遷移文件正確
+  Migration Name: 202512081509100_addisuse
+  File Location: TnpdModels\Migrations\
+
+? DbContext 正確引用
+  Type: TnpdModels.BackendContext
+  Assembly: TnpdModels
+
+══════════════════════════════════════════════════════════════════════
+
+【優先級 5 - 如仍有問題】
+
+如果上述方案都無法解決，請提供以下信息：
+
+1. Package Manager Console 中的完整錯誤訊息（複製全文）
+2. 當前環境信息：
+   - Visual Studio 版本：
+   - .NET Framework 版本：
+   - SQL Server 版本：
+   - EntityFramework 版本：
+
+3. 已執行的命令：
+   - 命令 1：
+   - 命令 2：
+
+4. 預期結果vs實際結果：
+   預期：
+   實際：
+
+══════════════════════════════════════════════════════════════════════

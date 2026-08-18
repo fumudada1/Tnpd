@@ -19,6 +19,10 @@ namespace TnpdModels
             : base("name=TnpdConnection")
         {
         }
+        public BackendContext(string strConnection)
+            : base(strConnection)
+        {
+        }
       
 
         public DbSet<Unit> Units { get; set; }
@@ -77,6 +81,9 @@ namespace TnpdModels
         public DbSet<PoprocsSubType> PoprocsSubTypes { get; set; }
         //交通檢舉信箱
         public DbSet<CaseTraffic> CaseTraffics { get; set; }
+        //交通檢舉信箱補件
+        public DbSet<CaseTrafficAppend> CaseTrafficAppends { get; set; }
+
         //信箱處理log
         public DbSet<CasePoprocLog> CasePoprocLogs { get; set; }
         //交通檢舉信箱處理
@@ -121,5 +128,17 @@ namespace TnpdModels
         public DbSet<TrafficFrontEndViolationItem> TrafficFrontEndViolationItems { get; set; }
 
         public DbSet<TrafficViolationItem> TrafficViolationItems { get; set; }
+
+        public DbSet<CaseMobileCheck> CaseMobileChecks { get; set; }
+
+        //首長簡介
+        public DbSet<LeaderCatalog> LeaderCatalogs { get; set; }
+
+        public DbSet<Leader> Leaders { get; set; }
+
+        //SMTP Server Setting
+
+        public DbSet<SMTPServerSetting> SmtpServerSettings { get; set; }
+
     }
 }

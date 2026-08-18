@@ -111,18 +111,31 @@ namespace TnpdAdmin.Controllers
 
         public ActionResult Create()
         {
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            List<WebSiteName> webSites = new List<WebSiteName>();
+            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")))
+            {
+                webSites = _db.WebSiteNames.Where(x => x.UnitId == member.MyUnit.ParentId).ToList();
+                 
+            }
+            else
+            {
+                webSites = _db.WebSiteNames.Where(x => x.Language == LanguageType.中文版).OrderBy(p => p.ListNum).ToList();
+            }
+
             if (Session["BannersWebSiteNameId"]!=null)
             {
                 int WebSiteNameId =Convert.ToInt32(Session["BannersWebSiteNameId"]) ;
                
                 ViewBag.WebSiteNameId =
-                    new SelectList(_db.WebSiteNames.Where(x => x.Language == LanguageType.中文版).OrderBy(p => p.ListNum),
+                    new SelectList(webSites,
                         "Id", "Subject", WebSiteNameId);
             }
             else
             {
                 ViewBag.WebSiteNameId =
-                    new SelectList(_db.WebSiteNames.Where(x => x.Language == LanguageType.中文版).OrderBy(p => p.ListNum),
+                    new SelectList(webSites,
                         "Id", "Subject");
             }
             
@@ -152,8 +165,8 @@ namespace TnpdAdmin.Controllers
                     //Utility.GenerateThumbnailImageGinny(bigbanner.UpImage, UpImages.InputStream, Server.MapPath("~/upfiles/images"), "M", 1100, 500);
                     Utility.GenerateThumbnailImageGinny(bigbanner.UpImage, UpImages.InputStream, Server.MapPath("~/upfiles/images"), "S", 200, 127); 
                 } 
-                System.Threading.Thread.Sleep(1000); 
-
+                System.Threading.Thread.Sleep(1000);
+                bigbanner.SystemMessage = "新增首頁Banner,標題:" + bigbanner.Subject;
                 _db.BigBanners.Add(bigbanner);
 	  int maxListNum = 0;
       if (( _db.BigBanners.Any()))
@@ -179,7 +192,33 @@ namespace TnpdAdmin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.WebSiteNameId = new SelectList(_db.WebSiteNames.Where(x => x.Language == LanguageType.中文版).OrderBy(p => p.ListNum), "Id", "Subject", bigbanner.WebSiteNameId);
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            List<WebSiteName> webSites = new List<WebSiteName>();
+            if (!member.Roles.Any(x => x.Subject.Contains("最高權限管理者")))
+            {
+                webSites = _db.WebSiteNames.Where(x => x.UnitId == member.MyUnit.ParentId).ToList();
+
+            }
+            else
+            {
+                webSites = _db.WebSiteNames.Where(x => x.Language == LanguageType.中文版).OrderBy(p => p.ListNum).ToList();
+            }
+
+            if (Session["BannersWebSiteNameId"] != null)
+            {
+                int WebSiteNameId = Convert.ToInt32(Session["BannersWebSiteNameId"]);
+
+                ViewBag.WebSiteNameId =
+                    new SelectList(webSites,
+                        "Id", "Subject", WebSiteNameId);
+            }
+            else
+            {
+                ViewBag.WebSiteNameId =
+                    new SelectList(webSites,
+                        "Id", "Subject");
+            }
             return View(bigbanner);
         }
 
@@ -205,9 +244,10 @@ namespace TnpdAdmin.Controllers
                     //Utility.GenerateThumbnailImage(bigbanner.UpImage, UpImages.InputStream, Server.MapPath("~/upfiles/images"), "M", 1000, 500);
                     Utility.GenerateThumbnailImage(bigbanner.UpImage, UpImages.InputStream, Server.MapPath("~/upfiles/images"), "S", 200, 127); 
                 } 
-                System.Threading.Thread.Sleep(1000); 
+                
 
                //_db.Entry(bigbanner).State = EntityState.Modified;
+               bigbanner.SystemMessage = "修改首頁Banner,標題:" + bigbanner.Subject;
                 bigbanner.Update();
                 return RedirectToAction("Index",new{Page=-1});
             }

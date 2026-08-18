@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -1034,29 +1035,7 @@ namespace tnpd.Models
 
 
         #region "發信"
-        public static void SystemSendMail1(string toAddress, string subject, string mailBody)
-        {
-
-            MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
-            mailMessage.Subject = subject;
-            mailMessage.IsBodyHtml = true;
-            mailMessage.Body = mailBody;
-            // SMTP Server
-            SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
-            System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
-            mailSender.Credentials = basicAuthenticationInfo;
-            mailSender.Send(mailMessage);
-            mailMessage.Dispose();
-            try
-            {
-
-
-            }
-            catch
-            {
-                return;
-            }
-        }
+        
 
         public static void SystemSendMail(string toAddress, string subject, string mailBody)
         {
@@ -1064,17 +1043,57 @@ namespace tnpd.Models
             {
                 return ;
             }
+             BackendContext db = new BackendContext();
+           
 
-            //MailMessage mailMessage = new MailMessage("webtnpd@tnpd.gov.tw", toAddress);
-            //mailMessage.Subject = subject;
-            //mailMessage.IsBodyHtml = true;
-            //mailMessage.Body = mailBody;
-            //// SMTP Server
-            //SmtpClient mailSender = new SmtpClient("mail.tnpd.gov.tw");
-            //System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential("webtnpd", "6351459@Web");
-            //mailSender.Credentials = basicAuthenticationInfo;
-            //mailSender.Send(mailMessage);
-            //mailMessage.Dispose();
+            try
+            {
+                SMTPServerSetting serverSetting = db.SmtpServerSettings.Where(x => x.Enable == true).FirstOrDefault();
+
+                // 建立郵件訊息
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(serverSetting.MailFrom);
+                mailMessage.To.Add(toAddress);
+                mailMessage.Subject = subject;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = mailBody;
+
+                // 設定 SMTP 客戶端
+                SmtpClient mailSender = new SmtpClient();
+                mailSender.Host = serverSetting.Address;
+                mailSender.Port = serverSetting.Port;
+                mailSender.EnableSsl = serverSetting.EnableSsl;
+                mailSender.UseDefaultCredentials = serverSetting.UseDefaultCredentials;
+                mailSender.Credentials = new NetworkCredential(serverSetting.MailAccount, serverSetting.MailPassword);
+
+                // 設定與內送伺服器相同的設定
+                mailSender.DeliveryMethod = serverSetting.SmtpDeliveryMethod;
+
+
+
+                // 發送郵件
+                mailSender.Send(mailMessage);
+                mailMessage.Dispose();
+
+               
+                File.WriteAllText("D:\\maillog\\" + DateTime.Now.ToString("yyyy-MM-dd-HH-sss") + "log.txt", subject + mailBody);
+
+
+            }
+            catch(Exception e)
+            {
+                File.WriteAllText("D:\\maillog\\Error" + DateTime.Now.ToString("yyyy-MM-dd-HH-sss") +"log.txt", subject + e.ToString());
+            }
+        }
+
+        public static void SystemSendMail0326(string toAddress, string subject, string mailBody)
+        {
+            if (toAddress.IndexOf("@vusra.com") > -1)
+            {
+                return;
+            }
+
+
 
             try
             {
@@ -1088,20 +1107,13 @@ namespace tnpd.Models
                 mailSender.Credentials = basicAuthenticationInfo;
                 mailSender.Send(mailMessage);
                 mailMessage.Dispose();
+                File.WriteAllText("D:\\maillog\\" + DateTime.Now.ToString("yyyy-MM-dd-HH-sss") + "log.txt", subject + mailBody);
+
 
             }
-            catch
+            catch (Exception e)
             {
-                MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["MailFrom"], toAddress);
-                mailMessage.Subject = subject;
-                mailMessage.IsBodyHtml = true;
-                mailMessage.Body = mailBody;
-                // SMTP Server
-                SmtpClient mailSender = new SmtpClient(ConfigurationManager.AppSettings["MailServer"]);
-                System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["MailAccount"], ConfigurationManager.AppSettings["MailPassword"]);
-                mailSender.Credentials = basicAuthenticationInfo;
-                mailSender.Send(mailMessage);
-                mailMessage.Dispose();
+                File.WriteAllText("D:\\maillog\\Error" + DateTime.Now.ToString("yyyy-MM-dd-HH-sss") + "log.txt", subject + e.ToString());
             }
         }
 
@@ -1229,6 +1241,20 @@ namespace tnpd.Models
                 return sb.ToString();
             }
             return "";
+        }
+        #endregion
+
+        #region "取得正確格式GUID"
+        public static string GetGUID()
+        {
+            string strGuid = Guid.NewGuid().ToString();
+            while (strGuid.ToString().Substring(13, 1) != "1")
+            {
+                strGuid = Guid.NewGuid().ToString();
+            }
+
+            return strGuid;
+
         }
         #endregion
 

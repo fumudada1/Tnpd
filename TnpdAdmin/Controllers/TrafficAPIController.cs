@@ -17,7 +17,8 @@ namespace TnpdAdmin.Controllers
         // GET: /TrafficAPI/
 
         private BackendContext _db = new BackendContext();
-        
+
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult SendMail(string id,string subject,string email,string content)
         {
@@ -25,6 +26,7 @@ namespace TnpdAdmin.Controllers
             return Content("信件已發送");
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Receive(string input)
         {

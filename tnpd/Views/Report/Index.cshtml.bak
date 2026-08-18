@@ -1,0 +1,61 @@
+﻿@model tnpd.Models.ReportView
+
+<div class="row">
+
+
+    <div class="col-12">
+
+        <h4>為提供民眾更即時、便捷的報案方式，規劃將「多元報案」作為恆常宣導訊息區，另為配合內政部警政署推廣視訊報案APP以增加使用率，並附載APP連結載點路徑及宣導影片，以提供民眾作多元報案方式之選擇。</h4>
+   
+        
+
+		<h4 style="margin:0 0 10px 0">
+        一、語音報案專線：110。<br>
+        二、簡訊報案專線：0911-510-916。<br>
+        三、視訊報案APP：</h4>
+        
+        <p style="color: red;margin-bottom:10px " >
+            (一)民眾可透過App Store或Google Play免費下載安裝及更新「警政服務APP」軟體，其中「雲端視訊報案」功能包含：
+        </p>
+        
+
+        <ul class="ultxt">
+            <li>報案定位：GPS定位功能，即時提供報案人所在位置。
+            </li>
+            <li>視訊傳送：可即時回傳現場影像，完整傳達現場實況。
+            </li>
+            <li>文字對談：雙向文字對談，不用說話也可以輕鬆完成報案。
+            </li>
+            <li>個人資訊：提供個人特殊狀況及緊急聯絡人。
+            </li>
+        </ul>
+        
+        <p style="color: red" style="margin:0 0 10px 0">
+            (二)「警政服務APP」載點路徑及宣導影片(廣告)：
+        </p>
+        
+
+        <ul class="ultxt">
+            <li>iOS系統：點選App Store→搜尋警政服務→安裝App→開啟警政服務App。<a href="https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843" target="_blank" title="Apple App下載(另開新視窗)">https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843(另開新視窗)</a>或掃描下面QR CODE
+			<br><a href="https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843" target="_blank" title="Apple App下載(另開新視窗)"><img alt="ios QR CODE" src="/upfiles/images/ios%E7%B3%BB%E7%B5%B1.png" style="width: 196px; height: 196px;">
+            </a></li>
+            <li>Android系統：點選Play商店→搜尋警政服務→安裝App→開啟警政服務App。<a href="https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW" target="_blank" title="Android App下載(另開新視窗)">https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW(另開新視窗)</a>或掃描下面QR CODE
+			<br><a href="https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW" target="_blank" title="Android App下載(另開新視窗)"><img alt="安卓版QR CODE" src="/upfiles/images/%E5%AE%89%E5%8D%93%E7%B3%BB%E7%B5%B1.png" style="width: 196px; height: 196px;">
+            </a></li>
+            <li>宣導影片(廣告)：<a href="https://www.youtube.com/watch?v=02_VVecn4Ts" target="_blank" title="宣導影片(另開新視窗)">https://www.youtube.com/watch?v=02_VVecn4Ts(另開新視窗)</a>
+            </li>
+            
+        </ul>
+
+    </div>
+</div>
+   
+<style>
+    .field-validation-error {
+        color:red
+    }
+</style>
+<script src="/js/jquery.validate.js"></script>
+
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery.unobtrusive-ajax.min.js"></script>

@@ -34,7 +34,7 @@ namespace tnpd.Areas.cic.Controllers
             //var newse3 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 7 && y.WebSite.SiteCode == areaName) > 0)
             //    .OrderByDescending(p => p.StartDate).Take(4);
 
-            var banners = _db.BigBanners.Where(x => x.Enable == BooleanType.是 && x.WebSite.SiteCode == areaName).OrderBy(x => x.ListNum);
+            var banners = _db.BigBanners.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId == 1).OrderBy(x => x.ListNum);
             var homeAds = _db.HomeAds.Where(x => x.Enable == BooleanType.是).OrderBy(x => x.ListNum);
 
             var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSite.SiteCode == areaName && ((x.StartDate <= DateTime.Now && x.EndDate >= yesterDay) || (x.EndDate == null))).OrderBy(x => x.ListNum);

@@ -1,0 +1,53 @@
+﻿@using TnpdModels
+@model TnpdModels.LeaderCatalog
+@{
+    ViewBag.Title = Model.Subject + "簡介";
+    ViewBag.Subject = Model.Subject + "簡介";
+}
+@foreach (Leader leader in Model.Leaders)
+{
+    <div class="row">
+        <div class="col-12 bottommargin">
+            <div class="team team-list clearfix mt-2">
+                <div class="team-image">
+                    <img alt="@leader.Name" src="/upfiles/images/@leader.UpImage1" style="width: 240px"></div>
+
+
+
+                <div class="team-desc">
+                    <div class="team-title">
+                        <p>@leader.Name</p>
+                        <span>@Model.Subject</span>
+                    </div>
+
+                    <div class="team-content">
+                        <div>&nbsp;</div>
+
+                        <div>學歷</div>
+
+                        <ul>
+                            @foreach (string education in leader.getEducation())
+                           {
+                                <li>@education</li>
+                           }
+
+                        </ul>
+
+                        <div></div>
+
+                        <div>經歷</div>
+
+                        <ul>
+                            @foreach (string experience in leader.getExperience())
+                            {
+                                <li>@experience</li>
+                            }
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

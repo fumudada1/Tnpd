@@ -26,6 +26,7 @@ namespace TnpdAdmin.Controllers
     public class CaseTrafficsController : _BaseController
     {
         private BackendContext _db = new BackendContext();
+
         private const int DefaultPageSize = 30;
         //
 
@@ -392,6 +393,33 @@ namespace TnpdAdmin.Controllers
             {
                 return HttpNotFound();
             }
+            int currentPageIndex = 1;
+            IQueryable<CaseTraffic> cases;
+
+            //若有結案案件不得改派
+            if (mycase.Poprocs.Any(x => x.Status == CaseProcessStatus.結案))
+            {
+                ViewBag.WebSiteId = new SelectList(_db.Units.Where(x => x.ParentId == null && x.Id != 1).OrderBy(p => p.ListNum), "Id", "Subject", mycase.UnitId);
+                ViewBag.message = "案件已結案不得單位改派!";
+
+                //取得正確的頁面
+
+
+                cases = _db.CaseTraffics.Include(c => c.assignUnit).OrderByDescending(p => p.InitDate).AsQueryable();
+
+
+
+                cases = cases.Where(w => w.IsUnitAssign == BooleanType.是);
+
+                ViewBag.Total = cases.Count();
+
+                ViewBag.WebSiteId = new SelectList(_db.Units.Where(x => x.ParentId == null && x.Id != 1 && x.Id != 194 && x.Id != 333 && x.Id != 270 && x.Id != 364).OrderBy(p => p.ListNum), "Id", "Subject");
+
+
+                //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
+                return View(cases.OrderBy(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+            }
+
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
@@ -446,9 +474,9 @@ namespace TnpdAdmin.Controllers
             ViewBag.message = "案件已單位改派!";
 
             //取得正確的頁面
-            int currentPageIndex = 1;
 
-            var cases = _db.CaseTraffics.Include(c => c.assignUnit).OrderByDescending(p => p.InitDate).AsQueryable();
+
+            cases = _db.CaseTraffics.Include(c => c.assignUnit).OrderByDescending(p => p.InitDate).AsQueryable();
 
 
 
@@ -492,7 +520,12 @@ namespace TnpdAdmin.Controllers
             }
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            if (mycase.Poprocs.Where(x => x.Status == CaseProcessStatus.結案).Any())
+            {
+                ViewBag.message = "已結案案件不可改派";
 
+                return View(mycase);
+            }
             mycase.IsUnitAssign = BooleanType.否;
             mycase.UnitId = WebSiteId;
             _db.SaveChanges();
@@ -558,8 +591,8 @@ namespace TnpdAdmin.Controllers
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
 
-
-            casePoprocs = casePoprocs.Where(x => (x.Status == CaseProcessStatus.待辦 || x.Status == CaseProcessStatus.辦案) && x.MemberId == member.Id);
+            DateTime closeDateTime = new DateTime(2023, 5, 22);
+            casePoprocs = casePoprocs.Where(x => (x.Status == CaseProcessStatus.待辦 || x.Status == CaseProcessStatus.辦案) && x.MemberId == member.Id && x.Case.InitDate <= closeDateTime);
 
             ViewBag.Total = casePoprocs.Count();
 
@@ -898,7 +931,7 @@ namespace TnpdAdmin.Controllers
                     poproc.PoprocsType = PoprocsType;
                     poproc.ViolationsRejectclassId = ViolationsRejectclasses;
                     poproc.TrafficViolationsClassId = ViolationsClasses;
-                   
+
                     CaseTrafficPoprocLog log = new CaseTrafficPoprocLog();
                     log.CaseId = poproc.CaseId;
                     log.MemberId = member.Id;
@@ -1247,7 +1280,7 @@ namespace TnpdAdmin.Controllers
                     Utility.SystemSendMail(myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody);
                 }
 
-               
+
 
             }
             else if (processtype == "GoProcess") //退回承辦
@@ -1311,7 +1344,10 @@ namespace TnpdAdmin.Controllers
             int currentPageIndex = getCurrentPage(page, fc);
 
 
-            var casePoprocs = _db.CaseTraffics.Include(c => c.Poprocs).OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTraffic = _db.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficTotal = _db.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficPoprocsType1Count = _db.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficPoprocsType2Count = _db.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
 
             Member member =
                 _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
@@ -1337,7 +1373,10 @@ namespace TnpdAdmin.Controllers
 
             if (ViewBag.isAdmin == false)
             {
-                casePoprocs = casePoprocs.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTraffic = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficTotal = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
             }
 
             if (hasViewData("SearchByCategories1"))
@@ -1345,19 +1384,29 @@ namespace TnpdAdmin.Controllers
                 int UnitId = getViewDateInt("SearchByCategories1");
                 //TnpdModels.CaseType searchByCaseType = (TnpdModels.CaseType)Enum.Parse(typeof(TnpdModels.CaseType), CaseType, false);
 
-                casePoprocs = casePoprocs.Where(w => w.UnitId == UnitId);
+                caseTraffic = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficTotal = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.UnitId == UnitId);
             }
 
             if (hasViewData("SearchBySubject"))
             {
                 string searchBySubject = getViewDateStr("SearchBySubject");
-                casePoprocs = casePoprocs.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTraffic = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficTotal = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+
             }
 
             if (hasViewData("SearchByCaseId"))
             {
                 string searchByCaseId = getViewDateStr("SearchByCaseId");
-                casePoprocs = casePoprocs.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTraffic = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficTotal = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
             }
 
             if (hasViewData("SearchByStatus"))
@@ -1365,26 +1414,125 @@ namespace TnpdAdmin.Controllers
                 string Status = getViewDateStr("SearchByStatus");
                 TnpdModels.CaseProcessStatus searchByStatus = (TnpdModels.CaseProcessStatus)Enum.Parse(typeof(TnpdModels.CaseProcessStatus), Status, false);
 
-                casePoprocs = casePoprocs.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTraffic = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficTotal = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
             }
 
             if (hasViewData("SearchByStartDate") && hasViewData("SearchByEndDate"))
             {
                 DateTime startDate = Convert.ToDateTime(getViewDateStr("SearchByStartDate"));
                 DateTime endDate = Convert.ToDateTime(getViewDateStr("SearchByEndDate")).AddDays(1);
-                casePoprocs = casePoprocs.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTraffic = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficTotal = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
             }
             //總件數
-            ViewBag.Total = casePoprocs.Count();
+            ViewBag.Total = caseTrafficTotal.Count();
             //不舉發
             ViewBag.PoprocsType1Count =
-                casePoprocs.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 1) > 0);
+                caseTrafficPoprocsType1Count.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 1) > 0);
             //舉發
             ViewBag.PoprocsType2Count =
-                casePoprocs.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 2) > 0);
+                caseTrafficPoprocsType2Count.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 2) > 0);
 
             //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
-            return View(casePoprocs.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+            return View(caseTraffic.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
+
+        }
+
+        public ActionResult History2022(int? page, FormCollection fc)
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            //記住搜尋條件
+            GetCatcheRoutes(page, fc);
+
+            //取得正確的頁面
+            int currentPageIndex = getCurrentPage(page, fc);
+
+
+            var caseTraffic = db2023.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficTotal = db2023.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficPoprocsType1Count = db2023.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+            var caseTrafficPoprocsType2Count = db2023.CaseTraffics.OrderByDescending(p => p.InitDate).AsQueryable();
+
+            Member member =
+                db2023.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+
+            ViewBag.isAdmin = true;
+            
+
+            if (ViewBag.isAdmin == false)
+            {
+                caseTraffic = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficTotal = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(x => x.UnitId == member.MyUnit.ParentId);
+            }
+
+            if (hasViewData("SearchByCategories1"))
+            {
+                int UnitId = getViewDateInt("SearchByCategories1");
+                //TnpdModels.CaseType searchByCaseType = (TnpdModels.CaseType)Enum.Parse(typeof(TnpdModels.CaseType), CaseType, false);
+
+                caseTraffic = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficTotal = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.UnitId == UnitId);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.UnitId == UnitId);
+            }
+
+            if (hasViewData("SearchBySubject"))
+            {
+                string searchBySubject = getViewDateStr("SearchBySubject");
+                caseTraffic = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficTotal = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.Subject.Contains(searchBySubject) || w.Content.Contains(searchBySubject) || w.Name.Contains(searchBySubject) || w.Email.Contains(searchBySubject) || w.TEL.Contains(searchBySubject) || w.violation_carno.Contains(searchBySubject) || w.itemno.Contains(searchBySubject));
+
+            }
+
+            if (hasViewData("SearchByCaseId"))
+            {
+                string searchByCaseId = getViewDateStr("SearchByCaseId");
+                caseTraffic = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficTotal = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.CaseID.Contains(searchByCaseId));
+            }
+
+            if (hasViewData("SearchByStatus"))
+            {
+                string Status = getViewDateStr("SearchByStatus");
+                TnpdModels.CaseProcessStatus searchByStatus = (TnpdModels.CaseProcessStatus)Enum.Parse(typeof(TnpdModels.CaseProcessStatus), Status, false);
+
+                caseTraffic = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficTotal = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.Poprocs.Count(x => x.Status == searchByStatus) > 0);
+            }
+
+            if (hasViewData("SearchByStartDate") && hasViewData("SearchByEndDate"))
+            {
+                DateTime startDate = Convert.ToDateTime(getViewDateStr("SearchByStartDate"));
+                DateTime endDate = Convert.ToDateTime(getViewDateStr("SearchByEndDate")).AddDays(1);
+                caseTraffic = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficTotal = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficPoprocsType1Count = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+                caseTrafficPoprocsType2Count = caseTraffic.Where(w => w.InitDate >= startDate && w.InitDate <= endDate);
+            }
+            //總件數
+            ViewBag.Total = caseTrafficTotal.Count();
+            //不舉發
+            ViewBag.PoprocsType1Count =
+                caseTrafficPoprocsType1Count.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 1) > 0);
+            //舉發
+            ViewBag.PoprocsType2Count =
+                caseTrafficPoprocsType2Count.Count(x => x.Poprocs.Count(y => y.EndDateTime.HasValue == true && y.PoprocsType == 2) > 0);
+
+            //            ViewBag.Subject = Subject;//            ViewBag.Name = Name;
+            return View(caseTraffic.OrderByDescending(p => p.InitDate).ToPagedList(currentPageIndex, DefaultPageSize));
 
         }
 
@@ -1438,7 +1586,7 @@ namespace TnpdAdmin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CaseTraffic poproc = _db.CaseTraffics.Find(id);
+            CaseTraffic poproc = _db.CaseTraffics.Include(x=>x.assignUnit).FirstOrDefault(x=>x.Id==id);
             if (poproc == null)
             {
                 return HttpNotFound();
@@ -1500,11 +1648,123 @@ namespace TnpdAdmin.Controllers
                 string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
                 mailbody = mailbody.Replace("{CaseID}", mycase.CaseID);
                 mailbody = mailbody.Replace("{InitDate}", mycase.InitDate.Value.ToString("yyyy/MM/dd"));
-               
 
-               
+
+
                 mailbody = mailbody.Replace("{CaseType}", "交通檢舉信箱");
-               
+
+
+                mailbody = mailbody.Replace("{Subject}", "【車號：" + mycase.violation_carno + "】" + mycase.Subject);
+                mailbody = mailbody.Replace("{Content}", mycase.Content);
+                if (mycase.Poprocs.Count > 0)
+                {
+                    if (mycase.Poprocs.FirstOrDefault().Status == CaseProcessStatus.結案)
+                    {
+                        mailbody = mailbody.Replace("{EndDateTime}",
+                            mycase.Poprocs.FirstOrDefault().EndDateTime.Value.ToString("yyyy/MM/dd"));
+                        mailbody = mailbody.Replace("{AssignMemo}", "【車號：" + mycase.violation_carno + "】<br/>" +
+                            Txt2Html(mycase.Poprocs.FirstOrDefault().AssignMemo));
+                    }
+                    else
+                    {
+                        mailbody = mailbody.Replace("{EndDateTime}",
+                            "");
+                        mailbody = mailbody.Replace("{AssignMemo}",
+                            "");
+                    }
+                }
+                else
+                {
+                    mailbody = mailbody.Replace("{EndDateTime}",
+                        "");
+                    mailbody = mailbody.Replace("{AssignMemo}",
+                        "");
+                }
+
+                string InternetURL = System.Web.Configuration.WebConfigurationManager.AppSettings["InternetURL"];
+                mailbody = mailbody.Replace("{URL}", InternetURL + "Casewq/index/" + mycase.CaseGuid);
+                //Utility.SendGmailMail("topidea.justin@gmail.com", myPoproc.Case.Email, "臺南市政府警察局-結案通知", mailbody, "xuqoqvdvvsbwyrbl");
+                Utility.SystemSendMail(mycase.Email, "臺南市政府警察局-結案通知(修正滿意度調查表連結)", mailbody);
+                //Utility.SystemSendMail("topidea.justin@gmail.com", "臺南市政府警察局-結案通知(修正滿意度調查表連結)", mailbody);
+                ViewBag.message = "信件已寄出!";
+
+
+            }
+
+            return View(mycase);
+        }
+
+        public ActionResult EditH2022(int id = 0)
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            CaseTraffic poproc = db2023.CaseTraffics.Find(id);
+            if (poproc == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(poproc);
+        }
+
+        //
+        // POST: /Case/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditH2022(int Id, string processtype)
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            CaseTraffic mycase = db2023.CaseTraffics.Find(Id);
+            if (mycase == null)
+            {
+                return HttpNotFound();
+            }
+
+
+
+
+            Member member =
+                db2023.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            if (processtype == "Restone") //回復
+            {
+                for (int i = mycase.Poprocs.Count - 1; i >= 0; i--)
+                {
+                    CaseTrafficPoproc poproc = mycase.Poprocs.ElementAt(i);
+                    mycase.Poprocs.Remove(poproc);
+                    db2023.CaseTrafficPoprocs.Remove(poproc);
+                }
+
+                CaseTrafficPoprocLog log = new CaseTrafficPoprocLog();
+                log.CaseId = mycase.Id;
+                log.MemberId = member.Id;
+                log.InitDate = DateTime.Now;
+                log.Action = "案件回復";
+                log.UnitId = member.UnitId;
+                log.ActionMemo = "案件回復";
+                db2023.CaseTrafficPoprocLogs.Add(log);
+
+
+
+
+                db2023.SaveChanges();
+
+
+                return RedirectToAction("Assign", "Case");
+            }
+            if (processtype == "SendMail") //指派
+            {
+
+
+
+                //發信
+                string mailbody = System.IO.File.ReadAllText(Server.MapPath("/EmailTemp/CasePoproc.html"));
+                mailbody = mailbody.Replace("{CaseID}", mycase.CaseID);
+                mailbody = mailbody.Replace("{InitDate}", mycase.InitDate.Value.ToString("yyyy/MM/dd"));
+
+
+
+                mailbody = mailbody.Replace("{CaseType}", "交通檢舉信箱");
+
 
                 mailbody = mailbody.Replace("{Subject}", "【車號：" + mycase.violation_carno + "】" + mycase.Subject);
                 mailbody = mailbody.Replace("{Content}", mycase.Content);
@@ -1600,7 +1860,9 @@ namespace TnpdAdmin.Controllers
 
             if (case1 == null)
             {
-                return HttpNotFound();
+                BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+
+                case1 = db2023.CaseTraffics.Find(id);
 
             }
 
@@ -1646,7 +1908,9 @@ namespace TnpdAdmin.Controllers
 
             if (case1 == null)
             {
-                return HttpNotFound();
+                BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+
+                case1 = db2023.CaseTraffics.Find(id);
 
             }
 
@@ -1692,7 +1956,9 @@ namespace TnpdAdmin.Controllers
 
             if (caseTraffic == null)
             {
-                return HttpNotFound();
+                BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+
+                caseTraffic = db2023.CaseTraffics.Find(id);
 
             }
 
@@ -1707,7 +1973,7 @@ namespace TnpdAdmin.Controllers
             if (caseTraffic.Poprocs.Count > 0)
             {
                 temp = temp.Replace("{AssignMemo}", caseTraffic.Poprocs.FirstOrDefault().AssignMemo);
-                temp = temp.Replace("{assignUnit}", caseTraffic.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject + "-" + caseTraffic.Poprocs.FirstOrDefault().assignUnit.Subject);
+                temp = temp.Replace("{assignUnit}", "");
             }
             else
             {
@@ -1737,7 +2003,9 @@ namespace TnpdAdmin.Controllers
 
             if (caseTraffic == null)
             {
-                return HttpNotFound();
+                BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+
+                caseTraffic = db2023.CaseTraffics.Find(id);
 
             }
 
@@ -1754,7 +2022,8 @@ namespace TnpdAdmin.Controllers
             if (caseTraffic.Poprocs.Count > 0)
             {
                 temp = temp.Replace("{AssignMemo}", caseTraffic.Poprocs.FirstOrDefault().AssignMemo);
-                temp = temp.Replace("{assignUnit}", caseTraffic.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject + "-" + caseTraffic.Poprocs.FirstOrDefault().assignUnit.Subject);
+                //temp = temp.Replace("{assignUnit}", caseTraffic.Poprocs.FirstOrDefault().assignUnit.ParentUnit?.Subject + "-" + caseTraffic.Poprocs.FirstOrDefault().assignUnit.Subject);
+                temp = temp.Replace("{assignUnit}", "");
             }
             else
             {
@@ -1861,7 +2130,7 @@ namespace TnpdAdmin.Controllers
                             x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= casePoproc.EndDateTime.Value)
                         .Select(x => x.InitDate).Distinct().Count();
 
-                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2)-holidayCount).ToString());
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2) - holidayCount).ToString());
                 }
                 else
                 {
@@ -1870,7 +2139,7 @@ namespace TnpdAdmin.Controllers
                     int holidayCount = Holidays.Where(x =>
                             x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= DateTime.Today).Select(x => x.InitDate).Distinct()
                         .Count();
-                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2)-holidayCount).ToString());
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2) - holidayCount).ToString());
                 }
 
 
@@ -1939,10 +2208,10 @@ namespace TnpdAdmin.Controllers
 
                 strTr = strTr.Replace("{violation_date}", casePoproc.Case.violation_date.ToString("yyyy/MM/dd"));
                 strTr = strTr.Replace("{violation_time}", casePoproc.Case.violation_time);
-                strTr = strTr.Replace("{violation_place}", (casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place).Replace("<","(").Replace(">",")"));
+                strTr = strTr.Replace("{violation_place}", (casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place).Replace("<", "(").Replace(">", ")"));
                 strTr = strTr.Replace("{violation_carno}", casePoproc.Case.violation_carno);
                 strTr = strTr.Replace("{itemno}", casePoproc.Case.itemno);
-                strTr = strTr.Replace("{Content}", casePoproc.Case.Content.Replace("<","(").Replace(">",")"));
+                strTr = strTr.Replace("{Content}", casePoproc.Case.Content.Replace("<", "(").Replace(">", ")"));
 
 
                 if (casePoproc.EndDateTime.HasValue)
@@ -2021,10 +2290,10 @@ namespace TnpdAdmin.Controllers
             string UnitName = "";
             if (!string.IsNullOrEmpty(SearchByCategories1))
             {
-                string strSearchUnit = "between '2019/1/1' and '2019/3/1' and CaseTrafficPoprocs.UnitId in(select id from Units where ParentId=" +SearchByCategories1+ ")";
+                string strSearchUnit = "between '2019/1/1' and '2019/3/1' and CaseTrafficPoprocs.UnitId in(select id from Units where ParentId=" + SearchByCategories1 + ")";
                 sql = sql.Replace("between '2019/1/1' and '2019/3/1'", strSearchUnit);
-                Unit unit = _db.Units.Find(Convert.ToInt32(SearchByCategories1) );
-                UnitName ="-"+ unit.Subject;
+                Unit unit = _db.Units.Find(Convert.ToInt32(SearchByCategories1));
+                UnitName = "-" + unit.Subject;
             }
 
             if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
@@ -2074,7 +2343,7 @@ namespace TnpdAdmin.Controllers
             string fileName = member.Account + "3.xls";
             System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
 
-            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "檢舉違規行為態樣表" +UnitName + ".xls");
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "檢舉違規行為態樣表" + UnitName + ".xls");
 
         }
 
@@ -2126,7 +2395,374 @@ namespace TnpdAdmin.Controllers
                 string strTr = temptr;
                 strTr = strTr.Replace("{檢舉違規行為態樣}", row["檢舉違規行為態樣"].ToString());
                 strTr = strTr.Replace("{受理件數}", row["受理件數"].ToString());
-                
+
+
+                sb.AppendLine(strTr);
+            }
+            tempBody = tempBody.Replace("{bodytr}", sb.ToString());
+
+            string fileName = "Report4.xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "受理民眾檢舉違規項目表.xls");
+
+        }
+
+        public ActionResult Report1H2022()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Report1H2022(string SearchByStartDate, string SearchByEndDate, string SearchByCategories1)
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            var casePoprocs = db2023.CaseTrafficPoprocs.Include(c => c.Case).AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchByCategories1))
+            {
+                int Categories1 = Convert.ToInt32(SearchByCategories1);
+                casePoprocs = casePoprocs.Where(w => w.assignUnit.ParentId == Categories1);
+            }
+
+
+
+            Member member =
+                db2023.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+
+            List<Holiday> Holidays = db2023.Holidays.ToList();
+
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                casePoprocs = casePoprocs.Where(w => w.Case.InitDate >= startDate && w.Case.InitDate <= endDate);
+            }
+            else
+            {
+                return View();
+            }
+
+
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Trafficcasedayview.xls"), System.Text.Encoding.UTF8);
+            string temptr = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/Trafficcasedayview.txt"), System.Text.Encoding.UTF8);
+            tempBody = tempBody.Replace("{initDate}", SearchByStartDate + "~" + SearchByEndDate);
+
+            var casePoprocslist = casePoprocs.OrderBy(x => x.Case.Id).ToList();
+            StringBuilder sb = new StringBuilder();
+            foreach (var casePoproc in casePoprocslist)
+            {
+                string strTr = temptr;
+                strTr = strTr.Replace("{CaseID}", casePoproc.Case.CaseID);
+                strTr = strTr.Replace("{CaseType}", "交通檢舉信箱");
+                //strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
+                strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString());
+                strTr = strTr.Replace("{Name}", casePoproc.Case.Name + " ");
+                strTr = strTr.Replace("{Subject}", casePoproc.Case.Subject + " ");
+                strTr = strTr.Replace("{assignUnit}", casePoproc.assignUnit.ParentUnit.Subject + "-" + casePoproc.assignUnit.Subject);
+                if (casePoproc.EndDateTime.HasValue)
+                {
+                    if (casePoproc.PoprocsType == 1)
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "不舉發");
+                    }
+                    else if (casePoproc.PoprocsType == 2)
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "舉發");
+                    }
+                    else
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "");
+                    }
+                }
+                else
+                {
+                    strTr = strTr.Replace("{PoprocsType}", "");
+                }
+
+
+
+                strTr = strTr.Replace("{Predate}", casePoproc.Case.Predate.ToString("yyyy/MM/dd"));
+                Double timespan;
+                if (casePoproc.EndDateTime.HasValue)
+                {
+                    strTr = strTr.Replace("{EndDateTime}", casePoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
+                    timespan = new TimeSpan(casePoproc.EndDateTime.Value.Ticks -
+                                                  casePoproc.Case.InitDate.Value.Ticks).TotalDays;
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= casePoproc.EndDateTime.Value)
+                        .Select(x => x.InitDate).Distinct().Count();
+
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2) - holidayCount).ToString());
+                }
+                else
+                {
+                    strTr = strTr.Replace("{EndDateTime}", "");
+                    timespan = new TimeSpan(DateTime.Now.Ticks - casePoproc.Case.InitDate.Value.Ticks).TotalDays;
+                    int holidayCount = Holidays.Where(x =>
+                            x.InitDate >= casePoproc.Case.InitDate.Value && x.InitDate <= DateTime.Today).Select(x => x.InitDate).Distinct()
+                        .Count();
+                    strTr = strTr.Replace("{due}", (Math.Round(timespan, 2) - holidayCount).ToString());
+                }
+
+
+                sb.AppendLine(strTr);
+            }
+            tempBody = tempBody.Replace("{bodytr}", sb.ToString());
+
+            string fileName = member.Account + ".xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "案件處理天數一覽表.xls");
+
+        }
+
+
+        public ActionResult Report2H2022()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Report2H2022(string SearchByStartDate, string SearchByEndDate, string SearchByCategories1)
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            var casePoprocs = db2023.CaseTrafficPoprocs.Include(c => c.Case).AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchByCategories1))
+            {
+                int Categories1 = Convert.ToInt32(SearchByCategories1);
+                casePoprocs = casePoprocs.Where(w => w.assignUnit.ParentId == Categories1);
+            }
+
+            Member member =
+                db2023.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+            var webSite = db2023.WebSiteNames.FirstOrDefault(x => x.UnitId == member.MyUnit.ParentId && x.Language == LanguageType.中文版);
+
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                casePoprocs = casePoprocs.Where(w => w.Case.InitDate >= startDate && w.Case.InitDate <= endDate);
+            }
+            else
+            {
+                return View();
+            }
+
+
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/TrafficCaseView.xls"), System.Text.Encoding.UTF8);
+            string temptr = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/TrafficCaseView.txt"), System.Text.Encoding.UTF8);
+            tempBody = tempBody.Replace("{initDate}", SearchByStartDate + "~" + SearchByEndDate);
+
+            var casePoprocslist = casePoprocs.OrderBy(x => x.Case.Id).ToList();
+            StringBuilder sb = new StringBuilder();
+            foreach (var casePoproc in casePoprocslist)
+            {
+                string strTr = temptr;
+                strTr = strTr.Replace("{CaseID}", casePoproc.Case.CaseID);
+                strTr = strTr.Replace("{CaseType}", "交通檢舉信箱");
+                strTr = strTr.Replace("{initDate}", casePoproc.Case.InitDate.Value.ToString("yyyy/MM/dd"));
+                strTr = strTr.Replace("{Name}", casePoproc.Case.Name);
+                strTr = strTr.Replace("{Subject}", casePoproc.Case.Subject);
+                strTr = strTr.Replace("{assignUnit}", casePoproc.assignUnit.ParentUnit.Subject + "-" + casePoproc.assignUnit.Subject + "-" + casePoproc.assignMember.Name);
+                strTr = strTr.Replace("{Predate}", casePoproc.Case.Predate.ToString("yyyy/MM/dd"));
+                strTr = strTr.Replace("{Status}", casePoproc.Status.ToString());
+
+                strTr = strTr.Replace("{violation_date}", casePoproc.Case.violation_date.ToString("yyyy/MM/dd"));
+                strTr = strTr.Replace("{violation_time}", casePoproc.Case.violation_time);
+                strTr = strTr.Replace("{violation_place}", (casePoproc.Case.violation_place_area + casePoproc.Case.violation_place_road + casePoproc.Case.violation_place).Replace("<", "(").Replace(">", ")"));
+                strTr = strTr.Replace("{violation_carno}", casePoproc.Case.violation_carno);
+                strTr = strTr.Replace("{itemno}", casePoproc.Case.itemno);
+                strTr = strTr.Replace("{Content}", casePoproc.Case.Content.Replace("<", "(").Replace(">", ")"));
+
+
+                if (casePoproc.EndDateTime.HasValue)
+                {
+                    strTr = strTr.Replace("{EndDateTime}", casePoproc.EndDateTime.Value.ToString("yyyy/MM/dd"));
+                }
+                else
+                {
+                    strTr = strTr.Replace("{EndDateTime}", "");
+                }
+
+                strTr = strTr.Replace("{Type1}", casePoproc.Type1);
+                strTr = strTr.Replace("{type2}", casePoproc.type2);
+                if (casePoproc.EndDateTime.HasValue)
+                {
+                    if (casePoproc.PoprocsType == 1)
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "不舉發");
+                    }
+                    else if (casePoproc.PoprocsType == 2)
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "舉發");
+                    }
+                    else
+                    {
+                        strTr = strTr.Replace("{PoprocsType}", "");
+                    }
+                }
+                else
+                {
+                    strTr = strTr.Replace("{PoprocsType}", "");
+                }
+
+                string assignMember = ""; //分派人
+                string closeMember = "";//結案人
+                foreach (CaseTrafficPoprocLog log in casePoproc.Case.PoprocslLogs)
+                {
+                    if (log.Action == "派案")
+                    {
+                        assignMember = log.assignMember.Name;
+                    }
+                    if (log.Action == "結案")
+                    {
+                        closeMember = log.assignMember.Name;
+                    }
+                }
+                strTr = strTr.Replace("{assignMember}", assignMember);
+                strTr = strTr.Replace("{closeMember}", closeMember);
+
+                strTr = strTr.Replace("{assign2Member}", casePoproc.assignMember.Name);
+                sb.AppendLine(strTr);
+            }
+            tempBody = tempBody.Replace("{bodytr}", sb.ToString());
+            tempBody = tempBody.Replace("2019/04/01", SearchByStartDate);
+            tempBody = tempBody.Replace("2019/04/25", SearchByEndDate);
+
+
+            string fileName = member.Account + ".xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "案件一覽表.xls");
+
+        }
+
+        public ActionResult Report3H2022()
+        {
+            BackendContext db2023 = new BackendContext("name=TnpdConnection2023");
+            var cases = db2023.CaseTraffics.Include(x => x.Poprocs).Where(x => x.Id == 0).AsQueryable();
+            return View(cases.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Report3H2022(string SearchByStartDate, string SearchByEndDate, string SearchByCategories1)
+        {
+
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/report3.xls"), System.Text.Encoding.UTF8);
+            string sql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/report3.sql"), System.Text.Encoding.Default);
+            string UnitName = "";
+            if (!string.IsNullOrEmpty(SearchByCategories1))
+            {
+                string strSearchUnit = "between '2019/1/1' and '2019/3/1' and CaseTrafficPoprocs.UnitId in(select id from Units where ParentId=" + SearchByCategories1 + ")";
+                sql = sql.Replace("between '2019/1/1' and '2019/3/1'", strSearchUnit);
+                Unit unit = _db.Units.Find(Convert.ToInt32(SearchByCategories1));
+                UnitName = "-" + unit.Subject;
+            }
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                sql = sql.Replace("2019/1/1", SearchByStartDate);
+                sql = sql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
+                tempBody = tempBody.Replace("2019/1/1", SearchByStartDate);
+                tempBody = tempBody.Replace("2019/3/1", SearchByEndDate);
+            }
+            else
+            {
+                return View();
+            }
+
+
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TnpdConnection2023"].ToString());
+            SqlCommand comm = new SqlCommand(sql, conn);
+            SqlDataAdapter da = new SqlDataAdapter(comm);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int vcol = dt.Columns.Count;
+            string vcolname = "";
+            string body = "";
+            tempBody = tempBody.Replace("{vcol}", (vcol - 5).ToString());
+            for (int i = 5; i <= vcol - 1; i++)
+            {
+                vcolname = vcolname + "<td>" + dt.Columns[i].ColumnName + "</td>";
+            }
+            tempBody = tempBody.Replace("{vcolname}", vcolname);
+            foreach (DataRow row in dt.Rows)
+            {
+                body = body + "<tr align=\"center\">";
+                for (int i = 0; i <= vcol - 1; i++)
+                {
+                    body = body + "<td>" + row[i].ToString() + "</td>";
+                }
+                body = body + "</tr>";
+
+            }
+            tempBody = tempBody.Replace("{body}", body);
+            Member member =
+                _db.Members.FirstOrDefault(d => d.Account == User.Identity.Name);
+
+            string fileName = member.Account + "3.xls";
+            System.IO.File.WriteAllText(Server.MapPath("/MailTemp/" + fileName), tempBody, System.Text.Encoding.UTF8);
+
+            return File(Server.MapPath("/MailTemp/" + fileName), "application/msexcel", "檢舉違規行為態樣表" + UnitName + ".xls");
+
+        }
+
+
+        public ActionResult Report4H2022()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Report4H2022(string SearchByStartDate, string SearchByEndDate)
+        {
+
+
+            string tempSql = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.sql"), System.Text.Encoding.UTF8);
+
+
+            if (!string.IsNullOrEmpty(SearchByStartDate) && !string.IsNullOrEmpty(SearchByEndDate))
+            {
+                DateTime startDate = Convert.ToDateTime(SearchByStartDate);
+                DateTime endDate = Convert.ToDateTime(SearchByEndDate).AddDays(1);
+                tempSql = tempSql.Replace("2019/1/1", startDate.ToString("yyyy/MM/dd"));
+                tempSql = tempSql.Replace("2019/3/1", endDate.ToString("yyyy/MM/dd"));
+            }
+            else
+            {
+                return View();
+            }
+            string tempBody = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.xls"), System.Text.Encoding.UTF8);
+            string temptr = System.IO.File.ReadAllText(Server.MapPath("/MailTemp/NewsReport4.txt"), System.Text.Encoding.UTF8);
+            tempBody = tempBody.Replace("2019/1/1", SearchByStartDate);
+            tempBody = tempBody.Replace("2019/3/1", SearchByEndDate);
+
+
+            SqlConnection conn = new SqlConnection(GetConnectionStringByName("TnpdConnection2023"));
+            SqlCommand command = new SqlCommand();
+            command.Connection = conn;
+            command.CommandText = tempSql;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            tempBody = tempBody.Replace("{initDate}", SearchByStartDate + "~" + SearchByEndDate);
+
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataRow row in dt.Rows)
+            {
+                string strTr = temptr;
+                strTr = strTr.Replace("{檢舉違規行為態樣}", row["檢舉違規行為態樣"].ToString());
+                strTr = strTr.Replace("{受理件數}", row["受理件數"].ToString());
+
 
                 sb.AppendLine(strTr);
             }
@@ -2154,7 +2790,7 @@ namespace TnpdAdmin.Controllers
 
             return returnValue;
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             _db.Dispose();

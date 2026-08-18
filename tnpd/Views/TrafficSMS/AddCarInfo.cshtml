@@ -59,7 +59,7 @@
             車主/公司名稱： <span style="color: red">請務必按照行照輸入</span>
         </label>
 
-        <input id="CarOwner" class="form-control" data-val="true" data-val-required="車主/公司名稱必填" name="CarOwner" placeholder="請輸入車主/公司名稱" type="text" value="@Model.CarOwner"/>
+        <input maxlength="10" id="CarOwner" class="form-control" data-val="true" data-val-required="車主/公司名稱必填" name="CarOwner" placeholder="請輸入車主/公司名稱" type="text" value="@Model.CarOwner"/>
         <span class="field-validation-valid" data-valmsg-for="CarOwner" data-valmsg-replace="true"></span>
        
     </div>

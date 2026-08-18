@@ -17,7 +17,8 @@ namespace tnpd.Areas.jiali
             context.MapRoute(
                 "jiali_default",
                 "jiali/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

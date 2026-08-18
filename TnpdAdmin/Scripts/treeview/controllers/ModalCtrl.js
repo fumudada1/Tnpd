@@ -14,7 +14,9 @@ app.controller('ModalController', [
   $scope.ParentId =guid;
   $scope.type = type[0];
   $scope.group = metaIndex[0];
-  $scope.visible = 1;
+  $scope.VisibleAry = [{ 'name': '是', 'value': 1 }, { 'name': '否', 'value': 0 }];
+  //$scope.visible = 1;
+  $scope.visible = $scope.VisibleAry[0];
   $scope.ckContent='';
   $scope.Catalog =newsCatalog[0];
   $scope.TargetAry = [{'name':'本地開啟','value':'_self'},{'name':'外部超連結','value':'_blank'}];
@@ -30,7 +32,7 @@ app.controller('ModalController', [
       WebSiteName: $scope.site,
       ParentId:$scope.ParentId,
       MetaId: $scope.group.Id,
-      Visible:   $scope.visible,
+      Visible: $scope.visible.value,
       DataType: $scope.type.DataType,
       Category: $scope.Catalog.Id,
       // $scope.Catalog.Id,
@@ -77,7 +79,9 @@ app.controller('ModalController', [
   $scope.ParentId ='';
   $scope.type = type[0];
   $scope.group = metaIndex[0];
-  $scope.visible = 1;
+  $scope.VisibleAry = [{ 'name': '是', 'value': 1 }, { 'name': '否', 'value': 0 }];
+  //$scope.visible = 1;
+  $scope.visible = $scope.VisibleAry[0];
   $scope.ckContent='';
   $scope.Catalog =newsCatalog[0];
   $scope.TargetAry = [{'name':'本地開啟','value':'_self'},{'name':'外部超連結','value':'_blank'}];
@@ -92,7 +96,7 @@ app.controller('ModalController', [
       WebSiteName: $scope.site,
       ParentId:$scope.ParentId,
       MetaId: $scope.group.Id,
-      Visible:   $scope.visible,
+      Visible:   $scope.visible.value,
       DataType: $scope.type.DataType,
       Category: $scope.Catalog.Id,
       // $scope.Catalog.Id,
@@ -170,8 +174,15 @@ app.controller('ModalController', [
      if(element.Id == data.Category){
       $scope.Catalog = newsCatalog[index];
      }
-    });
-  $scope.visible = 1;
+  });
+  //是否顯示
+  $scope.VisibleAry = [{ 'name': '是', 'value': 1 }, { 'name': '否', 'value': 0 }];
+  $scope.VisibleAry.forEach(function (element, index, array) {
+      if (element.value == data.Visible) {
+          $scope.visible = $scope.VisibleAry[index];
+      }
+  });
+  //$scope.visible = 1;
   $scope.ckContent=data.Article;
   
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -182,7 +193,7 @@ app.controller('ModalController', [
       Subject: $scope.name,
       WebSiteName: $scope.site,
       MetaId: $scope.group.Id,
-      Visible:   $scope.visible,
+      Visible:   $scope.visible.value,
       DataType: $scope.type.DataType,
       Category: $scope.Catalog.Id,
       // $scope.Catalog.Id,

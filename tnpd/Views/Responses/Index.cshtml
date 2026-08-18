@@ -1,17 +1,24 @@
 ﻿@model tnpd.Models.ResponseViews
 
+<style>
+.lablehide{
+	display:none;
+}
+</style>
 <div class="row">
     @using (Html.BeginForm("Index", "Responses", FormMethod.Post, new { @class = "form form-vaild form-aligned trailer", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <span style="color: red;font-size: larger">@ViewBag.Message</span> 
+       
+	   
+   	    @Html.ValidationSummary(true)
+        <span style="color:red;font-size:larger"> @ViewBag.Message</span>
 
         <div class="col-12">
 
             <h4 class="h4title">重大災害通報專區使用須知</h4>
 
-            <ul class="ullink">
+            <ul class="ullink" style="color:red">
                 <li>本專區僅提供通報重大災害使用，勿通報其他案件。</li>
                 <li>本專區為提供民眾多元通報管道，以文字、照片或影像(20MB內)通報災情，如案況緊急，建議先撥打110或119通報，避免耽誤時效。
                 </li>
@@ -20,44 +27,37 @@
             </ul>
 
 
-            一. 若有急迫案件請電話直撥110。<br>
+            
 
             <div class="hrline"></div>
             (有 <span class="text-danger">*</span> 號請務必填寫)
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label class="col-form-label" for="Name">
+                    <label class="col-form-label" for="TEL">
                         <span class="text-danger">*</span>
                         報案人姓名 Name：</label>
                     <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
                     <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                 </div>
-                <div class="form-group col-md-4">
-                    <label class="col-form-label" for="Name">
-                        <span class="text-danger">*</span>
-                        行動電話 Mobile Number：</label>
-                    <input class="form-control"  data-val="true" data-val-required="行動電話必填"  id="TEL" name="TEL" placeholder="行動電話" type="text" value="@Model.TEL" />
-                    <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
-                </div>
-               
+
             </div>
-       
+
             <div class="form-group">
-                <label class="col-form-label" for="Email">
-                  
+                <label class="col-form-label" for="HomeTEL">
+
                     聯絡電話(住家) Contact Number (Home)：</label>
                 <input   data-val="true"   class="form-control"  id="HomeTEL" name="HomeTEL" placeholder="聯絡電話(住家)" type="text" value="@Model.HomeTEL" />
                 <span class="field-validation-valid" data-valmsg-for="HomeTEL" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group">
                 <label class="col-form-label" for="PostalCode">
-                   
+                   <span class="text-danger">*</span>
                     現居地址 Current Address：</label>
                 <div class="form-row ">
                     <div class="form-group col-2 mb-0">
 
-                        <input class="form-control"  id="PostalCode" name="PostalCode" placeholder="現居郵遞區號" type="text" value="@Model.PostalCode" />
+                        <input data-val="true" data-val-required="郵遞區號必填" class="form-control"  id="PostalCode" name="PostalCode" placeholder="現居郵遞區號" type="text" value="@Model.PostalCode" />
                         <span class="field-validation-valid" data-valmsg-for="PostalCode" data-valmsg-replace="true"></span>
 
                     </div>
@@ -65,7 +65,7 @@
                         <label class="col-form-label" for="Address" style="display: none">
                             <span class="text-danger">*</span>
                             現居地址：</label>
-                        <input class="form-control"    id="Address" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
+                        <input class="form-control" data-val="true" data-val-required="現居地址必填"    id="Address" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
                         <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
 
                     </div>
@@ -74,10 +74,42 @@
             
             <div class="form-group">
                 <label class="col-form-label" for="Email">
-                   
+                   <span class="text-danger">*</span>
                     E-Mail：</label>
-                <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤"  name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
+                <input id="Email" class="form-control"  data-val="true" data-val-required=" E-Mail必填" data-val-email="Email 格式錯誤"  name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
                 <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
+                <span style="color: blue"> (寄出後，請至E-mail 取得驗證碼，並到下面 E-Mail驗證碼輸入)</span>
+                <span style="color: red" id="mailMessage"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="EmailCode">
+                    <span class="text-danger">*</span>
+                    E-Mail驗證碼：(請至E-mail裡取得驗證碼)</label>
+                <input id="EmailCode" class="form-control"  data-val="true" data-val-required="E-Mail驗證碼必填"  name="EmailCode" placeholder="請輸入E-Mail裡驗證碼"  type="text" value="@Model.EmailCode"/>
+                <span class="field-validation-valid" data-valmsg-for="EmailCode" data-valmsg-replace="true" autocomplete="one-time-code"></span>
+                <span style="color: red">@ViewBag.EMailMessage</span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label" for="Name">
+                    <span class="text-danger">*</span>
+                    行動電話 Mobile Number：</label>
+                <input class="form-control"  data-val="true" data-val-required="行動電話必填"  id="TEL" name="TEL" placeholder="行動電話" type="text" value="@Model.TEL" />
+                <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+                <button type="button" id="sendSms" class="btn btn-info" style="MARGIN-TOP: 10PX">取得認證簡訊</button> <span id="smstime" style="color: blue"></span><br/>
+                <span style="color: blue">   (送出後，請至手機取得驗證碼，並到下面簡訊驗證碼輸入)</span>
+                <span style="color: red" id="smsMessage"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="SMSCode" autocomplete="one-time-code">
+                    <span class="text-danger">*</span>
+                    簡訊驗證碼：(請至手機取得驗證碼)</label>
+                <input id="SMSCode" class="form-control"  data-val="true" data-val-required="簡訊驗證碼必填"  name="SMSCode" placeholder="請輸入簡訊驗證碼"  type="text" value="@Model.SMSCode"/>
+                <span class="field-validation-valid" data-valmsg-for="SMSCode" data-valmsg-replace="true"></span>
+                <span style="color: red">@ViewBag.SMSMessage</span>
             </div>
 
             <div class="form-row">
@@ -97,10 +129,8 @@
                         發生時間 Time of Incident：</label>
                     <div class="form-row">
                         <div class="form-group col-auto">
-                            <label class="col-form-label" for="STime1" style="display: none">
-                                <span class="text-danger">*</span>
-                                發生時段：：</label>
-                            <select name="STime1" class="form-control">
+                            
+                            <select name="STime1" class="form-control" title="發生時">
                                 @for (int i = 0; i <= 23; i++)
                                 {
                                     <option>@i.ToString("00")</option>
@@ -109,10 +139,10 @@
                         </div>
                         <div class="form-group col-auto align-self-center">時</div>
                         <div class="form-group col-auto">
-                            <label class="col-form-label" for="STime2" style="display: none">
+                            <label class="col-form-label lablehide" for="STime2">
                                 <span class="text-danger">*</span>
                                 發生時段：：</label>
-                            <select name="STime2" class="form-control">
+                            <select name="STime2" class="form-control" title="發生分">
                                 @for (int i = 0; i <= 59; i++)
                                 {
                                     <option>@i.ToString("00")</option>
@@ -138,7 +168,7 @@
             
             <div class="form-group">
                 <label class="col-form-label" for="Content"><span class="text-danger">*</span> 災情摘要 Case Summary：</label><span style="color: blue">(請簡要摘述勿超過 500 個中文字 (1,000 個字元)</span>
-                <textarea class="form-control" data-val="true" data-val-required="案情摘要必填" name="Content" rows="3">@Model.Content</textarea>
+                <textarea class="form-control" data-val="true" data-val-required="案情摘要必填" name="Content" rows="3" title="災情摘要">@Model.Content</textarea>
                 <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
             </div>
           
@@ -153,6 +183,10 @@
               
                 <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file" data-val="true" data-val-required="至少第一個檔案必須上傳">
                 <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
+				  <label class="col-form-label lablehide" for="Upfile2">檔案上傳：</label>
+				   <label class="col-form-label lablehide" for="Upfile3">檔案上傳：</label>
+				    <label class="col-form-label lablehide" for="Upfile4">檔案上傳：</label>
+					 <label class="col-form-label lablehide" for="Upfile5">檔案上傳：</label>
                 <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
                 <input name="Upfile3" class="form-control mb-2" id="Upfile3" type="file">
                 <input name="Upfile3" class="form-control mb-2" id="Upfile4" type="file">
@@ -172,7 +206,7 @@
                     驗證碼：</label>
 
                 <div class="form-group col-auto">
-                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                    <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" onkeypress="fleshVerify()" />
                     <div id="newMessageDIV" style="display: none"></div>
                     <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();">
                         <img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。" /></a>
@@ -199,14 +233,17 @@
         </div>
     }
 </div>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
-<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
 
 <link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
 <link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
 <link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet" />
 <script type="text/javascript">
-    $(".datepicker").datepicker();
+    
     function PlayCode() {
         var name = ReadCookie("CheckCode");
         var url2 = "/wav/" + name + ".wav";
@@ -253,13 +290,87 @@
     }
 
     $("#sendmail").click(function () {
+        console.log("here")
         var email = $('#Email').val();
         $("#mailMessage").text('發送信件' + $('#Email').val());
-        $.get("/Report/SendVerifyMail/", { id: $('#Email').val() })
+        $.get("/Responses/SendVerifyMailCode/", { id: $('#Email').val() })
             .done(function (data) {
                 $("#mailMessage").text(data);
             });
     });
+
+    var smsTimer;
+    var t = 180;
+    function showTime() {
+        t -= 1;
+        document.getElementById('smstime').innerHTML = "請留意手機簡訊，若一直沒有收到可在" + t + "秒後可再傳送一次。";
+
+        if (t <= 0) {
+
+            $("#sendSms").prop('disabled', false);
+
+        } else {
+            smsTimer = setTimeout("showTime()", 1000);
+        }
+
+
+
+    }
+
+
+    $("#sendSms").click(function () {
+        $("#smsMessage").text('');
+
+        var Mobile = $('#TEL').val();
+        if (!is_mobile(Mobile)) {
+            $("#smsMessage").text('手機格式錯誤!');
+            return;
+
+        }
+        $("#sendSms").prop('disabled', true);
+        t = 180;
+        showTime();
+        $("#smsMessage").text('發送簡訊至' + Mobile + '中，請稍後!');
+        SendSMS(Mobile, 0);
+
+
+    });
+
+    var SMS_MAX_RETRY = 2;
+    var SMS_RETRY_DELAY_MS = 2000;
+
+    function SendSMS(Mobile, retryCount) {
+        $.post("/Responses/SendVerifyMobile", { mobile: Mobile })
+            .done(function (data) {
+                if (data == '已經發送，請留意簡訊訊息!') {
+                    $("#smsMessage").text(data);
+                } else if (data.indexOf('請等待接收簡訊') !== -1) {
+                    // 3分鐘內已發送過，屬正常狀態，不重試，避免背景自動重複發送簡訊
+                    $("#smsMessage").text(data);
+                } else if (retryCount < SMS_MAX_RETRY) {
+                    $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送(" + (retryCount + 1) + "/" + SMS_MAX_RETRY + ")");
+                    setTimeout(function () {
+                        SendSMS(Mobile, retryCount + 1);
+                    }, SMS_RETRY_DELAY_MS);
+                } else {
+                    $("#smsMessage").text("簡訊發送失敗，請稍後再試：" + data);
+                }
+            })
+            .fail(function () {
+                $("#smsMessage").text("連線失敗，請稍後再試。");
+            });
+    }
+    //訂單提交頁-驗證手機號
+    function is_mobile(mobile) {
+        if (mobile == "") {
+            return false;
+        } else {
+            if (! /^(09([0-9]){8})$/.test(mobile)) {
+                return false;
+            }
+            return true;
+        }
+    }
 </script>
 <style>
     .field-validation-error {

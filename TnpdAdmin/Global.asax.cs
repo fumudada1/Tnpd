@@ -27,4 +27,6 @@ namespace TnpdAdmin
             AuthConfig.RegisterAuth();
         }
     }
+
+
 }

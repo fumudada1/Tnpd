@@ -62,7 +62,10 @@
             @Html.DisplayFor(modelItem => item.Predate)
         </td>
         <td>
-           未分派
+           @if (item.Poprocs.Count > 0)
+           {
+                @Html.DisplayFor(modelItem => item.Poprocs.FirstOrDefault().Status)
+           }
         </td>
         
     </tr>

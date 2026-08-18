@@ -33,10 +33,12 @@ namespace tnpd.Areas.yongkang.Controllers
             //好人好事
             var newse5 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 6 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
                 .OrderByDescending(p => p.StartDate).Take(6);
+            ////活動相簿
+            var newse6 = _db.Newses.Where(x => x.NewsCatalogs.Count(y => y.WebCategoryId == 16 && y.WebSite.SiteCode == areaName) > 0 && x.StartDate <= DateTime.Now && x.EndDate >= yesterDay && x.IsConfirm == BooleanType.是)
+                .OrderByDescending(p => p.StartDate).Take(4);
 
 
-
-            var banners = _db.BigBanners.Where(x => x.Enable == BooleanType.是 && x.WebSite.SiteCode == areaName).OrderBy(x => x.ListNum);
+            var banners = _db.BigBanners.Where(x => x.Enable == BooleanType.是 && x.WebSiteNameId == 1).OrderBy(x => x.ListNum);
             var homeAds = _db.HomeAds.Where(x => x.Enable == BooleanType.是).OrderBy(x => x.ListNum);
 
             var homeLinks = _db.HomeLinks.Where(x => x.Enable == BooleanType.是 && x.DataType == 2 && x.WebSite.SiteCode == areaName && ((x.StartDate <= DateTime.Now && x.EndDate >= yesterDay) || (x.EndDate == null))).OrderBy(x => x.ListNum);
@@ -48,6 +50,7 @@ namespace tnpd.Areas.yongkang.Controllers
             //ViewBag.newse3 = newse3.ToList();
             ViewBag.newse4 = newse4.ToList();
             ViewBag.newse5 = newse5.ToList();
+            ViewBag.newse6 = newse6.ToList();
 
             ViewBag.banners = banners.ToList();
             ViewBag.homeAds = homeAds.ToList();

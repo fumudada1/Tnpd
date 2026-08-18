@@ -247,12 +247,12 @@
 <div id="gotoTop" class="icon-angle-up" title="gotoTop"></div>
 <!-- External JavaScripts
 ============================================= -->
-<script src="~/Areas//@areaName/js/jquery.js"></script>
-<script src="~/Areas//@areaName/js/plugins.js"></script>
+<script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
+<script src="/js/plugins.js"></script>
 <!-- Footer Scripts
 ============================================= -->
-<script src="~/Areas//@areaName/js/functions.js"></script>
-<script src="~/Areas//@areaName/js/fontsize.js"></script>
+<script src="/js/functions.js"></script>
+<script src="/js/fontsize.js"></script>
 <script>
     $(document).ready(function () {
 

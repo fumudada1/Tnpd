@@ -88,7 +88,7 @@
             @Html.DisplayFor(modelItem => item.Subject)
         </td>
         <td>
-            @if (item.Poprocs.Count > 0)
+            @if (item.Poprocs.Count>0 && item.Poprocs.FirstOrDefault().assignUnit!=null)
             {
                 @Html.DisplayFor(modelItem => item.Poprocs.FirstOrDefault().assignUnit.ParentUnit.Subject)
                 @Html.DisplayFor(modelItem => item.Poprocs.FirstOrDefault().assignUnit.Subject)
@@ -100,7 +100,7 @@
             }
         </td>
         <td>
-            @if (item.Poprocs.Count > 0)
+            @if (item.Poprocs.Count>0 &&item.Poprocs.FirstOrDefault().assignMember != null)
             {
                 @Html.DisplayFor(modelItem => item.Poprocs.FirstOrDefault().assignMember.Name)
             }

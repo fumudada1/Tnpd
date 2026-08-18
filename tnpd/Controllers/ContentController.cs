@@ -81,16 +81,33 @@ namespace tnpd.Controllers
             }
 
 
+            UrlHelper urlHelper = new UrlHelper(((MvcHandler)System.Web.HttpContext.Current.Handler).RequestContext);
+
             List<NodeLink> nodeLinks = new List<NodeLink>();
             foreach (XmlNode node in nowNode)
             {
-                if (node.Attributes["Visible"].Value == "1")
+                NodeLink link = web.getNodeLink(node);
+                if (link.title == "Leader")
                 {
-                    NodeLink link = web.getNodeLink(node);
+                    int websiteID = web.GetWebsiteID();
+                    var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == websiteID).ToList();
+                    foreach (LeaderCatalog catalog in leaderCatalog.OrderBy(x => x.ListNum))
+                    {
+                        NodeLink nlink = new NodeLink();
+                        nlink.url = urlHelper.Action("Index", "Leader",
+                            new { id = node.Attributes["UnID"].Value, lclass = catalog.Id, Area = "" });
+                        nlink.Target = "_self";
+                        nlink.Tooltip = catalog.Subject + "簡介";
+                        nlink.title = catalog.Subject + "簡介";
+                        nodeLinks.Add(nlink);
+                    }
+                }
+                else
+                {
                     nodeLinks.Add(link);
                 }
-
             }
+
             ViewBag.title = nowNode.Attributes["title"].Value;
             ViewBag.nodeLinks = nodeLinks;
 

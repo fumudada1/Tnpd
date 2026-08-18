@@ -18,6 +18,14 @@ namespace tnpd.Areas.shanhuaen.Controllers
         public ActionResult Article(string id)
         {
             ViewBag.UnId = id;
+            string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
+            WebPresentation web = new WebPresentation(areaName);
+            XmlNode nowNode = web.GetNodeById(id);
+            if (nowNode == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var article = _db.WebArticles.FirstOrDefault(x => x.UnId == id);
             if (article == null)
             {
@@ -25,7 +33,7 @@ namespace tnpd.Areas.shanhuaen.Controllers
             }
             article.Views = article.Views + 1;
             article.Update(_db, _db.WebArticles);
-            string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
+            
             article.Article = article.Article.Replace("src=\"images/", "src=\"/images/" + areaName + "/");
             return View(article);
         }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
@@ -14,8 +18,9 @@ namespace TnpdTrafficIDCheck.Controllers
         //
         // GET: /SOAP/
 
-        public ActionResult checkId(string id)
+        public ActionResult checkIdOld(string id)
         {
+            
             string result = Soap(id.ToUpper());
             return Content(result);
 
@@ -212,6 +217,162 @@ namespace TnpdTrafficIDCheck.Controllers
             return webRequest;
 
 
+        }
+
+
+        public async Task<ActionResult> checkId(string id)
+        {
+            id = Microsoft.VisualBasic.Strings.StrConv(
+                id, Microsoft.VisualBasic.VbStrConv.Narrow);
+            var request_bearer = await Getbearer(id);
+
+            //
+            var request_result = GetResult("https://SOA2.eportal.npa.gov.tw:7002/Webservice/OI2/OI2Info1JWT", request_bearer, id);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(request_result);
+            var root = doc.DocumentElement;
+            var val = root.FirstChild.FirstChild.FirstChild.InnerText;
+
+            XmlDocument doc2 = new XmlDocument();
+            doc2.LoadXml(val);
+            var root2 = doc2.DocumentElement;
+            var result = root2.FirstChild.FirstChild.ChildNodes[1].InnerText;
+            return Content(result);
+        }
+
+        public static async Task<string> Getbearer(string id)
+        {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+            //string loginurl = "https://SOA2.eportal.npa.gov.tw:7002/generate";
+            //string requesturl = "https://SOA2.eportal.npa.gov.tw:7002/Webservice/OI2/OI2Info1JWT";
+
+
+            string text = @"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:xsd=""http://ws/oi2/npa/xsd"">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <xsd:getNameByIdnoForLog>
+         <!--Optional:-->
+         <xsd:systemID>AC001</xsd:systemID>
+         <!--Optional:-->
+         <xsd:systemPWD>2496-2519-1c6c</xsd:systemPWD>
+         <!--Optional:-->
+         <xsd:SSOuserID>16773CKM</xsd:SSOuserID>
+         <!--Optional:-->
+         <xsd:SSOuserName>交通檢舉信箱</xsd:SSOuserName>
+         <!--Optional:-->
+         <xsd:SSOunitID>AC001</xsd:SSOunitID>
+         <!--Optional:-->
+         <xsd:idno>2496-2519-1c6c</xsd:idno>
+         <!--Optional:-->
+         <xsd:encoding>unicode</xsd:encoding>
+         <!--Optional:-->
+         <xsd:userIp>10.128.0.42</xsd:userIp>
+      </xsd:getNameByIdnoForLog>
+   </soapenv:Body>
+</soapenv:Envelope>";
+            text = text.Replace("A123456789", id);
+            // var json = JsonConvert.SerializeObject(text);
+            var data = new StringContent(text, Encoding.UTF8, "application/xml");
+
+            var yourusername = "AC001";      // 修改為署提供的使者帳號
+            var yourpwd = "2496-2519-1c6c";             // 修改為署提供的使者密碼
+            byte[] bytes = System.Text.Encoding.GetEncoding("utf-8").GetBytes(yourusername + ":" + yourpwd);
+            string encrypted = Convert.ToBase64String(bytes);
+
+            var login_url = "https://SOA2.eportal.npa.gov.tw:7002/generate";            // 修改為署提供的網址
+
+
+            var handler = new HttpClientHandler();
+            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+            handler.ServerCertificateCustomValidationCallback =
+                (httpRequestMessage, cert, cetChain, policyErrors) =>
+                {
+                    return true;
+                };
+            var login_client = new HttpClient(handler);
+
+            login_client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue(
+                    "Basic", encrypted);
+
+            var request_bearer = "";
+            var login_response = await login_client.PostAsync(login_url, data);
+            //Console.WriteLine("login response status=" + login_response.StatusCode + ", " + (int)login_response.StatusCode);
+            if (!login_response.IsSuccessStatusCode)
+            {
+                return "IsNotSuccessStatusCode";
+            }
+            HttpHeaders headers = login_response.Headers;
+            var bearer = headers.GetValues("Authorization").SingleOrDefault();
+            if (bearer != null)
+            {
+                var expectedValues = bearer.Split(' ');
+                if (expectedValues.Length > 1)
+                {
+                    request_bearer = expectedValues[1];
+                    return expectedValues[1];
+
+                }
+            }
+            return "找不到資料";
+
+
+        }
+
+        static string GetResult(string url, string request_bearer, string id)
+        {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls;
+
+            string targetURI = url;
+            var request = (HttpWebRequest)System.Net.WebRequest.Create(targetURI);
+            request.ContentType = "application/xml";
+            //post
+            request.Method = WebRequestMethods.Http.Post;
+            request.PreAuthenticate = true;
+            request.Headers.Add("Authorization", "Bearer " + request_bearer);
+            //request.Accept = "application/xml";
+            request.Headers.Add("X-User", "AC001");
+
+            string rawData = @"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:xsd=""http://ws/oi2/npa/xsd"">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <xsd:getNameByIdnoForLog>
+         <!--Optional:-->
+         <xsd:systemID>AC001</xsd:systemID>
+         <!--Optional:-->
+         <xsd:systemPWD>2496-2519-1c6c</xsd:systemPWD>
+         <!--Optional:-->
+         <xsd:SSOuserID>16773CKM</xsd:SSOuserID>
+         <!--Optional:-->
+         <xsd:SSOuserName>交通檢舉信箱</xsd:SSOuserName>
+         <!--Optional:-->
+         <xsd:SSOunitID>AC061</xsd:SSOunitID>
+         <!--Optional:-->
+         <xsd:idno>A123456789</xsd:idno>
+         <!--Optional:-->
+         <xsd:encoding>unicode</xsd:encoding>
+         <!--Optional:-->
+         <xsd:userIp>10.128.0.42</xsd:userIp>
+      </xsd:getNameByIdnoForLog>
+   </soapenv:Body>
+</soapenv:Envelope>";
+            rawData = rawData.Replace("A123456789", id);
+            byte[] postData = Encoding.UTF8.GetBytes(rawData.ToString());
+            request.ContentLength = postData.Length;
+            using (var dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(postData, 0, postData.Length);
+            }
+
+
+            string text;
+            var response = (System.Net.HttpWebResponse)request.GetResponse();
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+            return text;
         }
 
     }

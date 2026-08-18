@@ -22,7 +22,7 @@ namespace FixDataBaseError
             string recodePath = path + "record.txt";
             string chiefRecodePath = path + "chiefRecord.txt";
             string logPath = path + "log.txt";
-            int rid = 486821, cid = 30809;
+            int rid = 1934272, cid = 30809;
 
             MyMap myMap = new MyMap();
             if (!System.IO.Directory.Exists("p:\\"))
@@ -30,7 +30,7 @@ namespace FixDataBaseError
 
                 myMap.Connection();
             }
-
+             
 
 
             if (!System.IO.File.Exists(recodePath))

@@ -1,339 +1,55 @@
 ﻿@model tnpd.Models.ReportView
 
 <div class="row">
-@using (Html.BeginForm("Index", "Report",  FormMethod.Post,new { @class = "form form-vaild form-aligned trailer", enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    @ViewBag.Message
+
 
     <div class="col-12">
 
-        <h4 class="h4title">網路報案使用須知</h4>
-
-        <ul class="ullink">
-            <li>
-                網路報案性質如同110，為報案管道之一種，如有緊急案件，請撥打110，將有專人為您受理。</li>
-            <li>
-                於填寫報案人資料時，請您務必留下正確聯絡資料
-                （本局對報案人身分及資料嚴予保密），否則若無具體事證，本局將不予處理，並提醒您切勿提供不實之事證，以免觸犯刑法『誣告』罪。
-            </li>
-        </ul>
-
-        <h4 class="h4title">網路報案使用限制</h4>
-        <ul class="ullink">
-            <li>
-                依據刑事訴訟法第242條第1項規定：「告訴、告發，應以書狀或言詞向檢察官或司法警察官為之；其以言詞為之者，應制作筆錄。」若您所報案件為竊盜、詐欺、恐嚇、網路遊戲犯罪等刑事案件，為發動偵查，必須將您報案內容做成書面記錄，因此，於網路報案後仍須請您至派出所製作相關文件（如筆錄等），以符法律程序，並保障您的權利。
-            </li>
-            <li>
-                網路報案與110電話報案均為報案之管道，若已選擇其中一種管道報案，請勿再重複報案。
-            </li>
-        </ul>
-
-        <h4 class="h4title">系統送出成功確認</h4>
-        <ul class="ullink">
-            <li>
-                進入作業系統報案，送出成功後，頁面將顯示出您的報案編號，若未顯示，則表示送出未成功！您可以再重報一次；或撥打 110 直接報案。
-            </li>
-        </ul>
-
-        報案人數：【28883】<br>
-        一. 若有急迫案件請電話直撥110。<br>
-        二. 若為檢舉案件請至本局首長交通檢舉信箱填報<br><br>
-        <div class="hrline"></div>
-        (有 <span class="text-danger">*</span> 號請務必填寫)
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label class="col-form-label" for="Name"><span class="text-danger">*</span>
-                    姓名：</label>
-                <input class="form-control" data-val="true" data-val-required="姓名必填" id="Name" name="Name" placeholder="姓名" type="text" value="@Model.Name" />
-                <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
-            </div>
-            <div class="form-group col-md-4" style="display: none">
-                <label class="col-form-label" for="Gender"><span class="text-danger">*</span>
-                    性別：</label>
-                <div class="form-group">
-                    <select  class="form-control"  id="Gender" name="Gender"><option>男</option>
-                        <option>女</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label class="col-form-label" for="Pid"><span class="text-danger">*</span>
-                    身分證字號：</label>
-                <input class="form-control" data-val="true" data-val-required="身分證字號必填" id="Pid" name="Pid" placeholder="身分證字號" type="text" value="@Model.Pid" />
-                <span class="field-validation-valid" data-valmsg-for="Pid" data-valmsg-replace="true"></span>
-            </div>
-        </div>
+        <h4>為提供民眾更即時、便捷的報案方式，規劃將「多元報案」作為恆常宣導訊息區，另為配合內政部警政署推廣視訊報案APP以增加使用率，並附載APP連結載點路徑及宣導影片，以提供民眾作多元報案方式之選擇。</h4>
+   
         
-        <div class="form-group">
-            <label class="col-form-label" for="Email"><span class="text-danger">*</span>
-                E-Mail：</label>
-            <input id="Email" class="form-control" data-val="true" data-val-email="Email 格式錯誤" data-val-required="Email必填" name="Email" placeholder="請輸入E-Mail" type="text" value="@Model.Email" />
-            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-        </div>
-        <div class="form-group">
-            <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
-            <span style="color: red" id="mailMessage"></span>
-        </div>
 
-        <h4 class="h4title">寄送認證郵件注意事項：</h4>
+		<h4 style="margin:0 0 10px 0">
+        一、語音報案專線：110。<br>
+        二、簡訊報案專線：0911-510-916。<br>
+        三、視訊報案APP：</h4>
+        
+        <p style="color: red;margin-bottom:10px " >
+            (一)民眾可透過App Store或Google Play免費下載安裝及更新「警政服務APP」軟體，其中「雲端視訊報案」功能包含：
+        </p>
+        
 
         <ul class="ultxt">
-            <li>填寫e-mail → 點選「寄送認證郵件」鈕→
-                出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
+            <li>報案定位：GPS定位功能，即時提供報案人所在位置。
             </li>
-            <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
+            <li>視訊傳送：可即時回傳現場影像，完整傳達現場實況。
             </li>
-            <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
+            <li>文字對談：雙向文字對談，不用說話也可以輕鬆完成報案。
+            </li>
+            <li>個人資訊：提供個人特殊狀況及緊急聯絡人。
             </li>
         </ul>
-        <div class="form-group">
-            <label class="col-form-label" for="PostalCode"><span class="text-danger">*</span>
-                現居地址：</label>
-            <div class="form-row ">
-                <div class="form-group col-2 mb-0">
-                  
-                    <input class="form-control" data-val="true" data-val-required="現居郵遞區號必填"  id="PostalCode" name="PostalCode" placeholder="現居郵遞區號" type="text" value="@Model.PostalCode" />
-                    <span class="field-validation-valid" data-valmsg-for="PostalCode" data-valmsg-replace="true"></span>
+        
+        <p style="color: red;margin-bottom:10px">
+            (二)「警政服務APP」載點路徑及宣導影片(廣告)：
+        </p>
+        
 
-                </div>
-                <div class="form-group col-10 mb-0">
-                    <label class="col-form-label" for="Address" style="display: none"><span class="text-danger">*</span>
-                        現居地址：</label>
-                    <input class="form-control" data-val="true" data-val-required="現居地址必填"   id="Address" name="Address" placeholder="現居地址" type="text" value="@Model.Address" />
-                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-form-label" for="PPostalCode"><span class="text-danger">*</span>
-                戶籍地址：</label>
-            <div class="form-row ">
-                <div class="form-group col-2 mb-0">
-                    <input class="form-control"  data-val="true" data-val-required="戶籍郵遞區號必填"  id="PPostalCode" name="PPostalCode" placeholder="戶籍郵遞區號" type="text" value="@Model.PPostalCode" />
-                    <span class="field-validation-valid" data-valmsg-for="PPostalCode" data-valmsg-replace="true"></span>
-       
-
-                </div>
-                <div class="form-group col-10 mb-0">
-                    <label class="col-form-label" for="PAddress" style="display: none"><span class="text-danger">*</span>
-                        現居地址：</label>
-                    <input class="form-control" data-val="true" data-val-required="戶籍地址必填" id="PAddress" name="PAddress" placeholder="戶籍地址" type="text" value="@Model.PAddress"/>
-                    <span class="field-validation-valid" data-valmsg-for="PAddress" data-valmsg-replace="true"></span>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label class="col-form-label" for="HomeTEL"><span class="text-danger">*</span>
-                    聯絡電話(住家)：</label>
-                <input   data-val="true" data-val-required="家裡電話必填"   class="form-control"  id="HomeTEL" name="HomeTEL" placeholder="家裡電話" type="text" value="@Model.HomeTEL" />
-                <span class="field-validation-valid" data-valmsg-for="HomeTEL" data-valmsg-replace="true"></span>
-
-            </div>
-            <div class="form-group col-md-4">
-                <label class="col-form-label" for="OfficeTEL">
-                    聯絡電話(辦公室)：</label>
-                <input class="form-control"   data-val="true" data-val-required="辦公室電話必填"   id="OfficeTEL" name="OfficeTEL" placeholder="辦公室電話" type="text" value="@Model.OfficeTEL" />
-                <span class="field-validation-valid" data-valmsg-for="OfficeTEL" data-valmsg-replace="true"></span>
-
-            </div>
-
-        </div>
-      
-        <div class="form-row">
-            <div class="form-group col-md-8">
-                <label class="col-form-label" for="TEL"><span class="text-danger">*</span>
-                    行動電話：(聯繫專用，請務必輸入正確電話，否則不予受理。)</label>
-                <input class="form-control"  data-val="true" data-val-required="行動電話必填"  id="TEL" name="TEL" placeholder="行動電話" type="text" value="@Model.TEL" />
-                <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
-
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label class="col-form-label" for="CaseReportType"><span class="text-danger">*</span>
-                    報案人類別：</label>
-                <select id="CaseReportType" class="form-control" name="CaseReportType"><option>當事人</option>
-                    <option>被害人</option>
-                    <option>關係人</option>
-                </select>
-
-              
-            </div>
-        </div>
-    <div class="form-row">
-
-        <div class="form-group col-md-6 mb-0">
-            <label class="col-form-label" for="ODate" style="text-transform:none"><span class="text-danger">*</span>
-                發生日期：(起yyy-mm-dd 例如:109-01-08)</label>
-            <input   class="form-control"  data-val="true" data-val-required=" 發生日期必填" id="ODate" name="ODate" target="" type="text" value="@Model.ODate" />
-            <span class="field-validation-valid" data-valmsg-for="ODate" data-valmsg-replace="true"></span>
-            @Html.ValidationMessage("CheckDate")      
-
-        </div>
-        <div class="form-group col-md-6 mb-0">
-            <label class="col-form-label" for="STime1"><span class="text-danger">*</span>
-                發生時段：</label>
-            <div class="form-row">
-                <div class="form-group col-auto">
-                    <label class="col-form-label" for="STime1" style="display: none"><span class="text-danger">*</span>
-                        發生時段：：</label>
-                    <select name="STime1" class="form-control">
-                        @for (int i = 0; i <= 23; i++)
-                        {
-                            <option>@i.ToString("00")</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-group col-auto align-self-center">時</div>
-                <div class="form-group col-auto">
-                    <label class="col-form-label" for="STime2" style="display: none"><span class="text-danger">*</span>
-                        發生時段：：</label>
-                    <select name="STime2" class="form-control">
-                        @for (int i = 0; i <= 59; i++)
-                        {
-                            <option>@i.ToString("00")</option>
-                        }
-                    </select>
-
-                </div>
-                <div class="form-group col-auto align-self-center">分</div>
-                    
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-form-label" for="Oplace"><span class="text-danger">*</span>
-            發生地點：</label>
-        <input class="form-control" data-val="true" data-val-required="發生地點必填"  id="Oplace" name="Oplace" placeholder="發生地點" type="text" value="@Model.Oplace" />
-        <span class="field-validation-valid" data-valmsg-for="Oplace" data-valmsg-replace="true"></span>
-
-
-    </div>
-
-        <div class="form-group">
-            <label class="col-form-label" for="Content"><span class="text-danger">*</span> 案情摘要：</label>
-            <textarea class="form-control"  data-val="true" data-val-required="案情摘要必填"  name="Content" rows="3">@Model.Content</textarea>
-            <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
-        </div>
-        <div class="form-group">
-            <label class="col-form-label" for="Upfile1">
-                <span class="text-danger">*</span>
-                檔案上傳：</label>
-            <span class="field-validation-valid" data-valmsg-for="Upfile1" data-valmsg-replace="true"></span>
-            <input name="Upfile1" class="form-control mb-2" id="Upfile1" type="file"   data-val="true" data-val-required="至少第一個檔案必須上傳" >
-            <input name="Upfile2" class="form-control mb-2" id="Upfile2" type="file">
-            <input name="Upfile3" class="form-control" id="Upfile3" type="file">
+        <ul class="ultxt">
+            <li>iOS系統：點選App Store→搜尋警政服務→安裝App→開啟警政服務App。<a href="https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843" target="_blank" title="Apple App下載(另開新視窗)">https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843(另開新視窗)</a>或掃描下面QR CODE
+			<br><a href="https://apps.apple.com/tw/app/%E8%AD%A6%E6%94%BF%E6%9C%8D%E5%8B%99/id544121843" target="_blank" title="Apple App下載(另開新視窗)"><img alt="ios QR CODE" src="/upfiles/images/ios%E7%B3%BB%E7%B5%B1.png" style="width: 196px; height: 196px;">
+            </a></li>
+            <li>Android系統：點選Play商店→搜尋警政服務→安裝App→開啟警政服務App。<a href="https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW" target="_blank" title="Android App下載(另開新視窗)">https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW(另開新視窗)</a>或掃描下面QR CODE
+			<br><a href="https://play.google.com/store/apps/details?id=tw.gov.npa.callservice&hl=zh_TW" target="_blank" title="Android App下載(另開新視窗)"><img alt="安卓版QR CODE" src="/upfiles/images/%E5%AE%89%E5%8D%93%E7%B3%BB%E7%B5%B1.png" style="width: 196px; height: 196px;">
+            </a></li>
+            <li>宣導影片(廣告)：<a href="https://www.youtube.com/watch?v=02_VVecn4Ts" target="_blank" title="宣導影片(另開新視窗)">https://www.youtube.com/watch?v=02_VVecn4Ts(另開新視窗)</a>
+            </li>
             
-        </div>
-
-        <div class="form-group" style="word-break: break-all;">
-            <span class="text-danger">【檔案上傳限制】</span><br>
-            1. 6個檔案加總請勿超過60MB，<span style="color: red">檔名請勿包含+#% 等特殊符號</span> ，附檔檔名請使用半形英數字命名。<br>
-            2. 僅支援圖片以及影片檔案，例如：（*.avi, *.mp4, *.wmv, *.mov, *.3gp, *.jpeg, *.jpg, *.png, *.gif, *.bmp）餘請轉換壓縮檔（*.zip, *.rar）再上傳。
-
-        </div>
-    <div class="form-row  mt-4">
-        <label class="col-form-label" for="checkCode"><span class="text-danger">*</span>
-            驗證碼：</label>
-
-        <div class="form-group col-auto">
-            <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
-            <div id="newMessageDIV" style="display:none"></div>
-            <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
-                   
-        </div>
-        <div class="form-group col-md-3">
-            <input id="checkCode" class="form-control"  name="checkCode" placeholder="請輸入驗證碼" type="text" /><noscript>您的瀏覽器無支援 JavaScript,無法使用此服務</noscript>
-                   
-            @Html.ValidationMessage("CheckCode")              
-        </div>
+        </ul>
 
     </div>
-
-    <div class="hrline"></div>
-    <input type="hidden" name="id" value="@ViewBag.UnId"/>
-    <div class="form-row justify-content-center">
-        <div class="col-auto">
-            <button type="submit" class="btn btn-info">送出</button>
-        </div>
-        <div class="col-auto">
-            <button type="reset" class="btn btn-secondary">清除</button>
-        </div>
-    </div>
-
-    </div>
-}
 </div>
-<script src="~/Scripts/jquery-ui.min.js"></script>
-<script src="~/Scripts/ui.datepicker-zh-TW.js"></script>
-
-<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet"/>
-<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet"/>
-<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"/>
-<script type="text/javascript">
-    $(".datepicker").datepicker();
-    function PlayCode() {
-        var name = ReadCookie("CheckCode");
-        var url2 = "/wav/" + name + ".wav";
-
-        if (/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent)) {
-            //本來這裡用的是<bgsound src="system.wav"/>,結果IE8不播放聲音,於是換成了embed
-            $('#newMessageDIV').html("<embed src='" + url2 + "'/>");
-        } else {
-            //Firefox,Chrome均支持<audio/>
-            $('#newMessageDIV').html("<audio autoplay='autoplay'><source src='" + url2 + "' type='audio/wav'/></audio>");
-        }
-    }
-
-
-    function fleshVerify() {
-
-        //重载验证码
-
-        var time = new Date().getTime();
-
-        document.getElementById('imgVerify').src = '/Captcha/CaptchaImage/' + time;
-
-    }
-    function ReadCookie(name) {
-        var dc = document.cookie;
-        var start1 = dc.indexOf(name + "=");
-        if (start1 == -1) {
-            return "";
-        }
-        else {
-            start = dc.indexOf("=", start1) + 1;
-            var end = dc.indexOf(";", start);
-            if (end == -1) {
-                end = dc.length;
-            }
-            var value = unescape(dc.substring(start, end));
-            if (value == null) {
-                return ""
-            }
-            else {
-                return value;
-            }
-        }
-    }
-
-    $("#sendmail").click(function () {
-        var email = $('#Email').val();
-        $("#mailMessage").text('發送信件' + $('#Email').val());
-        $.get("/Report/SendVerifyMail/", { id: $('#Email').val() })
-            .done(function (data) {
-                $("#mailMessage").text(data);
-            });
-    });
-</script>
+   
 <style>
     .field-validation-error {
         color:red

@@ -46,11 +46,11 @@
                 </div>
             </div>
 
-        <div class="form-row" style="display: none">
+        <div class="form-row" style="display:none">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="Area">
                     區別：</label>
-                <select id="OArea" name="OArea" class="form-control">
+                <select id="OArea" name="OArea" class="form-control" title="區別">
                     
                     <option value="東區">東區</option>
                 </select>
@@ -64,11 +64,11 @@
             <span class="field-validation-valid" data-valmsg-for="Oplace" data-valmsg-replace="true"></span>
         </div>
 
-        <div class="form-row" style="display: none">
+        <div class="form-row" style="display:none">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="inputState"><span class="text-danger">*</span>
                     通報原因：</label>
-                <select id="Subject" name="Subject" class="form-control"   data-val="true" data-val-required="通報原因必填">
+                <select id="Subject" name="Subject" class="form-control"   data-val="true" data-val-required="通報原因必填" title="通報原因">
                    
                     <option value="強盜">強盜</option>
                     <option value="易發生危害之犯罪熱點(其他)">易發生危害之犯罪熱點(其他)</option>
@@ -79,7 +79,7 @@
 
             <div class="form-group">
                 <label class="col-form-label" for="Content">通報原因：</label>
-                <textarea class="form-control"   data-val="true" data-val-required="通報內容必填" name="Content" rows="3">@Model.Content</textarea>
+                <textarea class="form-control"   data-val="true" data-val-required="通報內容必填" name="Content" rows="3" title="通報內容">@Model.Content</textarea>
                 <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
 
             </div>

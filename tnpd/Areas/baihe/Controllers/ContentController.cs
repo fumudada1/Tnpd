@@ -19,6 +19,13 @@ namespace tnpd.Areas.baihe.Controllers
         public ActionResult Article(string id)
         {
             ViewBag.UnId = id;
+            string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
+            WebPresentation web = new WebPresentation(areaName);
+            XmlNode nowNode = web.GetNodeById(id);
+            if (nowNode == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var article = _db.WebArticles.FirstOrDefault(x => x.UnId == id);
             if (article == null)
             {
@@ -26,7 +33,7 @@ namespace tnpd.Areas.baihe.Controllers
             }
             article.Views = article.Views + 1;
             article.Update(_db, _db.WebArticles);
-            string areaName = ControllerContext.RouteData.DataTokens["area"].ToString();
+            
             article.Article = article.Article.Replace("src=\"images/", "src=\"/images/" + areaName + "/");
             return View(article);
         }
@@ -50,12 +57,30 @@ namespace tnpd.Areas.baihe.Controllers
                 Response.Redirect(defaultLink.url);
             }
 
+            UrlHelper urlHelper = new UrlHelper(((MvcHandler)System.Web.HttpContext.Current.Handler).RequestContext);
 
             List<NodeLink> nodeLinks = new List<NodeLink>();
             foreach (XmlNode node in nowNode)
             {
                 NodeLink link = web.getNodeLink(node);
-                nodeLinks.Add(link);
+                if (link.title == "Leader")
+                {
+                    var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == web.GetWebsiteID()).ToList();
+                    foreach (LeaderCatalog catalog in leaderCatalog.OrderBy(x => x.ListNum))
+                    {
+                        link.url = urlHelper.Action("Index", "Leader",
+                            new { id = node.Attributes["UnID"].Value, lclass = catalog.Id, Area = areaName });
+                        link.Target = "_self";
+                        link.Tooltip = catalog.Subject + "簡介";
+                        link.title = catalog.Subject + "簡介";
+                    }
+                }
+                else
+                {
+                    nodeLinks.Add(link);
+                }
+
+                
             }
 
             ViewBag.nodeLinks = nodeLinks;

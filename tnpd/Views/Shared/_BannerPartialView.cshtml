@@ -1,0 +1,229 @@
+﻿@using TnpdModels
+<link href="~/css/index.css" rel="stylesheet" />
+<!-- 四季 indexslidbg_01(春3~5月) indexslidbg_02(夏6~8月) indexslidbg_03(秋9~11月) indexslidbg_04(冬12~2月) -->
+            @{
+                int month = DateTime.Now.Month;
+                string bannerClassName = "indexslidbg_01";
+                if (month == 3 || month==4 || month==5)
+                {
+                    bannerClassName= "indexslidbg_01";
+                }
+                if (month == 6 || month == 7 || month == 8)
+                {
+                    bannerClassName = "indexslidbg_02";
+                }
+                if (month == 9 || month == 10 || month == 11)
+                {
+                    bannerClassName = "indexslidbg_03";
+                }
+                if (month == 1 || month == 2 || month == 12)
+                {
+                    bannerClassName = "indexslidbg_04";
+                }
+                List<BigBanner> banners = ViewBag.banners;
+            }
+<div class="content-wrap @bannerClassName padding60">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-2 bannerleft indexadd">
+                <div class="row">
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink01">
+                            <a href="/Report/Index/243d3787-8352-9af8-1f61-484b223f30da" title="多元報案"><i class="icon-comments-alt i-alt"></i><span class="visually-hidden">報案專區</span></a>
+                            <span>多元報案</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink02">
+                            <a href="Article/446e9d99-9b83-4443-fb0d-b9467c9bb944" title="反詐專區"><i class="icon-display i-alt"></i><span class="visually-hidden">反詐專區</span></a>
+                            <span>反詐專區</span>
+                        </div>
+                            
+                    </div>
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink03">
+                            <a href="https://tr.tnpd.gov.tw/TrafficMailbox/Index/4b0a8176-a08d-60a4-b25f-cbb95e009897?UnID=aadd29ca-156e-c6ad-fb81-a7b75329ec0c" title="交通檢舉"><i class="icon-line-camera i-alt"></i><span class="visually-hidden">交通檢舉</span></a>
+                            <span>交通檢舉</span>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+
+            <!--橫幅-->
+            <div class="col-md-10 bannerright">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-interval="5000">
+                    <!-- 無障礙修正：GN1240301E - 焦點順序：暫停/播放 → 圖片連結 → 左鍵 → 右鍵 → 索引 -->
+                    <!-- 無障礙修正：GN1240301E - 加入 aria-pressed 表達切換狀態 -->
+                    <button type="button" id="carousel-pause-btn" class="carousel-pause-btn"
+                            aria-label="暫停輪播" title="暫停輪播" aria-pressed="false">
+                        <i class="fas fa-pause" aria-hidden="true"></i>
+                        <span class="visually-hidden">暫停輪播</span>
+                    </button>
+
+                    <div class="carousel-inner">
+                        @{
+                            int i=0;
+                        }
+                        @foreach (BigBanner banner in banners)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="carousel-item active">
+                                    @if(!string.IsNullOrEmpty(banner.URL)){
+                                        <a href="@banner.URL" style="border-width:0px" title="連結到@(banner.Subject)（另開新視窗）" aria-label="連結到@(banner.Subject)（另開新視窗）" target="_blank">
+                                            <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"/>
+                                        </a>
+                                    }else{
+                                        <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"/>
+                                    }
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    @if (!string.IsNullOrEmpty(banner.URL))
+                                    {
+                                        <a href="@banner.URL" style="border-width:0px" title="連結到@(banner.Subject)（另開新視窗）" aria-label="連結到@(banner.Subject)（另開新視窗）" target="_blank">
+                                            <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"/>
+                                        </a>
+                                    }
+                                    else {
+                                        <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" alt="@banner.Subject"/>
+                                    }
+
+                                </div>
+                            }
+
+                            i++;
+                        }
+                    </div>
+
+                    <!-- 左右控制按鈕 -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" title="上一則" aria-label="上一則">
+                        <i class="fas fa-chevron-left" style="color:black;font-size:2.250em" aria-hidden="true"></i>
+                        <span class="visually-hidden">上一則</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" title="下一則" aria-label="下一則">
+                        <i class="fas fa-chevron-right" style="color:black;font-size:2.250em" aria-hidden="true"></i>
+                        <span class="visually-hidden">下一則</span>
+                    </button>
+
+                    <!-- 索引指示器（DOM 置於最後，Tab 焦點順序最後） -->
+                    <div class="carousel-indicators">
+                        @{
+                            i=0;
+                        }
+                        @foreach (BigBanner banner in banners)
+                        {
+                            if (i == 0)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="@banner.Subject"></button>
+                            }
+                            else
+                            {
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-label="@banner.Subject"></button>
+                            }
+
+                            i++;
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--END橫幅-->
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous">
+
+<script>
+    // Bootstrap 5 JavaScript 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousel = document.getElementById('carouselExampleCaptions');
+        if (!carousel) { return; }
+
+        var isPaused = false;
+
+        // 取得（或建立）Carousel 實例
+        var carouselInstance = bootstrap.Carousel.getOrCreateInstance(carousel, {
+            interval: 5000,
+            ride: 'carousel'
+        });
+
+        // 覆寫 cycle 方法：Bootstrap 5.3.7 的 pause() 不存任何暫停旗標，
+        // 只要 mouseleave / touchend / 換片結束等事件觸發 _maybeEnableCycle()
+        // 就會再呼叫 cycle() 重啟自動播放，導致暫停按鈕無效。
+        // 這裡攔截所有 cycle() 呼叫，被使用者暫停時直接拒絕重啟。
+        var originalCycle = carouselInstance.cycle.bind(carouselInstance);
+        carouselInstance.cycle = function() {
+            if (!isPaused) {
+                originalCycle();
+            }
+        };
+
+        // 當連結獲得焦點時暫停輪播
+        var carouselLinks = carousel.querySelectorAll('.carousel-item a');
+        carouselLinks.forEach(function(link) {
+            link.addEventListener('focus', function() {
+                carouselInstance.pause();
+            });
+            link.addEventListener('blur', function() {
+                if (!isPaused) { carouselInstance.cycle(); }
+            });
+        });
+
+        // 無障礙修正：暫停/播放按鈕 (GN1220202E)
+        var pauseBtn = document.getElementById('carousel-pause-btn');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', function() {
+                if (isPaused) {
+                    isPaused = false;
+                    carouselInstance.cycle();
+                    this.setAttribute('aria-label', '暫停輪播');
+                    this.setAttribute('title', '暫停輪播');
+                    this.setAttribute('aria-pressed', 'false');
+                    this.innerHTML = '<i class="fas fa-pause" aria-hidden="true"></i><span class="visually-hidden">暫停輪播</span>';
+                } else {
+                    isPaused = true;
+                    carouselInstance.pause();
+                    this.setAttribute('aria-label', '播放輪播');
+                    this.setAttribute('title', '播放輪播');
+                    this.setAttribute('aria-pressed', 'true');
+                    this.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i><span class="visually-hidden">播放輪播</span>';
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .carousel-control-next:focus,
+    .carousel-control-prev:focus {
+        outline-style: dashed;
+        outline-color: #ff7200;
+        outline-width: 2px;
+    }
+    /* 無障礙修正：暫停/播放按鈕樣式 (GN1220202E) */
+    .carousel-pause-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        padding: 4px 10px;
+        cursor: pointer;
+        font-size: 0.9em;
+    }
+    .carousel-pause-btn:focus {
+        outline: 2px dashed #ff7200;
+        outline-offset: 2px;
+    }
+    .carousel-pause-btn:hover {
+        background: rgba(0, 0, 0, 0.75);
+    }
+</style>

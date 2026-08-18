@@ -7,7 +7,7 @@
         @ViewBag.Message
         <div class="col-12">
 
-            (有 <span class="text-danger">*</span> 號請務必填寫)
+            (有 <span class="text-danger">*</span> 號請務必填寫!!!!!!!!!!)
 
             <div class="form-row">
                 <div class="form-group col-md-6">

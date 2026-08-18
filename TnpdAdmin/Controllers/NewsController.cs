@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common.CommandTrees;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -259,15 +260,15 @@ namespace Tnpd.Controllers
                 {
                     news.NewsCatalogs.Add(catalog);
                 }
-
-
-                db.Newses.Add(news);
+                news.SystemMessage = "新增動態發布資料,標題:" + news.Subject;
+                news.Create(db,db.Newses);
+                //db.Newses.Add(news);
                 //news.Create(db,db.Newses); db.Newses.Add(news);
-                SystemLog log = new SystemLog();
-                log.InitDate = DateTime.Now;
-                log.Poster = User.Identity.Name;
-                log.Subject = "新增" + news.Subject;
-                db.SystemLogs.Add(log);
+                //SystemLog log = new SystemLog();
+                //log.InitDate = DateTime.Now;
+                //log.Poster = User.Identity.Name;
+                //log.Subject = "新增" + news.Subject;
+                //db.SystemLogs.Add(log);
                 db.SaveChanges();
                 return RedirectToAction("Edit", new { id = news.Id, pclass = pclass });
             }
@@ -427,11 +428,16 @@ namespace Tnpd.Controllers
             for (int i = news.NewsFileses.Count - 1; i == 0; i--)
             {
                 var item = news.NewsFileses.ElementAt(i);
+
+                FileInfo fileInfo = new FileInfo(Server.MapPath(item.UpFile));
+                fileInfo.Delete();
                 db.NewsFileses.Remove(item);
             }
             for (int i = news.NewsImagses.Count - 1; i == 0; i--)
             {
                 var item = news.NewsImagses.ElementAt(i);
+                FileInfo fileInfo = new FileInfo(Server.MapPath(item.UpFile));
+                fileInfo.Delete();
                 db.NewsImages.Remove(item);
             }
             for (int i = news.NewsLinks.Count - 1; i == 0; i--)

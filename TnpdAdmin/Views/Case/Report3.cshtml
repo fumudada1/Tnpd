@@ -1,0 +1,61 @@
+﻿@using System.Data
+@model System.Data.DataTable                                                           
+@{
+    ViewBag.Title = "案件平均處理天數一覽表";
+}
+
+<h2>案件平均處理天數一覽表</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        
+                   
+        <br/> 收件日期:<input type="text" name="SearchByStartDate" value="" class = "datepicker" autocomplete="off"/> ~ <input type="text" name="SearchByEndDate" value="" class = "datepicker" autocomplete="off"/>
+    </div>
+    <div>
+        <input type="submit" value="搜尋" />
+    </div>
+
+    
+}
+<table class="table table-v">
+    <tr>
+    
+        <th>
+            單位
+        </th>
+        <th>
+            平均天數
+        </th>
+       
+    </tr>
+
+    <tbody>
+    @foreach (DataRow item in Model.Rows)
+    {
+        <tr>
+            <td>
+                @item["BureauName"]
+            </td>
+            <td>
+                @item["AvgProcessingDays"]
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+
+
+
+        });
+    </script>
+}

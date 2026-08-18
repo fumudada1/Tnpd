@@ -1,0 +1,15 @@
+$basePath = "D:\website\cypdGlobaladmin\Areas\Areas"
+$folders = Get-ChildItem -Path $basePath -Directory
+
+foreach ($folder in $folders) {
+    $folderPath = $folder.FullName
+    $itemsToDelete = Get-ChildItem -Path $folderPath -Exclude "Views" -Force
+    
+    foreach ($item in $itemsToDelete) {
+        Remove-Item -Path $item.FullName -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    
+    Write-Host "Processed: $($folder.Name)"
+}
+
+Write-Host "All folders processed!"

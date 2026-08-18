@@ -60,9 +60,10 @@ namespace tnpd.Models
         [Display(Name = "案情摘要")]
         public string Content { get; set; }
 
+        [Display(Name = "E-Mail驗證碼")]
+        public string EmailCode { get; set; }
 
-     
-
-      
+        [Display(Name = "簡訊驗證碼")]
+        public string SMSCode { get; set; }
     }
 }

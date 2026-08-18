@@ -99,7 +99,7 @@ namespace TnpdModels
 
         
 
-        [MaxLength(500)]
+        [MaxLength(1000)]
         [Display(Name = "權限")]
         [JsonProperty]
         public string Permission { get; set; }

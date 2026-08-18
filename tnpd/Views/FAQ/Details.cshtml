@@ -16,7 +16,7 @@
                 
                     @foreach (var file in Model.NewsFileses)
                     {
-                        <li><a href="@file.UpFile" title="@(file.Subject)(另開視窗)">@file.Subject</a></li>
+                        <li><a download href="@file.UpFile" title="@(file.Subject)(另開視窗)">@file.Subject</a></li>
                     }
      
                 </ul>

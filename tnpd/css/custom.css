@@ -1090,3 +1090,16 @@ table.newtable01 th {
     }
 
 }
+
+.validation-summary-errors ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.validation-summary-errors li::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f071';
+    color: #e00;
+    margin-right: 6px;
+}

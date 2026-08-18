@@ -1,0 +1,92 @@
+﻿@using Tnpd.Models
+@model TnpdModels.Leader
+
+@{
+    ViewBag.Title = "首長介紹新增";
+}
+
+<h2>首長介紹資料維護新增</h2>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @ViewBag.Message
+    <fieldset>
+        <legend>Leader</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LeaderCatalogId)
+
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("LeaderCatalogId")
+            @Html.ValidationMessageFor(model => model.LeaderCatalogId)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Name,new { placeholder=ModelsAttributeHelper<TnpdModels.Leader>.GetDisplayName("Name") })
+            @Html.ValidationMessageFor(model => model.Name)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpImage1)
+
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UpImage1" />
+       
+            
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Education)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Education,new { placeholder=ModelsAttributeHelper<TnpdModels.Leader>.GetDisplayName("Education") })
+            @Html.ValidationMessageFor(model => model.Education)
+       
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Experience)
+
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Experience,new { placeholder=ModelsAttributeHelper<TnpdModels.Leader>.GetDisplayName("Experience") })
+            @Html.ValidationMessageFor(model => model.Experience)
+       
+            
+        </div>
+
+             @Html.Hidden("ListNum","0")
+        
+
+        <p>
+            <input type="submit" value="新增" /><input type="button" onclick="history.back()" value="回到上一頁" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <style>
+        textarea {
+            height: 150px;
+        }
+    </style>
+
+}

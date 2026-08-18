@@ -156,6 +156,7 @@ namespace TnpdAdmin.Controllers
                     maxListNum = _db.AboutLinks.Max(x => x.ListNum);
                 }
                 aboutlink.ListNum = maxListNum + 1;
+                aboutlink.SystemMessage = "新增相關連結,標題:" + aboutlink.Subject;
                 aboutlink.Create(_db, _db.AboutLinks);
                 return RedirectToAction("Index");
             }
@@ -233,6 +234,7 @@ namespace TnpdAdmin.Controllers
 
 
                 //_db.Entry(aboutlink).State = EntityState.Modified;
+                aboutlink.SystemMessage = "修改相關連結,標題:" + aboutlink.Subject;
                 aboutlink.Update();
                 return RedirectToAction("Index", new { Page = -1 });
             }

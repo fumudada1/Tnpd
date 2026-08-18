@@ -17,7 +17,8 @@ namespace tnpd.Areas.madou
             context.MapRoute(
                 "madou_default",
                 "madou/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

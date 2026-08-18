@@ -55,6 +55,14 @@ namespace TnpdModels
         [Display(Name = "聯絡電話")]
         public string TEL { get; set; }
 
+        [MaxLength(10)]
+        [Display(Name = "驗證碼")]
+        public string CheckCode { get; set; }
+
+        [Display(Name = "驗證次數")]
+        public int Times { get; set; }
+
+
         [MaxLength(200)]
         [Display(Name = "職業")]
         public string Job { get; set; }
@@ -219,6 +227,13 @@ namespace TnpdModels
         [MaxLength(200)]
         [Display(Name = "附件5")]
         public string Upfile5 { get; set; }
+
+        [Display(Name = "參考行政區")]
+        public int? TownId { get; set; }
+
+
+        [ForeignKey("TownId")]
+        public virtual Town Town { get; set; }
 
     }
 }

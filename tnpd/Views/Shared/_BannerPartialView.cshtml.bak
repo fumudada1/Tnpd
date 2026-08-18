@@ -1,0 +1,133 @@
+﻿@using TnpdModels
+<link href="~/css/index.css" rel="stylesheet" />
+<!-- 四季 indexslidbg_01(春3~5月) indexslidbg_02(夏6~8月) indexslidbg_03(秋9~11月) indexslidbg_04(冬12~2月) -->
+            @{
+                int month = DateTime.Now.Month;
+                string bannerClassName = "indexslidbg_01";
+                if (month == 3 || month==4 || month==5)
+                {
+                    bannerClassName= "indexslidbg_01";
+                }
+                if (month == 6 || month == 7 || month == 8)
+                {
+                    bannerClassName = "indexslidbg_02";
+                }
+                if (month == 9 || month == 10 || month == 11)
+                {
+                    bannerClassName = "indexslidbg_03";
+                }
+                if (month == 1 || month == 2 || month == 12)
+                {
+                    bannerClassName = "indexslidbg_04";
+                }
+                List<BigBanner> banners = ViewBag.banners;
+            }
+<div class="content-wrap @bannerClassName padding60">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-2 bannerleft indexadd">
+                <div class="row">
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink01">
+                            <a href="/Report/Index/825cef9f-4043-7dc4-008a-87483c9e83be" title="多元報案"><i class="icon-comments-alt i-alt"></i><span class="sr-only">報案專區</span></a>
+                            <span>多元報案</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink02">
+                            <a href="Article/446e9d99-9b83-4443-fb0d-b9467c9bb944" title="反詐專區"><i class="icon-display i-alt"></i><span class="sr-only">反詐專區</span></a>
+                            <span>反詐專區</span>
+                        </div>
+                            
+                    </div>
+                    <div class="col-md-12 col-4">
+                        <div class="indexaddlink03">
+                            <a href="https://tr.tnpd.gov.tw/TrafficMailbox/Index/4b0a8176-a08d-60a4-b25f-cbb95e009897?UnID=aadd29ca-156e-c6ad-fb81-a7b75329ec0c" title="交通檢舉"><i class="icon-line-camera i-alt"></i><span class="sr-only">交通檢舉</span></a>
+                            <span>交通檢舉</span>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+
+            <!--橫幅-->
+            <div class="col-md-10 bannerright">
+                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"  data-interval="50000">
+                    <ol class="carousel-indicators">
+                        @{
+                            int i=0;
+                        }
+                        @foreach (BigBanner banner in banners)
+                        {
+                            if (i == 0)
+                            {
+                                <!-- <li data-target="#carouselExampleCaptions" data-slide-to="@i" class="active" title="@banner.Subject"><a class="bannera" href="#" title="@banner.Subject">@banner.Subject</a></li> -->
+                                <li data-target="#carouselExampleCaptions" data-slide-to="@i" class="active" title="@banner.Subject"></li>
+                            }
+                            else
+                            {
+                                <!-- <li data-target="#carouselExampleCaptions" data-slide-to="@i"  title="@banner.Subject"><a class="bannera" href="#" title="@banner.Subject">@banner.Subject</a></li> -->
+                                <li data-target="#carouselExampleCaptions" data-slide-to="@i"  title="@banner.Subject"></li>
+                            }
+                                       
+                            i++;
+                        }
+
+
+                    </ol>
+                    <div class="carousel-inner">
+                        @{
+                            i=0;
+                        }
+                        @foreach (BigBanner banner in banners)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="carousel-item active">
+                                    @if(!string.IsNullOrEmpty(banner.URL)){
+                                        <a href="@banner.URL"  style="border-width:0px" title="連結到@(banner.Subject)" target="_blank">
+                                            <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                        </a>  
+                                    }else{
+                                        <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                    }
+                                                
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="carousel-item ">
+                                    @if (!string.IsNullOrEmpty(banner.URL))
+                                    {
+                                        <a href="@banner.URL"  style="border-width:0px" title="連結到@(banner.Subject)" target="_blank">
+                                            <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                        </a>
+                                    }
+                                    else { 
+                                        <img class="d-block w-100" src="/upfiles/images/M@(banner.UpImage)" title="@banner.Subject" alt="@banner.Subject"/>
+                                    }
+                                               
+                                </div>
+                            }
+
+                            i++;
+                        }
+
+
+                    </div>
+                    <a class="left carousel-control-prev" href="#carouselExampleCaptions" data-slide="prev" title="上一則">
+                        <i class="fas fa-chevron-left" style="color:black;font-size:2.250em"></i>
+                        <span class="sr-only">上一則</span>
+                    </a>
+                    <a class="right carousel-control-next" href="#carouselExampleCaptions" data-slide="next" title="下一則">
+                        <i class="fas fa-chevron-right" style="color:black;font-size:2.250em"></i>
+                        <span class="sr-only">下一則</span>
+                    </a>
+                </div>
+            </div>
+            <!--END橫幅-->
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous">

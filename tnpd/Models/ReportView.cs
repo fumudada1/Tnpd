@@ -89,6 +89,10 @@ namespace tnpd.Models
         [MaxLength(200)]
         public string Oplace { get; set; }
 
+        [Display(Name = "EMAIL驗證碼")]
+        public string EmailCode { get; set; }
 
+        [Display(Name = "SMS驗證碼")]
+        public string SMSCode { get; set; }
     }
 }

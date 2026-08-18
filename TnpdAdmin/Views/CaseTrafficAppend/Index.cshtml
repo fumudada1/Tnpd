@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   
+    <input type="text" name="ID" value="A2022010901130"/>
+    <input type="text" name="deadline" value="2023-02-25"/>
+    <input type="text" name="memo" value="TESTTEST"/>
+    <input type="text" name="Append" value="violation_carno,violation_date"/>
+    <input type="submit" value="submit"/>
+}

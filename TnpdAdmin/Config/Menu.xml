@@ -6,9 +6,11 @@
 
   <Modules Title="網站內容管理系統" Controller="" Action="" Value="W" Icon="fa fa-sitemap">
     <Modules Title="網站架構與內容管理" Controller="WebSite" Action="Index" Value="W01" Icon="fa fa-sitemap" />
+    <Modules Title="首長職稱維護" Controller="LeaderCatalog" Action="Index" Value="W12" Icon="fa fa-sitemap" />
+    <Modules Title="首長介紹資料維護" Controller="Leader" Action="Index" Value="W13" Icon="fa fa-sitemap" />
     <Modules Title="分類檢索管理" Controller="MetaIndex" Action="Index" Value="W05" Icon="fa fa-sitemap" />
     <Modules Title="系統運作效能" Controller="WebSite" Action="manage" Value="W11" Icon="fa fa-sitemap fa-ga" />
-    <Modules Title="網站維護紀錄" Controller="SystemLogs" Action="Index" Value="W08" Icon="fa fa-sitemap" />
+    <Modules Title="網站稽核系統(LOG)" Controller="SysLog" Action="Index" Value="W08" Icon="fa fa-sitemap" />
     <Modules Title="網站維護統計" Controller="SystemLogs" Action="Report" Value="W09" Icon="fa fa-sitemap" />
     <Modules Title="動態發布統計" Controller="News" Action="Report" Value="W02" pclass="0" Icon="fa fa-rss" />
     <Modules Title="單位動態發布統計" Controller="News" Action="ReportByUnits" Value="W03" pclass="0" Icon="fa fa-rss" />
@@ -22,6 +24,7 @@
     <Modules Title="相關連結" Controller="AboutLink" Action="Index" Value="U01" Icon="fa fa-map-marker"></Modules>
     <Modules Title="分局派出所資訊" Controller="StationInfo" Action="Index" Value="U14"  Icon="fa fa-rss" />
     <Modules Title="警光山莊景點介紹" Controller="News" Action="Index" Value="U10" pclass="46" Icon="fa fa-rss" />
+    <Modules Title="發信主機設定" Controller="SMTP" Action="Index" Value="U15" Icon="fa fa-rss" />
   </Modules>
 
   <Modules Title="訊息公告" Controller="" Action="" Value="N" Icon="fa fa-rss">
@@ -104,11 +107,10 @@
       <Modules Title="地方自治法規類別管理" Controller="NewsCatalog" Action="Index" pclass="19" Value="C0701" Icon="fa fa-rss" />
       <Modules Title="地方自治法規" Controller="News" Action="Index" Value="C0702" pclass="19" Icon="fa fa-rss" />
     </Modules>
+    <Modules Title="固定式交通違規照相路段" Controller="WayPoint" Action="Index" Value="C08"  Icon="fa fa-rss" />
 
 
-
-
-
+    
   </Modules>
 
   <Modules Title="婦幼業務" Controller="" Action="" Value="F" Icon="fa fa-sitemap">
@@ -142,6 +144,7 @@
     <Modules Title="結案作業" Controller="Case" Action="Close" pclass="1"  Value="M005" Icon="fa fa-rss" />
     <Modules Title="案件查詢" Controller="Case" Action="Index" pclass="1"  Value="M006" Icon="fa fa-rss" />
     <Modules Title="案件處理天數一覽表" Controller="Case" Action="Report1" pclass="1" Value="M007" Icon="fa fa-rss" />
+    <Modules Title="案件平均處理天數一覽表" Controller="Case" Action="Report3" pclass="1" Value="M014" Icon="fa fa-rss" />
     <Modules Title="案件一覽表" Controller="Case" Action="Report2" pclass="1" Value="M009" Icon="fa fa-rss" />
     <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="1"  Value="M008" Icon="fa fa-rss" />
     <Modules Title="案件滿意度調查表" Controller="Case" Action="Survey" pclass="1"  Value="M009" Icon="fa fa-rss" />
@@ -157,10 +160,15 @@
     <Modules Title="退文派案" Controller="CaseTraffics" Action="Goback" Value="T04" Icon="fa fa-rss" />
     <Modules Title="結案作業" Controller="CaseTraffics" Action="Close"  Value="T05" Icon="fa fa-rss" />
     <Modules Title="案件查詢" Controller="CaseTraffics" Action="Index"  Value="T06" Icon="fa fa-rss" />
+    <Modules Title="封存案件查詢(2019-2022)" Controller="CaseTraffics" Action="History2022"  Value="T06" Icon="fa fa-rss" />
     <Modules Title="案件處理天數一覽表" Controller="CaseTraffics" Action="Report1" Value="T11" Icon="fa fa-rss" />
     <Modules Title="案件一覽表" Controller="CaseTraffics" Action="Report2"  Value="T12" Icon="fa fa-rss" />
     <Modules Title="受理民眾檢舉違規項目表" Controller="CaseTraffics" Action="Report4"  Value="T20" Icon="fa fa-rss" />
     <Modules Title="檢舉違規行為態樣表" Controller="CaseTraffics" Action="Report3"  Value="T17" Icon="fa fa-rss" />
+    <Modules Title="案件處理天數一覽表(2019-2022)" Controller="CaseTraffics" Action="Report1H2022" Value="T11" Icon="fa fa-rss" />
+    <Modules Title="案件一覽表(2019-2022)" Controller="CaseTraffics" Action="Report2H2022"  Value="T12" Icon="fa fa-rss" />
+    <Modules Title="受理民眾檢舉違規項目表(2019-2022)" Controller="CaseTraffics" Action="Report4H2022"  Value="T20" Icon="fa fa-rss" />
+    <Modules Title="檢舉違規行為態樣表(2019-2022)" Controller="CaseTraffics" Action="Report3H2022"  Value="T17" Icon="fa fa-rss" />
     <Modules Title="展期案件審核" Controller="CaseTraffics" Action="Extension"   Value="T08" Icon="fa fa-rss" />
     <Modules Title="單位改派" Controller="CaseTraffics" Action="UnitAssign"   Value="T09" Icon="fa fa-rss" />
 
@@ -208,9 +216,6 @@
     <Modules Title="展期案件審核" Controller="Case" Action="Extension" pclass="2"  Value="M108" Icon="fa fa-rss" />
   </Modules>
 
-  
-
- 
   <Modules Title="交通違規簡訊" Controller="" Action=""  Value="X" Icon="fa fa-rss" >
     <Modules Title="不通過原因編輯" Controller="TrafficSMSCarInfoReject" Action="Index"  Value="X1" Icon="fa fa-rss" />
     <Modules Title="交通違規簡訊審核" Controller="TrafficSMS" Action="Index"  Value="X2" Icon="fa fa-rss" />

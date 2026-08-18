@@ -240,7 +240,7 @@ namespace tnpd.Models
         {
             if (_xmlDoc.DocumentElement.ChildNodes.Count > 0)
             {
-                System.Text.StringBuilder sb = new System.Text.StringBuilder("<ul>");
+                System.Text.StringBuilder sb = new System.Text.StringBuilder("<ul id=\"primary-menu-nav\">");
                 recursionMenu(_xmlDoc.DocumentElement, sb);
                 sb.Append("</ul>");
                 return sb.ToString();
@@ -366,7 +366,33 @@ namespace tnpd.Models
                     }
                     else
                     { //子結點
-                        sb.AppendFormat("<li><a href=\"{0}\" target=\"{1}\" title=\"{3}\"><div>{2}</div></a></li>", nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
+                        if (nlink.title == "Leader")
+                        {
+                            var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == webSite.Id).ToList();
+                            foreach (LeaderCatalog catalog in leaderCatalog.OrderBy(x=>x.ListNum))
+                            {
+                                NodeLink link = new NodeLink();
+                                UrlHelper urlHelper = new UrlHelper(((MvcHandler)HttpContext.Current.Handler).RequestContext);
+                                string area = "";
+                                if (_orgId != "tnpd")
+                                {
+                                    area = _orgId;
+                                }
+                                link.url = urlHelper.Action("Index", "Leader", new { id = node.Attributes["UnID"].Value,lclass=catalog.Id, Area = area });
+                                link.Target = "_self";
+                                link.Tooltip = catalog .Subject+ "簡介";
+                                link.title = catalog.Subject + "簡介";
+                                sb.AppendFormat("<li><a href=\"{0}\" target=\"{1}\" title=\"{3}\"><div>{2}</div></a></li>", link.url, link.Target, link.Tooltip, link.title);
+                            }
+                            
+                        }
+                        else
+                        {
+                            sb.AppendFormat("<li><a href=\"{0}\" target=\"{1}\" title=\"{3}\"><div>{2}</div></a></li>",
+                                nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
+                        }
+
+                        
                     }
                 }
 
@@ -402,7 +428,32 @@ namespace tnpd.Models
                     }
                     else
                     { //子結點
-                        sb.AppendFormat("<li ><a {0} href=\"{1}\" target=\"{2}\" title=\"{4}\">{3}</a></li>\n", beSelect, nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
+                        //todo:go
+                        if (nlink.title == "Leader")
+                        {
+                            var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == webSite.Id).ToList();
+                            foreach (LeaderCatalog catalog in leaderCatalog.OrderBy(x => x.ListNum))
+                            {
+                                NodeLink link = new NodeLink();
+                                UrlHelper urlHelper = new UrlHelper(((MvcHandler)HttpContext.Current.Handler).RequestContext);
+                                string area = "";
+                                if (_orgId != "tnpd")
+                                {
+                                    area = _orgId;
+                                }
+                                link.url = urlHelper.Action("Index", "Leader", new { id = node.Attributes["UnID"].Value, lclass = catalog.Id, Area = area });
+                                link.Target = "_self";
+                                link.Tooltip = catalog.Subject + "簡介";
+                                link.title = catalog.Subject + "簡介";
+                                sb.AppendFormat("<li ><a {0} href=\"{1}\" target=\"{2}\" title=\"{4}\">{3}</a></li>\n", beSelect, link.url, link.Target, link.Tooltip, link.title);
+                            }
+
+                        }
+                        else
+                        {
+                            sb.AppendFormat("<li ><a {0} href=\"{1}\" target=\"{2}\" title=\"{4}\">{3}</a></li>\n", beSelect, nlink.url, nlink.Target, nlink.Tooltip, nlink.title);
+                        }
+                        
                     }
                 }
 
@@ -417,7 +468,12 @@ namespace tnpd.Models
         /// <returns></returns>
         public string getfootMenu()
         {
-
+            UrlHelper urlHelper = new UrlHelper(((MvcHandler)HttpContext.Current.Handler).RequestContext);
+            string area = "";
+            if (_orgId != "tnpd")
+            {
+                area = _orgId;
+            }
             if (_xmlDoc.DocumentElement.ChildNodes.Count > 0)
             {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder("");
@@ -438,7 +494,23 @@ namespace tnpd.Models
                             if (c2Node.Attributes["Visible"].Value == "1")
                             {
                                 NodeLink c2link = getNodeLink(c2Node);
-                                sb.AppendLine("<li><a href='" + c2link.url + "' title='" + c2link.title + "' target='" + c2link.Target + "'>" + c2link.Tooltip + "</a></li>");
+                                if (c2link.title == "Leader")
+                                {
+                                    var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == webSite.Id).ToList();
+                                    foreach (LeaderCatalog catalog in leaderCatalog.OrderBy(x => x.ListNum))
+                                    {
+                                        c2link.Tooltip = catalog.Subject + "簡介";
+                                        var url = urlHelper.Action("Index", "Leader", new { id = node.Attributes["UnID"].Value, lclass = catalog.Id, Area = area });
+                                        sb.AppendLine("<li><a href='" + url + "' title='" + catalog.Subject + "簡介" + "' >" + catalog.Subject + "簡介" + "</a></li>");
+                                    }
+
+                                }
+                                else
+                                {
+                                    sb.AppendLine("<li><a href='" + c2link.url + "' title='" + c2link.title + "' target='" + c2link.Target + "'>" + c2link.Tooltip + "</a></li>");
+                                }
+
+
                             }
 
 
@@ -697,6 +769,17 @@ namespace tnpd.Models
                     link.Target = "_self";
                     link.Tooltip = node.Attributes["title"].Value;
                     link.title = node.Attributes["title"].Value;
+                    break;
+                case "Leader":
+                    link.title = "Leader";
+                    int websiteID = GetWebsiteID();
+                    var catalogs = _db.LeaderCatalogs.Where(x => x.WebSiteId == websiteID).FirstOrDefault();
+                    if (catalogs == null)
+                    {
+                        link.url = "/";
+                    }
+                    link.url = urlHelper.Action("Index", "Leader", new { id = node.Attributes["UnID"].Value, lclass = catalogs.Id.ToString(), Area = area });
+                    var leaderCatalog = _db.LeaderCatalogs.Where(x => x.WebSiteId == websiteID).ToList();
                     break;
                 default:
 
@@ -991,6 +1074,14 @@ namespace tnpd.Models
             return webSite.SubjectEn;
         }
         #endregion
+
+        #region "取得WebsiteID"
+        public int GetWebsiteID()
+        {
+            return webSite.Id;
+        }
+        #endregion
+
     }
 
 

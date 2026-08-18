@@ -1,0 +1,169 @@
+שÝשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששß
+שר  Add-Migration addisuse ¿ש»~­׳´_§¹¦¨                                    שר
+שר  Microsoft.VisualStudio.Shell µ{§ַ¶°¥[¸ü¥¢±ׁ - ₪w¸ׁ¨M                  שר
+שדשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששו
+
+¡i°ÝֳD₪ְ×R¡j
+
+­ל©l¿ש»~¡G
+  System.IO.FileNotFoundException: Could not load file or assembly 
+  'Microsoft.VisualStudio.Shell, Version=15.0.0.0, Culture=neutral, 
+  PublicKeyToken=b03f5f7f11d50a3a'
+
+®Ú¥»­ל¦]¡G
+  Entity Framework ¦b°ץ¦ז Add-Migration ©R¥O®ֹ»Ý­nְֻ´ת¶µ¥״ֳ‏«¬¡A
+  ¦׃³o­׃¾Þ§@¨ּ¿א©ף Microsoft.VisualStudio.Shell µ{§ַ¶°¡C
+  ¥ׁ©ף×©¥»½ִ¬נ¡A¾ֹ­PµL×k¥¿½T¥[¸ü¡C
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡i°ץ¦ז×÷­׳´_¡j
+
+? 1. ¦b TnpdModels/App.config ₪₪²K¥[¸j©w­«©w¦V
+   ¦ל¸m: <runtime><assemblyBinding>
+   
+   ²K¥[₪÷®e:
+   ¢z¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢{
+   ¢x <dependentAssembly>                                        ¢x
+   ¢x   <assemblyIdentity name="Microsoft.VisualStudio.Shell"    ¢x
+   ¢x     publicKeyToken="b03f5f7f11d50a3a" culture="neutral" /> ¢x
+   ¢x   <bindingRedirect oldVersion="0.0.0.0-17.0.0.0"          ¢x
+   ¢x     newVersion="15.0.0.0" />                               ¢x
+   ¢x </dependentAssembly>                                       ¢x
+   ¢x                                                            ¢x
+   ¢x <dependentAssembly>                                        ¢x
+   ¢x   <assemblyIdentity name="EntityFramework"                ¢x
+   ¢x     publicKeyToken="b77a5c561934e089" culture="neutral" /> ¢x
+   ¢x   <bindingRedirect oldVersion="0.0.0.0-5.0.0.0"           ¢x
+   ¢x     newVersion="5.0.0.0" />                                ¢x
+   ¢x </dependentAssembly>                                       ¢x
+   ¢|¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢}
+
+? 2. ֵחֳׂ©ׂ¦³ Web.config ₪₪×÷¸j©w­«©w¦V
+   ? TnpdAdmin/Web.config ? ₪w¦³¥¿½T°t¸m
+   ? TnpdTraffic/Web.config ? ₪w¦³¥¿½T°t¸m
+   ? tnpd/Web.config ? ₪w¦³¥¿½T°t¸m
+
+? 3. ֵחֳׂ TnpdModels/packages.config
+   ₪w¦w¸ֻ×÷ֳצֱה¥]:
+   ? EntityFramework 5.0.0
+   ? Newtonsoft.Json 8.0.3
+   ? Microsoft.jQuery.Unobtrusive.Validation 2.0.20710.0
+
+? 4. ½sִ¶ֵחֳׂ
+   ½sִ¶×¬÷A: ? ¦¨¥\ (µL¿ש»~)
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡i«בִע¨BֶJ¡j
+
+½׀¦b Package Manager Console ₪₪°ץ¦ז¥H₪U¾Þ§@¡G
+
+1??  ֳצ³¬ Visual Studio
+   ? §¹¥‏ֳצ³¬ Visual Studio
+   ? ½T«O©ׂ¦³¶iµ{₪wµ²§פ
+
+2??  ²M°£ Visual Studio §ײ¨ת¡]¥i¿ן¦‎±ְֲֻ¡^
+   ? §R°£: %LOCALAPPDATA%\Microsoft\VisualStudio\*\ComponentModelCache
+   
+   ©־¦b PowerShell (as Admin) ₪₪°ץ¦ז:
+   Remove-Item -Path "$env:APPDATA\Microsoft\VisualStudio" -Recurse -Force
+
+3??  ­«·s¶}±ׂ Visual Studio
+   ? ¥´¶}¸ׁ¨M₪ט®׳ tnpd.sln
+   
+4??  ­«·s½sִ¶¸ׁ¨M₪ט®׳
+   ? Build ¡ק Clean Solution
+   ? Build ¡ק Rebuild Solution
+   
+5??  ¥´¶} Package Manager Console
+   ? Tools ¡ק NuGet Package Manager ¡ק Package Manager Console
+   
+6??  ½T»{¹w³]±M®׳
+   ? Default project: TnpdModels
+   
+7??  °ץ¦ז¾E²¾©R¥O
+   
+   ¡i±ְֲֻ₪ט¦¡ - ֵחֳׂ¼ׂ¦¡¡j
+   Add-Migration addisuse
+   
+   ¹w´ֱ¿י¥Xְ³¸׃¬O¡G
+   Scaffolding migration 'addisuse'.
+   The Designer Code for this migration file is being generated.
+   
+   ¡i©־₪ט¦¡₪G - ×½±µְ³¥־¡j
+   Add-Migration addisuse
+   Update-Database
+   
+   ¹w´ֱ¿י¥Xְ³¸׃¬O¡G
+   Applying migration ...
+   Adding column 'IsUsed' to table 'dbo.CaseMailChecks'
+   Adding column 'UsedDate' to table 'dbo.CaseMailChecks'
+   ...µ¥
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡i±`¨£°ÝֳD±ֶ¬d¡j
+
+¦p×G₪´µM¥X²{ "Could not load file or assembly" ¿ש»~¡G
+
+? ¿ש»~: Microsoft.VisualStudio.Shell ₪´µL×k¥[¸ü
+   ¸ׁ¨M₪ט®׳:
+   1. ½T»{₪wֳצ³¬©ׂ¦³ Visual Studio ¹ך¨ׂ
+   2. ²M°£ NuGet §ײ¨ת:
+      nuget locals all -clear
+   3. §R°£ packages ¥״¿‎¨ֳ­«·s¶}±ׂ¸ׁ¨M₪ט®׳
+   4. °ץ¦ז Update-Package -Reinstall
+
+? ¿ש»~: "There are no pending code-based migrations"
+   ¸ׁ¨M₪ט®׳:
+   ³o×ם¥Ü¾E²¾₪ו¥ף₪w¥ֽ¦¨¦‎©|¥¼ְ³¥־
+   °ץ¦ז: Update-Database
+
+? ¿ש»~: "A file or assembly named 'System.Web' cannot be opened"
+   ¸ׁ¨M₪ט®׳:
+   °ץ¦ז Update-Package System.Web -Force
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡iֵחֳׂ­׳´_¦¨¥\¡j
+
+¦p×G Add-Migration ¦¨¥\¡A±zְ³¸׃¬Ý¨ל¡G
+
+? ¨S¦³ FileNotFoundException ¿ש»~
+? ¾E²¾₪ו¥ף₪w¥ֽ¦¨©־¼ֶ¾Ú®w₪w§ף·s
+? Package Manager Console ֵד¥Ü:
+  - "Scaffolding migration..." ©־
+  - "Applying migration..." ©־
+  - "₪w¦¨¥\ְ³¥־¾E²¾"
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡i¨t²־ְפ¹ׂ«H®§¡j
+
+·ם«e°t¸m:
+  ? .NET Framework: 4.6.2 (TnpdModels), 4.8 (TnpdTraffic, tnpd)
+  ? Entity Framework: 5.0.0
+  ? Visual Studio: ₪ה«ש NuGet Package Manager
+  ? SQL Server: ₪w°t¸m (TnpdConnection)
+
+­׳´_₪ו¥ף:
+  ? TnpdModels/App.config (₪w§ף·s)
+  ? TnpdAdmin/Web.config (₪wֵחֳׂ)
+  ? TnpdTraffic/Web.config (₪wֵחֳׂ)
+  ? tnpd/Web.config (₪wֵחֳׂ)
+
+¾E²¾₪ו¥ף:
+  ? TnpdModels/Migrations/202512081509100_addisuse.cs
+  ? TnpdModels/Migrations/202512081509100_addisuse.Designer.cs
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש
+
+¡iֳצֱה­nֲI¡j
+
+1. ¾E²¾₪ו¥ף₪w¥ֽ¦¨¡AµL»Ý¦A°ץ¦ז Add-Migration -Force
+2. ×½±µ°ץ¦ז Update-Database ¨׃ְ³¥־¾E²¾
+3. ¦p×G¹J¨ל¨ה¥L¿ש»~¡A½׀°ׁ¦ׂ Migrations_Troubleshooting.txt
+4. ­׳´_«e«ב³£½׀³ֶ¥ק¼ֶ¾Ú®w
+
+שששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששש

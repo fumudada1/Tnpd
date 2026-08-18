@@ -60,8 +60,8 @@
             </tr>
             <tr>
                 <td>臺南市政府政風處 </td>
-                <td>06-2982746 </td>
-                <td>臺南郵政第22號信箱</td>
+                <td>06-2982742 </td>
+                <td>臺南新南郵局第1號信箱</td>
                 <td>06-2982746 </td>
             </tr>
             <tr>
@@ -72,7 +72,25 @@
             </tr>
             </tbody>
         </table>
+        <p>
+            <span style="color: red">為避免郵件帳號遭人冒用，從事假訊息散布之疑慮，使您陳情意見能正確傳達並獲取服務，即日起，陳情案件採用信箱
+            及簡訊 雙重登入驗證</span>。
+        </p>
+        <h4 class="h4title">寄送<span style="color: red">認證郵件</span>及<span style="color: red">簡訊</span>注意事項：</h4>
 
+        <ul class="ultxt">
+            <li>填寫e-mail → 點選「寄送認證郵件」鈕→
+                    出現「認證郵件已送出，請取得信中驗證碼，再回本頁填入驗證碼，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看。
+            </li>
+            <li>填寫行動電話 → 點選「取得認證簡訊」鈕→
+                    出現「認證簡訊已送出，請取得信中驗證碼，再回本頁填入驗證碼
+            </li>
+            <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
+            </li>
+            <li><span style="color: red">請於收到認證郵件及簡訊驗證碼30分鐘內，輸入認證碼並檢舉完成，若逾期請重新取得驗證碼。</span>
+            </li>
+        </ul>
+        <div class="hrline"></div>
         (有 <span class="text-danger">*</span> 號請務必填寫)
 
         <div class="hrline"></div>
@@ -108,20 +126,38 @@
         </div>
         <div class="form-group">
             <button type="button" id="sendmail" class="btn btn-info">寄送認證郵件</button><br/>
+			<span style="color: blue"> (寄出後，請至E-mail 取得驗證碼，並到下面 E-Mail驗證碼輸入)</span>
             <span style="color: red" id="mailMessage"></span>
         </div>
-
-        <h4 class="h4title">寄送認證郵件注意事項：</h4>
-
-        <ul class="ultxt">
-            <li>填寫e-mail → 點選「寄送認證郵件」鈕→
-                出現「認證郵件已送出，請點選信中連結認證您的信箱，完成後即可繼續填寫資料，因信箱設定不同，郵件有可能會被系統歸類為垃圾郵件。」文字提示訊息→請至信箱接收認證郵件。本系統將依據您所提供的e-mail回覆處理進度與認證郵件，若無法收到處理結果與認證郵件，請至「垃圾郵件」查看，並將認證郵件移至「收件匣」再點選「請點選此連結認證您的信箱」。
-            </li>
-            <li>為避免您有收不到處理結果與認證郵件，請盡量避免使用免費信箱。
-            </li>
-            <li>請於收到認證郵件後30分鐘內，完成認證並檢舉完成，若逾期請重新認證。
-            </li>
-        </ul>
+		<div class="form-group">
+                <label class="col-form-label" for="EmailCode">
+                    <span class="text-danger">*</span>
+                    E-Mail驗證碼：(請至E-mail裡取得驗證碼)</label>
+                <input id="EmailCode" class="form-control"  data-val="true" data-val-required="E-Mail驗證碼必填"  name="EmailCode" placeholder="請輸入E-Mail裡驗證碼"  type="text" value="@Model.EmailCode"/>
+                
+                <span class="field-validation-valid" data-valmsg-for="EmailCode" data-valmsg-replace="true" autocomplete="one-time-code"></span>
+                <span style="color: red">@ViewBag.EMailMessage</span>
+           
+            </div>
+        <div class="form-group">
+            <label class="col-form-label" for="TEL">
+                <span class="text-danger">*</span>行動電話：</label>
+                
+            <input id="TEL" class="form-control" name="TEL" placeholder="請輸入行動電話" type="text" value="@Model.TEL" />
+            <span class="field-validation-valid" data-valmsg-for="TEL" data-valmsg-replace="true"></span>
+            <button type="button" id="sendSms" class="btn btn-info" style="MARGIN-TOP: 10PX">取得認證簡訊</button> <span id="smstime" style="color: blue"></span><br/>
+            <span style="color: blue">   (送出後，請至手機取得驗證碼，並到下面簡訊驗證碼輸入)</span>
+            <span style="color: red" id="smsMessage"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" for="SMSCode" autocomplete="one-time-code">
+                <span class="text-danger">*</span>
+                簡訊驗證碼：(請至手機取得驗證碼)</label>
+            <input id="SMSCode" class="form-control"  data-val="true" data-val-required="簡訊驗證碼必填"  name="SMSCode" placeholder="請輸入簡訊驗證碼"  type="text" value="@Model.SMSCode"/>
+            <span class="field-validation-valid" data-valmsg-for="SMSCode" data-valmsg-replace="true"></span>
+            <span style="color: red">@ViewBag.SMSMessage</span>
+           
+        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="col-form-label" for="TEL">
@@ -162,7 +198,7 @@
 
         <div class="form-group">
             <label class="col-form-label" for="Content">內容：</label>
-            <textarea class="form-control"   data-val="true" data-val-required="必填" name="Content" rows="3">@Model.Content</textarea>
+            <textarea class="form-control"   data-val="true" data-val-required="必填" name="Content" id="Content" rows="3">@Model.Content</textarea>
             <span class="field-validation-valid" data-valmsg-for="Content" data-valmsg-replace="true"></span>
 
         </div>
@@ -172,7 +208,7 @@
                 驗證碼：</label>
 
             <div class="form-group col-auto">
-                <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" />
+                <img id="imgVerify" src="~/Captcha/CaptchaImage?s=@DateTime.Now.Millisecond" alt="點擊更换驗證碼" tabindex="0" onclick="fleshVerify()" onkeypress="fleshVerify()" />
 				<div id="newMessageDIV" style="display:none"></div>
                 <a href="javascript:void(0);" onkeypress="PlayCode()" onclick="PlayCode();"><img id="imgRead" tabindex="0" src="~/images/maintb.gif" alt="播放聲音。"  /></a>
                    
@@ -205,7 +241,7 @@
     $("#sendmail").click(function () {
         var email = $('#Email').val();
         $("#mailMessage").text('發送信件' + $('#Email').val());
-        $.get("/CriminalMailbox/SendVerifyMail/", { id: $('#Email').val() })
+        $.get("/CriminalMailbox/SendVerifyMailCode/", { id: $('#Email').val() })
             .done(function (data) {
                 $("#mailMessage").text(data);
             });
@@ -253,6 +289,78 @@
             else {
                 return value;
             }
+        }
+    }
+    
+    var smsTimer;
+    var t = 180;
+    function showTime() {
+        t -= 1;
+        document.getElementById('smstime').innerHTML = "請留意手機簡訊，若一直沒有收到可在" + t + "秒後可再傳送一次。";
+
+        if (t <= 0) {
+
+            $("#sendSms").prop('disabled', false);
+
+        } else {
+            smsTimer = setTimeout("showTime()", 1000);
+        }
+
+
+
+    }
+
+
+    $("#sendSms").click(function () {
+        $("#smsMessage").text('');
+
+        var Mobile = $('#TEL').val();
+        if (!is_mobile(Mobile)) {
+            $("#smsMessage").text('手機格式錯誤!');
+            return;
+
+        }
+        $("#sendSms").prop('disabled', true);
+        showTime();
+        $("#smsMessage").text('發送簡訊至' + Mobile + '中，請稍後!');
+        SendSMS(Mobile, 0);
+
+
+    });
+
+    var SMS_MAX_RETRY = 2;
+    var SMS_RETRY_DELAY_MS = 2000;
+
+    function SendSMS(Mobile, retryCount) {
+        $.post("/ChiefMailbox/SendVerifyMobile", { mobile: Mobile, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() })
+            .done(function (data) {
+                if (data == '已經發送，請留意簡訊訊息!') {
+                    $("#smsMessage").text(data);
+                } else if (data.indexOf('請等待接收簡訊') !== -1) {
+                    // 3分鐘內已發送過，屬正常狀態，不重試，避免背景自動重複發送簡訊
+                    $("#smsMessage").text(data);
+                } else if (retryCount < SMS_MAX_RETRY) {
+                    $("#smsMessage").text("目前簡訊系統流量龐大，正為您重送(" + (retryCount + 1) + "/" + SMS_MAX_RETRY + ")");
+                    setTimeout(function () {
+                        SendSMS(Mobile, retryCount + 1);
+                    }, SMS_RETRY_DELAY_MS);
+                } else {
+                    $("#smsMessage").text("簡訊發送失敗，請稍後再試：" + data);
+                }
+            })
+            .fail(function () {
+                $("#smsMessage").text("連線失敗，請稍後再試。");
+            });
+    }
+    //訂單提交頁-驗證手機號
+    function is_mobile(mobile) {
+        if (mobile == "") {
+            return false;
+        } else {
+            if (! /^(09([0-9]){8})$/.test(mobile)) {
+                return false;
+            }
+            return true;
         }
     }
 </script>

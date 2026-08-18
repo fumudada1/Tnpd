@@ -124,7 +124,7 @@ int month = DateTime.Now.Month;
         ============================================= -->
         <nav id="primary-menu" class="style-2">
             <div class="container clearfix">
-                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                <button type="button" id="primary-menu-trigger" role="button" aria-expanded="false" aria-controls="primary-menu-nav" aria-label="展開選單" title="展開選單"><i class="icon-reorder" aria-hidden="true"></i><span class="visually-hidden">選單</span></button>
                 @Html.Raw(web.getAllMenu())
                 <!-- Top Search
                 ============================================= -->
@@ -258,7 +258,7 @@ int month = DateTime.Now.Month;
                                     @foreach (HomeLink link in homeLinks.Take(5))
                             {
                               
-                                        <li><a  href="@link.Url" title="@link.Subject (另開視窗)" target="_blank">
+                                        <li><a title="@link.Subject" href="@link.Url">
                                             <img src="@link.UpImage" alt="@link.Subject"></a></li>
                             }
 
@@ -294,7 +294,7 @@ int month = DateTime.Now.Month;
             </div>
             <div class="col_half col_last tright ">
                 <ul class="crul01 d-none d-md-block">
-                    <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="~/Areas/@areaName/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="~/Areas/@areaName/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                     <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="~/Areas/@areaName/images/new/footer002.png" alt="我的E政府"></a></li>
                 </ul>
             </div>

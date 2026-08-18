@@ -6,62 +6,109 @@
 <h4 class="h4title" style="color: red">特別提醒</h4>
 
     <ul class="ultxt">
-        <li>本專區是為了讓市民能於平時熟悉各種防空避難位置，而非代表隨時可進人避難。由於防空疏散避難設施多位於大樓地下室，平時受憲法賦予個人財產權之保障，未經所有權人同意，請勿擅自進入查看。
+        <li>本專區是為了讓市民能於平時熟悉各種防空避難位置，而非代表隨時可進入避難。由於防空疏散避難設施多位於大樓地下室，平時受憲法賦予個人財產權之保障，未經所有權人同意，請勿擅自進入查看。
         </li>
         <li>只有於防空演習、戰爭發生或將發生時由國防部發布管制疏散之命令後，才能開放進入避難。
         </li>
-
+		
     </ul>
     </div>
     
 
     <div class="col-12">
-        <p class="mb-2">當您選擇行政區位置或選取轄區分局，本系統將提供您行政區內防空疏散避難設施地圖資訊。</p>
-
-        <div class="form-row mt-2">
-            <label class="col-form-label" for="orgs">依照分局搜尋：</label>
-            <div class="form-group col-auto">
+        <h4 class="p class="mb-2"" style="color: red">當您選擇行政區位置或選取轄區分局，本系統將提供您行政區內防空疏散避難設施地圖資訊:</h4>
+<h4 class="p class="mb-2"" style="color: red">「具疏散避難坡道」：表示該設施附設有地下室車道，可提供一般民眾及行動不便者進入避難。</h4>
+        <div class="form-row align-items-center mt-2">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="orgs">1.依照分局搜尋：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
                 <select name="orgs" id="orgs" class="form-control"></select>
             </div>
-            <div class="form-group col-auto">
-                <input type="button" class="btn btn-secondary" value="搜尋" id="orgsSend">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="orgsType">避難設施搜尋：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <select name="orgsType" id="orgsType" class="form-control">
+                    <option value="0">所有避難設施</option>
+                    <option value="1">具疏散避難坡道</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <input type="button" class="btn btn-secondary w-100" value="搜尋" id="orgsSend">
             </div>
         </div>
 
-        <div class="form-row mt-1">
-            <label class="col-form-label" for="towns">依照地區搜尋：</label>
-            <div class="form-group col-auto">
+        <div class="form-row align-items-center mt-1">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="district">2.依照地區搜尋：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
                 <select name="towns" id="district" class="form-control"></select>
-
             </div>
-            <div class="form-group col-auto">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="village">鄉鎮：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
                 <select name="towns" id="village" class="form-control"></select>
-
             </div>
-
-            <div class="form-group col-auto">
-
-                <input type="button" class="btn btn-secondary" value="搜尋" id="townsSend">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="districtType">避難設施搜尋：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <select name="townsType" id="districtType" class="form-control">
+                    <option value="0">所有避難設施</option>
+                    <option value="1">具疏散避難坡道</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <input type="button" class="btn btn-secondary w-100" value="搜尋" id="townsSend">
             </div>
         </div>
 
 
-        <p class="mb-2">
-            您也可輸入精確地址，或地標(例如:奇美博物館)，本系統將提供距離您輸入位置3公里內之防空疏散避難設施地圖資訊。
-        </p>
 
-        <div class="form-row mt-2">
-            <label class="col-form-label" for="keywordText">請輸入地址或地標：</label>
-            <div class="form-group col-auto">
+
+        <div class="form-row align-items-center mt-2">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="keywordText">3.請輸入地址或地標：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
                 <input type="text" id="keywordText" class="form-control" placeholder="請輸入地址或地標">
             </div>
-            <div class="form-group col-auto">
-                <input type="button" class="btn btn-secondary" value="搜尋" id="keywordSend">
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="addressDistance">距離範圍：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <select name="addressDistance" id="addressDistance" class="form-control">
+                    <option value="500">0.5公里</option>
+                    <option value="1000" selected="selected">1公里</option>
+                    <option value="2000">2公里</option>
+                    <option value="3000">3公里</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <label class="col-form-label" for="addressType">避難設施搜尋：</label>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <select name="addressType" id="addressType" class="form-control">
+                    <option value="0">所有避難設施</option>
+                    <option value="1">具疏散避難坡道</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-auto mb-2">
+                <input type="button" class="btn btn-secondary w-100" value="搜尋" id="keywordSend">
             </div>
         </div>
+          <p class="mb-2">
+            您也可輸入精確地址，或地標(例如:奇美博物館)，本系統將提供距離您輸入位置指定範圍內之防空疏散避難設施地圖資訊。
+        </p>
         <span style="color: red" id="message"></span>
         <div id="map" style="height: 500px; width: 100%;" class="mt-3"></div>
     </div>
+</div>
+<div id="downloadSection" class="mt-2" style="display:none;">
+    <button type="button" class="btn btn-primary" id="downloadPdf">下載 PDF</button>
 </div>
 <div>
     <p>
@@ -71,9 +118,9 @@
             <th class="w-10">區別</th>
 
             <th class="w-10">里別</th>
-            <th class="w-10">名稱</th>
+            <th class="w-10">建築物名稱</th>
             <th class="w-15">地址</th>
-            <th class="w-10">可容納人數</th>
+            <th class="w-10">容量人數</th>
             <th class="w-10">管轄分局</th>
             <th class="w-10">路線規劃</th>
         </tr>
@@ -87,8 +134,9 @@
     </p>
     
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy7niYo3hKVoLoxDPCbZqRZWG_x7jml4k">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzwmZnp7RuQcLh-sbAFfQwXR_YRY5Y01I">
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
     (function () {
         var _url = '/';
@@ -100,6 +148,28 @@
         var rTr = document.querySelector('#rTr');
         var rTbody = document.querySelector('#rTbody');
         var spanMessage = document.querySelector('#message');
+        var townsType=document.querySelector('#townsType');
+        var addressType=document.querySelector('#addressType');
+        var downloadSection = document.querySelector('#downloadSection');
+        var pdfPluginsLoaded = false;
+        function loadScript(src) {
+            return new Promise(function (resolve, reject) {
+                var script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
+        function ensurePdfPlugins() {
+            if (pdfPluginsLoaded) return Promise.resolve();
+            return Promise.all([
+                loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js'),
+                loadScript(_url + 'js/fonts/NotoSansTC-normal.js')
+            ]).then(function () {
+                pdfPluginsLoaded = true;
+            });
+        }
         function gettingPosition(){
             if(navigator.geolocation){
                 return new Promise((resolve, reject) => {
@@ -195,7 +265,7 @@
         GetTowns();
        
         orgs.addEventListener('click',function(e){
-            var _targetUrl = _url + 'RefugeStation/GetPointByPrecinct?id=' +escape(document.querySelector('#orgs').value);
+            var _targetUrl = _url + 'RefugeStation/GetPointByPrecinct?id=' +escape(document.querySelector('#orgs').value) +'&type=' +escape(document.querySelector('#orgsType').value) ;
             showMap(_targetUrl);
         })
         towns.addEventListener('click', function (e) {
@@ -207,9 +277,10 @@
                     'RefugeStation/GetPointByVillage?id=' +
                     escape(document.querySelector('#village').value) +
                     '&district=' +
-                    escape(document.querySelector('#district').value);
+                    escape(document.querySelector('#district').value)+'&type=' +escape(document.querySelector('#districtType').value) ;
+					console.log(_targetUrl);
             } else {
-                _targetUrl = _url + 'RefugeStation/GetPointByDistrict?id=' + escape(document.querySelector('#district').value) ;
+                _targetUrl = _url + 'RefugeStation/GetPointByDistrict?id=' + escape(document.querySelector('#district').value) +'&type=' +escape(document.querySelector('#districtType').value) ;
             }
 
             showMap(_targetUrl);
@@ -218,8 +289,10 @@
             function(e) {
                 var _targetUrl = _url +
                     'RefugeStation/GetPointByAddress?address=' +
-                    escape(document.querySelector('#keywordText').value);
-                //console.log(_targetUrl);
+                    escape(document.querySelector('#keywordText').value) +
+                    '&type=' + escape(document.querySelector('#addressType').value) +
+                    '&distance=' + escape(document.querySelector('#addressDistance').value);
+                console.log(_targetUrl);
                 showMap(_targetUrl)
             });
         district.addEventListener('change',
@@ -238,8 +311,8 @@
                 //記錄當前點擊 google window
                 var currentInfoWindow = '';
                 var data = JSON.parse(xhr.response);
-                console.log('here!!' + target);
-                console.log(data);
+                //console.log('here!!' + target);
+                //console.log(data);
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 9,
                     center: { lat: 22.6048695, lng: 120.299119 }
@@ -256,13 +329,20 @@
                             '<a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a>'
                     ;
 
+                    var icon="/images/RefugeStation.png";
+                    //console.log(data[i].IsParkingLot);
+                    if(data[i].IsParkingLot=="1")
+                    {
+                        icon="/images/RefugeStationCar.png";
+                    }
                     var str = {};
                     var place = {};
                     place.lat = parseFloat(data[i]['lat']);
                     place.lng = parseFloat(data[i]['lng']);
+					console.log('lat=' + data[i]['lat'] + 'lng='+ data[i]['lng'])
                     str.map = map;
                     str.title = data[i].subject;
-                    str.icon = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png';
+                    str.icon = icon;
                     str.position = place;
                     var marker = new google.maps.Marker(str);
                     loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
@@ -272,9 +352,9 @@
                     var cTr = ' <tr class="rTr">' +
                         '<td data-th="區別">' + data[i].DIstrict + '</td>' +
                         '<td data-th="里別">' + data[i].Village + '</td>' +
-                        '<td data-th="名稱">' + data[i].subject + '</td>' +
+                        '<td data-th="建築物名稱">' + data[i].subject + '</td>' +
                         '<td data-th="地址">' + data[i].address + '</td>' +
-                        '<td data-th="可容納人數">' + data[i].Number + '</td>' +
+                        '<td data-th="容量人數">' + data[i].Number + '</td>' +
                         '<td data-th="管轄分局">' + data[i].Precinct + '</td>' +
                         '<td data-th="路線規劃"><a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a></td>' +
                         '</tr>';
@@ -282,6 +362,7 @@
 
                 }
                 rTbody.innerHTML = cTrall;
+                downloadSection.style.display = data.length > 0 ? '' : 'none';
                 function infowindow(marker, content) {
 
                     var infowindow = new google.maps.InfoWindow({
@@ -302,5 +383,47 @@
                 map.panToBounds(bounds);
             }
         }
+        var downloadBtn = document.querySelector('#downloadPdf');
+        downloadBtn.addEventListener('click', function () {
+            if (downloadBtn.disabled) return;
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '載入字型中…';
+            ensurePdfPlugins().then(function () {
+                downloadBtn.textContent = '產生中…';
+                var jsPDF = window.jspdf.jsPDF;
+                var originalTable = document.querySelector('#rTable');
+                var cloneTable = originalTable.cloneNode(true);
+                var headerRow = cloneTable.querySelector('thead tr');
+                if (headerRow) headerRow.lastElementChild.remove();
+                cloneTable.querySelectorAll('tbody tr').forEach(function (row) { row.lastElementChild.remove(); });
+                var headRow = Array.prototype.map.call(cloneTable.querySelectorAll('thead th'), function (th) {
+                    return th.textContent.trim();
+                });
+                var bodyRows = Array.prototype.map.call(cloneTable.querySelectorAll('tbody tr'), function (tr) {
+                    return Array.prototype.map.call(tr.querySelectorAll('td'), function (td) {
+                        return td.textContent.trim();
+                    });
+                });
+                var pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                pdf.autoTable({
+                    head: [headRow],
+                    body: bodyRows,
+                    styles: { font: 'NotoSansTC', fontStyle: 'normal' },
+                    headStyles: { font: 'NotoSansTC', fontStyle: 'normal' },
+                    showHead: 'everyPage'
+                });
+                var today = new Date();
+                var dateStr = today.getFullYear() +
+                    String(today.getMonth() + 1).padStart(2, '0') +
+                    String(today.getDate()).padStart(2, '0');
+                pdf.save('防空疏散避難設施搜尋清單(' + dateStr + ').pdf');
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '下載 PDF';
+            }).catch(function () {
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '下載 PDF';
+                alert('PDF 套件載入失敗，請檢查網路連線後再試一次');
+            });
+        });
     })()
 </script>

@@ -25,6 +25,8 @@ namespace TnpdModels
         [Display(Name = "排序")]
         public int ListNum { get; set; }
 
-       
+        public ICollection<Case> Cases { get; set; }
+
+
     }
 }

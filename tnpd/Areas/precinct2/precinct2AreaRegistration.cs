@@ -17,7 +17,8 @@ namespace tnpd.Areas.precinct2
             context.MapRoute(
                 "precinct2_default",
                 "precinct2/{controller}/{action}/{id}",
-                new { Controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { controller = "^(?!en$).*$" }
             );
         }
     }

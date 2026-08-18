@@ -6,7 +6,7 @@
     string areaName = ViewContext.RouteData.DataTokens["area"].ToString();
     WebPresentation web;
 
-    string title = "";
+    string title = "暫無資料";
     string theme = "";
     string cake = "";
     string service = "";
@@ -19,7 +19,7 @@
     else
     {
         web = new WebPresentation(areaName, unid);
-        title = ViewBag.Subject ?? web.GetTitle();
+        title = ViewBag.Subject ?? web.GetTitle()?? "暫無資料";
         theme = ViewBag.Theme ?? web.GetTheme();
         cake = ViewBag.Cake ?? web.GetCake();
         service = ViewBag.Service ?? web.GetService();
@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="~/Areas/@areaName/css/magnific-popup.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/responsive.css" type="text/css" />
     <link rel="stylesheet" href="~/Areas/@areaName/css/custom.css?456" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 	 <script src="/js/jquery.min.js"></script> <script src="/js/jquery-migrate.min.js"></script>
     <!-- Document Title
     ============================================= -->
@@ -109,7 +110,7 @@
         ============================================= -->
         <nav id="primary-menu" class="style-2">
             <div class="container clearfix">
-                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                <button type="button" id="primary-menu-trigger" role="button" aria-expanded="false" aria-controls="primary-menu-nav" aria-label="展開選單" title="展開選單"><i class="icon-reorder" aria-hidden="true"></i><span class="visually-hidden">選單</span></button>
                 @Html.Raw(web.getAllMenu())
                 <!-- Top Search
                 ============================================= -->
@@ -177,7 +178,7 @@
                                         <script src="//scdn.line-apps.com/n/line_it/thirdparty/loader.min.js" async="async" defer="defer" ></script>
 									</li>
                                     <li>
-                                         <a href="http://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
+                                         <a href="https://www.facebook.com/sharer.php?u=@Request.Url.AbsoluteUri" class="social-icon si-rounded si-colored si-small si-facebook"
                                            title="網站分享至facebook(另開視窗)" target="_blank">
                                             <i class="icon-facebook"></i>
                                             <i class="icon-facebook"></i>
@@ -218,7 +219,7 @@
         ============================================= -->
         <div class="text-center footercollapse">
             <a class="footerbtn open" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-               aria-controls="collapseExample" title="展開/收合"><span style="visibility: hidden;"> 展開/收合</span></a>
+               aria-controls="collapseExample" title="展開/收合" aria-label="展開或收合選單">展開/收合選單<span class="sr-only">展開/收合選單</span></a>
         </div>
         <div class="collapse show" id="collapseExample">
             <div class="footer-widgets-wrap clearfix">
@@ -246,7 +247,7 @@
             </div>
             <div class="col_half col_last tright ">
                 <ul class="crul01 d-none d-md-block">
-                    <li><a href="https://accessibility.ncc.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
+                    <li><a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20191231085457" title="無障礙網站(另開視窗)" target="_blank"><img src="/images/new/footer001.jpg" alt="通過AA檢測等級無障礙網頁檢測"></a></li>
                     <li><a href="https://www.gov.tw/" title="我的E政府(另開視窗)" target="_blank"><img src="/images/new/footer002.png" alt="我的E政府"></a></li>
                 </ul>
             </div>

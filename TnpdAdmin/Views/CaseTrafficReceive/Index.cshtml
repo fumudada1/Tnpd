@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   
+    <input type="text" name="CaseId" value="A2022010901130"/>
+    <textarea style="resize:none;width:600px;height:200px;" name="result"></textarea>
+  
+    <input type="submit" value="submit"/>
+}
