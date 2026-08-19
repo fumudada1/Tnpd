@@ -98,7 +98,10 @@ namespace tnpd.Controllers
                 x.Village,
                 lat = x.Twd97X,
                 lng = x.Twd97Y,
-                x.IsParkingLot
+                x.IsParkingLot,
+                x.SerialNumber,
+                x.UnderFlood,
+                x.UnitStation
 
             });
 
@@ -126,7 +129,10 @@ namespace tnpd.Controllers
                 x.Village,
                 lat = x.Twd97X,
                 lng = x.Twd97Y,
-                x.IsParkingLot
+                x.IsParkingLot,
+                x.SerialNumber,
+                x.UnderFlood,
+                x.UnitStation
 
             });
 
@@ -155,7 +161,10 @@ namespace tnpd.Controllers
                 x.Village,
                 lat = x.Twd97X,
                 lng = x.Twd97Y,
-                x.IsParkingLot
+                x.IsParkingLot,
+                x.SerialNumber,
+                x.UnderFlood,
+                x.UnitStation
 
             });
 
@@ -198,6 +207,9 @@ namespace tnpd.Controllers
                             lat = c.Twd97X,
                             lng = c.Twd97Y,
                             c.IsParkingLot,
+                            c.SerialNumber,
+                            c.UnderFlood,
+                            c.UnitStation,
 
                             Dis = (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord)
 
@@ -243,6 +255,9 @@ namespace tnpd.Controllers
                         c.Village,
                         lat = c.Twd97X,
                         lng = c.Twd97Y,
+                        c.SerialNumber,
+                        c.UnderFlood,
+                        c.UnitStation,
                         Dis = (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord),
                         DisShow = (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) > 1000 ? string.Format("{0:0.0}公里", (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) / 1000) : string.Format("{0}公尺", (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord))
                     }
@@ -264,7 +279,10 @@ namespace tnpd.Controllers
                     x.DIstrict,
                     x.Village,
                     lat = x.Twd97X,
-                    lng = x.Twd97Y
+                    lng = x.Twd97Y,
+                    x.SerialNumber,
+                    x.UnderFlood,
+                    x.UnitStation
 
                 });
                 jsonContent = JsonConvert.SerializeObject(jsonitem1, Formatting.Indented);
@@ -305,6 +323,9 @@ namespace tnpd.Controllers
                         c.Village,
                         lat = c.Twd97X,
                         lng = c.Twd97Y,
+                        c.SerialNumber,
+                        c.UnderFlood,
+                        c.UnitStation,
                         Dis = (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord),
                         DisShow = (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) > 1000 ? string.Format("{0:0.0}公里", (new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord) / 1000) : string.Format("{0}公尺", (int)(new GeoCoordinate(double.Parse(c.Twd97X), double.Parse(c.Twd97Y))).GetDistanceTo(coord))
                     }

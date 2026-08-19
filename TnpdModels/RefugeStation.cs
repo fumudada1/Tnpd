@@ -56,5 +56,17 @@ namespace TnpdModels
 
         [Display(Name = "兼作停車空間")]
         public IsEnable? IsParkingLot { get; set; }
+
+        [MaxLength(50)]
+        [Display(Name = "電腦編號")]
+        public string SerialNumber { get; set; }
+
+        [MaxLength(20)]
+        [Display(Name = "地下避難樓層")]
+        public string UnderFlood { get; set; }
+
+        [MaxLength(20)]
+        [Display(Name = "轄區分駐(派出)所")]
+        public string UnitStation { get; set; }
     }
 }

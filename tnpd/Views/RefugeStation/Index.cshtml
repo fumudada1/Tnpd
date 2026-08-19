@@ -322,11 +322,18 @@
                 for (i = 0; i < data.length; i++) {
 
                     var content =
-                        '<p style="font-weight:bold">' + data[i].subject + '</p>' +
-                            '<span>所屬分局：' + data[i].Precinct + '</span></br>' +
+                        '<div style="min-width:220px">' +
+                            '<p style="font-weight:bold;color:#c00;font-size:16px;margin-bottom:8px">避難場所資訊</p>' +
+                            '<span>電腦編號：' + (data[i].SerialNumber || '') + '</span></br>' +
+                            '<span>建築物名稱：' + data[i].subject + '</span></br>' +
                             '<span>地址：' + data[i].address + '</span></br>' +
-                            '<span>收容人數：' + data[i].Number + '</span></br>' +
-                            '<a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a>'
+                            '<span>地下避難樓層：' + (data[i].UnderFlood || '') + '</span></br>' +
+                            '<span>容納人數：' + data[i].Number + '</span></br>' +
+                            '<span>轄管警察機關：臺南市政府警察局</span></br>' +
+                            '<span>轄管分局：' + data[i].Precinct + '</span></br>' +
+                            '<span>轄管分駐/派出所：' + (data[i].UnitStation || '') + '</span></br>' +
+                            '<a href="/RefugeStation/Result/' + data[i].id + '" >路線規劃</a>' +
+                        '</div>'
                     ;
 
                     var icon="/images/RefugeStation.png";
@@ -399,10 +406,13 @@
                 var headRow = Array.prototype.map.call(cloneTable.querySelectorAll('thead th'), function (th) {
                     return th.textContent.trim();
                 });
-                var bodyRows = Array.prototype.map.call(cloneTable.querySelectorAll('tbody tr'), function (tr) {
-                    return Array.prototype.map.call(tr.querySelectorAll('td'), function (td) {
+                headRow.unshift('流水號');
+                var bodyRows = Array.prototype.map.call(cloneTable.querySelectorAll('tbody tr'), function (tr, rowIndex) {
+                    var row = Array.prototype.map.call(tr.querySelectorAll('td'), function (td) {
                         return td.textContent.trim();
                     });
+                    row.unshift(String(rowIndex + 1));
+                    return row;
                 });
                 var pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
                 pdf.autoTable({
