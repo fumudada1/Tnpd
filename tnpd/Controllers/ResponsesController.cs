@@ -603,6 +603,8 @@ namespace tnpd.Controllers
             return Content("Email 格式錯誤");
         }
 
+        [HttpPost]
+        [tnpd.Filters.SmsGateGuard]
         public ActionResult SendVerifyMobile(string mobile)
         {
             if (string.IsNullOrEmpty(mobile))
